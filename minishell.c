@@ -6,133 +6,197 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/15 21:44:55 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:02:28 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include <readline/readline.h>
 
-// int	lexer(char **env, char **token, t_list *cmd)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (token[++i])
-// 	{
-// 		if (token[i][0] == '|')
-// 		{
-// 			handle_pipes(env, token, cmd);
-// 			return 0;
-// 		}
-// 	}
-// 	return 1;
-// }
-
-// void	child_process(char **env, t_list *cmd)
-// {
-// 	dup2(cmd->fd[1], 1);
-// 	close(cmd->fd[0]);
-// 	close(cmd->fd[1]);
-// 	execute(env, cmd);
-// }
-
-// void	handle_pipes(char **env, char **token, t_list *cmd)
-// {
-// 	if (pipe(cmd->fd) < 0)
-// 		perror("Pipe Error");
-// 	int	pid1 = fork();
-// 	if (pid1 == -1)
-// 		perror("Fork Error");
-// 	if (pid1 == 0)
-// 		child_process(env, cmd);
-// 	dup2(cmd->fd[0], 0);
-// 	close(cmd->fd[0]);
-// 	close(cmd->fd[1]);
-// }
-
-// void	print_command(t_list *cmd)
-// {
-// 	int	i;
-	
-// 	i = 0;
-// 	while (cmd->args[i])
-// 	{
-// 		printf("%s\n", cmd->args[i]);
-// 		i++;
-// 	}
-// }
-
-// void	execute(char **env, t_list *cmd)
-// {
-// 	char	*path;
-// 	char	*arg;
-
-// 	int	i = -1;
-// 	path = findthewae(env);
-// 	if (!path)
-// 		return (perror("PATH_Error"));
-// 	char **cmdpaths = ft_split(path, ':');
-// 	char **cmda = cmd->args;
-// 	if (cmd->args[0][0] == '/')
-// 	{
-// 		if (access(cmd->args[0], X_OK) == 0)
-// 			if (!execve(cmd->args[0], cmda, env))
-// 				write(2, "Execution Error", 13);
-// 	}
-// 	while (cmdpaths[++i])
-// 	{
-// 		arg = ft_strjoin(cmdpaths[i], "/");
-// 		arg = ft_strjoin(arg, cmd->args[0]);
-// 		if (access(arg, X_OK) == 0)
-// 			if (!execve(arg, cmda, env))
-// 				write(2, "Execution Error", 13);
-// 	}
-// 	//error_handling(cmd);
-// 	exit(1);
-// }
-
-void	*parse(char **env, char *line)
+char	**builtins_init(void)
 {
-	int		i;
-	t_list	*tokens;
-	char	**temp;
+	char	**builts;
+
+	builts = malloc(sizeof(char *) * 8);
+	builts[0] = ft_strdup("echo");
+	builts[1] = ft_strdup("cd");
+	builts[2] = ft_strdup("pwd");
+	builts[3] = ft_strdup("export");
+	builts[4] = ft_strdup("unset");
+	builts[5] = ft_strdup("env");
+	builts[6] = ft_strdup("exit");
+	builts[7] = NULL;
+	return (builts);	
+}
+
+int	check_builtins(char *token, char **builts)
+{
+	int	i;
 
 	i = 0;
-	(void)env;
-	tokens = malloc(sizeof(t_list));
-	temp = ft_calloc(sizeof(char *), 3);
-	temp = ft_split(line, ' ');
-	tokens->content = malloc(sizeof(char *) * 100000);
-	// retrieve = ft_calloc(sizeof(t_list) * 100000 + sizeof(char *), 1);
-	while (temp[i])
+	while (builts[i])
 	{
-		tokens->content[i] = ft_strdup(temp[i]);
-		tokens->content[i + 1] = ft_strdup(temp[i + 1]);
-		tokens = tokens->next;
-		i+=2;
+		if (builts[i] == token)
+			return (1);
+		i++;
 	}
-	// retrieve->args = token;
-	// retrieve->name = ft_strdup(token[0]);
-	print_list(tokens);
-	// if (lexer(env, token, retrieve))
-	// 	execute(env, retrieve);
-	return 0;
+	return (0);
+}
+
+t_token *init_token(char *value, int type)
+{
+	t_token *token = ft_calloc(1, sizeof(t_token));
+	token->value = value;
+	token->type = type;
+	return (token);
+}
+
+t_token	*append_token(char c, int type)
+{
+	char	*value;
+	t_token	*tok;
+
+	value = ft_calloc(2, sizeof(char));
+	tok = malloc(sizeof(t_token));
+	value[0] = c;
+	tok = init_token(value, type);
+	return(tok);
+}
+
+t_token	*ft_isgreat(char *str)
+{
+	int		i;
+	t_token	*tok;
+	char	*value;
+	int		type;
+
+	i = 0;
+	tok = malloc(sizeof(t_token));
+	value = NULL;
+	type = 0;
+	while (str[i] != ' ' && str[i])
+	{
+		if ((str[i] == '>' && str[i + 1] == '>') && str[i + 1])
+		{
+			value = ft_calloc(3, sizeof(char));
+			value[0] = str[i];
+			value[1] = str[i + 1];
+			type = 3;
+			break ;
+		}
+		else if ((str[i] == '>' && str[i + 1] != '>') && str[i + 1])
+		{
+			value = ft_calloc(2, sizeof(char));
+			value[0] = str[i];
+			type = 2;
+			break ;
+		}
+		i++;
+	}
+	tok = init_token(value, type);
+	return (tok);
+}
+
+t_token	*ft_isless(char *str)
+{
+	int		i;
+	t_token	*tok;
+	char	*value;
+	int		type;
+
+	i = 0;
+	tok = malloc(sizeof(t_token));
+	type = 0;
+	value = NULL;
+	while (str[i] != ' ' && str[i])
+	{
+		if (str[i] == '<' && str[i + 1] == '<' && str[i + 1])
+		{
+			value = ft_calloc(3, sizeof(char));
+			value[0] = str[i];
+			value[1] = str[i + 1];
+			type = 3;
+			break ;
+		}
+		else if (str[i] == '<' && str[i + 1] != '<' && str[i + 1])
+		{
+			value = ft_calloc(2, sizeof(char));
+			value[0] = str[i];
+			type = 2;
+			break ;
+		}
+		i++;
+	}
+	tok = init_token(value, type);
+	return (tok);
+}
+
+t_list	*lexer(t_token *token, t_list *lst_tokens, char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_isalpha(line[i]))
+			token = append_token(line[i], 6);
+		else if (line[i] == '|')
+			token = append_token(line[i], 0);
+		else if (line[i] == ' ')
+			token = append_token(line[i], 1);
+		else if (line[i] == '>')
+		{	
+			token = ft_isgreat(line + i);
+			if (ft_strncmp(token->value, ">>", 3))
+				i++;
+		}
+		else if (line[i] == '<')
+		{
+			token = ft_isless(line + i);
+			if (ft_strncmp(token->value, "<<", 3))
+				i++;
+		}
+		else if (line[i] == '\'')
+			token = append_token(line[i], 7);
+		else if (line[i] == '\"')
+			token = append_token(line[i], 8);
+		else if (line[i] == '-')
+			token = append_token(line[i], 9);
+		ft_lstadd_back(&lst_tokens, ft_lstnew(token->value, token->type));
+		i++;
+	}
+	return (lst_tokens);
+}
+
+t_list	*process(char *line)
+{
+	t_token	*token;
+	t_list	*lst_tokens;
+
+	token = malloc(sizeof(t_token));
+	lst_tokens = NULL;
+	lst_tokens = lexer(token, lst_tokens, line);
+	return (lst_tokens);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
-	size_t	capacity;
-	t_cmd	*cmd;
+	t_list	*lst_tokens;
 
 	line = NULL;
 	(void)argc;
 	(void)argv;
-	capacity = 0;
-	cmd = malloc(sizeof(t_cmd));
-	line = readline("$>");
-	parse(env, line);
-	//print_command(cmd->simpleCommand);
+	(void)env;
+	lst_tokens = malloc(sizeof(t_list));
+	while (1)
+	{
+		line = readline("$>");
+		if (line)
+			add_history(line);
+		lst_tokens = process(line);
+		print_list(lst_tokens);
+		printf("%s\n", line);
+	} 
 	return 0;
 }

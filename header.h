@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/15 21:39:22 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:01:30 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,27 @@
 #include <string.h>
 #include <unistd.h>
 
+typedef struct s_token 
+{
+	char	*value;
+	enum {
+		TOKEN_PIPE,
+		TOKEN_SPACE,
+		TOKEN_GREAT,
+		TOKEN_GREATGREAT,
+		TOKEN_LESS,
+		TOKEN_LESSLESS,
+		TOKEN_LITERAL,
+		TOKEN_QUOTE,
+		TOKEN_DQUOTE,
+		TOKEN_DASH
+	} type ;
+}	t_token ;
+
+
 typedef struct s_list {
-	char			**content;
+	char			*content;
+	int				type;
 	struct s_list   *next;
 }   t_list;
 
@@ -44,10 +63,10 @@ char	*ft_strjoin(char *s1, char *s2);
 void	handle_pipes(char **env, char **token, t_list *cmd);
 void	child_process(char **env, t_list *cmd);
 void	execute(char **env, t_list *cmd);
-int		lexer(char **env, char **token, t_list *cmd);
+t_list	*lexer(t_token *token, t_list *lst_tokens, char *line);
 void	*parse(char **env, char *line);
 int		ft_lstsize(t_list *lst);
-t_list	*ft_lstnew(char **content);
+t_list	*ft_lstnew(char *content, int type);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	t_lstclear(t_list **lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -59,4 +78,9 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *));
 int		*copytoarray(t_list *stack);
 void	print_arr(int *arr, int size);
 void	print_list(t_list *stack);
+int		ft_isalpha(int c);
+t_token	*append_token(char c, int type);
+t_token	*ft_isless(char *str);
+t_token	*ft_isgreat(char *str);
+int		ft_strncmp(char *s1, char *s2, unsigned int n);
 #endif

@@ -1,16 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:54:34 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/14 20:19:35 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:01:06 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+int	ft_strncmp(char *s1, char *s2, unsigned int n)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && i < n - 1)
+	{
+		if (s1[i] == s2[i])
+			i++;
+		else
+			break ;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	ft_isalpha(int c)
+{
+	if (c >= 65 && c <= 90)
+		return (1);
+	if (c >= 97 && c <= 122)
+		return (1);
+	else
+		return (0);
+}
 
 void    *ft_calloc (size_t count, size_t size)
 {
@@ -47,22 +74,3 @@ char	*ft_strjoin(char *s1, char *s2)
 		tab[pos++] = s2[i++];
 	return (tab);
 }
-
-/*int main(void)
-{
-    char *ptr;
-    ptr = calloc(4, 20);
-    printf("%i", ptr[2]);
-}*/
- /*int    main()
- {
-     char *str;
-     char *str1;
-
-    str = (char *)ft_calloc(6, sizeof(int));
-    str1 = (char *)calloc(6, sizeof(char));
-     //str = "Hellooo";
-     printf("%s\n%s", str, str1);
-
-     return 0;
- }*/

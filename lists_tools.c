@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:26:22 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/15 21:44:06 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/07/19 20:41:59 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ void	print_list(t_list *stack)
 	i = 0;
 	while (stack != NULL)
 	{
-		printf("cmd: %s\n", stack->content[i]);
-		printf("arg: %s\n", stack->content[i + 1]);
+		printf("Token: %s value: %d\n", stack->content, stack->type);
 		stack = stack->next;
-		i+=2;
+		i++;
 	}
 }
 

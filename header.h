@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/19 21:01:30 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/07/22 03:40:50 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_token
 	} type ;
 }	t_token ;
 
-
 typedef struct s_list {
 	char			*content;
 	int				type;
@@ -43,8 +42,9 @@ typedef struct s_list {
 }   t_list;
 
 typedef struct s_cmd {
-	int numberofCmds;
-	t_list	*simpleCommand;
+	char			**cmd;
+	int				type;
+	struct s_cmd	*next;
 } t_cmd;
 
 void	ft_bzero(void *s, size_t n);
@@ -83,4 +83,6 @@ t_token	*append_token(char c, int type);
 t_token	*ft_isless(char *str);
 t_token	*ft_isgreat(char *str);
 int		ft_strncmp(char *s1, char *s2, unsigned int n);
+t_cmd	*command_table(t_list *tokens);
+char	*join_chars(char *curr, char *next);
 #endif

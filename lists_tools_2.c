@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:29:39 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/19 20:43:36 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/07/22 03:34:38 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,3 @@ t_list	*ft_lstnew(char  *content, int type)
 	lst->next = NULL;
 	return (lst);
 }
-
-// t_list	*copytolist(int *arr, int size)
-// {
-// 	int		i;
-// 	t_list	*stack;
-
-// 	i = 0;
-// 	while (i < size)
-// 	{
-// 		ft_lstadd_back(&stack, ft_lstnew(arr[i]));
-// 		i++;
-// 	}
-// 	return (stack);
-// }

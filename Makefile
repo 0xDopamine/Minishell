@@ -2,7 +2,7 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra  -fsanitize=address -g
 
-SRCS = minishell.c lists_tools.c lists_tools_2.c utils.c utils_2.c utils_3.c
+SRCS = minishell.c parser.c lists_tools.c lists_tools_2.c utils.c utils_2.c utils_3.c
 
 HEADER_H = header.h 
 

@@ -6,42 +6,12 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/19 21:02:28 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/07/22 03:33:52 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include <readline/readline.h>
-
-char	**builtins_init(void)
-{
-	char	**builts;
-
-	builts = malloc(sizeof(char *) * 8);
-	builts[0] = ft_strdup("echo");
-	builts[1] = ft_strdup("cd");
-	builts[2] = ft_strdup("pwd");
-	builts[3] = ft_strdup("export");
-	builts[4] = ft_strdup("unset");
-	builts[5] = ft_strdup("env");
-	builts[6] = ft_strdup("exit");
-	builts[7] = NULL;
-	return (builts);	
-}
-
-int	check_builtins(char *token, char **builts)
-{
-	int	i;
-
-	i = 0;
-	while (builts[i])
-	{
-		if (builts[i] == token)
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 t_token *init_token(char *value, int type)
 {
@@ -131,11 +101,34 @@ t_token	*ft_isless(char *str)
 	return (tok);
 }
 
+t_token	*append_string(char *value, int type)
+{
+	t_token	*token;
+	
+	token = malloc(sizeof(t_token));
+	token->value = ft_strdup(value);
+	token->type = type;
+	return (token);
+}
+
+char	*init_value(char c)
+{
+	char	*value;
+	
+	value = malloc(sizeof(char) * 2);
+	value[0] = c;
+	value[1] = '\0';
+	return (value);
+}
+
 t_list	*lexer(t_token *token, t_list *lst_tokens, char *line)
 {
 	int		i;
+	int		cmd_count;
 
 	i = 0;
+	token = malloc(sizeof(t_token));
+	cmd_count = 0;
 	while (line[i])
 	{
 		if (ft_isalpha(line[i]))
@@ -145,16 +138,24 @@ t_list	*lexer(t_token *token, t_list *lst_tokens, char *line)
 		else if (line[i] == ' ')
 			token = append_token(line[i], 1);
 		else if (line[i] == '>')
-		{	
-			token = ft_isgreat(line + i);
-			if (ft_strncmp(token->value, ">>", 3))
+		{
+			if (ft_strncmp(line + i, ">>", 3))
+			{
+				token = append_string(">>", 3);
 				i++;
+			}
+			else
+				token = append_token('>', 2);
 		}
 		else if (line[i] == '<')
 		{
-			token = ft_isless(line + i);
-			if (ft_strncmp(token->value, "<<", 3))
+			if (ft_strncmp(line + i, "<<", 3))
+			{
+				token = append_string("<<", 5);
 				i++;
+			}
+			else
+				token = append_token('<', 4);
 		}
 		else if (line[i] == '\'')
 			token = append_token(line[i], 7);
@@ -183,12 +184,14 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_list	*lst_tokens;
+	t_cmd	*simpleCommand;
 
 	line = NULL;
 	(void)argc;
 	(void)argv;
 	(void)env;
 	lst_tokens = malloc(sizeof(t_list));
+	simpleCommand = malloc(sizeof(t_cmd));
 	while (1)
 	{
 		line = readline("$>");
@@ -196,7 +199,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(line);
 		lst_tokens = process(line);
 		print_list(lst_tokens);
-		printf("%s\n", line);
+		simpleCommand = command_table(lst_tokens);
 	} 
 	return 0;
 }

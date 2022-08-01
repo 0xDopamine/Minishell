@@ -6,28 +6,11 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:54:34 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/19 21:01:06 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/01 04:53:43 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-int	ft_strncmp(char *s1, char *s2, unsigned int n)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] && s2[i] && i < n - 1)
-	{
-		if (s1[i] == s2[i])
-			i++;
-		else
-			break ;
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
 
 int	ft_isalpha(int c)
 {
@@ -73,4 +56,122 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[i])
 		tab[pos++] = s2[i++];
 	return (tab);
+}
+
+char	*ft_strrchr(char *s, int c)
+{
+	size_t	i;
+	char	ltr;
+
+	ltr = (char)c;
+	i = ft_strlen(s);
+	if (s)
+	{
+		while (i)
+		{
+			if (s[i] == ltr)
+				return ((char *)s + i);
+			i--;
+		}
+		if (s[0] == ltr)
+			return ((char *)s);
+	}
+	return (NULL);
+}
+
+int	wdlen_q(char *s, char c)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (s[i] && ft_strncmp((char *)&s[i], &c, 1))
+	{
+		if (s[i] == '"')
+		{
+			i++;
+			len++;
+			while (s[i] != '"' && s[i])
+			{
+				len++;
+				i++;
+			}
+			len++;
+		}
+		else
+			len++;
+		i++;
+	}
+	return (len);
+}
+
+int	wdcount_q(char *s, char c)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] == '"')
+		{
+			i++;
+			while (s[i] != '"' && s[i])
+				i++;
+			if (s[i] == '"')
+				i++;
+			count++;
+		}
+		else
+		{	
+			if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+				count += 1;
+		}		
+		i++;
+	}
+	return (count);
+}
+
+char	**splitting_quotes(char *s, char c, int len, char **str)
+{
+	int		k;
+	int		j;
+	int		i;
+
+	i = 0;
+	j = -1;
+	while (s[i])
+	{
+		while (s[i] && !ft_strncmp((char *)&s[i], &c, 1))
+			i++;
+		if (!s[i])
+			break ;
+		len = wdlen_q(s + i, c);
+		str[++j] = (char *)ft_calloc(len + 1, sizeof(char));
+		if (!str[j])
+		{
+			freethis(str);
+			return (NULL);
+		}
+		k = -1;
+		while (++k < len)
+			str[j][k] = s[i++];
+	}
+	return (str);
+}
+
+char	**ft_split_quotes(char *s, char c)
+{
+	char	**split;
+	char	**str;
+
+	if (!s)
+		return (NULL);
+	str = (char **)ft_calloc((wdcount_q(s, c) + 1), sizeof(char *));
+	if (!str)
+		return (NULL);
+	split = splitting_quotes(s, c, 0, str);
+	return (split);
 }

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/01 05:04:40 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/01 21:04:46 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,22 @@ t_cmd	*parseexec(char **ps)
 	{
 		//dir lblan dial quotes f get token a lhmar ra dkchi 3lach kitbdl fin ki pointi q o ki pointi lrbk 3la - 
 		tok = get_token(ps, 0, &q);
+		if (tok == 0)
+			break ;
 		if (q[0] == '"')
 			split = ft_split_quotes(q, ' ');
 		else
 			split = ft_split(q, ' ');
-		if (tok == 0)
-			break ;
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = split[0];
 		printf("cmd->argv[%d] = %s\n", argc, cmd->argv[argc]);
-		argc++;
-		if (argc > words)
+		if (argc >= words)
 			break ;
+		argc++;
 		ret = parseredir(ret, ps);
 	}
-	cmd->argv[argc] = 0;
+	cmd->argv[argc] = NULL;
 	return (ret);
 }
 
@@ -202,6 +202,17 @@ int	get_token(char **ps, char **es, char **q)
 		*q = s;
 	//collect return value
 	tok = *s;
+	if (*s == '"')
+	{
+		*q = s;
+		while (*s++)
+			if (*s == '"')
+				break ;
+		s++;
+		*ps = s;
+		tok = 'c';
+		return (tok);
+	}
 	if (*s == '|' || *s == '<')
 		s++;
 	else if (*s == '>')

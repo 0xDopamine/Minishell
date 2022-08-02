@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/01 21:04:46 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:09:14 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+#include "exec.h"
 #include <unistd.h>
 
 int	num_words(char *str, int quote_flag)
@@ -96,6 +97,7 @@ t_cmd	*parseexec(char **ps)
 		ret = parseredir(ret, ps);
 	}
 	cmd->argv[argc] = NULL;
+	ft_exec(cmd);
 	return (ret);
 }
 

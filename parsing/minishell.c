@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/01 04:51:23 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:06:08 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("$>");
+		printf("%s\n", line);
 		if (line)
 			add_history(line);
 		simpleCommand = parsepipe(&line);
+		
 		// demo(line);
 	} 
 	return 0;

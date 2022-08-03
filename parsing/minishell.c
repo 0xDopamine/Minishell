@@ -6,11 +6,12 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/02 14:06:08 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/03 22:22:44 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+#include "exec.h"
 #include <readline/readline.h>
 
 
@@ -68,11 +69,10 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("$>");
-		printf("%s\n", line);
 		if (line)
 			add_history(line);
 		simpleCommand = parsepipe(&line);
-		
+		ft_check_cmd(simpleCommand);
 		// demo(line);
 	} 
 	return 0;

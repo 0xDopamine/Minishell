@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/02 12:53:49 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/03 22:22:00 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstnew(char *content);
 void	ft_lstadd_front(t_env **lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
+void	ft_check_cmd(t_cmd *cmd);
 
 #endif

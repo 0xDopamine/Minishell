@@ -6,12 +6,18 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/02 12:25:21 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/03 22:22:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "exec.h"
+
+void	ft_check_cmd(t_cmd *cmd)
+{
+	if (cmd->type == EXEC)
+		ft_exec((t_exec *)cmd);
+}
 
 void	ft_exec(t_exec *line)
 {
@@ -37,6 +43,5 @@ void	ft_exec(t_exec *line)
 		}
 	}
 	wait(&exit_status);
-	printf("%d\n", exit_status);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/01 03:23:43 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/04 05:11:43 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,9 @@ int		wdcount_q(char *s, char c);
 int		wdlen_q(char *s, char c);
 char	**splitting_quotes(char *s, char c, int len, char **str);
 char	**ft_split_quotes(char *s, char c);
+char	*spaces(char *line);
+char	*handle_spaces(char *line);
+int		check(char before, char after);
+char	*add_spaces(char *line, int count);
 
 #endif

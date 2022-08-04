@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:55:10 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/04 05:11:28 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 00:13:16 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ char	*add_spaces(char *line, int count)
 	j = 0;
 	len = ft_strlen(line);
 	str = malloc(sizeof(char) * (len + (count * 2) + 1));
-	printf("len: %d\ncount: %d\nsize: %d\n", len, count, len + count);
 	while (line[i])
 	{
 		if (ft_strchr(line[i], "|<>"))
@@ -116,7 +115,7 @@ char	*add_spaces(char *line, int count)
 
 int		check(char before, char after)
 {
-	if (ft_strchr(before, " \t\r\v\n\f") && ft_strchr(after, " \t\r\v\n\f"))
+	if (ft_strchr(before, " \t\r\v\n\f") || ft_strchr(after, " \t\r\v\n\f"))
 		return (1);
 	else
 		return (0);
@@ -140,7 +139,7 @@ char	*handle_spaces(char *line)
 				if (!check(line[i - 1], line[i + 2]) && line)
 					count += 2;
 			}
-			else if (!check(line[i - 1], line[i + 1]) && line)
+			else if (line[i - 1] != ' ' || line[i + 1] != ' ')
 					count += 1;
 		}
 		i++;
@@ -158,10 +157,9 @@ char	*spaces(char *line)
 	while (line[i])
 	{
 		if (line[i] == '|')
-			if (line[i - 1] != ' ' && line[i + 1] != ' ')
+			if (line[i - 1] != ' ' || line[i + 1] != ' ')
 				return(handle_spaces(line));
 		i++;
 	}
 	return (line);
 }
-

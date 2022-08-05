@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 14:27:38 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 14:36:45 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline("$>");
 		if (line)
 			add_history(line);
+		line = ft_strdup(spaces(line));
 		simpleCommand = parsepipe(&line);
 		ft_check_cmd(simpleCommand, env, &env_list);
 		// demo(line);

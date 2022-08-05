@@ -4,7 +4,7 @@ TARGET = minishell
 
 #*SOURCE FILES *#
 PARSING = minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c
-EXEC = exec.c path.c list.c
+EXEC = exec.c path.c list.c redir.c find_builtins.c builtins_func1.c builtins_func2.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 

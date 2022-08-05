@@ -6,14 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/03 22:22:44 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 14:27:38 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "exec.h"
 #include <readline/readline.h>
-
 
 int	demo(char **ps, char **es, char **q)
 {
@@ -60,19 +59,23 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_cmd	*simpleCommand;
+	t_env 	*env_list;
+
 	line = NULL;
+	ifexit = 1;
 	(void)argc;
 	(void)argv;
-	(void)env;
 	simpleCommand = malloc(sizeof(t_cmd));
+	ft_get_env(env, &env_list);
 	// char **split;
-	while (1)
+	printf("Two brothers minishell\n");
+	while (ifexit)
 	{
 		line = readline("$>");
 		if (line)
 			add_history(line);
 		simpleCommand = parsepipe(&line);
-		ft_check_cmd(simpleCommand);
+		ft_check_cmd(simpleCommand, env, &env_list);
 		// demo(line);
 	} 
 	return 0;

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/03 22:23:50 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:59:57 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ t_cmd	*parseexec(char **ps)
 		ret = parseredir(ret, ps);
 	}
 	cmd->argv[argc] = NULL;
-	ft_exec(cmd);
 	return (ret);
 }
 

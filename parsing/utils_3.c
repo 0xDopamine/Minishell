@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:55:10 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/14 20:11:55 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 12:01:31 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(char *str)
 	size_t	len;
 
 	len = 0;
+	if (!str)
+		return (0);
 	while (str[len] != '\0')
 		len++;
 	return (len);
@@ -43,6 +45,8 @@ char	*ft_strdup(char *src)
 	char	*dest;
 
 	i = 0;
+	if (!src)
+		return (NULL);
 	len = ft_strlen(src);
 	dest = (char *)malloc(sizeof(char) * len + 1);
 	if (!dest)

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/03 22:22:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 14:12:22 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <string.h>
 # include "header.h"
 
+int ifexit;
+
 typedef struct s_env
 {
 	char			*content;
@@ -27,13 +29,27 @@ typedef struct s_env
 }               t_env;
 
 size_t  ft_strlen(char *str);
-void	ft_exec(t_exec *cmd);
+void	ft_exec(t_exec *line, char **env, t_env **env_list);
 char    **ft_find_path(void);
 void	ft_get_env(char **env, t_env **env_list);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstnew(char *content);
 void	ft_lstadd_front(t_env **lst, t_env *new);
+void	del(char *content);
 t_env	*ft_lstlast(t_env *lst);
-void	ft_check_cmd(t_cmd *cmd);
+void	ft_lstdelone(t_env *lst, void (*del)(char*));
+void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list);
+void    ft_redirect(t_redir *redir);
+int		ft_cd(char *dir);
+int		ft_echo(t_exec *line);
+int		ft_env(t_env *env_list);
+int		ft_unset(t_env **env, t_exec *line);
+int		ft_pwd(void);
+int		ft_envcmp(char *s1, char *s2);
+void	ft_exec_mybuiltin(t_exec *line, char **env);
+int		ft_ifmybuiltin(char *cmd, char **mybuiltins, t_exec *line, t_env **env_list);
+int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
+int		ft_exit(void);
+int		ft_export(t_env **env, t_exec *line);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 14:26:23 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:17:39 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_cmd	*parsecmd(char *s)
 t_cmd   *execcmd(int words)
 {
     t_exec  *ex;
-    
+
     ex = malloc(sizeof(t_exec));
     ex->argv = malloc(sizeof(char *) * words + 1);
 	ex->type = EXEC;

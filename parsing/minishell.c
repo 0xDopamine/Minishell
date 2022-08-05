@@ -6,13 +6,15 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 14:36:45 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:02:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "exec.h"
 #include <readline/readline.h>
+
+t_global g = { 1, 0 };
 
 int	demo(char **ps, char **es, char **q)
 {
@@ -62,14 +64,13 @@ int	main(int argc, char **argv, char **env)
 	t_env 	*env_list;
 
 	line = NULL;
-	ifexit = 1;
 	(void)argc;
 	(void)argv;
 	simpleCommand = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
 	// char **split;
 	printf("Two brothers minishell\n");
-	while (ifexit)
+	while (g.ifexit)
 	{
 		line = readline("$>");
 		if (line)

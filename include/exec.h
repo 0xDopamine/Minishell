@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 14:12:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:57:53 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@
 # include <string.h>
 # include "header.h"
 
-int ifexit;
+typedef struct s_global
+{
+	int ifexit;
+	int exit_status;
+}	t_global;
+
+extern t_global g;
 
 typedef struct s_env
 {
@@ -39,13 +45,13 @@ void	del(char *content);
 t_env	*ft_lstlast(t_env *lst);
 void	ft_lstdelone(t_env *lst, void (*del)(char*));
 void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list);
-void    ft_redirect(t_redir *redir);
-int		ft_cd(char *dir);
+int		ft_cd(t_exec *line);
 int		ft_echo(t_exec *line);
 int		ft_env(t_env *env_list);
 int		ft_unset(t_env **env, t_exec *line);
 int		ft_pwd(void);
 int		ft_envcmp(char *s1, char *s2);
+void    ft_redirect(t_redir *redir, t_exec *line, char **env, t_env **env_list);
 void	ft_exec_mybuiltin(t_exec *line, char **env);
 int		ft_ifmybuiltin(char *cmd, char **mybuiltins, t_exec *line, t_env **env_list);
 int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);

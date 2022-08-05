@@ -6,18 +6,18 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:17:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 13:53:49 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:51:07 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	ft_cd(char *dir)
+int	ft_cd(t_exec *line)
 {
-	
-	if (chdir(dir) < 0)
+	if (chdir(line->argv[1]) < 0)
 	{
-		perror("chdir");
+		perror("cd");
+		g.exit_status = 2;
 		return (1);
 	}
 	return (1);
@@ -32,11 +32,13 @@ int	ft_pwd(void)
 	if (getcwd(s, 100) == NULL)
 	{
 		free(s);
-		perror("getcwd");
-		exit (1);
+		perror("pwd");
+		g.exit_status = EXIT_FAILURE;
+		return (1);
 	}
 	printf("%s\n", getcwd(s, 100));
 	free(s);
+	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }
 
@@ -47,6 +49,7 @@ int	ft_env(t_env *env_list)
 		printf("%s\n", env_list->content);
 		env_list = env_list->next;
 	}
+	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }
 

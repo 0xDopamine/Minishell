@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 16:02:18 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:11:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,23 @@ int	demo(char **ps, char **es, char **q)
 	return (tok);
 } 
 
+void	ft_sig_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n$>", 3);
+		g.exit_status = 130;
+	}
+	else if (sig == SIGQUIT)
+	{
+		g.exit_status = 0;
+		return ;
+	}
+	else
+		exit(1);
+	// readline("$>");
+	return ;
+}
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -70,12 +87,15 @@ int	main(int argc, char **argv, char **env)
 	ft_get_env(env, &env_list);
 	// char **split;
 	printf("Two brothers minishell\n");
+	//there's a little problem with signal CTRL-C when a command get executed after it the line gets printed
+	signal(SIGINT, ft_sig_handler);
+	signal(EOF, ft_sig_handler);
 	while (g.ifexit)
 	{
 		line = readline("$>");
 		if (line)
 			add_history(line);
-		line = ft_strdup(spaces(line));
+		// line = ft_strdup(spaces(line));
 		simpleCommand = parsepipe(&line);
 		ft_check_cmd(simpleCommand, env, &env_list);
 		// demo(line);

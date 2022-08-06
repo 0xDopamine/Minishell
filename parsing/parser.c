@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 16:09:58 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:06:36 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ t_cmd	*parsepipe(char **ps)
 {
 	t_cmd	*cmd;
 
+	//a SEGV happens here when typing CTRL-D
 	cmd = parseexec(ps);
 	if (next(ps, "|"))
 	{

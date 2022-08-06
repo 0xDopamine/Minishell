@@ -6,18 +6,22 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 15:01:21 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:53:15 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "header.h"
 
-void    ft_redirect(t_redir *redir, t_exec *line, char **env, t_env **env_list)
+void    ft_redirect(t_redir *redir, char **env, t_env **env_list)
 {
     int fd_file;
+    t_exec  *ex;
 
+    ex = (t_exec *)redir->cmd;
+    // printf("%s\n", ex->argv[0]);
     fd_file = open(redir->file, redir->mode, 0644);
     dup2(fd_file, redir->fd);
-    ft_exec(line, env, env_list);
+    close(fd_file);
+    ft_exec(ex, env, env_list);
 }

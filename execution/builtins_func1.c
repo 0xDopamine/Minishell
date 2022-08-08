@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:16:58 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 16:48:05 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/08 14:29:42 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	ft_echo(t_exec *line)
 	{
 		i = 1;
 		printf("%s", line->argv[i++]);
+		if (!line->argv[i])
+			printf("\n");
 		while (line->argv[i])
 			printf(" %s\n", line->argv[i++]);
 	}

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/06 15:54:05 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/08 14:24:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list)
 	path = ft_find_path();
 	cmd = ft_strdup(line->argv[0]);
 	if (ft_builtins(cmd, line, env_list))
-	{
-		printf("\n");
 		return ;
-	}
 	cmd = ft_strjoin("/", cmd);
 	pid = fork();
 	if (pid < 0)
@@ -47,6 +44,12 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list)
 		perror("fork");
 		exit(1);
 	}
+	while (line->argv[i])
+	{
+		printf ("%s\n", line->argv[i]);
+		i++;
+	}
+	i = 0;
 	if (pid == 0)
 	{	while (path[i])
 		{

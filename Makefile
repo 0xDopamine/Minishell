@@ -8,11 +8,14 @@ EXEC = exec.c path.c list.c redir.c pipes.c find_builtins.c builtins_func1.c bui
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 
+#* READLINE PATH *#
+READLINE_PATH =  -lreadline -L ~/goinfre/homebrew/opt/readline/lib -I ~/goinfre/homebrew/opt/readline/include/readline
+#comment it if you have an error compiling it
 #* OBJECT FILES *#
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 
 #* HEADER FILES *#
 INCLUDE = include/
@@ -26,7 +29,7 @@ all: $(TARGET)
 	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
 
 $(TARGET): $(OBJS) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJS) -o $(TARGET)
+	cc $(FLAGS) -I $(INCLUDE) $(READLINE_PATH) $(OBJS) -o $(TARGET)
 #$(CC) $(CFLAGS) $(SRCS) -w -DMEMWATCH -DMW_STDIO memwatch-2.71/memwatch.c  -o push_swap && rm -rf memwatch.log
 
 re: fclean all

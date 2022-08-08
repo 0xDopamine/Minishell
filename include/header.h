@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/04 05:11:43 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:32:48 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ char	*spaces(char *line);
 char	*handle_spaces(char *line);
 int		check(char before, char after);
 char	*add_spaces(char *line, int count);
+
+void	rl_replace_line(const char *str, int mod);
 
 #endif

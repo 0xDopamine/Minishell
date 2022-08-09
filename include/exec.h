@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/06 15:47:33 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/09 14:45:47 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
 int		ft_exit(void);
 int		ft_export(t_env **env, t_exec *line);
 void    ft_pipes(t_pipe *pipes, char **env, t_env **env_list);
+void    ft_exec_redir(t_exec *line, char **env, t_env **env_list);
 
 #endif

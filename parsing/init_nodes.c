@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 16:17:39 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/09 13:01:12 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd   *execcmd(int words)
     t_exec  *ex;
 
     ex = malloc(sizeof(t_exec));
-    ex->argv = malloc(sizeof(char *) * words + 1);
+    ex->argv = malloc(sizeof(char *) * words);
 	ex->type = EXEC;
 	// ex->argv = ps;
     return ((t_cmd *)ex);

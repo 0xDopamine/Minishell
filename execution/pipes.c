@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/08 14:06:58 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/09 13:55:48 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void    ft_pipes(t_pipe *pipes, char **env, t_env **env_list)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(fds[1], 1);
 		close(fds[0]);
+		dup2(fds[1], 1);
+		close(fds[1]);
 		ft_exec((t_exec *)pipes->left, env, env_list);
 	}
 	//close(fds[1]);
@@ -36,16 +37,15 @@ void    ft_pipes(t_pipe *pipes, char **env, t_env **env_list)
 	// 	return ;
 	// }
 	//pid = fork();
-	// if (pid == 0)
 	else
 	{
+		close(fds[1]);
 		dup2(fds[0], 0);
 		close(fds[0]);
-		close(fds[1]);
 		ft_exec((t_exec *)pipes->right, env, env_list);
 	}
-	close(fds[0]);
-	close(fds[1]);
+	// close(fds[0]);
+	// close(fds[1]);
 	wait(NULL);
 	//wait(NULL);
 	// ft_pipes(pipes->,)

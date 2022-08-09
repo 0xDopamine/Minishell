@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/08 14:24:30 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/09 14:43:50 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list)
 		perror("fork");
 		exit(1);
 	}
-	while (line->argv[i])
-	{
-		printf ("%s\n", line->argv[i]);
-		i++;
-	}
 	i = 0;
 	if (pid == 0)
-	{	while (path[i])
+	{
+		while (path[i])
 		{
 			if (access(ft_strjoin(path[i], cmd), X_OK) == 0)
 			{

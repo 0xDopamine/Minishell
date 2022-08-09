@@ -4,7 +4,7 @@ TARGET = minishell
 
 #*SOURCE FILES *#
 PARSING = minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c
-EXEC = exec.c path.c list.c redir.c pipes.c find_builtins.c builtins_func1.c builtins_func2.c
+EXEC = exec.c exec_redir.c path.c list.c redir.c pipes.c find_builtins.c builtins_func1.c builtins_func2.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 
@@ -15,7 +15,7 @@ READLINE_PATH =  -lreadline -L ~/goinfre/homebrew/opt/readline/lib -I ~/goinfre/
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 #* HEADER FILES *#
 INCLUDE = include/
@@ -29,7 +29,7 @@ all: $(TARGET)
 	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
 
 $(TARGET): $(OBJS) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) $(READLINE_PATH) $(OBJS) -o $(TARGET)
+	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJS) -o $(TARGET)
 #$(CC) $(CFLAGS) $(SRCS) -w -DMEMWATCH -DMW_STDIO memwatch-2.71/memwatch.c  -o push_swap && rm -rf memwatch.log
 
 re: fclean all

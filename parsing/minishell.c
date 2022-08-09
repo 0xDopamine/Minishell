@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/08 16:19:23 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/09 13:02:00 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	ft_sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		rl_on_new_line();
-		write(1, "\n", 1);
-		rl_replace_line("", 0); /* comment all of this cuz we need to install brew and other things in goinfre */
-		rl_redisplay();
+		// rl_on_new_line();
+		// write(1, "\n", 1);
+		// rl_replace_line("", 0); /* comment all of this cuz we need to install brew and other things in goinfre */
+		// rl_redisplay();
 		g.exit_status = 130;
 		return ;
 	}
@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **env)
 	ft_get_env(env, &env_list);
 	// char **split;
 	printf("Two brothers minishell\n");
-	//there's a little problem with signal CTRL-C when a command get executed after it the line gets printed
+	//don't use CTRL -C signal now
 	signal(SIGINT, ft_sig_handler);
 	signal(SIGQUIT, ft_sig_handler);
 	while (g.ifexit)

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/08 14:10:58 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/09 13:56:06 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ t_cmd	*parseexec(char **ps)
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = split[0];
-		// printf("cmd->argv[%d] = %s\n", argc, cmd->argv[argc]);
 		if (argc >= words)
 			break ;
 		argc++;
@@ -128,7 +127,6 @@ t_cmd	*parsepipe(char **ps)
 {
 	t_cmd	*cmd;
 
-	//a SEGV happens here when typing CTRL-D
 	cmd = parseexec(ps);
 	if (next(ps, "|"))
 	{

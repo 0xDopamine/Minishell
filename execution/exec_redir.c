@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 14:41:18 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/09 14:44:38 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/09 15:52:28 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void    ft_exec_redir(t_exec *line, char **env, t_env **env_list)
+void    ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 {
 	char	**path;
 	char	*cmd;

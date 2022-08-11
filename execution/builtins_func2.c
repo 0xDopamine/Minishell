@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:17:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 15:12:04 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:25:17 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	ft_env(t_env *env_list)
 {
 	while (env_list)
 	{
+		printf("%s", env_list->type);
+		printf("%s", env_list->sign);
 		printf("%s\n", env_list->content);
 		env_list = env_list->next;
 	}
@@ -108,24 +110,24 @@ int	ft_env(t_env *env_list)
 // 	return (1);
 // }
 
-static int ft_check_export(char *str)
-{
-	int i;
+// static int ft_check_export(char *str)
+// {
+// 	int i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97 && str[i] <= 122) && str[i] != '=' && str[i] != '+' && str[i] != '-')
-			return (0);
-		if ((str[i] == '+' || str[i] == '-') && str[i+1] == '=')
-		{
-			printf("export: not valid in this context");
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97 && str[i] <= 122) && str[i] != '=' && str[i] != '+' && str[i] != '-')
+// 			return (0);
+// 		if ((str[i] == '+' || str[i] == '-') && str[i+1] == '=')
+// 		{
+// 			printf("export: not valid in this context");
+// 			return (0);
+// 		}
+// 		i++;
+// 	}
+// 	return (1);
+// }
 
 int	ft_export(t_env **env, t_exec *line)
 {
@@ -133,9 +135,9 @@ int	ft_export(t_env **env, t_exec *line)
 		return (ft_env(*env));
 	// if (ft_ifexists_export(line->argv[1], *env))
 	// 	ft_unset(env, line);
-	if (ft_check_export(line->argv[1]))
-		ft_lstadd_back(env, ft_lstnew(line->argv[1]));
-	else
-		printf("error\n");
+	// if (ft_check_export(line->argv[1]))
+	// 	ft_lstadd_back(env, ft_lstnew(line->argv[1]));
+	// else
+	// 	printf("error\n");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:45:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 14:21:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:41:24 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_lstdelone(t_env *lst, void (*del)(char*))
 	if (lst)
 	{
 		(del)(lst->content);
+		(del)(lst->type);
 		free(lst);
 	}
 	return ;
@@ -50,17 +51,20 @@ void	ft_lstadd_front(t_env **lst, t_env *new)
 	*lst = new;
 }
 
-t_env	*ft_lstnew(char *content)
+t_env	*ft_lstnew(char *content, char *type)
 {
 	t_env	*head;
 	int		i;
 
 	i = 0;
 	head = (t_env *)malloc(sizeof(t_env));
-	head->content = (char *)malloc(ft_strlen(content) + 1);
+	// head->content = (char *)malloc(ft_strlen(content) + 1);
+	// head->sign = (char *)malloc(ft_strlen(sign) + 1);
+	// head->type = (char *)malloc(ft_strlen(type) + 1);
 	if (!head)
 		return (NULL);
 	head->content = ft_strdup(content);
+	head->type = ft_strdup(type);
 	head->next = NULL;
 	return (head);
 }

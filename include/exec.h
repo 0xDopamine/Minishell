@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 12:09:09 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:40:50 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ extern t_global g;
 
 typedef struct s_env
 {
+	char			*type;
 	char			*content;
 	struct s_env	*next;   
 }               t_env;
@@ -43,14 +44,14 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list);
 char    **ft_find_path(void);
 void	ft_get_env(char **env, t_env **env_list);
 void	ft_lstadd_back(t_env **lst, t_env *new);
-t_env	*ft_lstnew(char *content);
+t_env	*ft_lstnew(char *content, char *type);
 void	ft_lstadd_front(t_env **lst, t_env *new);
 void	del(char *content);
 t_env	*ft_lstlast(t_env *lst);
 void	ft_lstdelone(t_env *lst, void (*del)(char*));
 void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list);
 int		ft_cd(t_exec *line, t_env **env_list);
-int		ft_echo(t_exec *line);
+int		ft_echo(t_exec *line, t_env *env_list);
 int		ft_env(t_env *env_list);
 int		ft_unset(t_env **env, t_exec *line);
 int		ft_pwd(void);

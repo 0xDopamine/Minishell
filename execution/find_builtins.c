@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:49:02 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/10 11:20:25 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:11:34 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_ifmybuiltin(char *cmd, char **mybuiltins, t_exec *line, t_env **env_list)
 {
 	if (!strncmp(cmd, mybuiltins[0], ft_strlen(cmd)))
-		return (ft_echo(line));
+		return (ft_echo(line, *env_list));
 	else if (!ft_strncmp(cmd, mybuiltins[1], ft_strlen(cmd)))
 		return (ft_cd(line, env_list));
 	else if (!strncmp(cmd, mybuiltins[2], ft_strlen(cmd)))
@@ -31,6 +31,7 @@ int	ft_ifmybuiltin(char *cmd, char **mybuiltins, t_exec *line, t_env **env_list)
 	else
 		return (0);
 }
+
 int	ft_builtins(char *cmd, t_exec *line, t_env **env_list)
 {
 	char **mybuiltins;
@@ -48,30 +49,3 @@ int	ft_builtins(char *cmd, t_exec *line, t_env **env_list)
 	mybuiltins[7] = NULL;
 	return (ft_ifmybuiltin(cmd, mybuiltins, line, env_list));
 }
-
-// void	ft_exec_mybuiltin(t_exec *line, char **env)
-// {
-// 	int	pid;
-// 	char *cmd;
-// 	int	exit_status;
-
-// 	cmd = ft_strdup(line->argv[0]);
-// 	cmd = ft_strjoin("/", cmd);
-// 	pid = fork();
-// 	if (pid < 0)
-// 	{
-// 		perror("fork");
-// 		exit(1);
-// 	}
-// 	printf("access: %d\n", access(ft_strjoin("/builtins", cmd), X_OK));
-// 	if (pid == 0)
-// 	{	if (access(ft_strjoin("/builtins", cmd), X_OK) == 0)
-// 		{
-// 			execve(ft_strjoin("/builtins", cmd), line->argv, env);
-// 			perror("execve");
-// 		}
-// 	}
-// 	wait(&exit_status);
-// 	printf("%d\n", exit_status);
-// 	return ;
-// }

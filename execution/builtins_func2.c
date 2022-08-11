@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:17:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 14:19:40 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:12:04 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 int	ft_cd(t_exec *line, t_env **env_list)
 {
 	t_env	*env;
+	char	*pwd;
 	char	*old_pwd;
 	t_env	*head;
-	int		len;
 
-	// head = *env_list;
-	head = NULL;
-	len = 27;
+	head = *env_list;
+	pwd = getcwd(NULL, 0);
 	old_pwd = getcwd(NULL, 0);
 	env = *env_list;
 	if (!getcwd(old_pwd, PATH_MAX))
-		exit(1);
+	{
+		perror("cd");
+		return (1);
+	}
 	while (env)
 	{
 		if (!ft_strncmp(env->content, "OLDPWD", 6))
@@ -42,18 +44,22 @@ int	ft_cd(t_exec *line, t_env **env_list)
 		g.exit_status = 2;
 		return (1);
 	}
-	// while (head)
-	// {
-	// 	if (!ft_strncmp(head->content, "PWD=", 4))
-	// 	{
-	// 		ft_lstdelone(head, del);
-	// 		break ;
-	// 	}
-	// 	prev = head;	
-	// 	head = head->next;
-	// }
-	// getcwd(old_pwd, PATH_MAX);
-	// prev->next = ft_lstnew(ft_strjoin("PWD=", old_pwd));
+	if (!getcwd(pwd, PATH_MAX))
+	{
+		perror("cd");
+		return (1);
+	}
+	while (head)
+	{
+		if (!ft_strncmp(head->content, "PWD=", 4))
+		{
+			free(head->content);
+			head->content = ft_strjoin("PWD=", pwd);
+			break ;
+		}
+		head = head->next;
+	}
+	g.exit_status = 0;
 	return (1);
 }
 

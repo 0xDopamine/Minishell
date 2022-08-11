@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:16:58 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/08 14:29:42 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:18:33 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ int	ft_echo(t_exec *line)
 		return (1);
 	}
 	if (!ft_strncmp(line->argv[1], "$?", 2))
+	{
+		printf("%d\n", g.exit_status);
+		return (1);
+	}
+	if (!ft_strncmp(line->argv[1], "$", 2))
 	{
 		printf("%d\n", g.exit_status);
 		return (1);
@@ -82,8 +87,9 @@ int	ft_unset(t_env **env, t_exec *line)
 	{
 		if (ft_envcmp(env2->content, line->argv[1]))
 		{
+			head = env2;
 			ft_lstdelone(env2, del);
-			prev->next = NULL;
+			prev->next = head->next;
 			break ;
 			// temp = env2;
 			// prev->next = env2->next;

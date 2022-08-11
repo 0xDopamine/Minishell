@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 14:55:28 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:59:19 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void    ft_pipes(t_pipe *pipes, char **env, t_env **env_list)
 	int	pid;
 
 	pipe(fds);
-	printf("hello Im here :)\n");
+	printf("hello I'm here :)\n");
 	pid = fork();
 	if (pid == 0)
 	{

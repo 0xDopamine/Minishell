@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:49:02 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/05 16:01:12 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:20:25 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_ifmybuiltin(char *cmd, char **mybuiltins, t_exec *line, t_env **env_list)
 	if (!strncmp(cmd, mybuiltins[0], ft_strlen(cmd)))
 		return (ft_echo(line));
 	else if (!ft_strncmp(cmd, mybuiltins[1], ft_strlen(cmd)))
-		return (ft_cd(line));
+		return (ft_cd(line, env_list));
 	else if (!strncmp(cmd, mybuiltins[2], ft_strlen(cmd)))
 		return (ft_pwd());
 	else if (!ft_strncmp(cmd, mybuiltins[3], ft_strlen(cmd)))

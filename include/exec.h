@@ -6,12 +6,14 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/09 15:35:23 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:09:09 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
+# define TRUE 1
+# define FALSE 0
 
 # include <stdio.h>
 # include <unistd.h>
@@ -19,6 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <signal.h>
+# include <limits.h>
 # include "header.h"
 
 typedef struct s_global
@@ -46,7 +49,7 @@ void	del(char *content);
 t_env	*ft_lstlast(t_env *lst);
 void	ft_lstdelone(t_env *lst, void (*del)(char*));
 void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list);
-int		ft_cd(t_exec *line);
+int		ft_cd(t_exec *line, t_env **env_list);
 int		ft_echo(t_exec *line);
 int		ft_env(t_env *env_list);
 int		ft_unset(t_env **env, t_exec *line);

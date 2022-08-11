@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/09 14:56:45 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:42:37 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ void    ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	{
 		dup2(fd_file, redir->fd);
 		close(fd_file);
-		ft_exec(ex, env, env_list);
+		ft_exec_nofork(ex, env, env_list);
 	}
-	dup2(STDOUT_FILENO, 0);
 	close(fd_file);
 	wait(&g.exit_status);
 }

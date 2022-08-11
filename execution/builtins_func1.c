@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:16:58 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 15:18:33 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:21:03 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,21 @@ int	ft_echo(t_exec *line)
 int	ft_unset(t_env **env, t_exec *line)
 {
 	t_env	*env2;
-	t_env	*head;
+	t_env	*temp;
 	t_env	*prev;
 	// t_env	*temp;
 
-	head = *env;
+	temp = *env;
 	env2 = *env;
 	prev = env2;
 	while (env2)
 	{
 		if (ft_envcmp(env2->content, line->argv[1]))
 		{
-			head = env2;
+			temp = env2;
+			prev->next = temp->next;
 			ft_lstdelone(env2, del);
-			prev->next = head->next;
 			break ;
-			// temp = env2;
-			// prev->next = env2->next;
-			// free(temp);
 		}
 		prev = env2;
 		env2 = env2->next;

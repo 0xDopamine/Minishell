@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:17:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 17:25:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:46:13 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	ft_env(t_env *env_list)
 	while (env_list)
 	{
 		printf("%s", env_list->type);
-		printf("%s", env_list->sign);
 		printf("%s\n", env_list->content);
 		env_list = env_list->next;
 	}

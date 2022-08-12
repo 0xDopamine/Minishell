@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/12 14:43:56 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:42:38 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	int		fd_file;
 	t_exec	*ex;
 	int		pid;
+	int		ifsamefd;
 
+	ifsamefd = 1;
 	ex = (t_exec *)redir->cmd;
 	fd_file = open(redir->file, redir->mode, 0644);
 	pid = fork();

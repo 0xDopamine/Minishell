@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/09 13:56:06 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:30:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,17 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 		// returns the character it encounters '<' if < '+' if >> 
 		tok = get_token(ps, 0, 0);
 		if (get_token(ps, 0, &q) != 'c')
-			printf("missing file for redirections\n");
+		{
+			ft_putstr_fd("two bros: missing file for redirections\n", STDERR_FILENO);
+			cmd->type = 0;
+			return (cmd);
+		}
 		if (tok == '<')
-			cmd = redircmd(cmd, q, O_RDONLY, 0);
+			cmd = redircmd(cmd, q, O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
-			cmd = redircmd(cmd, q, O_WRONLY | O_CREAT | O_TRUNC, 1);
-		else if (tok == '+')
-			cmd = redircmd(cmd, q, O_WRONLY | O_CREAT, 1);
+			cmd = redircmd(cmd, q, O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+		else if (tok == 'A')
+			cmd = redircmd(cmd, q, O_WRONLY | O_CREAT | O_APPEND, 1);
 	}
 	// printf("redir q: %s\n", q);
 	// printf("%d\n", cmd->type);
@@ -220,7 +224,7 @@ int	get_token(char **ps, char **es, char **q)
 		s++;
 		if (*s == '>')
 		{
-			tok = '+';
+			tok = 'A';
 			s++;
 		}
 	} 

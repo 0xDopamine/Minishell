@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_redir.c                                       :+:      :+:    :+:   */
+/*   exec_nofork                                                                                                                                                              .c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 14:41:18 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 18:59:21 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:05:41 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void    ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 	if (!line->argv[0])
 		return ;
 	path = ft_find_path();
+	if (!line->argv[0])
+		return ;
 	cmd = ft_strdup(line->argv[0]);
 	if (ft_builtins(cmd, line, env_list))
 		return ;

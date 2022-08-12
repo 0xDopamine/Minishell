@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:16:58 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 17:51:13 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:12:04 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_check_nl(char *str)
 	return (0);
 }
 
-static void ft_find_env(char *env, t_env *env_list, int ifnl)
+static	void	ft_find_env(char *env, t_env *env_list, int ifnl)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ static void ft_find_env(char *env, t_env *env_list, int ifnl)
 
 int	ft_echo(t_exec *line, t_env *env_list)
 {
-	int i;
+	int	i;
 	int	ifnl;
 
 	i = 1;
@@ -61,13 +61,16 @@ int	ft_echo(t_exec *line, t_env *env_list)
 	}
 	while (ft_check_nl(line->argv[i]))
 	{
-		ifnl = 1; 
+		ifnl = 1;
 		i++;
 	}
-	if (!ft_strncmp(line->argv[1], "$", 1) || !ft_strncmp(line->argv[2], "$", 1))
+	if (!line->argv[i])
+		return (1);
+	if (!ft_strncmp(line->argv[1], "$", 1)
+		|| !ft_strncmp(line->argv[i], "$", 1))
 	{
 		if (ifnl)
-			ft_find_env(line->argv[2], env_list, ifnl);
+			ft_find_env(line->argv[i], env_list, ifnl);
 		else
 			ft_find_env(line->argv[1], env_list, ifnl);
 		return (1);

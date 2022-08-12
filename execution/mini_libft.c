@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   mini_libft.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/12 14:43:56 by abaioumy         ###   ########.fr       */
+/*   Created: 2022/08/12 14:16:26 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/08/12 14:16:49 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "header.h"
 
-void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
+void	ft_putchar_fd(char c, int fd)
 {
-	int		fd_file;
-	t_exec	*ex;
-	int		pid;
+	write(fd, &c, 1);
+}
 
-	ex = (t_exec *)redir->cmd;
-	fd_file = open(redir->file, redir->mode, 0644);
-	pid = fork();
-	if (pid < 0)
-		perror("fork");
-	if (pid == 0)
+void	ft_putstr_fd(char *str, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return ;
+	while (str[i])
 	{
-		dup2(fd_file, redir->fd);
-		ft_exec_nofork(ex, env, env_list);
-		close(fd_file);
-		exit(1);
+		ft_putchar_fd(str[i], fd);
+		i++;
 	}
-	close(fd_file);
-	wait(&g.exit_status);
 }

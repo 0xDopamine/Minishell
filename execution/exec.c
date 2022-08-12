@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 17:42:51 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:45:03 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list)
 
 void	ft_exec(t_exec *line, char **env, t_env **env_list)
 {
-	char **path;
-	char *cmd;
-	int	i;
-	int pid;
+	char	**path;
+	char	*cmd;
+	int		i;
+	int		pid;
 
 	i = 0;
 	if (!line->argv[0])

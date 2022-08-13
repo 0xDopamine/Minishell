@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/12 16:22:41 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 19:29:51 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_cmd   *redircmd(t_cmd *cmd, char *q, int mode, int fd)
     red->mode = mode;
     red->type = REDIR;
     red->fd = fd;
-	printf("%s\n", red->file);
 
     return ((t_cmd *)red);
 }

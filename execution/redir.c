@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/12 15:42:38 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 19:19:44 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,19 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	ifsamefd = 1;
 	ex = (t_exec *)redir->cmd;
 	fd_file = open(redir->file, redir->mode, 0644);
+	if (fd_file < 0)
+	{
+		ft_putstr_fd("no such file or directory: ", STDERR_FILENO);
+		ft_putstr_fd(redir->file, STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
+		return ;
+	}
 	pid = fork();
 	if (pid < 0)
+	{
 		perror("fork");
+		return ;
+	}
 	if (pid == 0)
 	{
 		dup2(fd_file, redir->fd);

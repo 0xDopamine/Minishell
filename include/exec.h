@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 15:45:49 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 19:20:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void    ft_exec_nofork(t_exec *line, char **env, t_env **env_list);
 char	**ft_split_typecont(char *str);
 void	ft_copy(char **ret, char *str, int sublen, int len);
 void	ft_putstr_fd(char *str, int fd);
+void	ft_putchar_fd(char c, int fd);
 int		export_checktype(char *str);
 int		ft_exit(char **argv);
 int		ft_atoi(char *str);

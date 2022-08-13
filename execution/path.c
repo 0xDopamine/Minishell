@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 14:15:11 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:26:12 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ char	**ft_split_typecont(char *str)
 	while (str[sublen] != '=' && str[sublen])
 		sublen++;
 	ret[0] = (char *)malloc(sublen + 1);
+	if (!ret[0])
+		return (NULL);
 	ret[1] = (char *)malloc(len - sublen + 1);
+	if (!ret[1])
+		return (NULL);
 	ft_copy(ret, str, sublen, len);
 	return (ret);
 }

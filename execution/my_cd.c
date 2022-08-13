@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 14:10:53 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:13:58 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_cd(t_exec *line, t_env **env_list)
 	env = *env_list;
 	if (cd_update_oldpwd(env_list))
 	{
-		g.exit_status = 1;
+		g.exit_status = EXIT_FAILURE;
 		return (1);
 	}
 	if (!line->argv[1])
@@ -84,14 +84,14 @@ int	ft_cd(t_exec *line, t_env **env_list)
 	if (chdir(line->argv[1]) < 0 && line->argv[1])
 	{
 		perror("cd");
-		g.exit_status = 2;
+		g.exit_status = EXIT_FAILURE;
 		return (1);
 	}
 	if (cd_update_pwd(env_list))
 	{
-		g.exit_status = 1;
+		g.exit_status = EXIT_FAILURE;
 		return (1);
 	}
-	g.exit_status = 0;
+	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }

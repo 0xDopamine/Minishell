@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 14:46:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:45:49 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	ft_lstdelone(t_env *lst, void (*del)(char*));
 void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list);
 int		ft_cd(t_exec *line, t_env **env_list);
 int		ft_echo(t_exec *line, t_env *env_list);
-int		ft_env(t_env *env_list);
 int		ft_unset(t_env **env, t_exec *line);
 int		ft_pwd(t_exec *line);
 int		ft_envcmp(char *s1, char *s2);
@@ -66,5 +65,6 @@ void	ft_putstr_fd(char *str, int fd);
 int		export_checktype(char *str);
 int		ft_exit(char **argv);
 int		ft_atoi(char *str);
+int		ft_env(t_env *env_list, char **av);
 
 #endif

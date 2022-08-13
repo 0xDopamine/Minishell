@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 13:20:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:22:42 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int export_checktype(char *str)
 	return (0);
 }
 
-static	int	ft_ifexists_export(char *type, char *content, t_env **env)
+static	int	export_ifexists(char *type, char *content, t_env **env)
 {
 	int		i;
 	t_env	*lst;
@@ -52,7 +52,7 @@ static	int	ft_ifexists_export(char *type, char *content, t_env **env)
 	return (0);
 }
 
-static int ft_check_export(char *str)
+static int export_checkav(char *str)
 {
 	int i;
 
@@ -63,6 +63,7 @@ static int ft_check_export(char *str)
 			return (0);
 		if ((str[i] == '+' || str[i] == '-') && str[i+1] == '=')
 		{
+			g.exit_status = EXIT_FAILURE;
 			ft_putstr_fd("export: not valid in this context\n", STDERR_FILENO);
 			return (0);
 		}
@@ -77,17 +78,14 @@ int	ft_export(t_env **env, t_exec *line)
 
 	str = NULL;
 	if (!line->argv[1])
-		return (ft_env(*env));
+		return (ft_env(*env, line->argv));
 	str = ft_split_typecont(line->argv[1]);
 	if (!str || !str[0])
 		return (1);
-	if (ft_ifexists_export(str[0], str[1], env))
+	if (export_ifexists(str[0], str[1], env))
 		return (1);
-	if (ft_check_export(line->argv[1]))
-	{
+	if (export_checkav(line->argv[1]))
 		ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
-	}
-	else
-		printf("error\n");
+	g.exit_status = EXIT_SUCCESS;	
 	return (1);
 }

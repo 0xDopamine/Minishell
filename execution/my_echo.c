@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 12:08:48 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:17:16 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static int	ft_check_nl(char *str)
+static int	echo_check_nl(char *str)
 {
 	if (!str)
 		return (0);
@@ -40,7 +40,7 @@ static void	echo_ifnewline(t_exec *line, int i, int ifnl)
 	}
 }
 
-static	void	ft_find_env(char *env, t_env *env_list, int ifnl)
+static	void	echo_find_env(char *env, t_env *env_list, int ifnl)
 {
 	int	i;
 
@@ -64,28 +64,34 @@ int	ft_echo(t_exec *line, t_env *env_list)
 	ifnl = 0;
 	if (!line->argv[1])
 	{
+		g.exit_status = EXIT_SUCCESS;
 		printf("\n");
 		return (1);
 	}
 	if (!ft_strncmp(line->argv[1], "$?", 2))
 	{
 		printf("%d\n", g.exit_status);
+		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	while (ft_check_nl(line->argv[i]))
+	while (echo_check_nl(line->argv[i]))
 	{
 		ifnl = 1;
 		i++;
 	}
 	if (!line->argv[i])
+	{
+		g.exit_status = EXIT_SUCCESS;		
 		return (1);
+	}
 	if (!ft_strncmp(line->argv[1], "$", 1)
 		|| !ft_strncmp(line->argv[i], "$", 1))
 	{
 		if (ifnl)
-			ft_find_env(line->argv[i], env_list, ifnl);
+			echo_find_env(line->argv[i], env_list, ifnl);
 		else
-			ft_find_env(line->argv[1], env_list, ifnl);
+			echo_find_env(line->argv[1], env_list, ifnl);
+		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
 	if (ifnl)

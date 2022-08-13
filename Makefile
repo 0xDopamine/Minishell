@@ -4,7 +4,10 @@ TARGET = minishell
 
 #*SOURCE FILES *#
 PARSING = minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c
-EXEC = exec.c exec_nofork.c mini_libft.c path.c list.c redir.c pipes.c find_builtins.c builtins_func1.c builtins_func2.c
+EXEC = exec.c exec_nofork.c mini_libft.c \
+		path.c list.c redir.c pipes.c find_builtins.c \
+		my_exit.c my_env.c my_export.c \
+		my_echo.c my_cd.c my_pwd.c my_unset.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 

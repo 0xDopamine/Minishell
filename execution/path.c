@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 17:42:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:15:11 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_envcmp(char *s1, char *s2)
 
 	i = 0;
 	name_len = 0;
-	while (s1[name_len] != '=')
+	while (s1[name_len] != '=' && s1[name_len])
 		name_len++;
 	if (ft_strchr('=', s2))
 		return (0);
@@ -44,6 +44,12 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 		i++;
 	}
 	ret[0][i++] = '\0';
+	if (export_checktype(ret[0]))
+	{
+		ret[0] = NULL;
+		ret[1] = NULL;
+		return ;	
+	}
 	while (i < len)
 	{
 		ret[1][j] = str[i];
@@ -64,27 +70,12 @@ char	**ft_split_typecont(char *str)
 	ret = (char **)malloc(sizeof(char *) * 2);
 	while (str[len])
 		len++;
-	while (str[sublen] != '=')
+	while (str[sublen] != '=' && str[sublen])
 		sublen++;
 	ret[0] = (char *)malloc(sublen + 1);
 	ret[1] = (char *)malloc(len - sublen + 1);
 	ft_copy(ret, str, sublen, len);
 	return (ret);
-}
-
-void	ft_get_env(char **env, t_env **env_list)
-{
-	int i;
-	char	**str;
-
-	i = 0;
-	while (env[i])
-	{
-		str = ft_split_typecont(env[i]);
-		ft_lstadd_back(env_list, ft_lstnew(str[1], str[0]));
-		i++;
-	}
-	return ;
 }
 
 char    **ft_find_path(void)

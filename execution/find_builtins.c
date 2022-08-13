@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:49:02 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/12 14:13:52 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:37:34 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	ft_ifmybuiltin(char *cmd, char **mybuiltins, t_exec *line, t_env **env_list)
 {
-	if (!strncmp(cmd, mybuiltins[0], ft_strlen(cmd)))
+	if (!strncmp(cmd, mybuiltins[0], ft_strlen(mybuiltins[0])))
 		return (ft_echo(line, *env_list));
-	else if (!ft_strncmp(cmd, mybuiltins[1], ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, mybuiltins[1], ft_strlen(mybuiltins[1])))
 		return (ft_cd(line, env_list));
-	else if (!strncmp(cmd, mybuiltins[2], ft_strlen(cmd)))
+	else if (!strncmp(cmd, mybuiltins[2], ft_strlen(mybuiltins[2])))
 		return (ft_pwd(line));
-	else if (!ft_strncmp(cmd, mybuiltins[3], ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, mybuiltins[3], ft_strlen(mybuiltins[3])))
 		return (ft_export(env_list, line));
-	else if (!ft_strncmp(cmd, mybuiltins[4], ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, mybuiltins[4], ft_strlen(mybuiltins[4])))
 		return (ft_unset(env_list, line));
-	else if (!ft_strncmp(cmd, mybuiltins[5], ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, mybuiltins[5], ft_strlen(mybuiltins[5])))
 		return (ft_env(*env_list));
-	else if (!ft_strncmp(cmd, mybuiltins[6], ft_strlen(cmd)))
-		return (ft_exit());
+	else if (!ft_strncmp(cmd, mybuiltins[6], ft_strlen(mybuiltins[6])))
+		return (ft_exit(line->argv));
 	else
 		return (0);
 }

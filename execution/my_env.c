@@ -1,48 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_libft.c                                       :+:      :+:    :+:   */
+/*   my_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/12 14:16:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 14:37:20 by abaioumy         ###   ########.fr       */
+/*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/08/13 14:15:05 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	del(char *content)
+void	ft_get_env(char **env, t_env **env_list)
 {
-	free(content);
-}
+	int i;
+	char	**str;
 
-void	ft_lstdelone(t_env *lst, void (*del)(char*))
-{
-	if (lst)
+	i = 0;
+	while (env[i])
 	{
-		(del)(lst->content);
-		(del)(lst->type);
-		free(lst);
+		str = ft_split_typecont(env[i]);
+		ft_lstadd_back(env_list, ft_lstnew(str[1], str[0]));
+		i++;
 	}
 	return ;
 }
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_env(t_env *env_list)
 {
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *str, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
+	while (env_list)
 	{
-		ft_putchar_fd(str[i], fd);
-		i++;
+		printf("%s", env_list->type);
+		printf("=");
+		printf("%s\n", env_list->content);
+		env_list = env_list->next;
 	}
+	g.exit_status = EXIT_SUCCESS;
+	return (1);
 }

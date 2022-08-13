@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_func1.c                                   :+:      :+:    :+:   */
+/*   my_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 12:16:58 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/12 14:12:04 by abaioumy         ###   ########.fr       */
+/*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/08/13 12:08:48 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-int	ft_exit(void)
-{
-	g.ifexit = 0;
-	return (1);
-}
 
 static int	ft_check_nl(char *str)
 {
@@ -25,6 +19,25 @@ static int	ft_check_nl(char *str)
 	if (str[0] == '-' && str[1] == 'n')
 		return (1);
 	return (0);
+}
+
+static void	echo_ifnewline(t_exec *line, int i, int ifnl)
+{
+	if (ifnl)
+	{
+		printf("%s", line->argv[i++]);
+		while (line->argv[i])
+			printf(" %s", line->argv[i++]);
+	}
+	else
+	{
+		i = 1;
+		printf("%s", line->argv[i++]);
+		if (!line->argv[i])
+			printf("\n");
+		while (line->argv[i])
+			printf(" %s\n", line->argv[i++]);
+	}
 }
 
 static	void	ft_find_env(char *env, t_env *env_list, int ifnl)
@@ -76,45 +89,9 @@ int	ft_echo(t_exec *line, t_env *env_list)
 		return (1);
 	}
 	if (ifnl)
-	{
-		printf("%s", line->argv[i++]);
-		while (line->argv[i])
-			printf(" %s", line->argv[i++]);
-	}	
+		echo_ifnewline(line, i, ifnl);
 	else
-	{
-		i = 1;
-		printf("%s", line->argv[i++]);
-		if (!line->argv[i])
-			printf("\n");
-		while (line->argv[i])
-			printf(" %s\n", line->argv[i++]);
-	}
-	g.exit_status = EXIT_SUCCESS;
-	return (1);
-}
-
-int	ft_unset(t_env **env, t_exec *line)
-{
-	t_env	*env2;
-	t_env	*temp;
-	t_env	*prev;
-
-	temp = *env;
-	env2 = *env;
-	prev = env2;
-	while (env2)
-	{
-		if (ft_envcmp(env2->type, line->argv[1]))
-		{
-			temp = env2;
-			prev->next = temp->next;
-			ft_lstdelone(env2, del);
-			break ;
-		}
-		prev = env2;
-		env2 = env2->next;
-	}
+		echo_ifnewline(line, i, ifnl);
 	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }

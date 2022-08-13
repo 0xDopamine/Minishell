@@ -1,48 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_libft.c                                       :+:      :+:    :+:   */
+/*   my_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/12 14:16:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 14:37:20 by abaioumy         ###   ########.fr       */
+/*   Created: 2022/08/13 12:44:30 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/08/13 12:44:44 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	del(char *content)
+int	ft_pwd(t_exec *line)
 {
-	free(content);
-}
+	char	*s;
 
-void	ft_lstdelone(t_env *lst, void (*del)(char*))
-{
-	if (lst)
+	s = NULL;
+	if (line->argv[1])
 	{
-		(del)(lst->content);
-		(del)(lst->type);
-		free(lst);
+		ft_putstr_fd("pwd: too many arguments\n", STDERR_FILENO);
+		return (1);
 	}
-	return ;
-}
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *str, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
+	if (getcwd(s, PATH_MAX) == NULL)
 	{
-		ft_putchar_fd(str[i], fd);
-		i++;
+		free(s);
+		perror("pwd");
+		g.exit_status = EXIT_FAILURE;
+		return (1);
 	}
+	printf("%s\n", getcwd(s, PATH_MAX));
+	free(s);
+	g.exit_status = EXIT_SUCCESS;
+	return (1);
 }

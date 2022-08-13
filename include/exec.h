@@ -6,14 +6,12 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/12 14:28:27 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:46:22 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
-# define TRUE 1
-# define FALSE 0
 
 # include <stdio.h>
 # include <unistd.h>
@@ -26,7 +24,6 @@
 
 typedef struct s_global
 {
-	int ifexit;
 	int exit_status;
 }	t_global;
 
@@ -60,12 +57,14 @@ void    ft_redirect(t_redir *redir, char **env, t_env **env_list);
 void	ft_exec_mybuiltin(t_exec *line, char **env);
 int		ft_ifmybuiltin(char *cmd, char **mybuiltins, t_exec *line, t_env **env_list);
 int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
-int		ft_exit(void);
 int		ft_export(t_env **env, t_exec *line);
 void    ft_pipes(t_pipe *pipes, char **env, t_env **env_list);
 void    ft_exec_nofork(t_exec *line, char **env, t_env **env_list);
 char	**ft_split_typecont(char *str);
 void	ft_copy(char **ret, char *str, int sublen, int len);
 void	ft_putstr_fd(char *str, int fd);
+int		export_checktype(char *str);
+int		ft_exit(char **argv);
+int		ft_atoi(char *str);
 
 #endif

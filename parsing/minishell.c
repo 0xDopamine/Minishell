@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/11 14:58:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:49:02 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "exec.h"
 #include <readline/readline.h>
 
-t_global g = { 1, 0 };
+t_global g = { 0 };
 
 int	demo(char **ps, char **es, char **q)
 {
@@ -92,11 +92,14 @@ int	main(int argc, char **argv, char **env)
 	//don't use CTRL -C signal now
 	signal(SIGINT, ft_sig_handler);
 	signal(SIGQUIT, ft_sig_handler);
-	while (g.ifexit)
+	while (1)
 	{
 		line = readline("$> ");
 		if (!line)
+		{
+			ft_putstr_fd("exit\n", STDOUT_FILENO);
 			exit(255); /* needs to be finished */
+		}
 		if (*line)
 			add_history(line);
 		// line = ft_strdup(spaces(line));

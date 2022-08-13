@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/12 14:34:04 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:16:05 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	ft_check_type(t_cmd *cmd, char **env, t_env **env_list, int n)
 	}
 	if (cmd->type == PIPE && n == 1)
 	{
-		write(2, "ps\n", 3);
 		ft_pipes((t_pipe *)cmd, env, env_list);
 		return (0);
 	}

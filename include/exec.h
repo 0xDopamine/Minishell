@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 19:20:30 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:11:13 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_putchar_fd(char c, int fd);
 int		export_checktype(char *str);
 int		ft_exit(char **argv);
 int		ft_atoi(char *str);
-int		ft_env(t_env *env_list, char **av);
+int		ft_env(t_env *env_list);
+void    ft_free_doubleptr(char **ptr);
 
 #endif

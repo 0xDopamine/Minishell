@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_pwd.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/13 12:44:30 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 16:07:30 by abaioumy         ###   ########.fr       */
+/*   Created: 2022/08/15 15:02:59 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/08/15 16:27:27 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	ft_pwd(t_exec *line)
+void    ft_free_doubleptr(char **ptr)
 {
-	char	*s;
-	char	*ret;
+	int	i;
 
-	s = NULL;
-	ret = getcwd(s, PATH_MAX);
-	if (line->argv[1])
-	{
-        g.exit_status = EXIT_FAILURE;
-		ft_putstr_fd("pwd: too many arguments\n", STDERR_FILENO);
-		return (1);
-	}
-	if (ret == NULL)
-	{
-		perror("pwd");
-		g.exit_status = EXIT_FAILURE;
-		return (1);
-	}
-	printf("%s\n", ret);
-	g.exit_status = EXIT_SUCCESS;
-	return (1);
+	i = 0;
+	while (ptr[i])
+		free(ptr[i++]);
+	free(ptr);
 }

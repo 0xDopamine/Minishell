@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:11:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 14:45:20 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:08:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int	ft_exit(char **argv)
 		exit(g.exit_status);
 	g.exit_status = EXIT_FAILURE;
 	ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
+	system("leaks minishell");
 	return (1);
 }

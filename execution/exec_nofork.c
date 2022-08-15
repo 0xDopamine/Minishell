@@ -16,6 +16,7 @@ void    ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 {
 	char	**path;
 	char	*cmd;
+	char	*join;
 	int		i;
 
 	i = 0;
@@ -30,13 +31,17 @@ void    ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 	cmd = ft_strjoin("/", cmd);
 	while (path[i])
 	{
-		if (access(ft_strjoin(path[i], cmd), X_OK) == 0)
+		join = ft_strjoin(path[i], cmd);
+		if (access(join, X_OK) == 0)
 		{
-			execve(ft_strjoin(path[i], cmd), line->argv, env);
+			ft_free_doubleptr(path);
+			execve(join, line->argv, env);
 			perror("execve");
 			break ;
 		}
+		free(join);
 		i++;
 	}
+	ft_free_doubleptr(path);
 	return ;
 }

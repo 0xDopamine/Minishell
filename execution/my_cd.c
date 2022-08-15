@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 16:13:58 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:00:44 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int cd_update_pwd(t_env **env_list)
 	{
 		if (!ft_strncmp(env->type, "PWD", 3))
 		{
-			free(env->content);
+			if (env->content)
+				free(env->content);
 			env->content = pwd;
 			break ;
 		}
@@ -53,7 +54,8 @@ static int cd_update_oldpwd(t_env **env_list)
 	{
 		if (!ft_strncmp(env->type, "OLDPWD", 6))
 		{
-			free(env->content);
+			if (env->content)
+				free(env->content);
 			env->content = pwd;
 			break ;
 		}

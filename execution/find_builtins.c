@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:49:02 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 16:25:16 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:28:23 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_ifmybuiltin(char *cmd, char **mybuiltins, t_exec *line, t_env **env_list)
 	else if (!ft_strncmp(cmd, mybuiltins[4], ft_strlen(mybuiltins[4])))
 		return (ft_unset(env_list, line));
 	else if (!ft_strncmp(cmd, mybuiltins[5], ft_strlen(mybuiltins[5])))
-		return (ft_env(*env_list, line->argv));
+		return (ft_env(*env_list));
 	else if (!ft_strncmp(cmd, mybuiltins[6], ft_strlen(mybuiltins[6])))
 		return (ft_exit(line->argv));
 	else
@@ -36,6 +36,7 @@ int	ft_builtins(char *cmd, t_exec *line, t_env **env_list)
 {
 	char	**mybuiltins;
 	int		i;
+	int		ret;
 
 	i = 0;
 	mybuiltins = (char **)malloc(7 * sizeof(char *));
@@ -48,5 +49,10 @@ int	ft_builtins(char *cmd, t_exec *line, t_env **env_list)
 	mybuiltins[4] = ft_strdup("unset");
 	mybuiltins[5] = ft_strdup("env");
 	mybuiltins[6] = ft_strdup("exit");
-	return (ft_ifmybuiltin(cmd, mybuiltins, line, env_list));
+	ret = ft_ifmybuiltin(cmd, mybuiltins, line, env_list);
+	while (i < 7)
+		free(mybuiltins[i++]);
+	free(mybuiltins);
+	// ft_free_doubleptr(mybuiltins);
+	return (ret);
 }

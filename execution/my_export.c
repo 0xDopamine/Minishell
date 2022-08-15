@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 16:22:42 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:30:10 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_export(t_env **env, t_exec *line)
 
 	str = NULL;
 	if (!line->argv[1])
-		return (ft_env(*env, line->argv));
+		return (ft_env(*env));
 	str = ft_split_typecont(line->argv[1]);
 	if (!str || !str[0])
 		return (1);

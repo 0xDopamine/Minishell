@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 19:11:55 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:20:12 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,43 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list)
 	char	*cmd;
 	int		i;
 	int		pid;
+	char	*join;
 
 	i = 0;
+	join = NULL;
 	if (!line->argv[0])
 		return ;
-	path = ft_find_path();
 	cmd = ft_strdup(line->argv[0]);
 	if (ft_builtins(cmd, line, env_list))
 		return ;
+	path = ft_find_path();
 	cmd = ft_strjoin("/", cmd);
 	pid = fork();
 	if (pid < 0)
 	{
+		ft_free_doubleptr(path);
 		perror("fork");
 		exit(1);
 	}
-	if (pid == 0)
+	while (path[i])
 	{
-		while (path[i])
+		join = ft_strjoin(path[i], cmd);
+		if (access(join, X_OK) == 0)
 		{
-			if (access(ft_strjoin(path[i], cmd), X_OK) == 0)
+			if (pid == 0)
 			{
-				execve(ft_strjoin(path[i], cmd), line->argv, env);
+				ft_free_doubleptr(path);
+				execve(join, line->argv, env);
 				perror("execve");
-				break ;
+				break ; 
 			}
-		i++;
 		}
+		free(join);
+		i++;
 	}
+	i = 0;
+	ft_free_doubleptr(path);
+	free(cmd);
 	wait(&g.exit_status);
 	return ;
 }

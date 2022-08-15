@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 15:20:12 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/15 20:42:35 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list)
 		ft_redirect((t_redir *)cmd, env, env_list);
 	if (cmd->type == PIPE)
 		ft_pipes((t_pipe *)cmd, env, env_list);
-	// else
-		// ft_putstr_fd("command not found\n", STDERR_FILENO);
 }
 
 void	ft_exec(t_exec *line, char **env, t_env **env_list)
@@ -49,23 +47,27 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list)
 		perror("fork");
 		exit(1);
 	}
-	while (path[i])
+	if (pid == 0)
 	{
-		join = ft_strjoin(path[i], cmd);
-		if (access(join, X_OK) == 0)
+		while (path[i])
 		{
-			if (pid == 0)
+			join = ft_strjoin(path[i], cmd);
+			if (access(join, X_OK) == 0)
 			{
+				printf("%s\n", join);
 				ft_free_doubleptr(path);
-				execve(join, line->argv, env);
-				perror("execve");
+				if (execve(join, line->argv, env) < 0)
+					perror("execve");
 				break ; 
 			}
+			free(join);
+			i++;
 		}
-		free(join);
-		i++;
+		ft_free_doubleptr(path);
+		ft_putstr_fd("command not found\n", STDERR_FILENO);
+		g.exit_status = 127;
+		exit(1);
 	}
-	i = 0;
 	ft_free_doubleptr(path);
 	free(cmd);
 	wait(&g.exit_status);

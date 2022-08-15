@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 14:30:10 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:46:40 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ static	int	export_ifexists(char *type, char *content, t_env **env)
 		{
 			free(lst->content);
 			lst->content = content;
+			free(type);
 			return (1);
 		}
 		i++;
 		lst = lst->next;
 	}
+	free(content);
+	free(type);
 	return (0);
 }
 
@@ -83,9 +86,18 @@ int	ft_export(t_env **env, t_exec *line)
 	if (!str || !str[0])
 		return (1);
 	if (export_ifexists(str[0], str[1], env))
+	{
+		free(str[0]);
+		free(str[1]);
+		free(str);
+		g.exit_status = EXIT_SUCCESS;
 		return (1);
+	}
 	if (export_checkav(line->argv[1]))
 		ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
-	g.exit_status = EXIT_SUCCESS;	
+	free(str[0]);
+	free(str[1]);
+	free(str);
+	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }

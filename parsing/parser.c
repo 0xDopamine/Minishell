@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 19:24:31 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:17:03 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 		tok = get_token(ps, 0, 0);
 		if (get_token(ps, 0, &q) != 'c')
 		{
-			ft_putstr_fd("missing file for redirections\n", STDERR_FILENO);
+			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
 			cmd->type = 0;
 			return (cmd);
 		}

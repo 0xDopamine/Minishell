@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 16:41:46 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:50:25 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_get_env(char **env, t_env **env_list)
 {
-	int i;
+	int		i;
 	char	**str;
 
 	i = 0;
@@ -32,6 +32,19 @@ void	ft_get_env(char **env, t_env **env_list)
 	return ;
 }
 
+static	void	export_printenv(t_env *env_list)
+{
+	while (env_list)
+	{
+		printf("declare -x ");
+		printf("%s", env_list->type);
+		printf("=");
+		printf("%c%s%c\n", '"', env_list->content, '"');
+		env_list = env_list->next;
+	}
+	g.exit_status = EXIT_SUCCESS;
+}
+
 static	void	env_printenv(t_env *env_list)
 {
 	while (env_list)
@@ -43,8 +56,14 @@ static	void	env_printenv(t_env *env_list)
 	}
 	g.exit_status = EXIT_SUCCESS;
 }
-int	ft_env(t_env *env_list)
+
+int	ft_env(t_env *env_list, char c)
 {
+	if (c == 'e')
+	{
+		export_printenv(env_list);
+		return (1);
+	}
 	env_printenv(env_list);
 	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 16:00:44 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:49:40 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static int cd_update_pwd(t_env **env_list)
+static	int	cd_update_pwd(t_env **env_list)
 {
 	t_env	*env;
 	char	*pwd;
@@ -38,10 +38,10 @@ static int cd_update_pwd(t_env **env_list)
 	return (0);
 }
 
-static int cd_update_oldpwd(t_env **env_list)
+static	int	cd_update_oldpwd(t_env **env_list)
 {
-	t_env *env;
-	char *pwd;
+	t_env	*env;
+	char	*pwd;
 
 	env = *env_list;
 	pwd = getcwd(NULL, 0);

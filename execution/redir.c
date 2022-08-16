@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 19:19:44 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:54:12 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	fd_file = open(redir->file, redir->mode, 0644);
 	if (fd_file < 0)
 	{
-		ft_putstr_fd("no such file or directory: ", STDERR_FILENO);
-		ft_putstr_fd(redir->file, STDERR_FILENO);
+		ft_putstr_fd("no such file or directory: ", redir->file, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		return ;
 	}
@@ -40,6 +39,7 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	{
 		dup2(fd_file, redir->fd);
 		ft_exec_nofork(ex, env, env_list);
+		ft_putstr_fd(ex->argv[0], ": command not found\n", STDERR_FILENO);
 		close(fd_file);
 		exit(1);
 	}

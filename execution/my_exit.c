@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:11:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 20:08:54 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:50:59 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static int	ft_isdigit(int c)
+static	int	ft_isdigit(int c)
 {
 	if (c >= 48 && c <= 57)
 		return (1);
@@ -56,19 +56,24 @@ static	void	exit_ifnumeric(char *str)
 	i = 0;
 	if (!str)
 		return ;
+	if (str[i] == '-' && str[i + 1] == '\0')
+	{
+		ft_putstr_fd("exit: '", str, STDERR_FILENO);
+		ft_putstr_fd("': numeric argument required\n", NULL, STDERR_FILENO);
+		exit(255);
+	}
 	while (str[i])
 	{
-		if (!(str[i] >= 48 && str[i] <= 57))
+		if (!(str[i] >= 48 && str[i] <= 57) && str[i] != '-')
 		{
-			ft_putstr_fd("exit: '", STDERR_FILENO);
-			ft_putstr_fd(str, STDERR_FILENO);
-			ft_putstr_fd("': numeric argument required\n", STDERR_FILENO);
+			ft_putstr_fd("exit: '", str, STDERR_FILENO);
+			ft_putstr_fd("': numeric argument required\n", NULL, STDERR_FILENO);
 			exit(255);
 		}
 		i++;
 	}
 }
-  
+
 int	ft_exit(char **argv)
 {
 	printf("exit\n");
@@ -78,6 +83,6 @@ int	ft_exit(char **argv)
 	else if (!argv[1])
 		exit(g.exit_status);
 	g.exit_status = EXIT_FAILURE;
-	ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
+	ft_putstr_fd("exit: too many arguments\n", NULL, STDERR_FILENO);
 	return (1);
 }

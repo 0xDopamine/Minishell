@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 16:26:12 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:07:45 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_envcmp(char *s1, char *s2)
 void	ft_copy(char **ret, char *str, int sublen, int len)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -48,10 +48,11 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 	{
 		ret[0] = NULL;
 		ret[1] = NULL;
-		return ;	
+		return ;
 	}
-	while (i < len)
+	while (i < len && str[i])
 	{
+		printf("%c\n", str[i]);
 		ret[1][j] = str[i];
 		i++;
 		j++;
@@ -61,9 +62,9 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 
 char	**ft_split_typecont(char *str)
 {
-	int	sublen;
-	int len;
-	char **ret;
+	int		sublen;
+	int		len;
+	char	**ret;
 
 	len = 0;
 	sublen = 0;
@@ -82,7 +83,7 @@ char	**ft_split_typecont(char *str)
 	return (ret);
 }
 
-char    **ft_find_path(void)
+char	**ft_find_path(void)
 {
-    return (ft_split(getenv("PATH"), ':'));
+	return (ft_split(getenv("PATH"), ':'));
 }

@@ -6,14 +6,14 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 14:16:05 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:54:06 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "header.h"
 
-static int	ft_check_type(t_cmd *cmd, char **env, t_env **env_list, int n)
+static	int	ft_check_type(t_cmd *cmd, char **env, t_env **env_list, int n)
 {
 	if (cmd->type == EXEC)
 		return (1);

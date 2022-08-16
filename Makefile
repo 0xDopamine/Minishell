@@ -19,7 +19,7 @@ READLINE_PATH =  -lreadline -L ~/goinfre/homebrew/opt/readline/lib -I ~/goinfre/
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 #* HEADER FILES *#
 INCLUDE = include/

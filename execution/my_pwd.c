@@ -6,25 +6,19 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:44:30 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 16:07:30 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:52:39 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	ft_pwd(t_exec *line)
+int	ft_pwd(void)
 {
 	char	*s;
 	char	*ret;
 
 	s = NULL;
 	ret = getcwd(s, PATH_MAX);
-	if (line->argv[1])
-	{
-        g.exit_status = EXIT_FAILURE;
-		ft_putstr_fd("pwd: too many arguments\n", STDERR_FILENO);
-		return (1);
-	}
 	if (ret == NULL)
 	{
 		perror("pwd");

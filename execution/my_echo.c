@@ -6,15 +6,17 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 15:19:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:49:55 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static int	echo_check_nl(char *str)
+static	int	echo_check_nl(char *str)
 {
 	if (!str)
+		return (0);
+	if (str[0] == '-' && str[1] == 'n' && str[2] != 'n' && str[2] != '\0')
 		return (0);
 	if (str[0] == '-' && str[1] == 'n')
 		return (1);
@@ -79,6 +81,7 @@ int	ft_echo(t_exec *line, t_env *env_list)
 		ifnl = 1;
 		i++;
 	}
+	printf("%d\n", i);
 	if (!line->argv[i])
 	{
 		g.exit_status = EXIT_SUCCESS;

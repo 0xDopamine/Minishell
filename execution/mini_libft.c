@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:16:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 14:37:20 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:48:53 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-void	ft_putstr_fd(char *str, int fd)
+void	ft_putstr_fd(char *str, char *str2, int fd)
 {
 	int	i;
 
@@ -41,8 +41,10 @@ void	ft_putstr_fd(char *str, int fd)
 	if (str == NULL)
 		return ;
 	while (str[i])
-	{
-		ft_putchar_fd(str[i], fd);
-		i++;
-	}
+		ft_putchar_fd(str[i++], fd);
+	if (str2 == NULL)
+		return ;
+	i = 0;
+	while (str2[i])
+		ft_putchar_fd(str2[i++], fd);
 }

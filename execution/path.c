@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 18:07:45 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:07:29 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 	}
 	while (i < len && str[i])
 	{
-		printf("%c\n", str[i]);
 		ret[1][j] = str[i];
 		i++;
 		j++;

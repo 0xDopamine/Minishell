@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 18:06:45 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:04:20 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static	int	export_ifexists(char *type, char *content, t_env **env)
 	{
 		if (!ft_strncmp(type, lst->type, ft_strlen(type)))
 		{
+			if (lst->content == NULL && content[0] == 0)
+				return (1);
 			free(lst->content);
 			lst->content = content;
 			free(type);
@@ -53,7 +55,7 @@ static	int	export_ifexists(char *type, char *content, t_env **env)
 	return (0);
 }
 
-static	int	export_checkav(char *str, int n)
+static	int	export_checkav(char *str, char **ptr, int n)
 {
 	int	i;
 
@@ -78,7 +80,10 @@ static	int	export_checkav(char *str, int n)
 	else
 	{
 		if (str[0] == 0)
-			return (0);
+		{
+			ptr[1] = NULL;
+			return (1);
+		}
 		while (str[i])
 		{
 			if ((!(str[i] >= 65 && str[i] <= 90)
@@ -112,7 +117,7 @@ int	ft_export(t_env **env, t_exec *line)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	if (export_checkav(str[0], TYPE) && export_checkav(str[1], CONTENT))
+	if (export_checkav(str[0], str, TYPE) && export_checkav(str[1], str, CONTENT))
 		ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
 	g.exit_status = EXIT_SUCCESS;
 	return (1);

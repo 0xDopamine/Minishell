@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 17:50:25 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:59:03 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,14 @@ static	void	export_printenv(t_env *env_list)
 	{
 		printf("declare -x ");
 		printf("%s", env_list->type);
-		printf("=");
-		printf("%c%s%c\n", '"', env_list->content, '"');
+		if (env_list->content == NULL)
+			printf("\n");
+		if (env_list->content != NULL)
+		{
+			// printf("%s\n", env_list->type);
+			printf("=");
+			printf("%c%s%c\n", '"', env_list->content, '"');
+		}
 		env_list = env_list->next;
 	}
 	g.exit_status = EXIT_SUCCESS;

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 17:49:40 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:40:49 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,34 @@ static	int	cd_update_pwd(t_env **env_list)
 	return (0);
 }
 
+static	int	cd_oldpwd(t_env **env_list)
+{
+	char	*pwd;
+	t_env	*env;
+
+	pwd = getcwd(NULL, 0);
+	env = *env_list;
+	while (env)
+	{
+		if (!ft_strncmp(env->type, "OLDPWD", 6))
+		{
+			getcwd(pwd, PATH_MAX);
+			if (chdir(env->content) < 0)
+			{
+				perror("cd");
+				g.exit_status = EXIT_FAILURE;
+				return (0);
+			}
+			g.exit_status = EXIT_SUCCESS;
+			env->content = pwd;
+			cd_update_pwd(env_list);
+			return (1);
+		}
+		env = env->next;
+	}
+	return (1);
+}
+
 static	int	cd_update_oldpwd(t_env **env_list)
 {
 	t_env	*env;
@@ -54,9 +82,11 @@ static	int	cd_update_oldpwd(t_env **env_list)
 	{
 		if (!ft_strncmp(env->type, "OLDPWD", 6))
 		{
+			printf("%s\n", pwd);
 			if (env->content)
 				free(env->content);
 			env->content = pwd;
+			printf("%s\n", env->content);
 			break ;
 		}
 		env = env->next;
@@ -69,6 +99,14 @@ int	ft_cd(t_exec *line, t_env **env_list)
 	t_env	*env;
 
 	env = *env_list;
+	if (line->argv[1])
+	{
+		if (line->argv[1][0] == '-')
+		{
+			cd_oldpwd(env_list);
+			return (1);
+		}
+	}
 	if (cd_update_oldpwd(env_list))
 	{
 		g.exit_status = EXIT_FAILURE;

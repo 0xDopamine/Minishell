@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 16:04:20 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:18:04 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	export_checktype(char *str)
+int	export_checkname(char *str)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ int	export_checktype(char *str)
 	return (0);
 }
 
-static	int	export_ifexists(char *type, char *content, t_env **env)
+static	int	export_ifexists(char *name, char *path, t_env **env)
 {
 	int		i;
 	t_env	*lst;
@@ -40,13 +40,13 @@ static	int	export_ifexists(char *type, char *content, t_env **env)
 	lst = *env;
 	while (lst)
 	{
-		if (!ft_strncmp(type, lst->type, ft_strlen(type)))
+		if (!ft_strncmp(name, lst->name, ft_strlen(name)))
 		{
-			if (lst->content == NULL && content[0] == 0)
+			if (lst->path == NULL && path[0] == 0)
 				return (1);
-			free(lst->content);
-			lst->content = content;
-			free(type);
+			free(lst->path);
+			lst->path = path;
+			free(name);
 			return (1);
 		}
 		i++;
@@ -60,7 +60,7 @@ static	int	export_checkav(char *str, char **ptr, int n)
 	int	i;
 
 	i = 0;
-	if (n == TYPE)
+	if (n == NAME)
 	{
 		while (str[i])
 		{
@@ -109,7 +109,7 @@ int	ft_export(t_env **env, t_exec *line)
 	str = NULL;
 	if (!line->argv[1])
 		return (ft_env(*env, 'e'));
-	str = ft_split_typecont(line->argv[1]);
+	str = ft_split_namecont(line->argv[1]);
 	if (!str || !str[0])
 		return (1);
 	if (export_ifexists(str[0], str[1], env))
@@ -117,7 +117,7 @@ int	ft_export(t_env **env, t_exec *line)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	if (export_checkav(str[0], str, TYPE) && export_checkav(str[1], str, CONTENT))
+	if (export_checkav(str[0], str, NAME) && export_checkav(str[1], str, PATH))
 		ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
 	g.exit_status = EXIT_SUCCESS;
 	return (1);

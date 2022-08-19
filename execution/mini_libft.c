@@ -6,23 +6,23 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:16:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 17:48:53 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:15:32 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	del(char *content)
+void	del(char *path)
 {
-	free(content);
+	free(path);
 }
 
 void	ft_lstdelone(t_env *lst, void (*del)(char*))
 {
 	if (lst)
 	{
-		(del)(lst->content);
-		(del)(lst->type);
+		(del)(lst->path);
+		(del)(lst->name);
 		free(lst);
 	}
 	return ;

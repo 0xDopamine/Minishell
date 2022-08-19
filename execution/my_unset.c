@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:31:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 17:53:05 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:13:37 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_unset(t_env **env, t_exec *line)
 	}
 	while (env2)
 	{
-		if (ft_envcmp(env2->type, line->argv[1]))
+		if (ft_envcmp(env2->name, line->argv[1]))
 		{
 			temp = env2;
 			prev->next = temp->next;

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 17:08:15 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:02:32 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ft_sig_handler(int sig)
 	}
 	return ;
 }
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;

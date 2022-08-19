@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 15:40:49 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:16:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static	int	cd_update_pwd(t_env **env_list)
 	}
 	while (env)
 	{
-		if (!ft_strncmp(env->type, "PWD", 3))
+		if (!ft_strncmp(env->name, "PWD", 3))
 		{
-			if (env->content)
-				free(env->content);
-			env->content = pwd;
+			if (env->path)
+				free(env->path);
+			env->path = pwd;
 			break ;
 		}
 		env = env->next;
@@ -47,17 +47,17 @@ static	int	cd_oldpwd(t_env **env_list)
 	env = *env_list;
 	while (env)
 	{
-		if (!ft_strncmp(env->type, "OLDPWD", 6))
+		if (!ft_strncmp(env->name, "OLDPWD", 6))
 		{
 			getcwd(pwd, PATH_MAX);
-			if (chdir(env->content) < 0)
+			if (chdir(env->path) < 0)
 			{
 				perror("cd");
 				g.exit_status = EXIT_FAILURE;
 				return (0);
 			}
 			g.exit_status = EXIT_SUCCESS;
-			env->content = pwd;
+			env->path = pwd;
 			cd_update_pwd(env_list);
 			return (1);
 		}
@@ -80,13 +80,13 @@ static	int	cd_update_oldpwd(t_env **env_list)
 	}
 	while (env)
 	{
-		if (!ft_strncmp(env->type, "OLDPWD", 6))
+		if (!ft_strncmp(env->name, "OLDPWD", 6))
 		{
 			printf("%s\n", pwd);
-			if (env->content)
-				free(env->content);
-			env->content = pwd;
-			printf("%s\n", env->content);
+			if (env->path)
+				free(env->path);
+			env->path = pwd;
+			printf("%s\n", env->path);
 			break ;
 		}
 		env = env->next;

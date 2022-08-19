@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:11:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 17:50:59 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:24:34 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ int	ft_atoi(char *str)
 		result = (result * 10) + str[i] - 48;
 		i++;
 	}
-	if (result >= (unsigned long long)9223372036854775807 + 1 && sign == -1)
-		return (0);
-	if (result > 9223372036854775807 && sign == 1)
-		return (-1);
 	return (result * sign);
 }
 

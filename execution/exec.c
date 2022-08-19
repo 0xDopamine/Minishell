@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 15:37:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:10:42 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,15 @@ static	void	exec_loop(char *cmd, char **av, char **env)
 	char	**path;
 
 	i = 0;
+	if (exec_checkcmd(cmd))
+	{
+		if (execve(cmd, av, env) < 0)
+			perror("execve");
+	}
 	path = ft_find_path();
 	while (path[i])
 	{
-		if (!exec_checkcmd(cmd))
-			join = ft_strjoin(path[i], cmd);
+		join = ft_strjoin(path[i], cmd);
 		if (access(join, X_OK) == 0)
 		{
 			ft_free_doubleptr(path);

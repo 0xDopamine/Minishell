@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 17:49:55 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:45:19 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 static	int	echo_check_nl(char *str)
 {
+	int	i;
+
+	i = 0;
 	if (!str)
 		return (0);
-	if (str[0] == '-' && str[1] == 'n' && str[2] != 'n' && str[2] != '\0')
-		return (0);
-	if (str[0] == '-' && str[1] == 'n')
+	if (str[i] == '-' && str[i + 1] == 'n')
+	{
+		i++;
+		while (str[i])
+		{
+			if (str[i] != 'n')
+				return (0);
+			i++;
+		}
 		return (1);
+	}
 	return (0);
 }
 
@@ -49,8 +59,8 @@ static	void	echo_find_env(char *env, t_env *env_list, int ifnl)
 	i = 0;
 	while (env_list)
 	{
-		if (!ft_strncmp(&env[1], env_list->type, ft_strlen(env_list->type)))
-			printf("%s", env_list->content);
+		if (!ft_strncmp(&env[1], env_list->name, ft_strlen(env_list->name)))
+			printf("%s", env_list->path);
 		env_list = env_list->next;
 	}
 	if (!ifnl)
@@ -81,7 +91,6 @@ int	ft_echo(t_exec *line, t_env *env_list)
 		ifnl = 1;
 		i++;
 	}
-	printf("%d\n", i);
 	if (!line->argv[i])
 	{
 		g.exit_status = EXIT_SUCCESS;

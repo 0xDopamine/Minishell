@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 11:07:29 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:26:56 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 		i++;
 	}
 	ret[0][i++] = '\0';
-	if (export_checktype(ret[0]))
+	if (export_checkname(ret[0]))
 	{
 		ret[0] = NULL;
 		ret[1] = NULL;
@@ -59,7 +59,7 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 	ret[1][j] = '\0';
 }
 
-char	**ft_split_typecont(char *str)
+char	**ft_split_namecont(char *str)
 {
 	int		sublen;
 	int		len;

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 16:07:06 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:16:42 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_get_env(char **env, t_env **env_list)
 	i = 0;
 	while (env[i])
 	{
-		str = ft_split_typecont(env[i]);
+		str = ft_split_namecont(env[i]);
 		ft_lstadd_back(env_list, ft_lstnew(str[1], str[0]));
 		if (str[0])
 			free(str[0]);
@@ -37,14 +37,14 @@ static	void	export_printenv(t_env *env_list)
 	while (env_list)
 	{
 		printf("declare -x ");
-		printf("%s", env_list->type);
-		if (env_list->content == NULL)
+		printf("%s", env_list->name);
+		if (env_list->path == NULL)
 			printf("\n");
-		if (env_list->content != NULL)
+		if (env_list->path != NULL)
 		{
-			// printf("%s\n", env_list->type);
+			// printf("%s\n", env_list->name);
 			printf("=");
-			printf("%c%s%c\n", '"', env_list->content, '"');
+			printf("%c%s%c\n", '"', env_list->path, '"');
 		}
 		env_list = env_list->next;
 	}
@@ -55,11 +55,11 @@ static	void	env_printenv(t_env *env_list)
 {
 	while (env_list)
 	{
-		if (env_list->content != NULL)
+		if (env_list->path != NULL)
 		{
-			printf("%s", env_list->type);
+			printf("%s", env_list->name);
 			printf("=");
-			printf("%s\n", env_list->content);
+			printf("%s\n", env_list->path);
 		}
 		env_list = env_list->next;
 	}

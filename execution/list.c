@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:45:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 16:25:30 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:15:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_lstadd_front(t_env **lst, t_env *new)
 	*lst = new;
 }
 
-t_env	*ft_lstnew(char *content, char *type)
+t_env	*ft_lstnew(char *path, char *name)
 {
 	t_env	*head;
 	int		i;
@@ -44,8 +44,8 @@ t_env	*ft_lstnew(char *content, char *type)
 	head = (t_env *)malloc(sizeof(t_env));
 	if (!head)
 		return (NULL);
-	head->content = ft_strdup(content);
-	head->type = ft_strdup(type);
+	head->path = ft_strdup(path);
+	head->name = ft_strdup(name);
 	head->next = NULL;
 	return (head);
 }

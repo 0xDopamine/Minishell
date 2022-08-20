@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 15:53:16 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:26:10 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ int		ft_atoi(char *str);
 int		ft_env(t_env *env_list, char c);
 void	ft_free_doubleptr(char **ptr);
 char	*exec_ifaccess(char *cmd);
+int		cd_errors(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:59:52 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 16:18:44 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:25:55 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ int	cd_home(void)
 int	cd_errors(void)
 {
 	g.exit_status = EXIT_FAILURE;
+	return (1);
 }

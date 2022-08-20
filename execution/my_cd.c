@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 16:16:18 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:14:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,8 @@ int	ft_cd(t_exec *line, t_env **env_list)
 	t_env	*env;
 
 	env = *env_list;
-	if (line->argv[1])
-	{
-		if (line->argv[1][0] == '-')
-		{
-			cd_oldpwd(env_list);
-			return (1);
-		}
-	}
+	if (cd_ifoldpwd(line->argv[1], env_list))
+		return (1);
 	if (cd_update_oldpwd(env_list))
 	{
 		g.exit_status = EXIT_FAILURE;
@@ -114,12 +108,8 @@ int	ft_cd(t_exec *line, t_env **env_list)
 	}
 	if (!line->argv[1])
 	{
-		if (chdir(getenv("HOME")) < 0)
-		{
-			perror("cd");
-			g.exit_status = 2;
+		if (!cd_home())
 			return (1);
-		}
 	}
 	if (chdir(line->argv[1]) < 0 && line->argv[1])
 	{

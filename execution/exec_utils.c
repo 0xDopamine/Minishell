@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_nofork.c                                      :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 14:53:13 by abaioumy         ###   ########.fr       */
+/*   Created: 2022/08/20 15:08:57 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/08/20 15:56:54 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static	void	execnofork_loop(char *cmd, char **av, char **env)
+void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list)
+{
+	if (cmd->type == EXEC)
+		ft_exec((t_exec *)cmd, env, env_list);
+	if (cmd->type == REDIR)
+		ft_redirect((t_redir *)cmd, env, env_list);
+	if (cmd->type == PIPE)
+		ft_pipes((t_pipe *)cmd, env, env_list);
+}
+
+char	*exec_ifaccess(char *cmd)
 {
 	char	**path;
 	char	*join;
@@ -26,28 +36,11 @@ static	void	execnofork_loop(char *cmd, char **av, char **env)
 		if (access(join, X_OK) == 0)
 		{
 			ft_free_doubleptr(path);
-			execve(join, av, env);
-			perror("execve");
-			break ;
-			free (join);
+			g.exit_status = 0;
+			return (join);
 		}
 		free(join);
 		i++;
 	}
-	ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-	ft_free_doubleptr(path);
-}
-
-void	ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
-{
-	char	*cmd;
-
-	if (!line->argv[0])
-		return ;
-	cmd = ft_strdup(line->argv[0]);
-	if (ft_builtins(cmd, line, env_list))
-		return ;
-	cmd = ft_strjoin("/", cmd);
-	execnofork_loop(cmd, line->argv, env);
-	return ;
+	return (NULL);
 }

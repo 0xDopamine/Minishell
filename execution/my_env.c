@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 16:16:42 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:00:33 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static	void	export_printenv(t_env *env_list)
 			printf("\n");
 		if (env_list->path != NULL)
 		{
-			// printf("%s\n", env_list->name);
 			printf("=");
 			printf("%c%s%c\n", '"', env_list->path, '"');
 		}

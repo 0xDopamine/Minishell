@@ -8,7 +8,7 @@ EXEC = exec.c exec_nofork.c mini_libft.c \
 		path.c list.c redir.c pipes.c find_builtins.c \
 		my_exit.c my_env.c my_export.c \
 		my_echo.c my_cd.c my_pwd.c my_unset.c \
-		free.c
+		free.c exec_utils.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 
@@ -19,7 +19,7 @@ READLINE_PATH =  -lreadline -L ~/goinfre/homebrew/opt/readline/lib -I ~/goinfre/
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 
 #* HEADER FILES *#
 INCLUDE = include/

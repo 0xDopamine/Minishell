@@ -6,21 +6,11 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/19 16:10:42 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:56:44 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list)
-{
-	if (cmd->type == EXEC)
-		ft_exec((t_exec *)cmd, env, env_list);
-	if (cmd->type == REDIR)
-		ft_redirect((t_redir *)cmd, env, env_list);
-	if (cmd->type == PIPE)
-		ft_pipes((t_pipe *)cmd, env, env_list);
-}
 
 static	int	exec_checkcmd(char *cmd)
 {
@@ -31,36 +21,36 @@ static	int	exec_checkcmd(char *cmd)
 
 static	void	exec_loop(char *cmd, char **av, char **env)
 {
-	int		i;
 	char	*join;
-	char	**path;
+	int		pid;
 
-	i = 0;
 	if (exec_checkcmd(cmd))
 	{
 		if (execve(cmd, av, env) < 0)
 			perror("execve");
 	}
-	path = ft_find_path();
-	while (path[i])
+	join = exec_ifaccess(cmd);
+	if (join != NULL)
 	{
-		join = ft_strjoin(path[i], cmd);
-		if (access(join, X_OK) == 0)
+		pid = fork();
+		if (pid == 0)
 		{
-			ft_free_doubleptr(path);
-			if (execve(join, av, env) < 0)
-				perror("execve");
-			break ;
+			execve(join, av, env);
+			perror("execve");
+			exit(1);
 		}
 		free(join);
-		i++;
+	}
+	if (wait(NULL) < 0)
+	{
+		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
+		g.exit_status = 1;
 	}
 }
 
 void	ft_exec(t_exec *line, char **env, t_env **env_list)
 {
 	char	*cmd;
-	int		pid;
 
 	if (!line->argv[0])
 		return ;
@@ -69,19 +59,7 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list)
 		return ;
 	if (!exec_checkcmd(cmd))
 		cmd = ft_strjoin("/", cmd);
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("fork");
-		exit(1);
-	}
-	if (pid == 0)
-	{
-		exec_loop(cmd, line->argv, env);
-		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-		exit(1);
-	}
+	exec_loop(cmd, line->argv, env);
 	free(cmd);
-	wait(&g.exit_status);
 	return ;
 }

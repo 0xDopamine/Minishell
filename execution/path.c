@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/19 15:26:56 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:15:47 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 		i++;
 	}
 	ret[0][i++] = '\0';
-	if (export_checkname(ret[0]))
+	if (export_checkpathname(ret[0]))
 	{
 		ret[0] = NULL;
 		ret[1] = NULL;

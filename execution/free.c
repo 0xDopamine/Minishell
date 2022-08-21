@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/15 16:27:27 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/21 15:48:08 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void    ft_free_doubleptr(char **ptr)
+void	ft_free_doubleptr(char **ptr)
 {
 	int	i;
 

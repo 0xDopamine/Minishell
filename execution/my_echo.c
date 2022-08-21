@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/19 15:45:19 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:46:04 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,6 @@ static void	echo_ifnewline(t_exec *line, int i, int ifnl)
 	}
 }
 
-static	void	echo_find_env(char *env, t_env *env_list, int ifnl)
-{
-	int	i;
-
-	i = 0;
-	while (env_list)
-	{
-		if (!ft_strncmp(&env[1], env_list->name, ft_strlen(env_list->name)))
-			printf("%s", env_list->path);
-		env_list = env_list->next;
-	}
-	if (!ifnl)
-		printf("\n");
-}
-
 int	ft_echo(t_exec *line, t_env *env_list)
 {
 	int	i;
@@ -74,18 +59,8 @@ int	ft_echo(t_exec *line, t_env *env_list)
 
 	i = 1;
 	ifnl = 0;
-	if (!line->argv[1])
-	{
-		g.exit_status = EXIT_SUCCESS;
-		printf("\n");
+	if (echo_case1(line->argv[1]))
 		return (1);
-	}
-	if (!ft_strncmp(line->argv[1], "$?", 2))
-	{
-		printf("%d\n", g.exit_status);
-		g.exit_status = EXIT_SUCCESS;
-		return (1);
-	}
 	while (echo_check_nl(line->argv[i]))
 	{
 		ifnl = 1;
@@ -96,16 +71,8 @@ int	ft_echo(t_exec *line, t_env *env_list)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	if (!ft_strncmp(line->argv[1], "$", 1)
-		|| !ft_strncmp(line->argv[i], "$", 1))
-	{
-		if (ifnl)
-			echo_find_env(line->argv[i], env_list, ifnl);
-		else
-			echo_find_env(line->argv[1], env_list, ifnl);
-		g.exit_status = EXIT_SUCCESS;
+	if (echo_path(line->argv, i, env_list, ifnl))
 		return (1);
-	}
 	if (ifnl)
 		echo_ifnewline(line, i, ifnl);
 	else

@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 15:56:44 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:56:28 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static	int	exec_checkcmd(char *cmd)
+int	exec_checkcmd(char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
 		return (1);
@@ -44,7 +44,7 @@ static	void	exec_loop(char *cmd, char **av, char **env)
 	if (wait(NULL) < 0)
 	{
 		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-		g.exit_status = 1;
+		g.exit_status = EXIT_NOTFOUND;
 	}
 }
 

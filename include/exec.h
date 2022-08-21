@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 16:26:10 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:31:08 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXEC_H
 # define NAME 1
 # define PATH 2
+# define EXIT_NOTFOUND 127
 
 # include <stdio.h>
 # include <unistd.h>
@@ -73,5 +74,13 @@ int		ft_env(t_env *env_list, char c);
 void	ft_free_doubleptr(char **ptr);
 char	*exec_ifaccess(char *cmd);
 int		cd_errors(void);
+int		echo_case1(char *str);
+int		echo_path(char **av, int i, t_env *env_list, int ifnl);
+int		cd_ifoldpwd(char *str, t_env **env_list);
+int		cd_home(void);
+int		cd_oldpwd(t_env **env_list);
+int		export_checkpathname(char *str);
+int		export_checkpath(char *str);
+int		exec_checkcmd(char *cmd);
 
 #endif

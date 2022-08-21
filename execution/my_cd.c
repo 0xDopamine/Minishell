@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 16:27:23 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:47:48 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	int	cd_update_pwd(t_env **env_list)
 	return (0);
 }
 
-static	int	cd_oldpwd(t_env **env_list)
+int	cd_oldpwd(t_env **env_list)
 {
 	char	*pwd;
 	t_env	*env;

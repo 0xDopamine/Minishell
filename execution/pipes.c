@@ -6,12 +6,43 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 14:30:30 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:51:57 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "header.h"
+
+static	void	pipes_access(t_exec *line)
+{
+	char	**path;
+	int		i;
+	char	*cmd;
+	char	*join;
+
+	i = 0;
+	cmd = ft_strdup(line->argv[0]);
+	if (exec_checkcmd(cmd))
+	{
+		g.exit_status = EXIT_SUCCESS;
+		return ;
+	}
+	cmd = ft_strjoin("/", cmd);
+	path = ft_find_path();
+	while (path[i])
+	{
+		join = ft_strjoin(path[i], cmd);
+		if (access(join, X_OK) == 0)
+		{
+			ft_free_doubleptr(path);
+			g.exit_status = EXIT_SUCCESS;
+			return ;
+		}
+		free(join);
+		i++;
+	}
+	g.exit_status = EXIT_NOTFOUND;
+}
 
 static	int	ft_check_type(t_cmd *cmd, char **env, t_env **env_list, int n)
 {
@@ -36,6 +67,8 @@ void	ft_pipes(t_pipe *pipes, char **env, t_env **env_list)
 	int	pid;
 
 	pipe(fds);
+	if (ft_check_type((t_cmd *)pipes->left, env, env_list, 0))
+		pipes_access((t_exec *)pipes->left);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -46,6 +79,8 @@ void	ft_pipes(t_pipe *pipes, char **env, t_env **env_list)
 			ft_exec_nofork((t_exec *)pipes->left, env, env_list);
 		exit(EXIT_FAILURE);
 	}
+	if (ft_check_type((t_cmd *)pipes->right, env, env_list, 1))
+		pipes_access((t_exec *)pipes->right);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -58,6 +93,6 @@ void	ft_pipes(t_pipe *pipes, char **env, t_env **env_list)
 	}
 	close(fds[0]);
 	close(fds[1]);
-	wait(&g.exit_status);
-	wait(&g.exit_status);
+	wait(NULL);
+	wait(NULL);
 }

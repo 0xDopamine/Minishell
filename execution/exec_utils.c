@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:08:57 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 15:56:54 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:56:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*exec_ifaccess(char *cmd)
 		if (access(join, X_OK) == 0)
 		{
 			ft_free_doubleptr(path);
-			g.exit_status = 0;
+			g.exit_status = EXIT_SUCCESS;
 			return (join);
 		}
 		free(join);

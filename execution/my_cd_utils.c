@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:59:52 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 16:25:55 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:48:10 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	cd_home(void)
 		g.exit_status = 2;
 		return (1);
 	}
+	return (1);
 }
 
 int	cd_errors(void)

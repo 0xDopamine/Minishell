@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 16:18:04 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:09:00 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	export_checkname(char *str)
+int	export_checkpathname(char *str)
 {
 	int	i;
 
@@ -61,22 +61,7 @@ static	int	export_checkav(char *str, char **ptr, int n)
 
 	i = 0;
 	if (n == NAME)
-	{
-		while (str[i])
-		{
-			if (!(str[i] >= 65 && str[i] <= 90)
-				&& !(str[i] >= 97 && str[i] <= 122)
-				&& !(str[i] >= '0' && str[i] <= '9') && str[i] != '_')
-			{
-				g.exit_status = EXIT_FAILURE;
-				ft_putstr_fd("export: not valid in this context\n",
-					NULL, STDERR_FILENO);
-				return (0);
-			}
-			i++;
-		}
-		return (1);
-	}
+		return (export_checkname(str));
 	else
 	{
 		if (str[0] == 0)
@@ -84,20 +69,7 @@ static	int	export_checkav(char *str, char **ptr, int n)
 			ptr[1] = NULL;
 			return (1);
 		}
-		while (str[i])
-		{
-			if ((!(str[i] >= 65 && str[i] <= 90)
-					&& !(str[i] >= 97 && str[i] <= 122))
-					|| (str[i] == '<' || str[i] == '>' || str[i] == '(' || str[i] == ')'))
-			{
-				g.exit_status = EXIT_FAILURE;
-				ft_putstr_fd("export: not valid in this context\n",
-					NULL, STDERR_FILENO);
-				return (0);
-			}
-			i++;
-		}
-		return (1);
+		return (export_checkpath(str));
 	}
 	return (1);
 }

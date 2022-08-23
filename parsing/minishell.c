@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 15:54:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/23 03:51:32 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,46 +16,32 @@
 
 t_global g = { 0 };
 
-int	demo(char **ps, char **es, char **q)
+//you can comment it here and in parseexec line 91 92
+
+//handles quotes but not sure if its a parsing error or execution error
+char	*ft_del_end_quotes(char *s)
+{
+	int	tail;
+
+	tail = ft_strlen(s);
+	while (tail >= 0)
+	{	
+		if (s[tail] == '"' || s[tail] == '\'')
+			s[tail] = 1;
+		tail--;
+	}
+	return (s);
+}
+void	ft_handle_quotes(char **q)
 {
 	char	*s;
-	int		tok;
-	char	*eq;
 
-	s = *ps;
-	eq = *es;
-	//move s into the first non whitespace
-	while (s < eq && is_whitespace(s, eq))
+	s = *q;
+	while ((*s == '"' || *s == '\'') && s)
 		s++;
-	if (q)
-		*q = s;
-	//collect return value
-	tok = *s;
-	if (*s == '|' || *s == '<')
-		s++;
-	else if (*s == '>')
-	{
-		s++;
-		if (*s == '>')
-		{
-			tok = '+';
-			s++;
-		}
-	} 
-	else if (*s == 0)
-		return (0);
-	else
-	{
-		tok = 'c';
-	//scan for the end of the token 
-		while (s < eq &&  !is_whitespace(s, eq) && !is_symbol(s, eq))
-			s++;
-	}
-	while (is_whitespace(s, eq))
-		s++;
-	*ps = s;
-	return (tok);
-} 
+	*q = ft_del_end_quotes(s);
+	// printf("handled quotes\n");
+}
 
 void	ft_sig_handler(int sig)
 {
@@ -103,7 +89,8 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (*line)
 			add_history(line);
-		// line = ft_strdup(spaces(line));
+		//spaces are handled
+		line = ft_strdup(spaces(line));
 		simpleCommand = parsepipe(&line);
 		ft_check_cmd(simpleCommand, env, &env_list);
 		// system("leaks minishell");

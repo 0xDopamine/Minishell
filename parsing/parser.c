@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 14:17:03 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/23 03:22:50 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ int	num_words(char *str, int quote_flag)
 	else
 		split = ft_split_quotes(str, ' ');
 	while(split[i++])
+	{
+		// printf("split: %s\n", split[i]);
 		words++;
+	}
+	// printf("%d\n", words);
 	return (words);
 }
 
@@ -45,7 +49,7 @@ int	is_whitespace(char *str, char *es)
 		j = 0;
 		while (whitespaces[j])
 		{
-			printf("%c\n", *str);
+			// printf("%c\n", *str);
 			if (whitespaces[j] == str[i])
 				return (1);
 			j++;
@@ -67,11 +71,11 @@ t_cmd	*parseexec(char **ps)
 	char	**split;
 
 	//create an exec node and allocate a blank node
-	// *split = ft_strdup("");
 	if (*ps[0] == '"')
 		words = num_words(*ps, 0);
 	else
 		words = num_words(*ps, 1);
+	// printf("words: %d\n", words);
 	ret = execcmd(words);
 	cmd = (t_exec *)ret;
 	argc = 0;
@@ -83,18 +87,20 @@ t_cmd	*parseexec(char **ps)
 		tok = get_token(ps, 0, &q);
 		if (tok == 0)
 			break ;
-		if (q[0] == '"')
-			split = ft_split_quotes(q, ' ');
-		else
-			split = ft_split(q, ' ');
+		// printf("q: %s\n", q);
+		if (q[0] == '"' || q[0] == '\'')
+			ft_handle_quotes(&q);
+		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = split[0];
-		if (argc >= words)
+		printf("cmd: %s\n", cmd->argv[argc]);
+		if (argc >= words || split[1] == NULL)
 			break ;
 		argc++;
 		ret = parseredir(ret, ps);
 	}
+	// printf("argc %d\n", argc);
 	cmd->argv[argc] = NULL;
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/09 12:15:56 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/23 00:10:33 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,8 @@ char	*ft_strdup(char *src);
 size_t	ft_strlen(char *str);
 char	*findthewae(char **str);
 char	*ft_strjoin(char *s1, char *s2);
-// void	handle_pipes(char **env, char **token, t_list *cmd);
-// void	child_process(char **env, t_list *cmd);
-// void	execute(char **env, t_list *cmd);
-// t_list	*lexer(t_token *token, t_list *lst_tokens, char *line);
-// void	*parse(char **env, char *line);
-// int		ft_lstsize(t_list *lst);
-// t_list	*ft_lstnew(char *content, int type);
-// void	ft_lstadd_front(t_list **lst, t_list *new);
-// void	t_lstclear(t_list **lst);
-// void	ft_lstadd_back(t_list **lst, t_list *new);
-// t_list	*ft_lstlast(t_list *lst);
-// int		ft_lstsize(t_list *lst);
-// void	ft_lstdelone(t_list *lst, void (*del)(void *));
-// void	ft_lstiter(t_list *lst, void (*f)(void *));
-// t_list	*ft_lstmap(t_list *lst, void *(*f)(void *));
-// int		*copytoarray(t_list *stack);
-// void	print_arr(int *arr, int size);
-// void	print_list(t_list *stack);
 int		ft_isalpha(int c);
 int		ft_strncmp(char *s1, char *s2, unsigned int n);
-// t_cmd	*command_table(t_list *tokens);
 char	*join_chars(char *curr, char *next);
 int		get_token(char **ps, char **es, char **q);
 int		is_whitespace(char *str, char *es);
@@ -104,7 +85,6 @@ char	*spaces(char *line);
 char	*handle_spaces(char *line);
 int		check(char before, char after);
 char	*add_spaces(char *line, int count);
-
 void	rl_replace_line(const char *str, int mod);
-
+void	ft_handle_quotes(char **q);
 #endif

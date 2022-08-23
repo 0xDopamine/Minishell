@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/21 16:31:08 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:40:14 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ int		cd_oldpwd(t_env **env_list);
 int		export_checkpathname(char *str);
 int		export_checkpath(char *str);
 int		exec_checkcmd(char *cmd);
+int		export_ifnotreplace(char *str, t_env *env_list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/21 16:09:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:10:45 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ static	int	export_ifexists(char *name, char *path, t_env **env)
 		{
 			if (lst->path == NULL && path[0] == 0)
 				return (1);
+			if (path[0] == 0)
+				return (1);
 			free(lst->path);
-			lst->path = path;
+			lst->path = ft_strdup(path);
 			free(name);
+			free(path);
 			return (1);
 		}
 		i++;
@@ -77,8 +80,10 @@ static	int	export_checkav(char *str, char **ptr, int n)
 int	ft_export(t_env **env, t_exec *line)
 {
 	char	**str;
+	int		i;
 
 	str = NULL;
+	i = 0;
 	if (!line->argv[1])
 		return (ft_env(*env, 'e'));
 	str = ft_split_namecont(line->argv[1]);

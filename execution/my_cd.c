@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 17:47:48 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:07:04 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ static	int	cd_update_oldpwd(t_env **env_list)
 	{
 		if (!ft_strncmp(env->name, "OLDPWD", 6))
 		{
-			printf("%s\n", pwd);
 			if (env->path)
 				free(env->path);
 			env->path = pwd;
-			printf("%s\n", env->path);
 			break ;
 		}
 		env = env->next;

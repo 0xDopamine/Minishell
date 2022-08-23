@@ -6,11 +6,25 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:51:47 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/21 16:08:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:43:37 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+int	export_ifnotreplace(char *str, t_env *env_list)
+{
+	while (env_list)
+	{
+		if (!ft_strncmp(str, env_list->name, ft_strlen(str)))
+		{
+			printf("hello\n");
+			return (1);
+		}
+		env_list = env_list->next;
+	}
+	return (0);
+}
 
 int	export_checkname(char *str)
 {

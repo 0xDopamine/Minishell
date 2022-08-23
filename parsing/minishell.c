@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/20 15:54:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/22 12:10:14 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	simpleCommand = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
-	// char **split;
 	printf("Two brothers minishell\n");
 	//don't use CTRL -C signal now
 	signal(SIGINT, ft_sig_handler);
@@ -103,7 +102,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (*line)
 			add_history(line);
-		// line = ft_strdup(spaces(line));
+		line = ft_strdup(spaces(line));
 		simpleCommand = parsepipe(&line);
 		ft_check_cmd(simpleCommand, env, &env_list);
 		// system("leaks minishell");

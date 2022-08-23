@@ -6,31 +6,31 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:31:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/22 13:14:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:26:46 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static	void	unset_checkstr(char *str)
-{
-	int	i;
+// static	void	unset_checkstr(char *str)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (!(str[i] >= 65 && str[i] <= 90)
-				&& !(str[i] >= 97 && argv[[i] <= 122)
-				&& argv[j][i] != '_' && !(argv[j][i] >= '0'
-				&& argv[j][i] <= '9'))
-			{
-				ft_putstr_fd("unset: '", argv[j], STDERR_FILENO);
-				ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
-				return (1);
-			}
-			i++;
-		}
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (!(str[i] >= 65 && str[i] <= 90)
+// 				&& !(str[i] >= 97 && argv[i] <= 122)
+// 				&& argv[j][i] != '_' && !(argv[j][i] >= '0'
+// 				&& argv[j][i] <= '9'))
+// 			{
+// 				ft_putstr_fd("unset: '", argv[j], STDERR_FILENO);
+// 				ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
+// 				return (1);
+// 			}
+// 			i++;
+// 		}
+// }
 
 static	int	unset_checkname(char **argv)
 {
@@ -48,20 +48,20 @@ static	int	unset_checkname(char **argv)
 	while (argv[j])
 	{
 		i = 0;
-		unset_checkstr(argv[j]);
-		// while (argv[j][i])
-		// {
-		// 	if (!(argv[j][i] >= 65 && argv[j][i] <= 90)
-		// 		&& !(argv[j][i] >= 97 && argv[j][i] <= 122)
-		// 		&& argv[j][i] != '_' && !(argv[j][i] >= '0'
-		// 		&& argv[j][i] <= '9'))
-		// 	{
-		// 		ft_putstr_fd("unset: '", argv[j], STDERR_FILENO);
-		// 		ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
-		// 		return (1);
-		// 	}
-		// 	i++;
-		// }
+		// unset_checkstr(argv[j]);
+		while (argv[j][i])
+		{
+			if (!(argv[j][i] >= 65 && argv[j][i] <= 90)
+				&& !(argv[j][i] >= 97 && argv[j][i] <= 122)
+				&& argv[j][i] != '_' && !(argv[j][i] >= '0'
+				&& argv[j][i] <= '9'))
+			{
+				ft_putstr_fd("unset: '", argv[j], STDERR_FILENO);
+				ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
+				return (1);
+			}
+			i++;
+		}
 		j++;
 	}
 	return (0);

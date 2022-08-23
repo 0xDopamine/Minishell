@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:08:57 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/21 16:56:18 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:28:36 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list)
 {
+	printf("type %d\n", cmd->type);
 	if (cmd->type == EXEC)
 		ft_exec((t_exec *)cmd, env, env_list);
 	if (cmd->type == REDIR)

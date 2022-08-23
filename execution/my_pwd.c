@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:44:30 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/16 17:52:39 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:54:29 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_pwd(void)
 	ret = getcwd(s, PATH_MAX);
 	if (ret == NULL)
 	{
-		perror("pwd");
 		g.exit_status = EXIT_FAILURE;
 		return (1);
 	}

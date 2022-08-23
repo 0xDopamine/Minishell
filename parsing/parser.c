@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/23 03:22:50 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:47:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,13 @@ t_cmd	*parseexec(char **ps)
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = split[0];
-		printf("cmd: %s\n", cmd->argv[argc]);
+		// printf("cmd: %s\n", cmd->argv[argc]);
 		if (argc >= words || split[1] == NULL)
 			break ;
 		argc++;
 		ret = parseredir(ret, ps);
 	}
+	argc++;
 	// printf("argc %d\n", argc);
 	cmd->argv[argc] = NULL;
 	return (ret);

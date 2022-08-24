@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/13 19:29:51 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/24 04:28:04 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd   *execcmd(int words)
     t_exec  *ex;
 
     ex = malloc(sizeof(t_exec));
-    ex->argv = malloc(sizeof(char *) * words);
+    ex->argv = malloc(sizeof(char *) * words + 1);
 	ex->type = EXEC;
 	// ex->argv = ps;
     return ((t_cmd *)ex);

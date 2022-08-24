@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/23 11:24:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/24 05:07:25 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,28 @@ t_global g = { 0 };
 //you can comment it here and in parseexec line 91 92
 
 //handles quotes but not sure if its a parsing error or execution error
+
+char	*null_terminate(char *q)
+{
+	int	i;
+
+	i = 0;
+	while (q[i])
+	{
+		if (q[i] == 1)
+			q[i] = '\0';
+		i++;
+	}
+	return (q);
+}
+
 char	*ft_del_end_quotes(char *s)
 {
 	int	tail;
 
 	tail = ft_strlen(s);
 	while (tail >= 0)
-	{	
+	{
 		if (s[tail] == '"' || s[tail] == '\'')
 			s[tail] = 1;
 		tail--;
@@ -40,7 +55,6 @@ void	ft_handle_quotes(char **q)
 	while ((*s == '"' || *s == '\'') && s)
 		s++;
 	*q = ft_del_end_quotes(s);
-	// printf("handled quotes\n");
 }
 
 void	ft_sig_handler(int sig)

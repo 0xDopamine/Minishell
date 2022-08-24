@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/23 12:47:30 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/24 05:03:21 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ int	num_words(char *str, int quote_flag)
 	else
 		split = ft_split_quotes(str, ' ');
 	while(split[i++])
-	{
-		// printf("split: %s\n", split[i]);
 		words++;
-	}
-	// printf("%d\n", words);
 	return (words);
 }
 
@@ -87,20 +83,19 @@ t_cmd	*parseexec(char **ps)
 		tok = get_token(ps, 0, &q);
 		if (tok == 0)
 			break ;
-		// printf("q: %s\n", q);
 		if (q[0] == '"' || q[0] == '\'')
 			ft_handle_quotes(&q);
+		// printf("q: %s\n", q);
 		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
-		cmd->argv[argc] = split[0];
+		cmd->argv[argc] = null_terminate(split[0]);
 		// printf("cmd: %s\n", cmd->argv[argc]);
+		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
-		argc++;
 		ret = parseredir(ret, ps);
 	}
-	argc++;
 	// printf("argc %d\n", argc);
 	cmd->argv[argc] = NULL;
 	return (ret);

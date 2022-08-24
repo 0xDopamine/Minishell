@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_nofork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/21 16:52:01 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/24 04:32:37 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static	void	execnofork_loop(char *cmd, char **av, char **env)
 		i++;
 	}
 	ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-	ft_free_doubleptr(path);
+	// cause of seg fault
+	//ft_free_doubleptr(path);
 }
 
 void	ft_exec_nofork(t_exec *line, char **env, t_env **env_list)

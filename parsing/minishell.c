@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/24 05:07:25 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:20:47 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,49 @@ char	*null_terminate(char *q)
 	return (q);
 }
 
-char	*ft_del_end_quotes(char *s)
+char	*ft_del_end_quotes(char *s, int q_count)
 {
 	int	tail;
+	int	len;
 
-	tail = ft_strlen(s);
-	while (tail >= 0)
+	len = ft_strlen(s);
+	tail = len - 1;
+	while (tail > len / 2)
 	{
-		if (s[tail] == '"' || s[tail] == '\'')
+		if ((s[tail] == '"' && q_count % 2 != 0) && s[tail - 1] != '\'')
+			s[tail] = 1;
+		else if ((s[tail] == '\'' || s[tail] == '"') && q_count % 2 == 0)
 			s[tail] = 1;
 		tail--;
 	}
 	return (s);
 }
+
+char	*ft_double_quotes(char *s)
+{
+	int		q_count;
+
+	q_count = 0;
+	while ((*s == '"') && s)
+	{
+		q_count++;
+		s++;
+	}
+	if (*s == '\'' && q_count % 2 != 0 && s)
+		s--;
+	else if (*s == '\'' && q_count % 2 == 0 && s)
+		s++;
+	return (ft_del_end_quotes(s, q_count));
+}
+
 void	ft_handle_quotes(char **q)
 {
 	char	*s;
 
 	s = *q;
-	while ((*s == '"' || *s == '\'') && s)
-		s++;
-	*q = ft_del_end_quotes(s);
+	if (*s == '"')
+		*q = ft_double_quotes(s);
+	printf("s: %s\n", *q);
 }
 
 void	ft_sig_handler(int sig)

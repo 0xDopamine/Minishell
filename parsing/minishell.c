@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/24 20:20:47 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 01:43:32 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,56 @@ t_global g = { 0 };
 //you can comment it here and in parseexec line 91 92
 
 //handles quotes but not sure if its a parsing error or execution error
+
+int	ft_check_quotes_start(char *s)
+{
+	int	q_count;
+
+	q_count = 0;
+	if (*s == '"' || *s == '\'')
+	{
+		while ((*s == '"' || *s == '\'') && s)
+		{
+			q_count++;
+			s++;
+		}
+	}
+	return (q_count);
+}
+
+int	ft_check_quotes_end(char *s)
+{
+	int	q_count;
+	int	len;
+
+	q_count = 0;
+	len = ft_strlen(s) - 1;
+	if (s[len] == '"' || s[len] == '\'')
+	{
+		while ((s[len] == '"' || s[len] == '\'') && len >= 0)
+		{
+			q_count++;
+			len--;
+		}
+	}
+	return (q_count);
+}
+
+void	ft_check_quotes(char *s)
+{
+	int	q_count_front;
+	int	q_count_back;
+
+	q_count_front = ft_check_quotes_start(s);
+	q_count_back = ft_check_quotes_end(s);
+	if ((q_count_front > q_count_back)
+		|| (q_count_front < q_count_back))	
+	{
+		perror("quotes error");
+		exit(1);
+		//idk which exit code this should have but ill ask around
+	}
+}
 
 char	*null_terminate(char *q)
 {
@@ -34,14 +84,48 @@ char	*null_terminate(char *q)
 	return (q);
 }
 
-char	*ft_del_end_quotes(char *s, int q_count)
+char	*ft_del_end_squotes(char *s, int q_count)
 {
 	int	tail;
 	int	len;
 
 	len = ft_strlen(s);
 	tail = len - 1;
-	while (tail > len / 2)
+	while (tail > 0 && s[tail])
+	{
+		if ((s[tail] == '\'' && q_count % 2 != 0) && s[tail - 1] != '"')
+			s[tail] = 1;
+		else if ((s[tail] == '\'' || s[tail] == '"') && q_count % 2 == 0)
+			s[tail] = 1;
+		tail--;
+	}
+	return (s);
+}
+
+char	*ft_del_start_squotes(char *s)
+{
+	int		q_count;
+
+	q_count = 0;
+	while ((*s == '\'') && s)
+	{
+		q_count++;
+		s++;
+	}
+	if (*s == '"' && q_count % 2 != 0 && s)
+		s--;
+	else if (*s == '"' && q_count % 2 == 0 && s)
+		s++;
+	return (ft_del_end_squotes(s, q_count));
+}
+char	*ft_del_end_dquotes(char *s, int q_count)
+{
+	int	tail;
+	int	len;
+
+	len = ft_strlen(s);
+	tail = len - 1;
+	while (tail > 0 && s[tail])
 	{
 		if ((s[tail] == '"' && q_count % 2 != 0) && s[tail - 1] != '\'')
 			s[tail] = 1;
@@ -52,7 +136,7 @@ char	*ft_del_end_quotes(char *s, int q_count)
 	return (s);
 }
 
-char	*ft_double_quotes(char *s)
+char	*ft_del_start_dquotes(char *s)
 {
 	int		q_count;
 
@@ -66,7 +150,7 @@ char	*ft_double_quotes(char *s)
 		s--;
 	else if (*s == '\'' && q_count % 2 == 0 && s)
 		s++;
-	return (ft_del_end_quotes(s, q_count));
+	return (ft_del_end_dquotes(s, q_count));
 }
 
 void	ft_handle_quotes(char **q)
@@ -74,9 +158,11 @@ void	ft_handle_quotes(char **q)
 	char	*s;
 
 	s = *q;
+	ft_check_quotes(s);
 	if (*s == '"')
-		*q = ft_double_quotes(s);
-	printf("s: %s\n", *q);
+		*q = ft_del_start_dquotes(s);
+	else if (*s == '\'')
+		*q = ft_del_start_squotes(s);
 }
 
 void	ft_sig_handler(int sig)

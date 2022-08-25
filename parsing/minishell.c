@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/25 01:43:32 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 03:38:47 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_check_quotes(char *s)
 		|| (q_count_front < q_count_back))	
 	{
 		perror("quotes error");
-		exit(1);
 		//idk which exit code this should have but ill ask around
 	}
 }

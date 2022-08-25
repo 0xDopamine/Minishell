@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/24 04:58:29 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 03:46:13 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_strjoin(char *s1, char *s2);
 int		ft_isalpha(int c);
 int		ft_strncmp(char *s1, char *s2, unsigned int n);
 char	*join_chars(char *curr, char *next);
-int		get_token(char **ps, char **es, char **q);
+int		get_token(char **ps, char **q);
 int		is_whitespace(char *str, char *es);
 char	*ft_strrchr(char *s, int c);
 int		ft_strchr(char s, char *buf);

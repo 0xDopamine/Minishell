@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/24 19:41:28 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 03:59:48 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,19 @@ t_cmd	*parseexec(char **ps)
 	t_cmd	*ret;
 	char	**split;
 
-	//create an exec node and allocate a blank node
 	if (*ps[0] == '"')
 		words = num_words(*ps, 0);
 	else
 		words = num_words(*ps, 1);
-	// printf("words: %d\n", words);
 	ret = execcmd(words);
+	//create an exec node and allocate a blank node
 	cmd = (t_exec *)ret;
 	argc = 0;
 	ret = parseredir(ret, ps);
 	// if its not pipe it might be an option or a file name
 	while (!next(ps, "|"))
 	{
-		//dir lblan dial quotes f get token a lhmar ra dkchi 3lach kitbdl fin ki pointi q o ki pointi lrbk 3la - 
-		tok = get_token(ps, 0, &q);
+		tok = get_token(ps, &q);
 		if (tok == 0)
 			break ;
 		if (q[0] == '"' || q[0] == '\'')
@@ -110,8 +108,8 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 	while (next(ps, "<>"))
 	{
 		// returns the character it encounters '<' if < '+' if >> 
-		tok = get_token(ps, 0, 0);
-		if (get_token(ps, 0, &q) != 'c')
+		tok = get_token(ps, 0);
+		if (get_token(ps, &q) != 'c')
 		{
 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
 			cmd->type = 0;
@@ -136,7 +134,7 @@ t_cmd	*parsepipe(char **ps)
 	cmd = parseexec(ps);
 	if (next(ps, "|"))
 	{
-		get_token(ps, 0, 0);
+		get_token(ps, 0);
 		cmd = pipecmd(cmd, parsepipe(ps));
 	}
 	return (cmd);
@@ -194,12 +192,11 @@ int	is_symbol(char *str, char *es)
 	return (0);
 }
 
-int	get_token(char **ps, char **es, char **q)
+int	get_token(char **ps, char **q)
 {
 	char	*s;
 	int		tok;
 
-	(void)es;
 	s = *ps;
 	//move s into the first non whitespace
 	while (s && ft_strchr(*s, " \t\f\n\v\r"))
@@ -208,17 +205,6 @@ int	get_token(char **ps, char **es, char **q)
 		*q = s;
 	//collect return value
 	tok = *s;
-	if (*s == '"')
-	{
-		*q = s;
-		while (*s++)
-			if (*s == '"')
-				break ;
-		s++;
-		*ps = s;
-		tok = 'c';
-		return (tok);
-	}
 	if (*s == '|' || *s == '<')
 		s++;
 	else if (*s == '>')

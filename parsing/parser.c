@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/25 03:59:48 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:27:45 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	is_whitespace(char *str, char *es)
 		j = 0;
 		while (whitespaces[j])
 		{
-			// printf("%c\n", *str);
 			if (whitespaces[j] == str[i])
 				return (1);
 			j++;
@@ -62,7 +61,6 @@ t_cmd	*parseexec(char **ps)
 	int		argc;
 	t_exec	*cmd;
 	int		words;
-	// points to the tree we built so far
 	t_cmd	*ret;
 	char	**split;
 
@@ -71,7 +69,6 @@ t_cmd	*parseexec(char **ps)
 	else
 		words = num_words(*ps, 1);
 	ret = execcmd(words);
-	//create an exec node and allocate a blank node
 	cmd = (t_exec *)ret;
 	argc = 0;
 	ret = parseredir(ret, ps);
@@ -83,23 +80,19 @@ t_cmd	*parseexec(char **ps)
 			break ;
 		if (q[0] == '"' || q[0] == '\'')
 			ft_handle_quotes(&q);
-		// printf("q: %s\n", q);
 		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = null_terminate(split[0]);
-		// printf("cmd: %s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
 		ret = parseredir(ret, ps);
 	}
-	// printf("argc %d\n", argc);
 	cmd->argv[argc] = NULL;
 	return (ret);
 }
 
-//parses redirs and returns a node in the tree
 t_cmd	*parseredir(t_cmd *cmd, char **ps)
 {
 	int		tok;
@@ -107,7 +100,6 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 
 	while (next(ps, "<>"))
 	{
-		// returns the character it encounters '<' if < '+' if >> 
 		tok = get_token(ps, 0);
 		if (get_token(ps, &q) != 'c')
 		{
@@ -115,6 +107,8 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 			cmd->type = 0;
 			return (cmd);
 		}
+		printf("token: %c\n", tok);
+		printf("%s\n", q);
 		if (tok == '<')
 			cmd = redircmd(cmd, q, O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
@@ -122,8 +116,6 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 		else if (tok == 'A')
 			cmd = redircmd(cmd, q, O_WRONLY | O_CREAT | O_APPEND, 1);
 	}
-	// printf("redir q: %s\n", q);
-	// printf("%d\n", cmd->type);
 	return (cmd);
 }
 
@@ -162,7 +154,7 @@ int	next(char **ps, char *toks)
 	while (s && ft_strchr(*s, " \t\r\v\n\f"))
 		s++;
 	*ps = s;
-	// is the char we stopped in at s, one of the chars we scanning for, if its true it returns true
+	// if the char we stopped in at s, one of the chars we scanning for, if its true it returns true
 	return (*s && ft_strchr(*s, toks));
 }
 
@@ -198,12 +190,10 @@ int	get_token(char **ps, char **q)
 	int		tok;
 
 	s = *ps;
-	//move s into the first non whitespace
 	while (s && ft_strchr(*s, " \t\f\n\v\r"))
 		s++;
 	if (q)
 		*q = s;
-	//collect return value
 	tok = *s;
 	if (*s == '|' || *s == '<')
 		s++;
@@ -221,7 +211,6 @@ int	get_token(char **ps, char **q)
 	else
 	{
 		tok = 'c';
-	//scan for the end of the token 
 		while (*s != '\0' && !ft_strchr(*s, " \t\f\n\v\r") && !ft_strchr(*s, "|<>"))
 			s++;
 	}

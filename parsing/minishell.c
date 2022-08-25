@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/25 03:38:47 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 23:08:24 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*ft_del_end_squotes(char *s, int q_count)
 	tail = len - 1;
 	while (tail > 0 && s[tail])
 	{
-		if ((s[tail] == '\'' && q_count % 2 != 0) && s[tail - 1] != '"')
+		if ((s[tail] == '\'' && q_count % 2 != 0) && s[tail] != '"')
 			s[tail] = 1;
 		else if ((s[tail] == '\'' || s[tail] == '"') && q_count % 2 == 0)
 			s[tail] = 1;
@@ -111,9 +111,7 @@ char	*ft_del_start_squotes(char *s)
 		q_count++;
 		s++;
 	}
-	if (*s == '"' && q_count % 2 != 0 && s)
-		s--;
-	else if (*s == '"' && q_count % 2 == 0 && s)
+	if (*s == '"' && q_count % 2 == 0 && s)
 		s++;
 	return (ft_del_end_squotes(s, q_count));
 }
@@ -126,7 +124,7 @@ char	*ft_del_end_dquotes(char *s, int q_count)
 	tail = len - 1;
 	while (tail > 0 && s[tail])
 	{
-		if ((s[tail] == '"' && q_count % 2 != 0) && s[tail - 1] != '\'')
+		if ((s[tail] == '"' && q_count % 2 != 0) && s[tail] != '\'')
 			s[tail] = 1;
 		else if ((s[tail] == '\'' || s[tail] == '"') && q_count % 2 == 0)
 			s[tail] = 1;
@@ -145,9 +143,7 @@ char	*ft_del_start_dquotes(char *s)
 		q_count++;
 		s++;
 	}
-	if (*s == '\'' && q_count % 2 != 0 && s)
-		s--;
-	else if (*s == '\'' && q_count % 2 == 0 && s)
+	if (*s == '\'' && q_count % 2 == 0 && s)
 		s++;
 	return (ft_del_end_dquotes(s, q_count));
 }

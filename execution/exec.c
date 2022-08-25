@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/24 19:40:31 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 23:00:26 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list)
 {
 	char	*cmd;
 
-	// printf("%s\n", line->argv[0]);
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);

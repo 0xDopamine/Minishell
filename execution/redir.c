@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/22 12:19:40 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 22:56:39 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 
 	ifsamefd = 1;
 	ex = (t_exec *)redir->cmd;
+	// printf("redir->file: %s\n", redir->file);
 	fd_file = open(redir->file, redir->mode, 0644);
 	if (fd_file < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/25 09:55:50 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:34:26 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	is_whitespace(char *str, char *es)
 		j = 0;
 		while (whitespaces[j])
 		{
-			// printf("%c\n", *str);
 			if (whitespaces[j] == str[i])
 				return (1);
 			j++;
@@ -62,16 +61,13 @@ t_cmd	*parseexec(char **ps)
 	int		argc;
 	t_exec	*cmd;
 	int		words;
-	// points to the tree we built so far
 	t_cmd	*ret;
 	char	**split;
 
-	//create an exec node and allocate a blank node
 	if (*ps[0] == '"')
 		words = num_words(*ps, 0);
 	else
 		words = num_words(*ps, 1);
-	// printf("words: %d\n", words);
 	ret = execcmd(words);
 	cmd = (t_exec *)ret;
 	argc = 0;
@@ -79,29 +75,24 @@ t_cmd	*parseexec(char **ps)
 	// if its not pipe it might be an option or a file name
 	while (!next(ps, "|"))
 	{
-		//dir lblan dial quotes f get token a lhmar ra dkchi 3lach kitbdl fin ki pointi q o ki pointi lrbk 3la - 
-		tok = get_token(ps, 0, &q);
+		tok = get_token(ps, &q);
 		if (tok == 0)
 			break ;
 		if (q[0] == '"' || q[0] == '\'')
 			ft_handle_quotes(&q);
-		// printf("q: %s\n", q);
 		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = null_terminate(split[0]);
-		// printf("cmd: %s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
 		ret = parseredir(ret, ps);
 	}
-	// printf("argc %d\n", argc);
 	cmd->argv[argc] = NULL;
 	return (ret);
 }
 
-//parses redirs and returns a node in the tree
 t_cmd	*parseredir(t_cmd *cmd, char **ps)
 {
 	int		tok;
@@ -109,14 +100,15 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 
 	while (next(ps, "<>"))
 	{
-		// returns the character it encounters '<' if < '+' if >> 
-		tok = get_token(ps, 0, 0);
-		if (get_token(ps, 0, &q) != 'c')
+		tok = get_token(ps, 0);
+		if (get_token(ps, &q) != 'c')
 		{
 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
 			cmd->type = 0;
 			return (cmd);
 		}
+		printf("token: %c\n", tok);
+		printf("%s\n", q);
 		if (tok == '<')
 			cmd = redircmd(cmd, q, O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
@@ -124,10 +116,9 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 		else if (tok == 'A')
 			cmd = redircmd(cmd, q, O_WRONLY | O_CREAT | O_APPEND, 1);
 	}
-	// printf("redir q: %s\n", q);
-	// printf("%d\n", cmd->type);
 	return (cmd);
 }
+
 
 t_cmd	*parsepipe(char **ps)
 {
@@ -136,7 +127,7 @@ t_cmd	*parsepipe(char **ps)
 	cmd = parseexec(ps);
 	if (next(ps, "|"))
 	{
-		get_token(ps, 0, 0);
+		get_token(ps, 0);
 		cmd = pipecmd(cmd, parsepipe(ps));
 	}
 	return (cmd);
@@ -164,7 +155,7 @@ int	next(char **ps, char *toks)
 	while (s && ft_strchr(*s, " \t\r\v\n\f"))
 		s++;
 	*ps = s;
-	// is the char we stopped in at s, one of the chars we scanning for, if its true it returns true
+	// if the char we stopped in at s, one of the chars we scanning for, if its true it returns true
 	return (*s && ft_strchr(*s, toks));
 }
 
@@ -194,31 +185,17 @@ int	is_symbol(char *str, char *es)
 	return (0);
 }
 
-int	get_token(char **ps, char **es, char **q)
+int	get_token(char **ps, char **q)
 {
 	char	*s;
 	int		tok;
 
-	(void)es;
 	s = *ps;
-	//move s into the first non whitespace
 	while (s && ft_strchr(*s, " \t\f\n\v\r"))
 		s++;
 	if (q)
 		*q = s;
-	//collect return value
 	tok = *s;
-	if (*s == '"')
-	{
-		*q = s;
-		while (*s++)
-			if (*s == '"')
-				break ;
-		s++;
-		*ps = s;
-		tok = 'c';
-		return (tok);
-	}
 	if (*s == '|' || *s == '<')
 		s++;
 	else if (*s == '>')
@@ -235,7 +212,6 @@ int	get_token(char **ps, char **es, char **q)
 	else
 	{
 		tok = 'c';
-	//scan for the end of the token 
 		while (*s != '\0' && !ft_strchr(*s, " \t\f\n\v\r") && !ft_strchr(*s, "|<>"))
 			s++;
 	}

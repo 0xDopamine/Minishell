@@ -6,11 +6,11 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:55:10 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/18 16:26:45 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 09:55:50 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "parse.h"
 
 size_t	ft_strlen(char *str)
 {

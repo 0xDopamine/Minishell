@@ -9,7 +9,7 @@ EXEC = exec.c exec_nofork.c mini_libft.c \
 		my_exit.c my_env.c my_export.c \
 		my_echo.c my_cd.c my_pwd.c my_unset.c \
 		free.c exec_utils.c my_cd_utils.c my_echo_utils.c \
-		my_export_utils.c
+		my_export_utils.c pipes_utils.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 
@@ -22,7 +22,7 @@ OBJS = $(SRC:%.c=%.o)
 #* FLAGS *#
 FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
-#* HEADER FILES *#
+#* parse FILES *#
 INCLUDE = include/
 
 #* DELETE *#

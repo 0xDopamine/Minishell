@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/24 04:28:04 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 09:55:50 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "parse.h"
 
 //returns ptr to the tree it built
 t_cmd	*parsecmd(char *s)

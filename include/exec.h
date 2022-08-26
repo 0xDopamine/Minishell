@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/22 10:40:14 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:53:36 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <string.h>
 # include <signal.h>
 # include <limits.h>
-# include "header.h"
+# include "parse.h"
 
 typedef struct s_global
 {
@@ -83,5 +83,8 @@ int		export_checkpathname(char *str);
 int		export_checkpath(char *str);
 int		exec_checkcmd(char *cmd);
 int		export_ifnotreplace(char *str, t_env *env_list);
+void	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list);
+void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list);
+void	pipes_access(t_exec *line);
 
 #endif

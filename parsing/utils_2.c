@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:54:34 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/23 03:03:54 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 09:55:50 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "parse.h"
 
 int	ft_isalpha(int c)
 {

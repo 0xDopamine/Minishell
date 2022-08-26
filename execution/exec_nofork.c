@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_nofork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/24 04:32:37 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:22:59 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,14 @@ static	void	execnofork_loop(char *cmd, char **av, char **env)
 			ft_free_doubleptr(path);
 			execve(join, av, env);
 			perror("execve");
-			break ;
 			free (join);
+			return ;
 		}
 		free(join);
 		i++;
 	}
 	ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-	// cause of seg fault
-	//ft_free_doubleptr(path);
+	ft_free_doubleptr(path);
 }
 
 void	ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
@@ -50,5 +49,5 @@ void	ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 		return ;
 	cmd = ft_strjoin("/", cmd);
 	execnofork_loop(cmd, line->argv, env);
-	return ;
+	exit(EXIT_SUCCESS);
 }

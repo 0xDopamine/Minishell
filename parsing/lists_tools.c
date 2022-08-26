@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lists_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:26:22 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/07/19 20:41:59 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/25 09:55:50 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "parse.h"
 
 int	ft_lstsize(t_list *lst)
 {

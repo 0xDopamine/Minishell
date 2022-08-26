@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/25 20:27:45 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/26 00:06:07 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 	}
 	return (cmd);
 }
+
 
 t_cmd	*parsepipe(char **ps)
 {

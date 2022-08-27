@@ -1,0 +1,32 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/abaioumy/Documents/Minishell'
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ parsing/minishell.c -o parsing/minishell.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ parsing/parser.c -o parsing/parser.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ parsing/utils.c -o parsing/utils.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ parsing/utils_2.c -o parsing/utils_2.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ parsing/utils_3.c -o parsing/utils_3.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ parsing/init_nodes.c -o parsing/init_nodes.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/exec.c -o execution/exec.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/exec_nofork.c -o execution/exec_nofork.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/mini_libft.c -o execution/mini_libft.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/path.c -o execution/path.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/list.c -o execution/list.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/redir.c -o execution/redir.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/pipes.c -o execution/pipes.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/find_builtins.c -o execution/find_builtins.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_exit.c -o execution/my_exit.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_env.c -o execution/my_env.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_export.c -o execution/my_export.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_echo.c -o execution/my_echo.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_cd.c -o execution/my_cd.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_pwd.c -o execution/my_pwd.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_unset.c -o execution/my_unset.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/free.c -o execution/free.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/exec_utils.c -o execution/exec_utils.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_cd_utils.c -o execution/my_cd_utils.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_echo_utils.c -o execution/my_echo_utils.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/my_export_utils.c -o execution/my_export_utils.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -c -I include/ execution/pipes_utils.c -o execution/pipes_utils.o
+cc -Wall -Wextra -Werror -g -fsanitize=address -I include/ -lreadline parsing/minishell.o parsing/parser.o parsing/utils.o parsing/utils_2.o parsing/utils_3.o parsing/init_nodes.o execution/exec.o execution/exec_nofork.o execution/mini_libft.o execution/path.o execution/list.o execution/redir.o execution/pipes.o execution/find_builtins.o execution/my_exit.o execution/my_env.o execution/my_export.o execution/my_echo.o execution/my_cd.o execution/my_pwd.o execution/my_unset.o execution/free.o execution/exec_utils.o execution/my_cd_utils.o execution/my_echo_utils.o execution/my_export_utils.o execution/pipes_utils.o -o minishell
+make: Leaving directory `/Users/abaioumy/Documents/Minishell'
+ 

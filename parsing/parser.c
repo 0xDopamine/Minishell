@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/26 12:34:26 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 00:56:05 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,13 @@ t_cmd	*parseexec(char **ps)
 		tok = get_token(ps, &q);
 		if (tok == 0)
 			break ;
-		if (q[0] == '"' || q[0] == '\'')
-			ft_handle_quotes(&q);
 		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
-		cmd->argv[argc] = null_terminate(split[0]);
+		if (split[0][0] == '"' || split[0][0] == '\'')
+			cmd->argv[argc] = ft_handle_quotes(split[0]);
+		else
+			cmd->argv[argc] = split[0];
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;

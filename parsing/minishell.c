@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/26 12:34:12 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 00:54:52 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,129 +65,41 @@ void	ft_check_quotes(char *s)
 	}
 }
 
-int	ft_is_quoted(char *temp)
-{
-	if (*temp == 1 && temp)
-		temp++;
-	if ((*temp == '"' || *temp == '\'') && temp)
-		temp++;
-	if (*temp == 1 && temp)
-		return (1);
-	return (0);
-}
-
-int	ft_scan_unprintable(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '1')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*null_terminate(char *q)
-{
-	int	i;
-
-	i = 0;
-	if (!q)
-		return NULL;
-	while (q[i])
-	{
-		if (q[i] == 1)
-			q[i] = '\0';
-		i++;
-			q[i] = '1';
-	}
-	return (q);
-}
-
-char	*ft_del_end_squotes(char *s, int q_count)
-{
-	int	tail;
-	int	len;
-
-	len = ft_strlen(s);
-	tail = len - 1;
-	while (tail > 0 && s[tail])
-	{
-		if ((s[tail] == '\'' && q_count % 2 != 0) && s[tail] != '"')
-			s[tail] = 1;
-		else if ((s[tail] == '\'' || s[tail] == '"') && q_count % 2 == 0)
-			s[tail] = 1;
-		tail--;
-	}
-	printf("end s quotes: %s\n", s);
-	return (s);
-}
-
-char	*ft_del_start_squotes(char *s)
-{
-	int		q_count;
-
-	q_count = 0;
-	while ((*s == '\'') && s)
-	{
-		q_count++;
-		s++;
-	}
-	if (*s == '"' && q_count % 2 == 0 && s)
-		s++;
-	printf("end d quotes: %s\n", s);
-	return (ft_del_end_squotes(s, q_count));
-}
-char	*ft_del_end_dquotes(char *s, int q_count)
-{
-	int	tail;
-	int	len;
-
-	len = ft_strlen(s);
-	tail = len - 1;
-	while (tail >= 0 && s[tail])
-	{
-		if ((s[tail] == '"' && q_count % 2 != 0) && s[tail] != '\'')
-			s[tail] = '1';
-		else if ((s[tail] == '\'' || s[tail] == '"') && q_count % 2 == 0)
-			s[tail] = '1';
-		tail--;
-	}
-	printf("end: %s\n", s);
-	return (s);
-}
-
-char	*ft_del_start_dquotes(char *s)
-{
-	int		q_count;
-
-	q_count = 0;
-	while ((*s == '"') && s)
-	{
-		q_count++;
-		*s = 1;
-		s++;
-	}
-	if (*s == '\'' && q_count % 2 == 0 && s)
-		s++;
-	printf("start: %s\n", s);
-	return (ft_del_end_dquotes(s, q_count));
-}
-
-void	ft_handle_quotes(char **q)
+char	*ft_handle_quotes(char *q)
 {
 	char	*s;
+	char	*res;
+	char	*temp;
+	int		i;
 
-	s = *q;
+	s = q;
+	res = malloc(sizeof(char) * 10000000000);
+	res[0] = 0;
+	i = 0;
 	ft_check_quotes(s);
-	if (*s == '"')
-		*q = ft_del_start_dquotes(s);
-	else if (*s == '\'')
-		*q = ft_del_start_squotes(s);
-	printf("handling: %s\n", s);
+	while (s && ft_strchr(*s, "\"\'"))
+	{
+		temp = s + 1;
+		if (*temp != *s)
+		{
+			while (*temp != *s && *temp)
+			{
+				res[i] = *temp;
+				i++;
+				temp++;
+				if (*temp == *s)
+					break ;
+			}
+			res[i] = '\0';
+			if (*temp != 0)
+				s = temp;
+			else
+				break ;
+		}
+		else
+			s++;
+	}
+	return(res);
 }
 
 void	ft_sig_handler(int sig)

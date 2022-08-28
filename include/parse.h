@@ -86,7 +86,7 @@ char	*handle_spaces(char *line);
 int		check(char before, char after);
 char	*add_spaces(char *line, int count);
 void	rl_replace_line(const char *str, int mod);
-void	ft_handle_quotes(char **q);
+char	*ft_handle_quotes(char *q);
 char	*null_terminate(char *q);
 
 #endif

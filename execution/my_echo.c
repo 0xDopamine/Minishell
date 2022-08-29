@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 08:38:34 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:13:48 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	ft_echo(t_exec *line, t_env *env_list)
 
 	i = 1;
 	ifnl = 0;
+	(void)env_list;
 	// if (echo_case1(line->argv[1]))
 	// 	return (1);
 	while (echo_check_nl(line->argv[i]))
@@ -71,8 +72,8 @@ int	ft_echo(t_exec *line, t_env *env_list)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	if (echo_path(line->argv, i, env_list, ifnl))
-		return (1);
+	// if (echo_path(line->argv, i, env_list, ifnl))
+	// 	return (1);
 	if (ifnl)
 		echo_ifnewline(line, i, ifnl);
 	else

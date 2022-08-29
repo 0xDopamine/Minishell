@@ -18,29 +18,34 @@ READLINE_PATH =  -lreadline -L ~/goinfre/homebrew/opt/readline/lib -I ~/goinfre/
 #comment it if you have an error compiling it
 #* OBJECT FILES *#
 OBJS = $(SRC:%.c=%.o)
+PARSING_OBJ = $(addprefix objs/parsing/, $(PARSING:%.c=%.o))
+EXEC_OBJ = $(addprefix objs/execution/, $(EXEC:%.c=%.o))
 
 #* FLAGS *#
 FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 #* parse FILES *#
 INCLUDE = include/
+INCLUDEOBJS = include/
 
 #* DELETE *#
 DEL = rm -f
 
-all: $(TARGET)
 
-%.o: %.c
+all: $(TARGET)
+	
+
+objs/%.o: %.c
 	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
 
-$(TARGET): $(OBJS) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJS) -o $(TARGET)
+$(TARGET): $(OBJF) $(INCLUDE)
+	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJF) -o $(TARGET)
 #$(CC) $(CFLAGS) $(SRCS) -w -DMEMWATCH -DMW_STDIO memwatch-2.71/memwatch.c  -o push_swap && rm -rf memwatch.log
 
 re: fclean all
 
 clean:
-	$(DEL) $(OBJS)
+	$(DEL) $(PARSING_OBJ) $(EXEC_OBJ)
 
 fclean:	clean
 	$(DEL) $(TARGET)

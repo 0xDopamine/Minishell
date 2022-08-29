@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:18:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 08:38:34 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	ft_echo(t_exec *line, t_env *env_list)
 
 	i = 1;
 	ifnl = 0;
-	if (echo_case1(line->argv[1]))
-		return (1);
+	// if (echo_case1(line->argv[1]))
+	// 	return (1);
 	while (echo_check_nl(line->argv[i]))
 	{
 		ifnl = 1;

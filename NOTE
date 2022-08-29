@@ -14,4 +14,8 @@ i had to do dik rwina to fix wahd lblan m3a lheader hta n3wd lik
 // check_quotes seg faults at this test: echo '"'"'"'"'ana      'ss"'"'"'"' fgdfg
 ill fix it tomorrow
 
-// handle quotes breaks too in some tests, i know what the issue is, will be fixed tomorrow
+// ft_handle_quotes breaks too in some tests, i know what the issue is, will be fixed tomorrow
+echo '"'hi"wheoq""@'"
+echo '"'"'"'"'ana      'ss"'"'"'"' fgdfg
+echo "'"hello"''"'"'hi"wheoq""@'"
+

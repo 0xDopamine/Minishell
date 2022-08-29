@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 06:05:06 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:35:29 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 		while (s && ft_strchr(*s, "\"\'"))
 		{
 			temp = s + 1;
-			// printf("i : %d\ntemp: %s\ns: %s\n", i, temp, s);
+			printf("i : %d\ntemp: %s\ns: %s\n", i, temp, s);
 			if (*temp != *s)
 			{
 				while (*temp != *s && *temp)
@@ -93,7 +93,7 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 					temp++;
 				}
 				res[i] = '\0';
-				// printf("res: %s\n", res);
+				printf("res: %s\n", res);
 				if (*temp != 0)
 					s = temp;
 				else

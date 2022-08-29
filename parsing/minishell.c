@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 22:21:08 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:35:33 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,20 @@ char	*ft_string_examiner(char *s, t_env_p *env_list)
 	i = 0;
 	temp = s;
 	res = NULL;
+	// printf("inside func: %s\n", s);
 	while (temp[i])
 	{
 		if (ft_strchr(temp[i], "\"\'"))
+		{	
 			res = ft_strdup(ft_handle_quotes(temp, env_list));
+			break ;
+		}
 		else if (temp[i] == '$')
+		{
 			res = ft_assign_env(temp + i, env_list);
+			break ;
+		}
+		// printf("res = %s\n", res);
 		i++;
 	}
 	if (!res)
@@ -59,7 +67,7 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 			return (env_list->path);
 		env_list = env_list->next;
 	}
-	*s = '\0';
+	*s = '\n';
 	return (s);
 }
 
@@ -118,7 +126,7 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 				res[i] = '\0';
 				// printf("res: %s\n", res);
 				// printf("AFTER APPEND\ntemp: %s\ns: %s\n", temp, s);
-				if (res[0] == '$')
+				if (res[0] == '$' && *s == '"')
 					res = ft_assign_env(res + 1, env_list);
 				if (res[0] == '\0')
 					i = 0;

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 00:54:52 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:05:06 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,56 +16,57 @@
 
 t_global g = { 0 };
 
-int	ft_check_quotes_start(char *s)
-{
-	int	q_count;
 
-	q_count = 0;
-	if (*s == '"' || *s == '\'')
+// void	ft_assign_env(char *s, t_env_p *env_list)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	printf("string %s\n", s);
+// 	while (s[i])
+// 	{
+// 		if (s[i] == '$')
+// 		{
+// 			printf("here %s\n", s + i + 1);
+// 			return (ft_assign_env(s + i + 1, env_list));
+// 		}	
+// 		i++;
+// 	}
+// 	while (env_list->next != NULL)
+// 	{
+// 		if (ft_strncmp(s, env_list->name, ft_strlen(s)) == 0)
+// 			return ;
+// 		env_list = env_list->next;
+// 	}
+// }
+
+int	ft_check_quotes(char *s)
+{
+	int		i;
+	int		j;
+	char	q;
+
+	i = 0;
+	while (s[i])
 	{
-		while ((*s == '"' || *s == '\'') && s)
+		if (ft_strchr(s[i], "\"\'") && s[i + 1] != '\0')
 		{
-			q_count++;
-			s++;
+			j = i + 1;
+			q = s[i];
+			while (s[j] != q && s)
+				j++;
+			if (s[j] == '\0')
+			{
+				perror("quotes error");
+				return (258);
+			}	
 		}
+		i++;
 	}
-	return (q_count);
+	return (1);
 }
 
-int	ft_check_quotes_end(char *s)
-{
-	int	q_count;
-	int	len;
-
-	q_count = 0;
-	len = ft_strlen(s) - 1;
-	if (s[len] == '"' || s[len] == '\'')
-	{
-		while ((s[len] == '"' || s[len] == '\'') && len >= 0)
-		{
-			q_count++;
-			len--;
-		}
-	}
-	return (q_count);
-}
-
-void	ft_check_quotes(char *s)
-{
-	int	q_count_front;
-	int	q_count_back;
-
-	q_count_front = ft_check_quotes_start(s);
-	q_count_back = ft_check_quotes_end(s);
-	if ((q_count_front > q_count_back)
-		|| (q_count_front < q_count_back))	
-	{
-		perror("quotes error");
-		//idk which exit code this should have but ill ask around
-	}
-}
-
-char	*ft_handle_quotes(char *q)
+char	*ft_handle_quotes(char *q, t_env_p *env_list)
 {
 	char	*s;
 	char	*res;
@@ -73,32 +74,37 @@ char	*ft_handle_quotes(char *q)
 	int		i;
 
 	s = q;
+	(void)env_list;
 	res = malloc(sizeof(char) * 10000000000);
 	res[0] = 0;
 	i = 0;
-	ft_check_quotes(s);
-	while (s && ft_strchr(*s, "\"\'"))
-	{
-		temp = s + 1;
-		if (*temp != *s)
+	// if (ft_check_quotes(s))
+	// {	
+		while (s && ft_strchr(*s, "\"\'"))
 		{
-			while (*temp != *s && *temp)
+			temp = s + 1;
+			// printf("i : %d\ntemp: %s\ns: %s\n", i, temp, s);
+			if (*temp != *s)
 			{
-				res[i] = *temp;
-				i++;
-				temp++;
-				if (*temp == *s)
+				while (*temp != *s && *temp)
+				{
+					res[i] = *temp;
+					i++;
+					temp++;
+				}
+				res[i] = '\0';
+				// printf("res: %s\n", res);
+				if (*temp != 0)
+					s = temp;
+				else
 					break ;
 			}
-			res[i] = '\0';
-			if (*temp != 0)
-				s = temp;
 			else
-				break ;
-		}
-		else
-			s++;
-	}
+				s++;
+		}	
+	// }
+	// else
+	// 	return (res);
 	return(res);
 }
 
@@ -127,12 +133,14 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	t_cmd	*simpleCommand;
 	t_env 	*env_list;
+	t_env_p	*env_list_p;
 
 	line = NULL;
 	(void)argc;
 	(void)argv;
 	simpleCommand = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
+	env_list_p = (t_env_p *)env_list;
 	printf("Two brothers minishell\n");
 	//don't use CTRL -C signal now
 	signal(SIGINT, ft_sig_handler);
@@ -147,8 +155,8 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (*line)
 			add_history(line);
-		// line = ft_strdup(spaces(line));
-		simpleCommand = parsepipe(&line);
+		line = ft_strdup(spaces(line));
+		simpleCommand = parsepipe(&line, env_list_p);
 		ft_check_cmd(simpleCommand, env, &env_list);
 		// system("leaks minishell");
 		// demo(line);

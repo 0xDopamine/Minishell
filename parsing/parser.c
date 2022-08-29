@@ -6,12 +6,12 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 00:56:05 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 03:50:34 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
 #include "exec.h"
+#include "parse.h"
 #include <unistd.h>
 
 int	num_words(char *str, int quote_flag)
@@ -54,7 +54,7 @@ int	is_whitespace(char *str, char *es)
 	return (0);
 }
 
-t_cmd	*parseexec(char **ps)
+t_cmd	*parseexec(char **ps, t_env_p *env_list)
 {
 	char	*q;
 	int		tok;
@@ -82,7 +82,7 @@ t_cmd	*parseexec(char **ps)
 		if (tok != 'c')
 			printf("syntax error\n");
 		if (split[0][0] == '"' || split[0][0] == '\'')
-			cmd->argv[argc] = ft_handle_quotes(split[0]);
+			cmd->argv[argc] = ft_handle_quotes(split[0], env_list);
 		else
 			cmd->argv[argc] = split[0];
 		argc++;
@@ -121,15 +121,15 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 }
 
 
-t_cmd	*parsepipe(char **ps)
+t_cmd	*parsepipe(char **ps, t_env_p *env_list)
 {
 	t_cmd	*cmd;
 
-	cmd = parseexec(ps);
+	cmd = parseexec(ps, env_list);
 	if (next(ps, "|"))
 	{
 		get_token(ps, 0);
-		cmd = pipecmd(cmd, parsepipe(ps));
+		cmd = pipecmd(cmd, parsepipe(ps, env_list));
 	}
 	return (cmd);
 }

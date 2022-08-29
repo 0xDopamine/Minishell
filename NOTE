@@ -1,0 +1,17 @@
+smit l function echo find env nta dir bhal had l function 
+but just o check watch env name kayn 
+ila kan seft lia env_list->name
+ila makanch print new line testi echo d bash o chof
+
+
+UPDATE 
+
+You already assign env variables inside ft_echo, ghir heyedha,
+i handled them f commented function f minishell.c
+btw dont worry about env_list f lmain, 
+i had to do dik rwina to fix wahd lblan m3a lheader hta n3wd lik
+
+// check_quotes seg faults at this test: echo '"'"'"'"'ana      'ss"'"'"'"' fgdfg
+ill fix it tomorrow
+
+// handle quotes breaks too in some tests, i know what the issue is, will be fixed tomorrow

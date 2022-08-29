@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/25 11:53:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 02:15:55 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_envcmp(char *s1, char *s2);
 void	ft_redirect(t_redir *redir, char **env, t_env **env_list);
 void	ft_exec_mybuiltin(t_exec *line, char **env);
 int		ft_ifmybuiltin(char *cmd, char **mybuiltins,
-			t_exec *line, t_env **env_list);
+t_exec *line, t_env **env_list);
 int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
 int		ft_export(t_env **env, t_exec *line);
 void	ft_pipes(t_pipe *pipes, char **env, t_env **env_list);

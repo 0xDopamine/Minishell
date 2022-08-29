@@ -48,6 +48,13 @@ typedef struct s_exec {
 	char	**argv;
 }	t_exec ;
 
+typedef struct s_env_p
+{
+	char			*name;
+	char			*path;
+	struct s_env_p	*next;
+}				t_env_p;
+
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc (size_t count, size_t size);
 char	**ft_split(char *s, char c);
@@ -72,9 +79,9 @@ t_cmd   *execcmd(int words);
 t_cmd   *redircmd(t_cmd *cmd, char *q, int mode, int fd);
 t_cmd	*pipecmd(t_cmd *left, t_cmd *right);
 int		is_symbol(char *str, char *es);
-t_cmd	*parseexec(char **ps);
+t_cmd	*parseexec(char **ps, t_env_p *env_list);
 t_cmd	*parseredir(t_cmd *cmd, char **ps);
-t_cmd	*parsepipe(char **ps);
+t_cmd	*parsepipe(char **ps, t_env_p *env_list);
 t_cmd	*parsecmd(char *s);
 int		next(char **ps, char *toks);
 int		wdcount_q(char *s, char c);
@@ -86,7 +93,7 @@ char	*handle_spaces(char *line);
 int		check(char before, char after);
 char	*add_spaces(char *line, int count);
 void	rl_replace_line(const char *str, int mod);
-char	*ft_handle_quotes(char *q);
+char	*ft_handle_quotes(char *q, t_env_p *env_list);
 char	*null_terminate(char *q);
 
 #endif

@@ -19,3 +19,12 @@ echo '"'hi"wheoq""@'"
 echo '"'"'"'"'ana      'ss"'"'"'"' fgdfg
 echo "'"hello"''"'"'hi"wheoq""@'"
 
+
+echo '$HOME'   should print $HOME
+echo "$HOME"   should print /Users/mbaioumy
+echo $HO"ME"   should print  ME
+echo $"HOME"    should print HOME
+echo "'$HOME'"	should print /Users/mbaioumy
+echo '"$HOME"'	should print "$HOME"	
+
+wcb@fA64-xyz

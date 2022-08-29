@@ -40,7 +40,6 @@ objs/%.o: %.c
 
 $(TARGET): $(OBJF) $(INCLUDE)
 	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJF) -o $(TARGET)
-#$(CC) $(CFLAGS) $(SRCS) -w -DMEMWATCH -DMW_STDIO memwatch-2.71/memwatch.c  -o push_swap && rm -rf memwatch.log
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 22:35:33 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:57:33 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 				// printf("AFTER APPEND\ntemp: %s\ns: %s\n", temp, s);
 				if (res[0] == '$' && *s == '"')
 					res = ft_assign_env(res + 1, env_list);
-				if (res[0] == '\0')
+				if (res[0] == '\n')
 					i = 0;
 				if (*temp != '\0')
 					s = temp;

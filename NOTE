@@ -27,4 +27,9 @@ echo $"HOME"    should print HOME
 echo "'$HOME'"	should print /Users/mbaioumy
 echo '"$HOME"'	should print "$HOME"	
 
-wcb@fA64-xyz
+UPDATE
+
+added ft_string_examiner to handle everything from quotes to $ inside parseexec
+you can comment it and work with the commented lines
+
+

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:15:55 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:21:15 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_env
 size_t	ft_strlen(char *str);
 void	ft_exec(t_exec *line, char **env, t_env **env_list);
 char	**ft_find_path(void);
+int		ft_strcmp(char *s1, char *s2);
 void	ft_get_env(char **env, t_env **env_list);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstnew(char *path, char *name);
@@ -86,5 +87,4 @@ int		export_ifnotreplace(char *str, t_env *env_list);
 void	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_access(t_exec *line);
-
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 19:31:20 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/29 22:21:08 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,27 @@
 
 t_global g = { 0 };
 
+char	*ft_string_examiner(char *s, t_env_p *env_list)
+{
+	int		i;
+	char	*temp;
+	char	*res;
+
+	i = 0;
+	temp = s;
+	res = NULL;
+	while (temp[i])
+	{
+		if (ft_strchr(temp[i], "\"\'"))
+			res = ft_strdup(ft_handle_quotes(temp, env_list));
+		else if (temp[i] == '$')
+			res = ft_assign_env(temp + i, env_list);
+		i++;
+	}
+	if (!res)
+		return (s);
+	return (res);
+}
 
 char	*ft_assign_env(char *s, t_env_p *env_list)
 {
@@ -34,10 +55,11 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 	// }
 	while (env_list->next != NULL)
 	{
-		if (ft_strncmp(s, env_list->name, ft_strlen(s)) == 0)
+		if (ft_strcmp(s, env_list->name) == 0)
 			return (env_list->path);
 		env_list = env_list->next;
 	}
+	*s = '\0';
 	return (s);
 }
 
@@ -84,7 +106,7 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 		while (s && ft_strchr(*s, "\"\'"))
 		{
 			temp = s + 1;
-			// printf("i : %d\ntemp: %s\ns: %s\n", i, temp, s);
+			// printf("START\ntemp: %s\ns: %s\n", temp, s);
 			if (*temp != '\0' && *temp != *s)
 			{
 				while (*temp != *s && *temp)
@@ -94,11 +116,13 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 					temp++;
 				}
 				res[i] = '\0';
+				// printf("res: %s\n", res);
+				// printf("AFTER APPEND\ntemp: %s\ns: %s\n", temp, s);
 				if (res[0] == '$')
 					res = ft_assign_env(res + 1, env_list);
-				printf("res: %s\n", res);
-				printf("i : %d\ntemp: %s\ns: %s\n", i, temp, s);
-				if (*temp != 0)
+				if (res[0] == '\0')
+					i = 0;
+				if (*temp != '\0')
 					s = temp;
 				else
 					break ;

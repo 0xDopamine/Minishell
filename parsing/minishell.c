@@ -6,11 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/08/29 19:19:07 by abaioumy         ###   ########.fr       */
-=======
-/*   Updated: 2022/08/29 22:57:33 by mbaioumy         ###   ########.fr       */
->>>>>>> b796d90e9a721513f1dd463953ff9b64c7c11309
+/*   Updated: 2022/08/30 17:15:25 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +105,18 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 	int		i;
 
 	s = q;
-	(void)env_list;
 	res = malloc(sizeof(char) * 10000000000);
 	res[0] = 0;
 	i = 0;
-	// if (ft_check_quotes(s))
-	// {	
-		while (s && ft_strchr(*s, "\"\'"))
+	while (s)
+	{	
+		if (*s && ft_strchr(*s, "\"\'"))
 		{
 			temp = s + 1;
-			// printf("START\ntemp: %s\ns: %s\n", temp, s);
+			// printf("START\ns: %s\ntemp: %s\n", s, temp);
 			if (*temp != '\0' && *temp != *s)
 			{
-				while (*temp != *s && *temp)
+				while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
 				{
 					res[i] = *temp;
 					i++;
@@ -135,16 +130,29 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 				if (res[0] == '\n')
 					i = 0;
 				if (*temp != '\0')
-					s = temp;
+					s = temp + 1;
 				else
 					break ;
 			}
+		}
+		else if (!ft_strchr(*s, "\"\'"))
+		{
+			temp = s;
+			while (!ft_strchr(*temp, "\'\"") && *temp)
+			{
+					res[i] = *temp;
+					i++;
+					temp++;
+			}
+			res[i] = '\0';
+			if (*temp != '\0')
+					s = temp;
 			else
-				s++;
-		}	
-	// }
-	// else
-	// 	return (res);
+				break ;
+		}
+		else
+			s++;	
+	}
 	return(res);
 }
 

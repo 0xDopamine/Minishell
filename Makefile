@@ -31,11 +31,11 @@ DEL = rm -f
 all: $(TARGET)
 	
 
-objs/%.o: %.c
+%.o: %.c
 	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
 
-$(TARGET): $(OBJF) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJF) -o $(TARGET)
+$(TARGET): $(OBJS) $(INCLUDE)
+	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJS) -o $(TARGET)
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:49:02 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:18:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:11:53 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_ifmybuiltin_up(char *cmd, char **mybuiltins,
 	t_exec *line, t_env **env_list)
 {
 	if (!strncmp(cmd, mybuiltins[0], ft_strlen(mybuiltins[0])))
-		return (ft_echo(line, *env_list));
+		return (ft_echo(line));
 	else if (!strncmp(cmd, mybuiltins[1], ft_strlen(mybuiltins[1])))
 		return (ft_pwd());
 	else if (!ft_strncmp(cmd, mybuiltins[2], ft_strlen(mybuiltins[2])))
@@ -49,7 +49,7 @@ int	ft_ifmybuiltin(char *cmd, char **mybuiltins,
 	t_exec *line, t_env **env_list)
 {
 	if (!strncmp(cmd, mybuiltins[0], ft_strlen(mybuiltins[0])))
-		return (ft_echo(line, *env_list));
+		return (ft_echo(line));
 	else if (!ft_strncmp(cmd, mybuiltins[1], ft_strlen(mybuiltins[1])))
 		return (ft_cd(line, env_list));
 	else if (!strncmp(cmd, mybuiltins[2], ft_strlen(mybuiltins[2])))

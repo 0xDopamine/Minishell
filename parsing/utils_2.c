@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:54:34 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 19:19:07 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:40:08 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	wdlen_q(char *s, char c)
 				len++;
 				i++;
 			}
+			if (s[i] == '\0')
+				return (len);
 			len++;
 		}
 		else
@@ -113,6 +115,8 @@ int	wdcount_q(char *s, char c)
 
 	i = 0;
 	count = 0;
+	if (ft_strchr(s[i], "\'\"") && s[i + 1] == '\0')
+		return (1);
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')

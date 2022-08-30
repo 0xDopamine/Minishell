@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 19:45:10 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:35:18 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 	return (s);
 }
 
-void	ft_check_quotes(char *s)
+int	ft_check_quotes(char *s)
 {
 	int		i;
 	int		j;
@@ -82,20 +82,21 @@ void	ft_check_quotes(char *s)
 		if (ft_strchr(s[i], "\'\""))
 		{
 			j = i + 1;
-			while (s[j] != s[i] && s[j])
-				j++;
+			if (!ft_strchr(s[j], "\'\""))
+				while (s[j] != s[i] && s[j])
+					j++;
+			else
+				i++;
 		}
-		if (s[j + 1])
-			i;
 		else
 		{
 			perror("Quotes error");
 			g.exit_status  = 256;
-			return ;
+			return (0);
 		}
 		i++;
 	}
-	return ;
+	return (1);
 }
 
 char	*ft_handle_quotes(char *q, t_env_p *env_list)
@@ -109,43 +110,47 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 	res = malloc(sizeof(char) * 10000000000);
 	res[0] = 0;
 	i = 0;
-	// ft_check_quotes(s);
-	while (s)
-	{	
-		if (*s && ft_strchr(*s, "\"\'"))
-		{
-			temp = s + 1;
-			if (*temp != '\0' && *temp != *s)
+	if (ft_check_quotes(s))
+	{
+		while (s)
+		{	
+			if (*s && ft_strchr(*s, "\"\'"))
 			{
-				while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
-					res[i++] = *temp++;
+				temp = s + 1;
+				if (*temp != '\0' && *temp != *s)
+				{
+					while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
+						res[i++] = *temp++;
+					res[i] = '\0';
+					if (res[0] == '$' && *s == '"')
+						res = ft_assign_env(res + 1, env_list);
+					if (res[0] == '\n')
+						i = 0;
+					if (*temp != '\0')
+						s = temp + 1;
+					else
+						return (res);
+				}
+				else
+					s++;
+			}
+			else if (!ft_strchr(*s, "\"\'"))
+			{
+				temp = s;
+				while (!ft_strchr(*temp, "\'\"") && *temp)
+						res[i++] = *temp++;
 				res[i] = '\0';
-				if (res[0] == '$' && *s == '"')
-					res = ft_assign_env(res + 1, env_list);
-				if (res[0] == '\n')
-					i = 0;
 				if (*temp != '\0')
-					s = temp + 1;
+						s = temp;
 				else
 					return (res);
 			}
 			else
-				s++;
+				s++;	
 		}
-		else if (!ft_strchr(*s, "\"\'"))
-		{
-			temp = s;
-			while (!ft_strchr(*temp, "\'\"") && *temp)
-					res[i++] = *temp++;
-			res[i] = '\0';
-			if (*temp != '\0')
-					s = temp;
-			else
-				return (res);
-		}
-		else
-			s++;	
 	}
+	else
+		return (NULL);
 	return(res);
 }
 

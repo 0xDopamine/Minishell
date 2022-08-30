@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 17:25:18 by mbaioumy          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/08/29 19:19:07 by abaioumy         ###   ########.fr       */
+=======
+/*   Updated: 2022/08/29 20:20:27 by mbaioumy         ###   ########.fr       */
+>>>>>>> b796d90e9a721513f1dd463953ff9b64c7c11309
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +37,21 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	if (n == 0)
 		return (0);
 	while (s1[i] && s2[i] && i < n - 1)
+	{
+		if (s1[i] == s2[i])
+			i++;
+		else
+			break ;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
 	{
 		if (s1[i] == s2[i])
 			i++;

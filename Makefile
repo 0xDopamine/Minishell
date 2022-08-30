@@ -18,8 +18,6 @@ READLINE_PATH =  -lreadline -L ~/goinfre/homebrew/opt/readline/lib -I ~/goinfre/
 #comment it if you have an error compiling it
 #* OBJECT FILES *#
 OBJS = $(SRC:%.c=%.o)
-PARSING_OBJ = $(addprefix objs/parsing/, $(PARSING:%.c=%.o))
-EXEC_OBJ = $(addprefix objs/execution/, $(EXEC:%.c=%.o))
 
 #* FLAGS *#
 FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
@@ -30,19 +28,19 @@ INCLUDE = include/
 #* DELETE *#
 DEL = rm -f
 
-
 all: $(TARGET)
 	
-$(TARGET): $(OBJS) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJS) -o $(TARGET)
 
-%.o: %.c
+objs/%.o: %.c
 	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
+
+$(TARGET): $(OBJF) $(INCLUDE)
+	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJF) -o $(TARGET)
 
 re: fclean all
 
 clean:
-	$(DEL) $(PARSING_OBJ) $(EXEC_OBJ)
+	$(DEL) $(OBJS)
 
 fclean:	clean
 	$(DEL) $(TARGET)

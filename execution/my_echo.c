@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 14:54:43 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:17:56 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	ft_echo(t_exec *line)
 
 	i = 1;
 	ifnl = 0;
+	(void)env_list;
 	// if (echo_case1(line->argv[1]))
 	// 	return (1);
 	while (echo_check_nl(line->argv[i]))

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/08/29 19:19:07 by abaioumy         ###   ########.fr       */
+=======
+/*   Updated: 2022/08/29 22:57:33 by mbaioumy         ###   ########.fr       */
+>>>>>>> b796d90e9a721513f1dd463953ff9b64c7c11309
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +20,60 @@
 
 t_global g = { 0 };
 
+char	*ft_string_examiner(char *s, t_env_p *env_list)
+{
+	int		i;
+	char	*temp;
+	char	*res;
 
-// void	ft_assign_env(char *s, t_env_p *env_list)
-// {
-// 	int	i;
+	i = 0;
+	temp = s;
+	res = NULL;
+	// printf("inside func: %s\n", s);
+	while (temp[i])
+	{
+		if (ft_strchr(temp[i], "\"\'"))
+		{	
+			res = ft_strdup(ft_handle_quotes(temp, env_list));
+			break ;
+		}
+		else if (temp[i] == '$')
+		{
+			res = ft_assign_env(temp + i, env_list);
+			break ;
+		}
+		// printf("res = %s\n", res);
+		i++;
+	}
+	if (!res)
+		return (s);
+	return (res);
+}
 
-// 	i = 0;
-// 	printf("string %s\n", s);
-// 	while (s[i])
-// 	{
-// 		if (s[i] == '$')
-// 		{
-// 			printf("here %s\n", s + i + 1);
-// 			return (ft_assign_env(s + i + 1, env_list));
-// 		}	
-// 		i++;
-// 	}
-// 	while (env_list->next != NULL)
-// 	{
-// 		if (ft_strncmp(s, env_list->name, ft_strlen(s)) == 0)
-// 			return ;
-// 		env_list = env_list->next;
-// 	}
-// }
+char	*ft_assign_env(char *s, t_env_p *env_list)
+{
+	int	i;
+
+	i = 0;
+	// printf("string %s\n", s);
+	// while (s[i])
+	// {
+	// 	if (s[i] == '$')
+	// 	{
+	// 		printf("here %s\n", s + i + 1);
+	// 		return (ft_assign_env(s + i + 1, env_list));
+	// 	}	
+	// 	i++;
+	// }
+	while (env_list->next != NULL)
+	{
+		if (ft_strcmp(s, env_list->name) == 0)
+			return (env_list->path);
+		env_list = env_list->next;
+	}
+	*s = '\n';
+	return (s);
+}
 
 int	ft_check_quotes(char *s)
 {
@@ -83,8 +118,8 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 		while (s && ft_strchr(*s, "\"\'"))
 		{
 			temp = s + 1;
-			printf("i : %d\ntemp: %s\ns: %s\n", i, temp, s);
-			if (*temp != *s)
+			// printf("START\ntemp: %s\ns: %s\n", temp, s);
+			if (*temp != '\0' && *temp != *s)
 			{
 				while (*temp != *s && *temp)
 				{
@@ -93,8 +128,13 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 					temp++;
 				}
 				res[i] = '\0';
-				printf("res: %s\n", res);
-				if (*temp != 0)
+				// printf("res: %s\n", res);
+				// printf("AFTER APPEND\ntemp: %s\ns: %s\n", temp, s);
+				if (res[0] == '$' && *s == '"')
+					res = ft_assign_env(res + 1, env_list);
+				if (res[0] == '\n')
+					i = 0;
+				if (*temp != '\0')
 					s = temp;
 				else
 					break ;

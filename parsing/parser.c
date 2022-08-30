@@ -6,7 +6,11 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/08/29 19:19:07 by abaioumy         ###   ########.fr       */
+=======
+/*   Updated: 2022/08/29 22:39:39 by mbaioumy         ###   ########.fr       */
+>>>>>>> b796d90e9a721513f1dd463953ff9b64c7c11309
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +85,16 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
-		if (split[0][0] == '"' || split[0][0] == '\'')
-			cmd->argv[argc] = ft_handle_quotes(split[0], env_list);
-		else
-			cmd->argv[argc] = split[0];
+		// if this breaks comment it
+		cmd->argv[argc] = ft_string_examiner(split[0], env_list);
+		// and uncomment this
+		// if (split[0][0] == '"' || split[0][0] == '\'')
+		// 	cmd->argv[argc] = ft_handle_quotes(split[0], env_list);
+		// else if (split[0][0] == '$')
+		// 	cmd->argv[argc] = ft_assign_env(*split + 1, env_list);
+		// else
+			// cmd->argv[argc] = split[0];
+		printf("cmd->>>%s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;

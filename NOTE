@@ -33,3 +33,8 @@ added ft_string_examiner to handle everything from quotes to $ inside parseexec
 you can comment it and work with the commented lines
 
 
+
+ECHO TESTS 
+
+echo a"bc"d	
+

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 17:15:25 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:45:10 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,31 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 	return (s);
 }
 
-int	ft_check_quotes(char *s)
+void	ft_check_quotes(char *s)
 {
 	int		i;
 	int		j;
-	char	q;
 
 	i = 0;
 	while (s[i])
 	{
-		if (ft_strchr(s[i], "\"\'") && s[i + 1] != '\0')
+		if (ft_strchr(s[i], "\'\""))
 		{
 			j = i + 1;
-			q = s[i];
-			while (s[j] != q && s)
+			while (s[j] != s[i] && s[j])
 				j++;
-			if (s[j] == '\0')
-			{
-				perror("quotes error");
-				return (258);
-			}	
+		}
+		if (s[j + 1])
+			i;
+		else
+		{
+			perror("Quotes error");
+			g.exit_status  = 256;
+			return ;
 		}
 		i++;
 	}
-	return (1);
+	return ;
 }
 
 char	*ft_handle_quotes(char *q, t_env_p *env_list)
@@ -108,23 +109,17 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 	res = malloc(sizeof(char) * 10000000000);
 	res[0] = 0;
 	i = 0;
+	// ft_check_quotes(s);
 	while (s)
 	{	
 		if (*s && ft_strchr(*s, "\"\'"))
 		{
 			temp = s + 1;
-			// printf("START\ns: %s\ntemp: %s\n", s, temp);
 			if (*temp != '\0' && *temp != *s)
 			{
 				while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
-				{
-					res[i] = *temp;
-					i++;
-					temp++;
-				}
+					res[i++] = *temp++;
 				res[i] = '\0';
-				// printf("res: %s\n", res);
-				// printf("AFTER APPEND\ntemp: %s\ns: %s\n", temp, s);
 				if (res[0] == '$' && *s == '"')
 					res = ft_assign_env(res + 1, env_list);
 				if (res[0] == '\n')
@@ -132,23 +127,21 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 				if (*temp != '\0')
 					s = temp + 1;
 				else
-					break ;
+					return (res);
 			}
+			else
+				s++;
 		}
 		else if (!ft_strchr(*s, "\"\'"))
 		{
 			temp = s;
 			while (!ft_strchr(*temp, "\'\"") && *temp)
-			{
-					res[i] = *temp;
-					i++;
-					temp++;
-			}
+					res[i++] = *temp++;
 			res[i] = '\0';
 			if (*temp != '\0')
 					s = temp;
 			else
-				break ;
+				return (res);
 		}
 		else
 			s++;	

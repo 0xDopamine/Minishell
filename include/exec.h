@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:15:55 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:56:26 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_env	*ft_lstlast(t_env *lst);
 void	ft_lstdelone(t_env *lst, void (*del)(char*));
 void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list);
 int		ft_cd(t_exec *line, t_env **env_list);
-int		ft_echo(t_exec *line, t_env *env_list);
+int		ft_echo(t_exec *line);
 int		ft_unset(t_env **env, t_exec *line);
 int		ft_pwd(void);
 int		ft_envcmp(char *s1, char *s2);

@@ -26,7 +26,6 @@ FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 #* parse FILES *#
 INCLUDE = include/
-INCLUDEOBJS = include/
 
 #* DELETE *#
 DEL = rm -f
@@ -34,12 +33,11 @@ DEL = rm -f
 
 all: $(TARGET)
 	
+$(TARGET): $(OBJS) $(INCLUDE)
+	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJS) -o $(TARGET)
 
-objs/%.o: %.c
+%.o: %.c
 	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
-
-$(TARGET): $(OBJF) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJF) -o $(TARGET)
 
 re: fclean all
 

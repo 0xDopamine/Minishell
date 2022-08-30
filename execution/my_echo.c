@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 08:38:34 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:54:43 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	echo_ifnewline(t_exec *line, int i, int ifnl)
 	}
 }
 
-int	ft_echo(t_exec *line, t_env *env_list)
+int	ft_echo(t_exec *line)
 {
 	int	i;
 	int	ifnl;
@@ -71,8 +71,8 @@ int	ft_echo(t_exec *line, t_env *env_list)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	if (echo_path(line->argv, i, env_list, ifnl))
-		return (1);
+	// if (echo_path(line->argv, i, env_list, ifnl))
+	// 	return (1);
 	if (ifnl)
 		echo_ifnewline(line, i, ifnl);
 	else

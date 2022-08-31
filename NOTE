@@ -11,7 +11,7 @@ i handled them f commented function f minishell.c
 btw dont worry about env_list f lmain, 
 i had to do dik rwina to fix wahd lblan m3a lheader hta n3wd lik
 
-// check_quotes seg faults at this test: echo '"'"'"'"'ana      'ss"'"'"'"' fgdfg
+// check_quotes seg faults at this test: echo '"'"'"'"'ana      'ss"'"'"'"' fgdfg 
 ill fix it tomorrow
 
 // ft_handle_quotes breaks too in some tests, i know what the issue is, will be fixed tomorrow
@@ -24,7 +24,7 @@ echo '$HOME'   should print $HOME
 echo "$HOME"   should print /Users/mbaioumy
 echo $HO"ME"   should print  ME
 echo $"HOME"    should print HOME
-echo "'$HOME'"	should print /Users/mbaioumy
+echo "'$HOME'"	should print '/Users/mbaioumy'
 echo '"$HOME"'	should print "$HOME"	
 
 UPDATE

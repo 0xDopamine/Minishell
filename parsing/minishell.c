@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 21:35:18 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/31 20:42:15 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,73 @@
 
 t_global g = { 0 };
 
+void	null_terminate(char *s)
+{
+	char *q;
+
+	q = s;
+	while (ft_strchr(*q, "\'"))
+		q++;
+	*q = '\0';
+}
+
+char	*ft_search_for_env(char *s, t_env_p *env_list)
+{
+	char	*res;
+	int		i;
+
+	i = 0;
+	res = ft_strdup("");
+	while (s[i])
+	{
+		if (s[i] == '\'')
+		{
+			i++;
+			s = ft_handle_quotes(s, env_list);
+			res = ft_strjoin(res, "'");
+			res = ft_strjoin(res, ft_assign_env(s + 1, env_list));
+			res = ft_strjoin(res, "'");
+			return (res);
+		}
+		else
+			return (ft_strjoin(res, ft_assign_env(s + 1, env_list)));
+		i++;
+	}
+	return (s);
+}
+
 char	*ft_string_examiner(char *s, t_env_p *env_list)
 {
 	int		i;
 	char	*temp;
 	char	*res;
+	int		j;
 
 	i = 0;
 	temp = s;
 	res = NULL;
-	// printf("inside func: %s\n", s);
 	while (temp[i])
 	{
 		if (ft_strchr(temp[i], "\"\'"))
 		{	
-			res = ft_strdup(ft_handle_quotes(temp, env_list));
-			break ;
+			j = 0;
+			res = ft_strdup(ft_handle_quotes(temp, env_list));			
+			if (ft_strchr(res[0], "\'"))
+				return (ft_search_for_env(res, env_list));
+			return (res);
 		}
 		else if (temp[i] == '$')
 		{
-			res = ft_assign_env(temp + i, env_list);
+			res = ft_assign_env(temp + i + 1, env_list);
+			printf("res: %s\n", res);
 			break ;
 		}
-		// printf("res = %s\n", res);
 		i++;
 	}
 	if (!res)
 		return (s);
+	else if (*res == '\n')
+		return (NULL);
 	return (res);
 }
 
@@ -51,16 +91,6 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 	int	i;
 
 	i = 0;
-	// printf("string %s\n", s);
-	// while (s[i])
-	// {
-	// 	if (s[i] == '$')
-	// 	{
-	// 		printf("here %s\n", s + i + 1);
-	// 		return (ft_assign_env(s + i + 1, env_list));
-	// 	}	
-	// 	i++;
-	// }
 	while (env_list->next != NULL)
 	{
 		if (ft_strcmp(s, env_list->name) == 0)
@@ -82,19 +112,19 @@ int	ft_check_quotes(char *s)
 		if (ft_strchr(s[i], "\'\""))
 		{
 			j = i + 1;
-			if (!ft_strchr(s[j], "\'\""))
-				while (s[j] != s[i] && s[j])
-					j++;
+			while (s[j] != s[i] && s[j])
+				j++;
+			if (s[j] == '\0')
+			{
+				perror("Quotes error");
+				g.exit_status  = 256;
+				return (0);
+			}
 			else
 				i++;
 		}
 		else
-		{
-			perror("Quotes error");
-			g.exit_status  = 256;
-			return (0);
-		}
-		i++;
+			i++;
 	}
 	return (1);
 }
@@ -107,11 +137,13 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 	int		i;
 
 	s = q;
+	(void)env_list;
 	res = malloc(sizeof(char) * 10000000000);
 	res[0] = 0;
 	i = 0;
-	if (ft_check_quotes(s))
-	{
+	// if (ft_check_quotes(s))
+	// {
+		// printf("here\n");
 		while (s)
 		{	
 			if (*s && ft_strchr(*s, "\"\'"))
@@ -122,8 +154,6 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 					while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
 						res[i++] = *temp++;
 					res[i] = '\0';
-					if (res[0] == '$' && *s == '"')
-						res = ft_assign_env(res + 1, env_list);
 					if (res[0] == '\n')
 						i = 0;
 					if (*temp != '\0')
@@ -148,9 +178,9 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 			else
 				s++;	
 		}
-	}
-	else
-		return (NULL);
+	// }
+	// else
+	// 	return ("\n");
 	return(res);
 }
 

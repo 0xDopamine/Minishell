@@ -94,7 +94,7 @@ int		check(char before, char after);
 char	*add_spaces(char *line, int count);
 void	rl_replace_line(const char *str, int mod);
 char	*ft_handle_quotes(char *q, t_env_p *env_list);
-char	*null_terminate(char *q);
+// char	*null_terminate(char *q);
 char	*ft_assign_env(char *s, t_env_p *env_list);
 char	*ft_string_examiner(char *s, t_env_p *env_list);
 

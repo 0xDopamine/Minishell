@@ -27,14 +27,7 @@ echo $"HOME"    should print HOME
 echo "'$HOME'"	should print '/Users/mbaioumy'
 echo '"$HOME"'	should print "$HOME"	
 
+
 UPDATE
 
-added ft_string_examiner to handle everything from quotes to $ inside parseexec
-you can comment it and work with the commented lines
-
-
-
-ECHO TESTS 
-
-echo a"bc"d	
-
+the only test not working yet, i know where the issue is, echo $HO"ME"   should print  ME

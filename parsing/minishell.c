@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 13:08:58 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 23:11:05 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,12 @@ char	*ft_string_examiner(char *s, t_env_p *env_list)
 		}
 		else if (temp[i] == '$' && temp[i] != 1)
 		{
-			printf("hrere\n");
 			res = ft_assign_env(temp + i + 1, env_list);
 			// printf("res: %s\n", res);
 			if (res[0] == 1)
 				i++;
-			else if (res[0] == '\n')
-				return (res);
+			else if (ft_strchr(res[0], "\"\'"))
+				temp = res;
 		}
 		// printf("temp + %d: %s\n", i, temp + i);
 		i++;
@@ -130,7 +129,7 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 			return (env_list->path);
 		env_list = env_list->next;
 	}
-	s = ft_strdup("h\n");
+	*s = '\0';
 	return (s);
 }
 
@@ -184,7 +183,7 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 				while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
 					res[i++] = *temp++;
 				res[i] = '\0';
-				printf("res %s\n", res);
+				// printf("res %s\n", res);
 				if (*(temp) != '\0')
 					s = temp + 1;
 				else

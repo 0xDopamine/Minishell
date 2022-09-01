@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/31 23:24:42 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:12:47 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*ft_string_examiner(char *s, t_env_p *env_list)
 	res = NULL;
 	while (temp[i])
 	{
-		if (ft_strchr(temp[i], "\"\'"))
+		if (ft_strchr(temp[i], "\"\'") && temp[i] != 1)
 		{	
 			j = 0;
 			res = ft_strdup(ft_handle_quotes(temp, env_list));			
@@ -74,12 +74,14 @@ char	*ft_string_examiner(char *s, t_env_p *env_list)
 				return (ft_assign_env(res + 1, env_list));
 			break ;
 		}
-		else if (temp[i] == '$')
+		else if (temp[i] == '$' && temp[i] != 1)
 		{
 			res = ft_assign_env(temp + i + 1, env_list);
+			// printf("res: %s\n", res);
 			if (res[0] == 1)
 				i++;
 		}
+		// printf("temp + %d: %s\n", i, temp + i);
 		i++;
 	}
 	if (!res)
@@ -96,15 +98,19 @@ int	ft_env_examiner(char **s)
 	q = *s;
 	while (*q)
 	{
-		if (*q == '$')
+		if (*q == '$' && *q)
 			q++;
-		if (!*q || ft_strchr(*q, "\'\""))
+		while (!ft_strchr(*q, "\'\"") && *q)
+			q++;
+		if (ft_strchr(*q, "\'\"") && *q)
 		{
 			q--;
 			*q = 1;
 			*s = q + 1;
-			return 0;
+			return (0);
 		}
+		if (!*q)
+			break ;
 		q++;
 	}
 	return (1);
@@ -123,8 +129,8 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 			return (env_list->path);
 		env_list = env_list->next;
 	}
-	if (*s == 1)
-		return (NULL);
+	// printf("s: %s\n", s);
+	// printf("s env: %s", s);
 	*s = '\n';
 	return (s);
 }

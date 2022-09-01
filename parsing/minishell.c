@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 00:12:47 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 03:58:57 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,19 @@ char	*ft_string_examiner(char *s, t_env_p *env_list)
 		}
 		else if (temp[i] == '$' && temp[i] != 1)
 		{
+			printf("hrere\n");
 			res = ft_assign_env(temp + i + 1, env_list);
 			// printf("res: %s\n", res);
 			if (res[0] == 1)
 				i++;
+			else if (res[0] == '\n')
+				return (res);
 		}
 		// printf("temp + %d: %s\n", i, temp + i);
 		i++;
 	}
 	if (!res)
 		return (s);
-	else if (*res == '\n')
-		return (NULL);
 	return (res);
 }
 
@@ -129,9 +130,7 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 			return (env_list->path);
 		env_list = env_list->next;
 	}
-	// printf("s: %s\n", s);
-	// printf("s env: %s", s);
-	*s = '\n';
+	s = ft_strdup("h\n");
 	return (s);
 }
 
@@ -175,52 +174,38 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 	res = malloc(sizeof(char) * 10000000000);
 	res[0] = 0;
 	i = 0;
-	// if (ft_check_quotes(s))
-	// {
-		// printf("here\n");
-		while (s)
-		{	
-			if (*s && ft_strchr(*s, "\"\'"))
+	while (s)
+	{	
+		if (*s && ft_strchr(*s, "\"\'"))
+		{
+			temp = s + 1;
+			if (*temp != '\0' && *temp != *s)
 			{
-				temp = s + 1;
-				if (*temp != '\0' && *temp != *s)
-				{
-					// printf("++i in first cond: %d\n", i);
-					// printf("++s: %s\n", s);
-					while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
-						res[i++] = *temp++;
-					res[i] = '\0';
-					// printf("++res quotes first condition: %s\n", res);
-					// printf("++temp: %s\n", temp);
-					// printf("++temp + 1: %s\n", temp + 1);
-					if (*(temp + 1) != '\0')
-						s = temp + 1;
-					else
-						return (res);
-					printf("++new: %s\n", s);
-				}
-				else
-					s++;
-			}
-			else if (!ft_strchr(*s, "\"\'"))
-			{
-				// printf("--i in sec cond: %d\n", i);
-				temp = s;
-				while (!ft_strchr(*temp, "\'\"") && *temp)
-						res[i++] = *temp++;
+				while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
+					res[i++] = *temp++;
 				res[i] = '\0';
-				// printf("--res quotes second condition: %s\n", res);
-				if (*temp != '\0')
-						s = temp;
+				if (*(temp) != '\0')
+					s = temp + 1;
 				else
 					return (res);
 			}
 			else
-				s++;	
+				s++;
 		}
-	// }
-	// else
-	// 	return ("\n");
+		else if (!ft_strchr(*s, "\"\'"))
+		{
+			temp = s;
+			while (!ft_strchr(*temp, "\'\"") && *temp)
+					res[i++] = *temp++;
+			res[i] = '\0';
+			if (*temp != '\0')
+					s = temp;
+			else
+				return (res);
+		}
+		else
+			s++;	
+	}
 	return(res);
 }
 

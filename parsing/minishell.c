@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 03:58:57 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 05:01:11 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,12 +184,15 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list)
 				while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
 					res[i++] = *temp++;
 				res[i] = '\0';
+				printf("res %s\n", res);
 				if (*(temp) != '\0')
 					s = temp + 1;
 				else
 					return (res);
 			}
 			else
+				s++;
+			while (*temp == *s && *s)
 				s++;
 		}
 		else if (!ft_strchr(*s, "\"\'"))

@@ -97,5 +97,6 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list);
 // char	*null_terminate(char *q);
 char	*ft_assign_env(char *s, t_env_p *env_list);
 char	*ft_string_examiner(char *s, t_env_p *env_list);
+void	null_terminate(char **s);
 
 #endif

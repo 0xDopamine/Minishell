@@ -31,3 +31,9 @@ echo '"$HOME"'	should print "$HOME"
 UPDATE
 
 the only test not working yet, i know where the issue is, echo $HO"ME"   should print  ME
+
+
+REDIR UPDATE
+
+fixed the issue with both files in the same string, they\'re seperated now
+and null terminated, there\'s a seg fault from your side idk why

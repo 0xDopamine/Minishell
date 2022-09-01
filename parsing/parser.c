@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 13:09:13 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 23:37:21 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 	cmd = (t_exec *)ret;
 	argc = 0;
 	ret = parseredir(ret, ps);
-	// if its not pipe it might be an option or a file name
 	while (!next(ps, "|"))
 	{
 		tok = get_token(ps, &q);
@@ -81,16 +80,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
-		// if this breaks comment it
 		cmd->argv[argc] = ft_string_examiner(split[0], env_list);
-		// and uncomment this
-		// if (split[0][0] == '"' || split[0][0] == '\'')
-		// 	cmd->argv[argc] = ft_handle_quotes(split[0], env_list);
-		// else if (split[0][0] == '$')
-		// 	cmd->argv[argc] = ft_assign_env(*split + 1, env_list);
-		// else
-			// cmd->argv[argc] = split[0];
-		// printf("cmd->>>%s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
@@ -104,6 +94,7 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 {
 	int		tok;
 	char	*q;
+	char	**split;
 
 	while (next(ps, "<>"))
 	{
@@ -114,15 +105,20 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 			cmd->type = 0;
 			return (cmd);
 		}
-		printf("token: %c\n", tok);
-		printf("%s\n", q);
+		split = ft_split(q, ' ');
+		null_terminate(&split[0]);
+		split[1] = NULL;
 		if (tok == '<')
-			cmd = redircmd(cmd, q, O_RDONLY, STDIN_FILENO);
+			cmd = redircmd(cmd, split[0], O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
-			cmd = redircmd(cmd, q, O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+			cmd = redircmd(cmd, split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 		else if (tok == 'A')
-			cmd = redircmd(cmd, q, O_WRONLY | O_CREAT | O_APPEND, 1);
+			cmd = redircmd(cmd, split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
+		// uncomment this if you wanna check whats inside
+		// t_redir *redir = (t_redir *)cmd;
+		// printf("cmd: %s\n", redir->file);
 	}
+
 	return (cmd);
 }
 

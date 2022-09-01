@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 23:11:05 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 23:35:32 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 
 t_global g = { 0 };
 
-void	null_terminate(char *s)
+void	null_terminate(char **s)
 {
-	char *q;
+	int		len;
+	int		i;
+	char	*q;
 
-	q = s;
-	while (ft_strchr(*q, "\'"))
-		q++;
+	i = -1;
+	q = *s;
+	len = ft_strlen(q);
+	while (++i < len)
+		q++; 
 	*q = '\0';
 }
 

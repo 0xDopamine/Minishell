@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 16:09:28 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:08:42 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
+# define true 1
 # define NAME 1
 # define PATH 2
 # define EXIT_NOTFOUND 127
@@ -87,4 +88,5 @@ int		export_ifnotreplace(char *str, t_env *env_list);
 void	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_access(t_exec *line);
+
 #endif

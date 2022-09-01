@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_tools_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:09:26 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 02:18:39 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:24:13 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	unsigned int	i;
 
 	i = 0;
+	if (s1 == NULL)
+		return (1);
 	if (n == 0)
 		return (0);
 	while (s1[i] && s2[i] && i < n - 1)

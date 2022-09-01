@@ -6,12 +6,35 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 14:50:55 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:08:36 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include <readline/readline.h>
+
+// void	ft_heredoc(void)
+// {
+// 	char	*line;
+// 	char	*delimiter;
+// 	int		fd;
+// 	char *str;
+
+// 	line = NULL;
+// 	str = ft_strdup("");
+// 	delimiter = "EOF";
+// 	fd = open("/tmp/test", O_RDWR | O_CREAT | O_APPEND, 0666);
+// 	while (true)
+// 	{
+// 		line = readline("heredoc> ");
+// 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+// 			break ;
+// 		line = ft_strjoin(line, "\n");
+// 		str = ft_strjoin(str, line);
+// 	}
+// 	ft_putstr_fd(str, NULL, fd);
+// 	exit(1);
+// }
 
 void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 {
@@ -19,8 +42,8 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	t_exec	*ex;
 	int		pid;
 
+	// ft_heredoc();
 	ex = (t_exec *)redir->cmd;
-	// printf("redir->file: %s\n", redir->file);
 	fd_file = open(redir->file, redir->mode, 0644);
 	if (fd_file < 0)
 	{
@@ -48,5 +71,5 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	if (g.exit_status == 256)
 		g.exit_status = EXIT_NOTFOUND;
 	else
-		g.exit_status = 0;
+		g.exit_status = EXIT_SUCCESS;
 }

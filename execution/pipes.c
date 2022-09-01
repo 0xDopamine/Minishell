@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:18:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:04:37 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include "exec.h"
 
 void	pipes_access(t_exec *line)

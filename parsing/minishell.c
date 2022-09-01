@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 05:01:11 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:08:58 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,7 @@ int	main(int argc, char **argv, char **env)
 	//don't use CTRL -C signal now
 	signal(SIGINT, ft_sig_handler);
 	signal(SIGQUIT, ft_sig_handler);
-	while (1)
+	while (true)
 	{
 		line = readline("$> ");
 		if (!line)

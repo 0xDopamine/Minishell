@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:31:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 15:13:31 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:00:37 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ static	int	unset_checkstr(char *str)
 static	int	unset_checkname(char **argv)
 {
 	int	j;
-	int	i;
 
 	j = 0;
-	i = 0;
 	if (argv[1][0] >= '0' && argv[1][0] <= '9')
 	{
 		ft_putstr_fd("unset: '", argv[1], STDERR_FILENO);
@@ -48,7 +46,6 @@ static	int	unset_checkname(char **argv)
 	}
 	while (argv[j])
 	{
-		i = 0;
 		if (unset_checkstr(argv[j]))
 			return (EXIT_FAILURE);
 		j++;

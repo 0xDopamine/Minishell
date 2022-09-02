@@ -28,6 +28,8 @@ echo "'$HOME'"	should print '/Users/mbaioumy'
 echo '"$HOME"'	should print "$HOME"	
 
 
+********************************************************************
+
 UPDATE
 
 the only test not working yet, i know where the issue is, echo $HO"ME"   should print  ME

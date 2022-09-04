@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 02:11:12 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 02:14:11 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 	cmd->argv[argc] = NULL;
 	return (ret);
 }
+
 
 // t_cmd	*parseredir(t_cmd *cmd, char **ps)
 // {

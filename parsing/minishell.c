@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 15:26:20 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 19:56:56 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 	i = 0;
 	if (!ft_env_examiner(&s))
 		return (s);
+	if (*s == '?')
+		return ("$?");
 	while (env_list->next != NULL)
 	{
 		if (ft_strcmp(s, env_list->name) == 0)

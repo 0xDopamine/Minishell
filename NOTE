@@ -54,5 +54,7 @@ Im still thinking of a solution
 we have problems in tests:
 <a cat <b <c only the content of c should be displayed
 <a cat <b <c (b) doesnt exist so nothing is displayed and an error shows
+cat <> a only the input redir works the output redir is ignored
+ls > < a syntax error
 
 and the heredoc

@@ -3,15 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 21:02:17 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:46:49 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include <readline/readline.h>
+
+static	void	heredoc_exec(t_exec *ex, char **env, char *file, t_env **env_list)
+{
+	int	i;
+	char	**av;
+	char 	*cmd;
+
+	i = 0;
+	cmd = ft_strdup(ex->argv[0]);
+	av = (char **)malloc(sizeof(char *) * 2);
+	av[0] = ft_strdup(file);
+	av[1] = NULL;
+	printf("%s\n", av[0]);
+	if (ft_builtins(cmd, ex, env_list))
+		return ;
+	cmd = ft_strjoin("/", cmd);
+	execnofork_loop(cmd, av, env);
+}
 
 static char *heredoc_findenv(char *line, t_env *env_list, int n)
 {
@@ -20,10 +38,7 @@ static char *heredoc_findenv(char *line, t_env *env_list, int n)
 		while (env_list)
 		{
 			if (ft_strncmp(line, env_list->name, ft_strlen(env_list->name)) == 0)
-            {
-                printf("found\n");
 				return ("found");
-            }
 			env_list = env_list->next;
 		}
 		return ("not found");
@@ -58,19 +73,23 @@ static char *heredoc_gen_name(void)
 	return (ft_strjoin("/tmp/", buffer));
 }
 
-void	ft_heredoc(t_env **env_list)
+void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env)
 {
 	char	*line;
 	char	*delimiter;
+	char	*file_path;
 	int		fd;
 	char 	*str;
     char    *ret;
+	int		pid;
 
+	file_path = heredoc_gen_name();
 	line = NULL;
     ret = NULL;
 	str = NULL;
+	pid = 0;
 	delimiter = "EOF";
-	fd = open(heredoc_gen_name(), O_RDWR | O_CREAT | O_APPEND, 0666);
+	fd = open(file_path, O_RDWR | O_CREAT | O_APPEND, 0644);
 	while (true)
 	{
 		line = readline("heredoc> ");
@@ -96,5 +115,16 @@ void	ft_heredoc(t_env **env_list)
 		}
 	}
 	ft_putstr_fd(str, NULL, fd);
+	if (cmd->type == EXEC)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			heredoc_exec((t_exec *)cmd, env, file_path, env_list);
+			exit(1);
+		}
+
+	}
+	unlink(file_path);
 	exit(1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 20:41:59 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:18:16 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	is_whitespace(char *str, char *es)
 	return (0);
 }
 
-t_cmd	*parseexec(char **ps, t_env_p *env_list)
+t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
 {
 	char	*q;
 	int		tok;
@@ -71,7 +71,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 	ret = execcmd(words);
 	cmd = (t_exec *)ret;
 	argc = 0;
-	ret = parseredir_test(ret, ps, env_list);
+	ret = parseredir_test(ret, ps, env_list, env);
 	while (!next(ps, "|"))
 	{
 		tok = get_token(ps, &q);
@@ -84,7 +84,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
-		ret = parseredir_test(ret, ps, env_list);
+		ret = parseredir_test(ret, ps, env_list, env);
 	}
 	cmd->argv[argc] = NULL;
 	return (ret);
@@ -123,7 +123,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 // 	return (cmd);
 // }
 
-t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list)
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list, char **env_arr)
 {
 	int		tok;
 	char	*q;
@@ -142,16 +142,16 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list)
 		}
 		split = ft_split(q, ' ');		
 		if (tok == '<')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_RDONLY, STDIN_FILENO);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 		else if (tok == 'A')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
 		else if (tok == 'H')
 		{
 			*env = (t_env *)env_list;
 			printf("here doc done\n");
-			ft_heredoc(env);
+			ft_heredoc(env, cmd, env_arr);
 		}
 		// uncomment this if you wanna check whats inside
 		// printf("%d\n", cmd->type);
@@ -161,15 +161,15 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list)
 	return (cmd);
 }
 
-t_cmd	*parsepipe(char **ps, t_env_p *env_list)
+t_cmd	*parsepipe(char **ps, t_env_p *env_list, char **env)
 {
 	t_cmd	*cmd;
 
-	cmd = parseexec(ps, env_list);
+	cmd = parseexec(ps, env_list, env);
 	if (next(ps, "|"))
 	{
 		get_token(ps, 0);
-		cmd = pipecmd(cmd, parsepipe(ps, env_list));
+		cmd = pipecmd(cmd, parsepipe(ps, env_list, env));
 	}
 	return (cmd);
 }

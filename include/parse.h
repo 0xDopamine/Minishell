@@ -84,9 +84,9 @@ t_cmd   *execcmd(int words);
 t_cmd   *redircmd(t_cmd *cmd, char *q, int mode, int fd);
 t_cmd	*pipecmd(t_cmd *left, t_cmd *right);
 int		is_symbol(char *str, char *es);
-t_cmd	*parseexec(char **ps, t_env_p *env_list);
-t_cmd	*parseredir(t_cmd *cmd, char **ps);
-t_cmd	*parsepipe(char **ps, t_env_p *env_list);
+t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env);
+t_cmd	*parseredir(t_cmd *cmd, char **ps, char **env);
+t_cmd	*parsepipe(char **ps, t_env_p *env_list, char **env);
 t_cmd	*parsecmd(char *s);
 int		next(char **ps, char *toks);
 int		wdcount_q(char *s, char c);
@@ -104,6 +104,6 @@ char	*ft_assign_env(char *s, t_env_p *env_list);
 char	*ft_string_examiner(char *s, t_env_p *env_list);
 void	null_terminate(char **s);
 t_cmd   *redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd);
-t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list);
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list, char **env);
 
 #endif

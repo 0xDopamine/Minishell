@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 17:33:04 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:18:24 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	redir2 = (t_redir *)redir->left;
 	cmd = (t_cmd *)redir->left;
 	ex = (t_exec *)redir->right;
-	ft_heredoc(env_list);
 	fd_file = open(redir->file, redir->mode, 0644);
 	if (fd_file < 0)
 	{

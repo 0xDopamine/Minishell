@@ -31,11 +31,16 @@ typedef struct s_cmd {
 
 typedef struct s_redir {
 	int		type;
-	t_cmd	*cmd;
+	t_cmd	*right;
+	t_cmd	*left;
 	char	*file;
 	int		mode;
 	int		fd;
 } t_redir ;
+
+typedef struct s_redir_tst {
+
+}	t_redir_tst ;
 
 typedef struct s_pipe {
 	int		type;
@@ -98,5 +103,7 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list);
 char	*ft_assign_env(char *s, t_env_p *env_list);
 char	*ft_string_examiner(char *s, t_env_p *env_list);
 void	null_terminate(char **s);
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps);
+t_cmd   *redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd);
 
 #endif

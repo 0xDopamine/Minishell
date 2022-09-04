@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 19:19:07 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 02:10:46 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,31 @@ t_cmd   *execcmd(int words)
     return ((t_cmd *)ex);
 }
 
-t_cmd   *redircmd(t_cmd *cmd, char *q, int mode, int fd)
+// t_cmd   *redircmd(t_cmd *cmd, char *q, int mode, int fd)
+// {
+//     t_redir *red;
+
+//     red = malloc(sizeof(t_redir));
+//     red->cmd = cmd;
+//     red->file = q;
+//     red->mode = mode;
+//     red->type = REDIR;
+//     red->fd = fd;
+
+//     return ((t_cmd *)red);
+// }
+
+t_cmd   *redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd)
 {
     t_redir *red;
 
     red = malloc(sizeof(t_redir));
-    red->cmd = cmd;
+    red->right = right;
+	red->left = left;
     red->file = q;
     red->mode = mode;
     red->type = REDIR;
     red->fd = fd;
-
     return ((t_cmd *)red);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 23:37:21 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 02:11:12 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 	ret = execcmd(words);
 	cmd = (t_exec *)ret;
 	argc = 0;
-	ret = parseredir(ret, ps);
+	ret = parseredir_test(ret, ps);
 	while (!next(ps, "|"))
 	{
 		tok = get_token(ps, &q);
@@ -84,19 +84,50 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
-		ret = parseredir(ret, ps);
+		ret = parseredir_test(ret, ps);
 	}
 	cmd->argv[argc] = NULL;
 	return (ret);
 }
 
-t_cmd	*parseredir(t_cmd *cmd, char **ps)
+// t_cmd	*parseredir(t_cmd *cmd, char **ps)
+// {
+// 	int		tok;
+// 	char	*q;
+// 	char	**split;
+
+// 	while (next(ps, "<>"))
+// 	{
+// 		tok = get_token(ps, 0);
+// 		if (get_token(ps, &q) != 'c')
+// 		{
+// 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
+// 			cmd->type = 0;
+// 			return (cmd);
+// 		}
+// 		split = ft_split(q, ' ');
+// 		null_terminate(&split[0]);
+// 		split[1] = NULL;
+// 		if (tok == '<')
+// 			cmd = redircmd(cmd, split[0], O_RDONLY, STDIN_FILENO);
+// 		else if (tok == '>')
+// 			cmd = redircmd(cmd, split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+// 		else if (tok == 'A')
+// 			cmd = redircmd(cmd, split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
+// 		// uncomment this if you wanna check whats inside
+// 		t_redir *redir = (t_redir *)cmd;
+// 		printf("cmd: %s\n", redir->file);
+// 	}
+
+// 	return (cmd);
+// }
+
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps)
 {
 	int		tok;
 	char	*q;
-	char	**split;
 
-	while (next(ps, "<>"))
+	if (next(ps, "<>"))
 	{
 		tok = get_token(ps, 0);
 		if (get_token(ps, &q) != 'c')
@@ -105,23 +136,18 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 			cmd->type = 0;
 			return (cmd);
 		}
-		split = ft_split(q, ' ');
-		null_terminate(&split[0]);
-		split[1] = NULL;
 		if (tok == '<')
-			cmd = redircmd(cmd, split[0], O_RDONLY, STDIN_FILENO);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps), q, O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
-			cmd = redircmd(cmd, split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps), q, O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 		else if (tok == 'A')
-			cmd = redircmd(cmd, split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps), q, O_WRONLY | O_CREAT | O_APPEND, 1);
 		// uncomment this if you wanna check whats inside
-		// t_redir *redir = (t_redir *)cmd;
-		// printf("cmd: %s\n", redir->file);
+		t_redir *redir = (t_redir *)cmd;
+		printf("cmd: %s\n", redir->file);
 	}
-
 	return (cmd);
 }
-
 
 t_cmd	*parsepipe(char **ps, t_env_p *env_list)
 {

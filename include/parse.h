@@ -103,7 +103,7 @@ char	*ft_handle_quotes(char *q, t_env_p *env_list);
 char	*ft_assign_env(char *s, t_env_p *env_list);
 char	*ft_string_examiner(char *s, t_env_p *env_list);
 void	null_terminate(char **s);
-t_cmd	*parseredir_test(t_cmd *cmd, char **ps);
 t_cmd   *redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd);
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list);
 
 #endif

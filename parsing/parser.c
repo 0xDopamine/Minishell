@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 15:35:47 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 20:22:16 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 	ret = execcmd(words);
 	cmd = (t_exec *)ret;
 	argc = 0;
-	ret = parseredir_test(ret, ps);
+	ret = parseredir_test(ret, ps, (t_env *)env_list);
 	while (!next(ps, "|"))
 	{
 		tok = get_token(ps, &q);
@@ -84,7 +84,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
-		ret = parseredir_test(ret, ps);
+		ret = parseredir_test(ret, ps, (t_env *)env_list);
 	}
 	cmd->argv[argc] = NULL;
 	return (ret);
@@ -123,11 +123,12 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list)
 // 	return (cmd);
 // }
 
-t_cmd	*parseredir_test(t_cmd *cmd, char **ps)
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 {
 	int		tok;
 	char	*q;
 	char	**split;
+	t_env	**env;
 
 	if (next(ps, "<>"))
 	{
@@ -140,11 +141,17 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps)
 		}
 		split = ft_split(q, ' ');		
 		if (tok == '<')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps), split[0], O_RDONLY, STDIN_FILENO);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 		else if (tok == 'A')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
+		else if (tok == 'H')
+		{
+			*env = (t_env *)env_list;
+			printf("here doc done\n");
+			ft_heredoc(env);
+		}
 		// uncomment this if you wanna check whats inside
 		// printf("%d\n", cmd->type);
 		t_redir *redir = (t_redir *)cmd;
@@ -229,8 +236,17 @@ int	get_token(char **ps, char **q)
 	if (q)
 		*q = s;
 	tok = *s;
-	if (*s == '|' || *s == '<')
+	if (*s == '|')
 		s++;
+	else if (*s == '<')
+	{
+		s++;
+		if (*s == '<')
+		{
+			tok = 'H';
+			s++;
+		}
+	}
 	else if (*s == '>')
 	{
 		s++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 18:08:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 02:35:31 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	int		pid;
 
 	// ft_heredoc();
-	ex = (t_exec *)redir->cmd;
+	// ex = (t_exec *)redir->cmd;
+	ex = (t_exec *)redir->right;
 	fd_file = open(redir->file, redir->mode, 0644);
 	if (fd_file < 0)
 	{

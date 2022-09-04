@@ -46,3 +46,13 @@ REDIR UPDATE #2
 Added ft_redir_test to test trees with redirs, touched a bit of your code on ft_redir just to silence some errors,
 i tested the function doesn't bug or seg faults, check from your part if its working properly
 uncomment ft_check_cmd on the main, and the normal function if it doesnt work.
+
+REDIR UPDATE #3
+
+multiple redirections are now working but only if they re from the same type
+Im still thinking of a solution
+we have problems in tests:
+<a cat <b <c only the content of c should be displayed
+<a cat <b <c (b) doesnt exist so nothing is displayed and an error shows
+
+and the heredoc

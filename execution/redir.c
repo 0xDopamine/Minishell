@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 16:02:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 16:22:48 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,8 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 		g.exit_status = EXIT_NOTFOUND;
 		return ;
 	}
-	if (cmd->type == REDIR)
+	if (cmd->type == REDIR && redir2->fd == redir->fd)
 	{
-		printf("hello\n");
 		ft_redirect((t_redir *)redir->left, env, env_list);
 		return ;
 	}
@@ -122,6 +121,7 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	if (pid == 0)
 	{
 		dup2(fd_file, redir->fd);
+		// if (redir->)
 		ft_exec_nofork(ex, env, env_list);
 		ft_putstr_fd(ex->argv[0], ": command not found\n", STDERR_FILENO);
 		close(fd_file);

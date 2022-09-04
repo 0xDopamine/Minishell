@@ -57,4 +57,9 @@ we have problems in tests:
 cat <> a only the input redir works the output redir is ignored
 ls > < a syntax error
 
-and the heredoc
+
+also echo $? isnt working I think cuz kat7ssbo mea echo $VARIABLE check if mn be3d $ kayna ? o seft lia
+hakak l argument I dealt with it f whd function
+
+and the heredoc needs to be detected and executed first f lparsing so take my function o execute
+it men eandk

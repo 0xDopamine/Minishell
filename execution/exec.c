@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:18:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:27:52 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+int	exec_isdir(char *cmd)
+{
+	struct stat path_stat;
+
+	stat(&cmd[2], &path_stat);
+	return S_ISDIR(path_stat.st_mode);
+}
 
 int	exec_checkcmd(char *cmd)
 {
@@ -24,10 +32,20 @@ static	void	exec_loop(char *cmd, char **av, char **env)
 	char	*join;
 	int		pid;
 
+	if (exec_isdir(cmd))
+	{
+		ft_putstr_fd(cmd, ": is a directory\n", STDERR_FILENO);
+		g.exit_status = 126;
+		return ;
+	}
 	if (exec_checkcmd(cmd))
 	{
-		if (execve(cmd, av, env) < 0)
-			perror("execve");
+		pid = fork();
+		if (pid == 0)
+		{
+			if (execve(cmd, av, env) < 0)
+				perror("execve");
+		}
 	}
 	join = exec_ifaccess(cmd);
 	if (join != NULL)

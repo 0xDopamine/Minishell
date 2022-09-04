@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/03 19:01:32 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 17:32:45 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <string.h>
 # include <signal.h>
 # include <limits.h>
+# include <sys/stat.h>
 # include "parse.h"
 
 typedef struct s_global
@@ -90,5 +91,6 @@ int		export_ifnotreplace(char *str, t_env *env_list);
 void	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_access(t_exec *line);
+void	ft_heredoc(t_env **env_list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 13:08:16 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 16:45:43 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	ft_echo(t_exec *line)
 
 	i = 1;
 	ifnl = 0;
-	// if (echo_case1(line->argv[1]))
-	// 	return (1);
+	if (echo_case1(line->argv[1]))
+		return (1);
 	while (echo_check_nl(line->argv[i]))
 	{
 		ifnl = 1;

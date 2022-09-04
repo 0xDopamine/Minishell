@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 13:08:42 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/03 19:01:32 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define NAME 1
 # define PATH 2
 # define EXIT_NOTFOUND 127
+# define FIND 3
+# define EDIT 4
 
 # include <stdio.h>
 # include <unistd.h>

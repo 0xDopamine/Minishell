@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 02:39:57 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:35:47 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps)
 		else if (tok == 'A')
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
 		// uncomment this if you wanna check whats inside
+		// printf("%d\n", cmd->type);
 		t_redir *redir = (t_redir *)cmd;
 		printf("cmd: %s\n", redir->file);
 	}

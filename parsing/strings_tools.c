@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:07:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 02:11:11 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:22:46 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	if (s1 == NULL && s2 == NULL)
 		return (NULL);
+	if (s1 == NULL)
+		return (s2);
 	total = ft_strlen(s1) + ft_strlen(s2) + 1;
 	tab = (char *)ft_calloc(total + 1, sizeof(char));
 	if (!tab)

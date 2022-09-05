@@ -65,3 +65,5 @@ hakak l argument I dealt with it f whd function
 
 and the heredoc needs to be detected and executed first f lparsing so take my function o execute
 it men eandk
+you need to parse the delimiter for heredoc
+minishell goes a bit crazy after using heredoc

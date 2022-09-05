@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:04:38 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 16:36:26 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:46:08 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list)
 	if (pid == 0)
 	{
 		close(fds[0]);
+		// check redirection
 		dup2(fds[1], 1);
 		close(fds[1]);
 		if (ft_check_type((t_cmd *)pipes->left, env, env_list, 0))

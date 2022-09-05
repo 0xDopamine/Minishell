@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 21:44:13 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:43:53 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 		join = ft_strjoin(path[i], cmd);
 		if (access(join, X_OK) == 0)
 		{
+			printf("heeeey\n");
 			ft_free_doubleptr(path);
 			execve(join, av, env);
 			perror("execve");
@@ -42,7 +43,7 @@ void	ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 {
 	char	*cmd;
 
-	printf("%s %s\n", line->argv[0], line->argv[1]);
+	// printf("%s\n%s\n", line->argv[0], line->argv[1]);
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);

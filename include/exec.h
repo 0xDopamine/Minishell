@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 21:30:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:21:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ typedef struct s_env
 	char			*path;
 	struct s_env	*next;
 }				t_env;
+
+typedef struct s_red
+{
+	int	in_fd;
+	int	out_fd;
+}				t_red;
+
 
 size_t	ft_strlen(char *str);
 void	ft_exec(t_exec *line, char **env, t_env **env_list);

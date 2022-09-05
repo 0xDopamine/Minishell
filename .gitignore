@@ -2,3 +2,4 @@
 .vscode
 *.o
 *.tldr
+test.c

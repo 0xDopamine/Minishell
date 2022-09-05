@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 21:15:16 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 04:10:29 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,10 +243,12 @@ int	main(int argc, char **argv, char **env)
 	t_cmd	*simpleCommand;
 	t_env 	*env_list;
 	t_env_p	*env_list_p;
+	char	*temp;
 
 	line = NULL;
 	(void)argc;
 	(void)argv;
+	(void)env;
 	simpleCommand = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
 	env_list_p = (t_env_p *)env_list;
@@ -257,18 +259,24 @@ int	main(int argc, char **argv, char **env)
 	while (true)
 	{
 		line = readline("$> ");
-		if (!line)
+		temp = line;
+		if (!temp)
 		{
+			free(temp);
 			ft_putstr_fd("\nexit\n", NULL, STDOUT_FILENO);
 			exit(255); /* needs to be finished */
 		}
-		if (*line)
-			add_history(line);
-		line = ft_strdup(spaces(line));
+		if (*temp)
+			add_history(temp);
+	
+		temp = spaces(temp);
 		simpleCommand = parsepipe(&line, env_list_p, env);
-		// system("leaks minishell");
+		system("leaks minishell");
 		ft_check_cmd(simpleCommand, env, &env_list);
+		free(temp);
 		// demo(line);
-	} 
+	}
+	freethis(&line);
+	free(simpleCommand);
 	return 0;
 }

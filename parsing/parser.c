@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 21:18:16 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 04:04:21 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int	num_words(char *str, int quote_flag)
 	if (quote_flag)
 		split = ft_split(str, ' ');
 	else
+	{
 		split = ft_split_quotes(str, ' ');
+	}
 	while(split[i++])
 		words++;
 	return (words);
@@ -65,7 +67,9 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
 	char	**split;
 
 	if (*ps[0] == '"')
+	{	
 		words = num_words(*ps, 0);
+	}
 	else
 		words = num_words(*ps, 1);
 	ret = execcmd(words);
@@ -150,7 +154,6 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list, char **env_arr)
 		else if (tok == 'H')
 		{
 			*env = (t_env *)env_list;
-			printf("here doc done\n");
 			ft_heredoc(env, cmd, env_arr);
 		}
 		// uncomment this if you wanna check whats inside

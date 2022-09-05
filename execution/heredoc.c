@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 18:52:03 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:29:13 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static	void	heredoc_exec(t_exec *ex, char **env, t_env **env_list)
 	if (!ex->argv[0])
 		return ;
 	cmd = ft_strdup(ex->argv[0]);
+	printf("cmd: %s\n", ex->argv[0]);
 	av = (char **)malloc(sizeof(char *) * 2);
 	av[0] = ft_strdup(ex->argv[0]);
 	av[1] = NULL;
@@ -124,7 +125,7 @@ void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env)
 	ft_putstr_fd(str, NULL, fd);
 	if (cmd->type == EXEC)
 	{
-		printf("hello\n");
+		// printf("hello\n");
 		pid = fork();
 		if (pid == 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 22:25:00 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:35:08 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ int	is_whitespace(char *str, char *es)
 
 t_cmd	*ft_parse_heredoc(char **ps, t_env **env_list, t_cmd *cmd, char **env)
 {
+	char	*delimiter;
+
 	while (next(ps, "<<"))
 	{
 		get_token(ps, 0);
-		ft_heredoc(env_list, cmd, env);
+		delimiter = *ps;
+;		ft_heredoc(env_list, cmd, env, delimiter);
 	}
 	return (cmd);
 }

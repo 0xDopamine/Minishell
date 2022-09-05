@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 15:21:18 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:35:44 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		export_ifnotreplace(char *str, t_env *env_list);
 void	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_access(t_exec *line);
-void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env);
+void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter);
 void	execnofork_loop(char *cmd, char **av, char **env);
 
 #endif

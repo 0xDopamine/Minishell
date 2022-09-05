@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 22:29:13 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:35:22 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ static char *heredoc_gen_name(void)
 	return (ft_strjoin("/tmp/", buffer));
 }
 
-void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env)
+void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter)
 {
 	char	*line;
-	char	*delimiter;
+	// char	*delimiter;
 	char	*file_path;
 	int		fd;
 	char 	*str;
@@ -90,7 +90,7 @@ void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env)
     ret = NULL;
 	str = NULL;
 	pid = 0;
-	delimiter = "EOF";
+	// delimiter = "EOF";
 	fd = open(file_path, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 15:43:53 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 18:49:46 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 	while (path[i])
 	{
 		join = ft_strjoin(path[i], cmd);
+		printf("join:%s\nav[0]:%s\nav[1]:%s\n", join, av[0], av[1]);
 		if (access(join, X_OK) == 0)
 		{
-			printf("heeeey\n");
 			ft_free_doubleptr(path);
 			execve(join, av, env);
 			perror("execve");

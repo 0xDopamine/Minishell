@@ -6,25 +6,31 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 12:33:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 18:52:03 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include <readline/readline.h>
 
-// static	void	heredoc_exec(t_exec *ex, char **env, char *file, t_env **env_list)
-// {
-// 	int	i;
-// 	char	**av;
-// 	char 	*cmd;
+static	void	heredoc_exec(t_exec *ex, char **env, t_env **env_list)
+{
+	int	i;
+	char	**av;
+	char 	*cmd;
 
-// 	i = 0;
-// 	if (ft_builtins(cmd, ex, env_list))
-// 		return ;
-// 	cmd = ft_strjoin("/", cmd);
-// 	execnofork_loop(cmd, ex->argv, env);
-// }
+	i = 0;
+	if (!ex->argv[0])
+		return ;
+	cmd = ft_strdup(ex->argv[0]);
+	av = (char **)malloc(sizeof(char *) * 2);
+	av[0] = ft_strdup(ex->argv[0]);
+	av[1] = NULL;
+	if (ft_builtins(cmd, ex, env_list))
+		return ;
+	cmd = ft_strjoin("/", cmd);
+	execnofork_loop(cmd, av, env);
+}
 
 static char *heredoc_findenv(char *line, t_env *env_list, int n)
 {
@@ -62,7 +68,7 @@ static char *heredoc_gen_name(void)
     read(fd, buffer, 8);
     while (buffer[i])
     {
-        buffer[i] = s[(buffer[i] + 360) % 36];
+        buffer[i] = s[(buffer[i] + 360) % 36]; 
         i++;
     }
 	return (ft_strjoin("/tmp/", buffer));
@@ -118,13 +124,14 @@ void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env)
 	ft_putstr_fd(str, NULL, fd);
 	if (cmd->type == EXEC)
 	{
+		printf("hello\n");
 		pid = fork();
 		if (pid == 0)
 		{
 			dup2(fd, STDIN_FILENO);
-			ft_exec_nofork((t_exec *)cmd, env, env_list);
+			// ft_exec_nofork((t_exec *)cmd, env, env_list);
+			heredoc_exec((t_exec *)cmd, env, env_list);
 			close(fd);
-			// heredoc_exec((t_exec *)cmd, env, file_path, env_list);
 			exit(1);
 		}
 

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 11:37:45 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/05 18:32:17 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,8 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list, char **env_arr)
 		}
 		// uncomment this if you wanna check whats inside
 		// printf("%d\n", cmd->type);
-		t_redir *redir = (t_redir *)cmd;
-		printf("cmd: %s\n", redir->file);
+		// t_redir *redir = (t_redir *)cmd;
+		// printf("cmd: %s\n", redir->file);
 	}
 	return (cmd);
 }

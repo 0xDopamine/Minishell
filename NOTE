@@ -54,6 +54,8 @@ REDIR UPDATE #3
 multiple redirections are now working but only if they re from the same type
 Im still thinking of a solution
 we have problems in tests:
+
+/*****FIX THIS*******/
 <a cat <b <c only the content of c should be displayed
 <a cat <b <c (b) doesnt exist so nothing is displayed and an error shows
 cat <> a only the input redir works the output redir is ignored

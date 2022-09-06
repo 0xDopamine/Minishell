@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 22:35:08 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 04:42:29 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,8 @@ t_cmd	*ft_parse_heredoc(char **ps, t_env **env_list, t_cmd *cmd, char **env)
 {
 	char	*delimiter;
 
-	while (next(ps, "<<"))
-	{
-		get_token(ps, 0);
-		delimiter = *ps;
-;		ft_heredoc(env_list, cmd, env, delimiter);
-	}
+	delimiter = *ps;
+;	ft_heredoc(env_list, cmd, env, delimiter);
 	return (cmd);
 }
 
@@ -93,7 +89,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
 	{
 		tok = get_token(ps, &q);
 		// printf("tok: %c\n", tok);
-		if (tok == 0 || tok == 'H')
+		if (tok == 0)
 			break ;
 		split = ft_split(q, ' ');
 		if (tok != 'c')
@@ -151,11 +147,13 @@ t_cmd	*parsepipe(char **ps, t_env_p *env_list, char **env)
 {
 	t_cmd	*cmd;
 	t_env	**env_lst;
+	// int		tok;
 
 	env_lst = malloc(sizeof(t_env **));
 	cmd = parseexec(ps, env_list, env);
-	while (next(ps, "<<"))
-		cmd = ft_parse_heredoc(ps, env_lst, cmd, env);
+	if (next(ps, "<<"))
+		if (get_token(ps, 0) == 'H')	
+			cmd = ft_parse_heredoc(ps, env_lst, cmd, env);
 	if (next(ps, "|"))
 	{
 		get_token(ps, 0);

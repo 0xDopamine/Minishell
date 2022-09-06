@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 04:42:29 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:24:45 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,10 @@ int	get_token(char **ps, char **q)
 	*ps = s;
 	return (tok);
 }
+
+/*****************************************/
+
+
 // #include "exec.h"
 // #include "parse.h"
 // #include <unistd.h>

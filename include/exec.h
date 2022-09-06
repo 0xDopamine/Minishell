@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 11:06:58 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:22:09 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,6 @@ void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_access(t_exec *line);
 void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter);
 void	execnofork_loop(char *cmd, char **av, char **env);
+void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
 
 #endif

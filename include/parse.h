@@ -105,5 +105,6 @@ char	*ft_string_examiner(char *s, t_env_p *env_list);
 void	null_terminate(char **s);
 t_cmd   *redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd);
 t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list, char **env);
+int		ft_is_heredoc(char **ps);
 
 #endif

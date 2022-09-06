@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 14:24:45 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 23:35:54 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,21 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
 	cmd = (t_exec *)ret;
 	argc = 0;
 	ret = parseredir_test(ret, ps, env_list, env);
-	while (!next(ps, "|") && !next(ps, "<<"))
+	while (!next(ps, "|"))
 	{
 		tok = get_token(ps, &q);
-		// printf("tok: %c\n", tok);
 		if (tok == 0)
 			break ;
+		if (tok == 'H')
+		{
+			*ps = q;
+			return (ret);
+		}
 		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
-		// printf("q: %s\n", q);
 		cmd->argv[argc] = ft_string_examiner(split[0], env_list);
-		// printf("cmd: %s\n", cmd->argv[argc]);
+		printf("%s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
@@ -114,9 +117,11 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list, char **env_arr)
 	t_env	**env;
 
 	env = malloc(sizeof(t_env **));
-	if (next(ps, "<>") && !next(ps, "<<"))
+	if (next(ps, "<>") && !ft_is_heredoc(ps))
 	{
 		tok = get_token(ps, 0);
+		// if (tok == 'H')
+		// 	break ;
 		if (get_token(ps, &q) != 'c')
 		{
 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
@@ -143,15 +148,28 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list, char **env_arr)
 	return (cmd);
 }
 
+int		ft_is_heredoc(char **ps)
+{
+	char	*q;
+	int		i;
+
+	i = -1;
+	q = *ps;
+	while (q[++i])
+		if (q[i] == '<' && q[i + 1] == '<')
+			return (1);
+	return (0);
+}
+
 t_cmd	*parsepipe(char **ps, t_env_p *env_list, char **env)
 {
 	t_cmd	*cmd;
 	t_env	**env_lst;
-	// int		tok;
 
 	env_lst = malloc(sizeof(t_env **));
 	cmd = parseexec(ps, env_list, env);
-	if (next(ps, "<<"))
+	printf("ps: %s\n", *ps);
+	if (ft_is_heredoc(ps))
 		if (get_token(ps, 0) == 'H')	
 			cmd = ft_parse_heredoc(ps, env_lst, cmd, env);
 	if (next(ps, "|"))

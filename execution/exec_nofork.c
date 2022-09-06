@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_nofork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 10:27:57 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 23:39:37 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 		// printf("join:%s\nav[0]:%s\nav[1]:%s\n", join, av[0], av[1]);
 		if (access(join, X_OK) == 0)
 		{
-			printf("im here\n");
+			// printf("im here\n");
 			ft_free_doubleptr(path);
 			execve(join, av, env);
 			perror("execve");
@@ -44,7 +44,7 @@ void	ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 {
 	char	*cmd;
 
-	printf("%s\n%s\n", line->argv[0], line->argv[1]);
+	printf("%s\n", line->argv[0]);
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);

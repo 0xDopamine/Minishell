@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 17:31:11 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 23:44:31 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*ft_string_examiner(char *s, t_env_p *env_list)
 		else if (temp[i] == '$' && temp[i] != 1)
 		{
 			res = ft_assign_env(temp + i + 1, env_list);
-			// printf("res: %s\n", res);
+			// printf("res $: %s\n", res);
 			if (res[0] == 1)
 				i++;
 			else if (ft_strchr(res[0], "\"\'"))

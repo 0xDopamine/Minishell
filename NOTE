@@ -75,3 +75,5 @@ fixed the execution in heredoc but it turns out that when heredoc closes you par
 alone again so it things get executed two times
 seg fault in << delimiter tests
 After the (fixed heredoc maybe ?) u made a mistake in some function f parsing now < redirections are not working
+echo $$segfaults
+$ENVVARIABLE segfaults

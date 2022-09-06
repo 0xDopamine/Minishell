@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 23:44:31 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/07 00:11:28 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,20 @@ char	*ft_string_examiner(char *s, t_env_p *env_list)
 		{	
 			j = 0;
 			res = ft_strdup(ft_handle_quotes(temp, env_list));			
-			// printf("-----------res examiner %s\n", res);
 			if (res[0] == '\'' && res[1] == '$' && temp[i] != '\'')
 				return (ft_search_for_env(res, env_list));
-			else if (res[0] == '$' && temp[i] == '"')
-				return (ft_assign_env(res + 1, env_list));
+			// else if (res[0] == '$' && temp[i] == '"')
+			// 	return (ft_strjoin(res, ft_assign_env(temp + i + 1, env_list)));
 			break ;
 		}
-		else if (temp[i] == '$' && temp[i] != 1)
+		if ((temp[i] == '$' && temp[i] != 1) || res[0] == '$')
 		{
-			res = ft_assign_env(temp + i + 1, env_list);
-			// printf("res $: %s\n", res);
+			res = ft_strjoin(res, ft_assign_env(temp + i + 1, env_list));
 			if (res[0] == 1)
 				i++;
 			else if (ft_strchr(res[0], "\"\'"))
 				temp = res;
 		}
-		// printf("temp + %d: %s\n", i, temp + i);
 		i++;
 	}
 	if (!res)
@@ -120,21 +117,57 @@ int	ft_env_examiner(char **s)
 	return (1);
 }
 
+// char	**ft_split_env(char *s)
+// {
+// 	char	**split;
+// 	int		i;
+// 	int		words;
+// 	int		j;
+
+// 	i = 0;
+// 	j = 0;
+// 	words = ft_count_env(s);
+// 	split = malloc(sizeof(char **) * words + 1);
+// 	while (s[i])
+// 	{
+// 		if (s[i] == '$')
+// 		{
+// 			split[j] = malloc(sizeof(char *) * ft_envlen(s) + 1);
+// 			i++;
+// 			while (s[i] != '$')
+			
+// 		}
+// 	}
+// }
+
 char	*ft_assign_env(char *s, t_env_p *env_list)
 {
 	int	i;
+	char	**split;
+	char	*ret;
 
 	i = 0;
+	split = ft_split(s, '$');
+	ret = ft_strdup("");
 	if (!ft_env_examiner(&s))
 		return (s);
 	if (*s == '?')
 		return ("$?");
-	while (env_list->next != NULL)
+	if (split[0])
 	{
-		if (ft_strcmp(s, env_list->name) == 0)
-			return (env_list->path);
-		env_list = env_list->next;
+		while (env_list->next != NULL)
+		{
+			if (ft_strcmp(split[0], env_list->name) == 0)
+			{
+				ret = ft_strjoin(ret, env_list->path);
+				break ;
+			}
+			env_list = env_list->next;
+		}
+		i++;
 	}
+	if (ret)
+		return (ret);
 	*s = '\0';
 	return (s);
 }

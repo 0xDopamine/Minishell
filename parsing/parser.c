@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 23:35:54 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/07 00:03:10 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = ft_string_examiner(split[0], env_list);
-		printf("%s\n", cmd->argv[argc]);
+		// printf("%s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
@@ -168,7 +168,7 @@ t_cmd	*parsepipe(char **ps, t_env_p *env_list, char **env)
 
 	env_lst = malloc(sizeof(t_env **));
 	cmd = parseexec(ps, env_list, env);
-	printf("ps: %s\n", *ps);
+	// printf("ps: %s\n", *ps);
 	if (ft_is_heredoc(ps))
 		if (get_token(ps, 0) == 'H')	
 			cmd = ft_parse_heredoc(ps, env_lst, cmd, env);

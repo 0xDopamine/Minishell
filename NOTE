@@ -69,3 +69,7 @@ and the heredoc needs to be detected and executed first f lparsing so take my fu
 it men eandk
 you need to parse the delimiter for heredoc
 minishell goes a bit crazy after using heredoc
+
+UPDATE:
+fixed the execution in heredoc but it turns out that when heredoc closes you parse the command 
+alone again so it things get executed two times

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:10:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 12:22:48 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:32:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void    heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 	str = NULL;
 	while (true)
 	{
-		line = readline("heredoc> ");
+		line = readline(YELLOW"heredoc> " RESET);
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
         if (line[0] == '$')

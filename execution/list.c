@@ -6,12 +6,27 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:45:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 11:06:53 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:50:10 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "exec.h"
+
+int	ft_lstsize(t_env *lst)
+{
+	int		size;
+	t_env	*temp;
+
+	size = 0;
+	temp = lst;
+	while (temp)
+	{
+		size++;
+		temp = temp->next;
+	}
+	return (size);
+}
 
 t_env	*ft_lstlast(t_env *lst)
 {
@@ -35,7 +50,7 @@ void	ft_lstadd_front(t_env **lst, t_env *new)
 	*lst = new;
 }
 
-t_env	*ft_lstnew(char *path, char *name, int index)
+t_env	*ft_lstnew(char *path, char *name)
 {
 	t_env	*head;
 	int		i;
@@ -46,8 +61,6 @@ t_env	*ft_lstnew(char *path, char *name, int index)
 		return (NULL);
 	head->path = ft_strdup(path);
 	head->name = ft_strdup(name);
-	head->index = (int)malloc(4);
-	head->index = index;
 	head->next = NULL;
 	return (head);
 }

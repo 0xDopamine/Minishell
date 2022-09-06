@@ -26,7 +26,7 @@ FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 INCLUDE = include/
 
 #* DELETE *#
-DEL = rm -f
+DEL = rm -rf
 
 all: $(TARGET)
 	

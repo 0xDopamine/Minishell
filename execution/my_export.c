@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 11:15:15 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:45:51 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_export(t_env **env, t_exec *line)
 		return (1);
 	}
 	if (export_checkav(str[0], str, NAME) && export_checkav(str[1], str, PATH))
-		ft_lstadd_back(env, ft_lstnew(str[1], str[0], (int)str[0][0]));
+		ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
 	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }

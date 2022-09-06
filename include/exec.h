@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 12:22:09 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:31:29 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # define EXIT_NOTFOUND 127
 # define FIND 3
 # define EDIT 4
+# define RED "\001\e[0;31m\002"
+# define CYAN "\033[0;36m"
+# define RESET   "\001\e[0m\002"
+# define YELLOW "\033[0;33m"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -40,7 +44,6 @@ typedef struct s_env
 {
 	char			*name;
 	char			*path;
-	int				index;
 	struct s_env	*next;
 }				t_env;
 
@@ -57,7 +60,7 @@ char	**ft_find_path(void);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_get_env(char **env, t_env **env_list);
 void	ft_lstadd_back(t_env **lst, t_env *new);
-t_env	*ft_lstnew(char *path, char *name, int index);
+t_env	*ft_lstnew(char *path, char *name);
 void	ft_lstadd_front(t_env **lst, t_env *new);
 void	del(char *path);
 t_env	*ft_lstlast(t_env *lst);
@@ -102,5 +105,6 @@ void	pipes_access(t_exec *line);
 void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter);
 void	execnofork_loop(char *cmd, char **av, char **env);
 void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
+int		ft_lstsize(t_env *lst);
 
 #endif

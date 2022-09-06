@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_nofork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 22:31:23 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 10:27:57 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 	while (path[i])
 	{
 		join = ft_strjoin(path[i], cmd);
-		printf("join:%s\nav[0]:%s\nav[1]:%s\n", join, av[0], av[1]);
+		// printf("join:%s\nav[0]:%s\nav[1]:%s\n", join, av[0], av[1]);
 		if (access(join, X_OK) == 0)
 		{
+			printf("im here\n");
 			ft_free_doubleptr(path);
 			execve(join, av, env);
 			perror("execve");
@@ -43,7 +44,7 @@ void	ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 {
 	char	*cmd;
 
-	// printf("%s\n%s\n", line->argv[0], line->argv[1]);
+	printf("%s\n%s\n", line->argv[0], line->argv[1]);
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);

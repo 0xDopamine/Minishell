@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 22:35:44 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:06:58 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*path;
+	int				index;
 	struct s_env	*next;
 }				t_env;
 
@@ -56,7 +57,7 @@ char	**ft_find_path(void);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_get_env(char **env, t_env **env_list);
 void	ft_lstadd_back(t_env **lst, t_env *new);
-t_env	*ft_lstnew(char *path, char *name);
+t_env	*ft_lstnew(char *path, char *name, int index);
 void	ft_lstadd_front(t_env **lst, t_env *new);
 void	del(char *path);
 t_env	*ft_lstlast(t_env *lst);

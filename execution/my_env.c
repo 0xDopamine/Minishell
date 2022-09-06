@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:18:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:05:38 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ void	ft_get_env(char **env, t_env **env_list)
 {
 	int		i;
 	char	**str;
+	int		index;
 
 	i = 0;
+	index = 0;
 	while (env[i])
 	{
 		str = ft_split_namecont(env[i]);
-		ft_lstadd_back(env_list, ft_lstnew(str[1], str[0]));
+		index = (int)str[1][0];
+		ft_lstadd_back(env_list, ft_lstnew(str[1], str[0], index));
 		if (str[0])
 			free(str[0]);
 		if (str[1])

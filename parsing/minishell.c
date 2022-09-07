@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/07 00:11:28 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/07 03:25:40 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,31 @@ char	*ft_string_examiner(char *s, t_env_p *env_list)
 
 	i = 0;
 	temp = s;
-	res = NULL;
+	res = ft_strdup("");
+	// printf("temp: %s\n", temp);
 	while (temp[i])
 	{
 		if (ft_strchr(temp[i], "\"\'") && temp[i] != 1)
 		{	
 			j = 0;
-			res = ft_strdup(ft_handle_quotes(temp, env_list));			
-			if (res[0] == '\'' && res[1] == '$' && temp[i] != '\'')
-				return (ft_search_for_env(res, env_list));
+			res = ft_strdup(ft_handle_quotes(temp, env_list));	
+			// else if (temp[0] == '\'' && temp[1] == '$' && temp[i] != '\'')
+			// 	return (ft_search_for_env(res, env_list));
 			// else if (res[0] == '$' && temp[i] == '"')
-			// 	return (ft_strjoin(res, ft_assign_env(temp + i + 1, env_list)));
-			break ;
+			//  	return (ft_strjoin(res, ft_assign_env(temp + i + 1, env_list)));
+			if (res[0] == '$')
+			{	
+					temp = res;
+					res = ft_strdup("");
+					i = 0;
+			}
 		}
-		if ((temp[i] == '$' && temp[i] != 1) || res[0] == '$')
+			// break ;
+		// printf("temp: %s\n", temp + i);
+		if ((temp[i] == '$' && temp[i] != 1))
 		{
 			res = ft_strjoin(res, ft_assign_env(temp + i + 1, env_list));
+			// printf("here 3 res: %s\n", res);
 			if (res[0] == 1)
 				i++;
 			else if (ft_strchr(res[0], "\"\'"))
@@ -166,7 +175,7 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 		}
 		i++;
 	}
-	if (ret)
+	if (*ret != '\0')
 		return (ret);
 	*s = '\0';
 	return (s);

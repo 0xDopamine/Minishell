@@ -77,3 +77,6 @@ seg fault in << delimiter tests
 After the (fixed heredoc maybe ?) u made a mistake in some function f parsing now < redirections are not working
 echo $$segfaults
 $ENVVARIABLE segfaults
+| seg faults
+among us redirections (ls > $VAR) (if env variable )
+seg faults in "<" and ">" input

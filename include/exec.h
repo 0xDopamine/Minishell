@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 17:31:29 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:03:05 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct s_red
 size_t	ft_strlen(char *str);
 void	ft_exec(t_exec *line, char **env, t_env **env_list);
 char	**ft_find_path(void);
-int		ft_strcmp(char *s1, char *s2);
 void	ft_get_env(char **env, t_env **env_list);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstnew(char *path, char *name);
@@ -106,5 +105,6 @@ void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter);
 void	execnofork_loop(char *cmd, char **av, char **env);
 void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
 int		ft_lstsize(t_env *lst);
+char	**export_sortnames(t_env *env_list);
 
 #endif

@@ -6,46 +6,69 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:51:47 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 17:05:43 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:29:57 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 
-// int	ft_strcmp(char *s1, char *s2)
-// {
-// 	unsigned int	i;
+static int	ft_strcmp(char *s1, char *s2)
+{
+	unsigned int	i;
 
-// 	i = 0;
-// 	while (s1[i] && s2[i] && s1[i] == s2[i])
-// 		i++;
-// 	return (s1[i] - s2[i]);
-// }
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
 
-// char	**export_sortnames(t_env *env_list)
-// {
-// 	char	**names;
-// 	t_env	*tmp;
-// 	t_env	*head;
-// 	int		i;
+char	**export_sortnames(t_env *env_list)
+{
+	char	**names;
+	int		i;
+	int		j;
+	t_env	*head;
+	char	*temp;
 
-// 	i = 0;
-// 	head = env_list;
-// 	tmp = env_list;
-// 	names = (char **)malloc(sizeof(char *) * ft_lstsize(env_list) + 1);
-// 	while (names[i])
-// 	{
-// 		names[i++] = ft_strdup(env_list->name);
-// 		env_list = env_list->next;
-// 	}
-// 	names[i] = NULL;
-// 	while (names[i])
-// 	{
-		
-// 	}
-// 	return (names);
-// }
+	i = 0;
+	j = 0;
+	temp = NULL;
+	head = env_list;
+	// names = (char **)malloc(sizeof(char *) * ft_lstsize(head) + 1);
+	names = (char **)ft_calloc(sizeof(char *), ft_lstsize(head));
+	while (i < ft_lstsize(head) && env_list)
+	{
+		names[i] = ft_strdup(env_list->name);
+		printf("%s\n", names[i++]);
+		env_list = env_list->next;
+	}
+	// names[i] = NULL;
+	i = 0;
+	// exit(1);
+	while (i < ft_lstsize(head))
+	{
+		j = i + 1;
+		while (j < ft_lstsize(head) && names[j])
+		{
+			if (ft_strcmp(names[i], names[j]) > 0)
+			{
+				temp = names[i];
+				names[i] = names[j];
+				names[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+	printf("***********\n");
+	for (int i = 0; i < 38; i++)
+	{
+		printf("%s\n", names[i++]);
+	}
+	printf("%d\n", i);
+	return (names);
+}
 
 int	export_ifnotreplace(char *str, t_env *env_list)
 {

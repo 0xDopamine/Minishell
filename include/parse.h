@@ -74,7 +74,7 @@ size_t		ft_strlen(char *str);
 char		*findthewae(char **str);
 char		*ft_strjoin(char *s1, char *s2);
 int			ft_isalpha(int c);
-int			ft_strcmp(char *s1, char *s2);
+// int			ft_strcmp(char *s1, char *s2);
 char		*join_chars(char *curr, char *next);
 int			get_token(char **ps, char **q);
 int			is_whitespace(char *str, char *es);

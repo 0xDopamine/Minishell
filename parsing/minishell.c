@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 04:37:50 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 04:43:00 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	trim_string(char *q, char *eq)
 
 	index = ft_strlen_q(q, eq);
 	q[index] = '\0';
+	printf("trimmed q: %s\n", q);
 }
 
 char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)

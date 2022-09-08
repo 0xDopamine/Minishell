@@ -80,3 +80,12 @@ $ENVVARIABLE segfaults
 | seg faults
 among us redirections (ls > $VAR) (if env variable )
 seg faults in "<" and ">" input
+
+***************'
+
+fixed some stuff we had wrong with handling the string overall (quotes and env)
+the function isnt perfect yet test like echo $USER"$USER" dont work i know why, just too tired to fix it
+you'll notice how fast this one is
+if shit hits the fan comment it at parser.c::102 and uncomment the line before it
+
+i still cant figure out why the commands execute twice 

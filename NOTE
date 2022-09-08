@@ -94,3 +94,4 @@ NB: I have a spaces problem with export
 example:
 export VAR="la la" jsut parse "la la" like this to me
 export VAR="la     la la   " same for this  
+you need to expand inputs like $PWD or $USER etc without echo and send them to me

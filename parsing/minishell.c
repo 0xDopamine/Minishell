@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 11:05:07 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:36:04 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,12 +160,12 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 			else if (ft_strchr(*q, "$"))
 			{
 				fetch_env(&q, &eq);
-				// trim_string(q, eq);
-				// printf("before q: %s\neq: %s\n", q, eq);
+				trim_string(q, eq);
+				printf("before q: %s\neq: %s\n", q, eq);
 				res = ft_strjoin(res, ft_assign_env(q, env_list));
-				// printf("res: %s\n", res);
+				printf("res: %s\n", res);
 				q = eq;
-				// printf("q: %s\neq: %s\n", q, eq);
+				printf("q: %s\neq: %s\n", q, eq);
 			}
 			else
 			{

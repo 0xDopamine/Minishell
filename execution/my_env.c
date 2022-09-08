@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/07 11:19:01 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:15:52 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,34 @@ void	ft_get_env(char **env, t_env **env_list)
 static	void	export_printenv(t_env *env_list)
 {
 	char	**names;
+	t_env	*list;
+	int		i;
 
+	i = 0;
+	list = env_list;
 	names = export_sortnames(env_list);
-	// while (env_list)
-	// {
-	// 	printf("declare -x ");
-	// 	printf("%s", env_list->name);
-	// 	if (env_list->path == NULL)
-	// 		printf("\n");
-	// 	if (env_list->path != NULL)
-	// 	{
-	// 		printf("=");
-	// 		printf("%c%s%c\n", '"', env_list->path, '"');
-	// 	}
-	// 	env_list = env_list->next;
-	// }
-	// g.exit_status = EXIT_SUCCESS;
+	while (i < ft_lstsize(env_list))
+	{
+		printf("declare -x ");
+		printf("%s", names[i]);
+		list = env_list;
+		while (list)
+		{
+			if (ft_strcmp(list->name, names[i]) == 0)
+			{
+				if (list->path == NULL)
+					printf("\n");
+				if (list->path != NULL)
+				{
+					printf("=");
+					printf("%c%s%c\n", '"', list->path, '"');
+				}
+			}
+			list = list->next;
+		}
+		i++;
+	}
+	g.exit_status = EXIT_SUCCESS;
 }
 
 static	void	env_printenv(t_env *env_list)

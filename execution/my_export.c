@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 15:45:51 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:18:23 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	export_checkpathname(char *str)
 	while (str[i])
 	{
 		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97
-				&& str[i] <= 122) && str[i] != '_')
+				&& str[i] <= 122) && str[i] != '_' && str[i] != ' ')
 		{
 			ft_putstr_fd("export: '", str, STDERR_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
@@ -84,6 +84,7 @@ int	ft_export(t_env **env, t_exec *line)
 
 	str = NULL;
 	i = 0;
+	// printf("the string you parse to export: %s\n", line->argv[1]);
 	if (!line->argv[1])
 		return (ft_env(*env, 'e'));
 	str = ft_split_namecont(line->argv[1]);

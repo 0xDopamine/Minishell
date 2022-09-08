@@ -73,7 +73,7 @@ minishell goes a bit crazy after using heredoc
 UPDATE:
 fixed the execution in heredoc but it turns out that when heredoc closes you parse the command 
 alone again so it things get executed two times
-seg fault in << delimiter tests
+seg fault in (< <) delimiter tests
 After the (fixed heredoc maybe ?) u made a mistake in some function f parsing now < redirections are not working
 echo $$segfaults
 $ENVVARIABLE segfaults
@@ -88,4 +88,9 @@ the function isnt perfect yet test like echo $USER"$USER" dont work i know why, 
 you'll notice how fast this one is
 if shit hits the fan comment it at parser.c::102 and uncomment the line before it
 
-i still cant figure out why the commands execute twice 
+i still cant figure out why the commands execute twice
+
+NB: I have a spaces problem with export 
+example:
+export VAR="la la" jsut parse "la la" like this to me
+export VAR="la     la la   " same for this  

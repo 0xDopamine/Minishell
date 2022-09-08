@@ -6,22 +6,22 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:51:47 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/07 11:29:57 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:18:03 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 
-static int	ft_strcmp(char *s1, char *s2)
-{
-	unsigned int	i;
+// static int	ft_strcmp(char *s1, char *s2)
+// {
+// 	unsigned int	i;
 
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
+// 	i = 0;
+// 	while (s1[i] && s2[i] && s1[i] == s2[i])
+// 		i++;
+// 	return (s1[i] - s2[i]);
+// }
 
 char	**export_sortnames(t_env *env_list)
 {
@@ -35,7 +35,6 @@ char	**export_sortnames(t_env *env_list)
 	j = 0;
 	temp = NULL;
 	head = env_list;
-	// names = (char **)malloc(sizeof(char *) * ft_lstsize(head) + 1);
 	names = (char **)ft_calloc(sizeof(char *), ft_lstsize(head));
 	while (i < ft_lstsize(head) && env_list)
 	{
@@ -43,9 +42,7 @@ char	**export_sortnames(t_env *env_list)
 		printf("%s\n", names[i++]);
 		env_list = env_list->next;
 	}
-	// names[i] = NULL;
 	i = 0;
-	// exit(1);
 	while (i < ft_lstsize(head))
 	{
 		j = i + 1;
@@ -61,12 +58,6 @@ char	**export_sortnames(t_env *env_list)
 		}
 		i++;
 	}
-	printf("***********\n");
-	for (int i = 0; i < 38; i++)
-	{
-		printf("%s\n", names[i++]);
-	}
-	printf("%d\n", i);
 	return (names);
 }
 

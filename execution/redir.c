@@ -6,11 +6,52 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/05 15:58:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:50:17 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+static int		redir_checkpath(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ' && str[i+1])
+		{
+			ft_putstr_fd("ambiguous (amogus) redirect", NULL, STDERR_FILENO);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+static	int	redir_checkname(char **filename, t_env **env_list)
+{
+	t_env	*list;
+	int		i;
+
+	list = *env_list;
+	i = 1;
+	while (list)
+	{
+		if (ft_strcmp(&filename[0][1], list->name) == 0)
+		{
+			if (redir_checkpath(list->path))
+			{
+				free (filename[0]);
+				filename[0] = ft_strdup(list->path);
+				return (0);
+			}
+			else
+				return (1);
+		}
+		list = list->next;
+	}
+	return (0);
+}
 
 void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 {
@@ -25,6 +66,8 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	ex = (t_exec *)redir->right;
 	while (redir && redir->fd == STDIN_FILENO)
 	{
+		if (redir_checkname(&(redir->file), env_list) && redir->file[0] == '$')
+			return ;
 		fd_file = open(redir->file, redir->mode, 0644);
 		red.in_fd = fd_file;
 		if (red.in_fd == -1)
@@ -36,9 +79,10 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 		}
 		redir = (t_redir *)redir->left;
 	}
-		// int i = 0;
 	while (redir && redir->fd == STDOUT_FILENO)
 	{
+		if (redir_checkname(&(redir->file), env_list) && redir->file[0] == '$')
+			return ;
 		fd_file = open(redir->file, redir->mode, 0644);
 		red.out_fd = fd_file;
 		if (red.out_fd == -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 04:52:32 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 11:05:07 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	trim_string(char *q, char *eq)
 
 	index = ft_strlen_q(q, eq);
 	q[index] = '\0';
-	printf("trimmed q: %s\n", *q);
+	// printf("trimmed q: %s\n", *q);
 }
 
 char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)

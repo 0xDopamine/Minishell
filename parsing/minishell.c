@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 20:36:04 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:52:03 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,8 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 			else if (ft_strchr(*q, "$"))
 			{
 				fetch_env(&q, &eq);
-				trim_string(q, eq);
-				printf("before q: %s\neq: %s\n", q, eq);
+				null_terminate(&q);
+				printf("q: %s\n", q);
 				res = ft_strjoin(res, ft_assign_env(q, env_list));
 				printf("res: %s\n", res);
 				q = eq;
@@ -277,6 +277,7 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 	int	i;
 	char	**split;
 	char	*ret;
+	t_env_p	*temp_list;
 
 	i = 0;
 	split = ft_split(s, '$');
@@ -285,22 +286,20 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 		return (s);
 	if (*s == '?')
 		return ("$?");
-	printf("split: %s\n", split[0]);
-	if (split[0])
+	while (split[i])
 	{
-		while (env_list->next != NULL)
+		temp_list = env_list;
+		while (temp_list->next != NULL)
 		{
-			if (ft_strcmp(split[0], env_list->name) == 0)
+			if (ft_strcmp(split[i], temp_list->name) == 0)
 			{
-				ret = ft_strjoin(ret, env_list->path);
+				ret = ft_strjoin(ret, temp_list->path);
 				break ;
 			}
-			env_list = env_list->next;
+			temp_list = temp_list->next;
 		}
 		i++;
 	}
-	if (**(split + 1) != '\0')
-		ret = ft_strjoin(ret, env_list->path);
 	if (*ret != '\0')
 		return (ret);
 	*s = '\0';

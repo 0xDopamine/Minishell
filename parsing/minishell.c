@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 04:43:00 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/08 04:52:32 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	trim_string(char *q, char *eq)
 
 	index = ft_strlen_q(q, eq);
 	q[index] = '\0';
-	printf("trimmed q: %s\n", q);
+	printf("trimmed q: %s\n", *q);
 }
 
 char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
@@ -160,12 +160,12 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 			else if (ft_strchr(*q, "$"))
 			{
 				fetch_env(&q, &eq);
-				trim_string(q, eq);
-				printf("before q: %s\neq: %s\n", q, eq);
+				// trim_string(q, eq);
+				// printf("before q: %s\neq: %s\n", q, eq);
 				res = ft_strjoin(res, ft_assign_env(q, env_list));
-				printf("res: %s\n", res);
+				// printf("res: %s\n", res);
 				q = eq;
-				printf("q: %s\neq: %s\n", q, eq);
+				// printf("q: %s\neq: %s\n", q, eq);
 			}
 			else
 			{
@@ -285,6 +285,7 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 		return (s);
 	if (*s == '?')
 		return ("$?");
+	printf("split: %s\n", split[0]);
 	if (split[0])
 	{
 		while (env_list->next != NULL)

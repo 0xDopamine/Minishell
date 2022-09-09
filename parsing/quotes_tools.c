@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:04:26 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 02:12:13 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:20:35 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int	wdcount_q(char *s, char c)
 	{
 		if (s[i] == '"' || s[i] == '\'')
 		{	
-			while (ft_strchr(s[i], "\'\"") && s)
+			while (ft_strchr(s[i], "\'\"") && s[i])
 				i++;
-			while (!ft_strchr(s[i], "\'\""))
+			while (!ft_strchr(s[i], "\'\"") && s[i])
 				i++;
-			while (ft_strchr(s[i], "\'\"") && s)
+			while (ft_strchr(s[i], "\'\"") && s[i])
 				i++;
 			count++;
 		}

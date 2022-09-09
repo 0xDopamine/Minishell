@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 16:28:02 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:23:58 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,13 +157,15 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 			if (ft_strchr(*q, "\'\""))
 			{	
 				fetch_quoted(&q, &eq);
+				printf("q: %s\n", q);
+				printf("eq: %s\n", eq);
 				if (*q == '$' && *eq != '\'')
 				{
 					fetch_env(&q, &eq);
 					q = ft_join_string(q, eq);
 					res = ft_strjoin(res, ft_assign_env(q, env_list));
 				}
-				else if (*q == '\'' && *eq ==  '"')
+				else if (*q == '\'' && (*(q + 1) == '$') && *eq ==  '"')
 					res = ft_strjoin(res, ft_search_for_env(q, env_list));
 				else
 					res = ft_strjoin(res, ft_join_string(q, eq));

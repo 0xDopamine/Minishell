@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 02:57:05 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:19:42 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
 	t_env	**env_lst;
 
 	env_lst = malloc(sizeof(t_env **));
-	if (*ps[0] == '"')
+	if (ft_strchr(**ps, "\'\""))
 		words = num_words(*ps, 0);
 	else
 		words = num_words(*ps, 1);

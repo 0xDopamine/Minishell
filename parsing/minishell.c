@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 02:38:26 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 02:47:07 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,9 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 				fetch_quoted(&q, &eq);
 				printf("res quotes: %s\n", res);
 				printf("q quotes: %s\neq quotes: %s\n", q, eq);
-				if (*q == '$' && *eq == '\'')
-					res = ft_search_for_env(res, env_list);
-				else if (*q == '$')
+				// if (*q == '$' && *eq == '\'')
+				// 	res = ft_search_for_env(q - 1, env_list);
+				if (*q == '$' && *eq != '\'')
 				{
 					fetch_env(&q, &eq);
 					q = ft_join_string(q, eq);

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 02:47:07 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 03:39:50 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	fetch_quoted(char **q, char **eq)
 	while (*s != tok && *s)
 		s++;
 	*eq = s;
-	printf("fetch quoted eq: %s\n", *eq);	
 }
 
 void	fetch_string(char **q, char **eq)
@@ -140,7 +139,6 @@ void	trim_string(char *q)
 		i++;		
 	}
 	q[i] = '\0';
-	// printf("trimmed q: %s\n", *q);
 }
 
 char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
@@ -159,19 +157,16 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 			if (ft_strchr(*q, "\'\""))
 			{	
 				fetch_quoted(&q, &eq);
-				printf("res quotes: %s\n", res);
-				printf("q quotes: %s\neq quotes: %s\n", q, eq);
-				// if (*q == '$' && *eq == '\'')
-				// 	res = ft_search_for_env(q - 1, env_list);
 				if (*q == '$' && *eq != '\'')
 				{
 					fetch_env(&q, &eq);
 					q = ft_join_string(q, eq);
 					res = ft_strjoin(res, ft_assign_env(q, env_list));
 				}
+				else if (*q == '\'' && *eq ==  '"')
+					res = ft_strjoin(res, ft_search_for_env(q, env_list));
 				else
 					res = ft_strjoin(res, ft_join_string(q, eq));
-				// else
 				if (*eq + 1)
 					q = eq + 1;
 			}
@@ -179,11 +174,11 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 			{
 				fetch_env(&q, &eq);
 				q = ft_join_string(q, eq);
-				printf("q: %s\neq: %s\n", q, eq);
-				res = ft_strjoin(res, ft_assign_env(q, env_list));
-				printf("res env: %s\n", res);
+				if (*q == '$' && *eq == '\0')
+					res = ft_strjoin(res, "$");
+				else
+					res = ft_strjoin(res, ft_assign_env(q, env_list));
 				q = eq;
-				printf("q: %s\neq: %s\n", q, eq);
 			}
 			else
 			{
@@ -199,47 +194,6 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 	if (res)
 		*ps = res;
 	return (*ps);
-}
-
-char	*ft_string_examiner(char *s, t_env_p *env_list)
-{
-	int		i;
-	char	*temp;
-	char	*res;
-
-	i = 0;
-	temp = s;
-	res = ft_strdup("");
-	while (temp[i])
-	{
-		printf("temp: %s\n", temp + i);
-		if (temp[i + 1] == '\0')
-			break ;
-		if (ft_strchr(temp[i], "\"\'") && temp[i + 1] != 1)
-		{	
-			res = ft_strdup(ft_handle_quotes(temp, env_list));
-			printf("res: %s\n", res);
-			if (temp[i] == '\'' && *res =='$')
-			{	
-				res = ft_search_for_env(temp, env_list);
-				printf("res search for env: %s\n", res);
-			}
-			else if (*res == '$')
-				temp = res;
-		}
-		if ((temp[i] == '$' && temp[i] != 1))
-		{
-			res = ft_strjoin(res, ft_assign_env(temp + i + 1, env_list));
-			if (res[0] == 1)
-				i++;
-			else if (ft_strchr(res[0], "\"\'"))
-				temp = res;
-		}
-		i++;
-	}
-	if (!res)
-		return (s);
-	return (res);
 }
 
 int	ft_env_examiner(char **s)
@@ -300,13 +254,14 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 
 	i = 0;
 	flag = 0;
+	if (*s == '$' && *(s + 1) == '\0')
+		return (NULL);
 	split = ft_split(s, '$');
-	ret = ft_strdup("");
+	ret = ft_strdup("\0");
 	if (!ft_env_examiner(&s))
 		return (s);
-	if (*s == '?')
+	if (**split == '?')
 		return ("$?");
-	printf("s: %s\n", s);
 	while (split[i])
 	{
 		temp_list = env_list;
@@ -322,10 +277,9 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 		}
 		i++;
 	}
-	if (*ret != '\0')
+	if (ret != NULL)
 		return (ret);
-	*s = '\0';
-	return (s);
+	return (NULL);
 }
 
 int	ft_check_quotes(char *s)

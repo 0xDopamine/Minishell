@@ -100,3 +100,6 @@ you need to expand inputs like $PWD or $USER etc without echo and send them to m
 
 I fixed everything related to envs and quotes if there are some tests not working leave them here for me
 blan redirections and command executing twice ghadi ichofo m3aya saad tomorrow, deja gltha lih
+
+A test related to envs not working when I export a new a variable and attempt to expand
+it like ($NEWVAR) it seg faults

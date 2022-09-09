@@ -95,3 +95,8 @@ example:
 export VAR="la la" jsut parse "la la" like this to me
 export VAR="la     la la   " same for this  
 you need to expand inputs like $PWD or $USER etc without echo and send them to me
+
+
+
+I fixed everything related to envs and quotes if there are some tests not working leave them here for me
+blan redirections and command executing twice ghadi ichofo m3aya saad tomorrow, deja gltha lih

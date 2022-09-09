@@ -6,12 +6,11 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 21:19:42 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:43:26 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "parse.h"
 #include <unistd.h>
 
 int	num_words(char *str, int quote_flag)
@@ -65,7 +64,7 @@ t_cmd	*ft_parse_heredoc(char **ps, t_env **env_list, t_cmd *cmd, char **env)
 	return (cmd);
 }
 
-t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
+t_cmd	*parseexec(char **ps, t_env *env_list, char **env)
 {
 	char	*q;
 	int		tok;
@@ -74,9 +73,7 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
 	int		words;
 	t_cmd	*ret;
 	char	**split;
-	t_env	**env_lst;
 
-	env_lst = malloc(sizeof(t_env **));
 	if (ft_strchr(**ps, "\'\""))
 		words = num_words(*ps, 0);
 	else
@@ -109,14 +106,12 @@ t_cmd	*parseexec(char **ps, t_env_p *env_list, char **env)
 	return (ret);
 }
 
-t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env_p *env_list, char **env_arr)
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list, char **env_arr)
 {
 	int		tok;
 	char	*q;
 	char	**split;
-	t_env	**env;
 
-	env = malloc(sizeof(t_env **));
 	if (next(ps, "<>") && !ft_is_heredoc(ps))
 	{
 		tok = get_token(ps, 0);
@@ -161,17 +156,18 @@ int		ft_is_heredoc(char **ps)
 	return (0);
 }
 
-t_cmd	*parsepipe(char **ps, t_env_p *env_list, char **env)
+t_cmd	*parsepipe(char **ps, t_env *env_list, char **env)
 {
 	t_cmd	*cmd;
-	t_env	**env_lst;
+	t_env	**list;
 
-	env_lst = malloc(sizeof(t_env **));
+	list = malloc(sizeof(t_env **));
+	*list = env_list;
 	cmd = parseexec(ps, env_list, env);
 	// printf("ps: %s\n", *ps);
 	if (ft_is_heredoc(ps))
 		if (get_token(ps, 0) == 'H')	
-			cmd = ft_parse_heredoc(ps, env_lst, cmd, env);
+			cmd = ft_parse_heredoc(ps, list, cmd, env);
 	if (next(ps, "|"))
 	{
 		get_token(ps, 0);

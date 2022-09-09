@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 21:23:58 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:52:12 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	null_terminate(char **s)
 	*q = '\0';
 }
 
-char	*ft_search_for_env(char *s, t_env_p *env_list)
+char	*ft_search_for_env(char *s, t_env *env_list)
 {
 	char	*res;
 	int		i;
@@ -141,7 +141,7 @@ void	trim_string(char *q)
 	q[i] = '\0';
 }
 
-char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
+char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 {
 	char	*q;
 	char	*eq;
@@ -246,12 +246,12 @@ int	ft_env_examiner(char **s)
 // 	}
 // }
 
-char	*ft_assign_env(char *s, t_env_p *env_list)
+char	*ft_assign_env(char *s, t_env *env_list)
 {
 	int	i;
 	char	**split;
 	char	*ret;
-	t_env_p	*temp_list;
+	t_env	*temp_list;
 	int		flag;
 
 	i = 0;
@@ -267,7 +267,7 @@ char	*ft_assign_env(char *s, t_env_p *env_list)
 	while (split[i])
 	{
 		temp_list = env_list;
-		while (temp_list->next != NULL)
+		while (temp_list != NULL)
 		{
 			if (ft_strcmp(split[i], temp_list->name) == 0)
 			{
@@ -312,7 +312,7 @@ int	ft_check_quotes(char *s)
 	return (1);
 }
 
-char	*ft_handle_quotes(char *q, t_env_p *env_list)
+char	*ft_handle_quotes(char *q, t_env *env_list)
 {
 	char	*s;
 	char	*res;
@@ -387,7 +387,7 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	t_cmd	*simpleCommand;
 	t_env 	*env_list;
-	t_env_p	*env_list_p;
+	// t_env_p	*env_list_p;
 	char	*temp;
 
 	line = NULL;
@@ -396,7 +396,7 @@ int	main(int argc, char **argv, char **env)
 	(void)env;
 	simpleCommand = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
-	env_list_p = (t_env_p *)env_list;
+	// env_list_p = (t_env_p *)env_list;
 	printf("Two brothers minishell\n");
 	//don't use CTRL -C signal now
 	signal(SIGINT, ft_sig_handler);
@@ -414,8 +414,7 @@ int	main(int argc, char **argv, char **env)
 		if (*temp)
 			add_history(temp);
 		temp = spaces(temp);
-		
-		simpleCommand = parsepipe(&line, env_list_p, env);
+		simpleCommand = parsepipe(&line, env_list, env);
 		// system("leaks minishell");
 		ft_check_cmd(simpleCommand, env, &env_list);
 		free(temp);

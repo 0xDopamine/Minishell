@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 12:17:25 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 22:41:12 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,13 @@ int		ft_lstsize(t_env *lst);
 char	**export_sortnames(t_env *env_list);
 int		exec_isdir(char *cmd);
 void	exec_checkcmd_fork(char *cmd, char **av, char **env);
-
+char	*ft_handle_quotes(char *q, t_env *env_list);
+char	*ft_assign_env(char *s, t_env *env_list);
+char	*ft_string_examiner(char *s, t_env *env_list);
+t_cmd	*parsepipe(char **ps, t_env *env_list, char **env);
+t_cmd	*parseexec(char **ps, t_env *env_list, char **env);
+t_cmd	*redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd);
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list, char **env);
+char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
 
 #endif

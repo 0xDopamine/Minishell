@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:09:26 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/02 16:03:40 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 11:10:52 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	unsigned int	i;
 
 	i = 0;
-	if (s1 == NULL)
+	if (s1 == NULL || s2 == NULL)
 		return (1);
 	if (n == 0)
 		return (0);

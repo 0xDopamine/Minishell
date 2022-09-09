@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 14:15:52 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 11:22:06 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static	void	env_printenv(t_env *env_list)
 
 int	ft_env(t_env *env_list, char c)
 {
-	if (c == 'e')
+	if (c == EXP)
 	{
 		export_printenv(env_list);
 		return (1);

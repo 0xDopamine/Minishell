@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 03:42:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:28:02 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,10 +364,10 @@ void	ft_sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		rl_on_new_line();
-		write(1, "\n", 1);
+		// rl_on_new_line();
+		// write(1, "\n", 1);
 		// rl_replace_line("", 0); /* comment all of this cuz we need to install brew and other things in goinfre */
-		rl_redisplay();
+		// rl_redisplay();
 		g.exit_status = 130;
 		return ;
 	}
@@ -401,7 +401,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, ft_sig_handler);
 	while (true)
 	{
-		line = readline(CYAN"TwoBrosShell➜ " RESET);
+		line = readline(CYAN"TwoBrosShell➜ "RESET);
 		temp = line;
 		if (!temp)
 		{

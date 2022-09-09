@@ -107,4 +107,5 @@ it like ($NEWVAR) it seg faults
 ("") seg faults too
 ""cmd" seg faults   "
 "'cmd'" seg faults
-question: did u only handle quotes for echo ?!
+question: did u only handle quotes for echo ?! all the seg faults lead to the 
+ultimate function

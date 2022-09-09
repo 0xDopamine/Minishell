@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 16:04:37 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 14:39:34 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	pipes_access(t_exec *line)
 	char	*join;
 
 	i = 0;
+	if (!line->argv[0])
+		return ;
 	cmd = ft_strdup(line->argv[0]);
 	if (exec_checkcmd(cmd))
 	{

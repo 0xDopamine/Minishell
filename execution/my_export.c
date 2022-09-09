@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 14:18:23 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 11:22:33 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_export(t_env **env, t_exec *line)
 	i = 0;
 	// printf("the string you parse to export: %s\n", line->argv[1]);
 	if (!line->argv[1])
-		return (ft_env(*env, 'e'));
+		return (ft_env(*env, EXP));
 	str = ft_split_namecont(line->argv[1]);
 	if (!str || !str[0])
 		return (1);

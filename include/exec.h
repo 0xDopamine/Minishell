@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/07 11:03:05 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:17:25 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define EXIT_NOTFOUND 127
 # define FIND 3
 # define EDIT 4
+# define ENV 'a'
+# define EXP 'e'
 # define RED "\001\e[0;31m\002"
 # define CYAN "\033[0;36m"
 # define RESET   "\001\e[0m\002"
@@ -31,6 +33,7 @@
 # include <signal.h>
 # include <limits.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include "parse.h"
 
 typedef struct s_global
@@ -106,5 +109,8 @@ void	execnofork_loop(char *cmd, char **av, char **env);
 void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
 int		ft_lstsize(t_env *lst);
 char	**export_sortnames(t_env *env_list);
+int		exec_isdir(char *cmd);
+void	exec_checkcmd_fork(char *cmd, char **av, char **env);
+
 
 #endif

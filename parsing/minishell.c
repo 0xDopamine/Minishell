@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 03:39:50 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/09 03:42:49 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ char	*ft_ultimate_string_handler(char **ps, t_env_p *env_list)
 			{
 				fetch_env(&q, &eq);
 				q = ft_join_string(q, eq);
-				if (*q == '$' && *eq == '\0')
+				if (*q == '$' && *(q + 1) == '\0')
 					res = ft_strjoin(res, "$");
 				else
 					res = ft_strjoin(res, ft_assign_env(q, env_list));

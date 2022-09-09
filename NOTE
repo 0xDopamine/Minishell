@@ -103,3 +103,8 @@ blan redirections and command executing twice ghadi ichofo m3aya saad tomorrow, 
 
 A test related to envs not working when I export a new a variable and attempt to expand
 it like ($NEWVAR) it seg faults
+(ls |) seg faults wtf
+("") seg faults too
+""cmd" seg faults   "
+"'cmd'" seg faults
+question: did u only handle quotes for echo ?!

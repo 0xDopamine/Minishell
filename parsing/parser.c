@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 02:09:02 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 03:01:10 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_cmd	*ft_parse_heredoc(char **ps, t_env **env_list, t_cmd *cmd, char **env)
 	char	*delimiter;
 
 	delimiter = *ps;
-;	ft_heredoc(env_list, cmd, env, delimiter);
+	ft_heredoc(env_list, cmd, env, delimiter);
 	return (cmd);
 }
 
@@ -87,11 +87,6 @@ t_cmd	*parseexec(char **ps, t_env *env_list, char **env)
 		tok = get_token(ps, &q);
 		if (tok == 0)
 			break ;
-		if (tok == 'H')
-		{
-			*ps = q;
-			return (ret);
-		}
 		split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
@@ -108,32 +103,32 @@ t_cmd	*parseexec(char **ps, t_env *env_list, char **env)
 t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list, char **env_arr)
 {
 	int		tok;
+	int		next_tok;
 	char	*q;
 	char	**split;
+	t_env	**list;
 
-	if (next(ps, "<>") && !ft_is_heredoc(ps))
+	list = malloc(sizeof(t_env **));
+	*list = env_list;
+	if (next(ps, "<>") || ft_is_heredoc(ps))
 	{
 		tok = get_token(ps, 0);
-		// if (tok == 'H')
-		// 	break ;
-		if (get_token(ps, &q) != 'c')
+		next_tok = get_token(ps, &q);
+		if (next_tok != 'c' && next_tok != 'H')
 		{
 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
 			cmd->type = 0;
 			return (cmd);
 		}
-		split = ft_split(q, ' ');		
+		else if (tok == 'c' && next_tok == 'H')
+			ft_parse_heredoc(ps, list, cmd, env_arr);
+		split = ft_split(q, ' ');	
 		if (tok == '<')
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 		else if (tok == 'A')
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
-		// else if (tok == 'H')
-		// {
-		// 	*env = (t_env *)env_list;
-		// 	ft_heredoc(env, cmd, env_arr);
-		// }
 		// uncomment this if you wanna check whats inside
 		// printf("%d\n", cmd->type);
 		// t_redir *redir = (t_redir *)cmd;
@@ -158,15 +153,9 @@ int		ft_is_heredoc(char **ps)
 t_cmd	*parsepipe(char **ps, t_env *env_list, char **env)
 {
 	t_cmd	*cmd;
-	t_env	**list;
 
-	list = malloc(sizeof(t_env **));
-	*list = env_list;
 	cmd = parseexec(ps, env_list, env);
 	// printf("ps: %s\n", *ps);
-	if (ft_is_heredoc(ps))
-		if (get_token(ps, 0) == 'H')	
-			cmd = ft_parse_heredoc(ps, list, cmd, env);
 	if (next(ps, "|"))
 	{
 		get_token(ps, 0);

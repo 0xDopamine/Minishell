@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 02:16:42 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 04:00:55 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*spaces(char *line)
 	int	i;
 
 	i = 0;
+	if (ft_strlen(line) == 1)
+		return (line);
 	while (line[i])
 	{
 		if (line[i] == '|')

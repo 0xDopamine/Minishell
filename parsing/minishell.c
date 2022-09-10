@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 02:11:30 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 04:05:46 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,29 +231,6 @@ int	ft_env_examiner(char **s)
 	return (1);
 }
 
-// char	**ft_split_env(char *s)
-// {
-// 	char	**split;
-// 	int		i;
-// 	int		words;
-// 	int		j;
-
-// 	i = 0;
-// 	j = 0;
-// 	words = ft_count_env(s);
-// 	split = malloc(sizeof(char **) * words + 1);
-// 	while (s[i])
-// 	{
-// 		if (s[i] == '$')
-// 		{
-// 			split[j] = malloc(sizeof(char *) * ft_envlen(s) + 1);
-// 			i++;
-// 			while (s[i] != '$')
-			
-// 		}
-// 	}
-// }
-
 char	*ft_assign_env(char *s, t_env *env_list)
 {
 	int	i;
@@ -267,6 +244,8 @@ char	*ft_assign_env(char *s, t_env *env_list)
 	if (*s == '$' && *(s + 1) == '\0')
 		return (NULL);
 	split = ft_split(s, '$');
+	if (*split == NULL)
+		return (NULL);
 	ret = ft_strdup("\0");
 	if (!ft_env_examiner(&s))
 		return (s);
@@ -419,13 +398,12 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("\nexit\n", NULL, STDOUT_FILENO);
 			exit(255); /* needs to be finished */
 		}
-		// if (*temp)
-			add_history(temp);
-		// temp = spaces(temp);
-		simpleCommand = parsepipe(&line, env_list, env);
+		add_history(temp);
+		temp = spaces(temp);
+		simpleCommand = parsepipe(&temp, env_list, env);
 		// system("leaks minishell");
 		ft_check_cmd(simpleCommand, env, &env_list);
-		free(temp);
+		// free(temp);
 		// demo(line);
 	}
 	free(temp);

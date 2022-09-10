@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:54:34 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 02:14:35 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 02:01:38 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,13 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	ft_bzero(ptr, len);
 	return (ptr);
+}
+
+int	ft_isalnum(int arg)
+{
+	if ((arg >= 48 && arg <= 57) || (arg >= 97 && arg <= 122)
+		|| (arg >= 65 && arg <= 90) || arg == 36)
+		return (1);
+	else
+		return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 22:52:12 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 02:11:30 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,12 @@ void	fetch_quoted(char **q, char **eq)
 	*q = s;
 	while (*s != tok && *s)
 		s++;
+	if (*s == '\0')
+	{
+		**q = 1;
+		ft_putstr_fd("Quotes error\n", NULL, STDERR_FILENO);
+		return ;
+	}
 	*eq = s;
 }
 
@@ -118,7 +124,7 @@ void	fetch_env(char **q, char **eq)
 	s = *q;
 	while (*s)
 	{
-		if (ft_strchr(*s, "\'\""))
+		if (ft_strchr(*s, "\'\"") || !ft_isalnum(*s))
 			break ;
 		s++;
 	}
@@ -157,11 +163,13 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 			if (ft_strchr(*q, "\'\""))
 			{	
 				fetch_quoted(&q, &eq);
-				printf("q: %s\n", q);
-				printf("eq: %s\n", eq);
+				if (*q == 1)
+					return NULL;
 				if (*q == '$' && *eq != '\'')
 				{
 					fetch_env(&q, &eq);
+					if (*q == 1)
+						return NULL;
 					q = ft_join_string(q, eq);
 					res = ft_strjoin(res, ft_assign_env(q, env_list));
 				}
@@ -411,9 +419,9 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("\nexit\n", NULL, STDOUT_FILENO);
 			exit(255); /* needs to be finished */
 		}
-		if (*temp)
+		// if (*temp)
 			add_history(temp);
-		temp = spaces(temp);
+		// temp = spaces(temp);
 		simpleCommand = parsepipe(&line, env_list, env);
 		// system("leaks minishell");
 		ft_check_cmd(simpleCommand, env, &env_list);

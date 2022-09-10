@@ -99,4 +99,5 @@ void		rl_replace_line(const char *str, int mod);
 // char	*null_terminate(char *q);
 void		null_terminate(char **s);
 int			ft_is_heredoc(char **ps);
+int			ft_isalnum(int arg);
 #endif

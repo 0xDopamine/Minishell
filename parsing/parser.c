@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 04:03:13 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 21:49:56 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ int	num_words(char *str, int quote_flag)
 	if (quote_flag)
 		split = ft_split(str, ' ');
 	else
-	{
 		split = ft_split_quotes(str, ' ');
-	}
 	while(split[i++])
 		words++;
 	return (words);

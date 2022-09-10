@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 04:05:46 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 04:13:43 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,9 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 	char	*q;
 	char	*eq;
 	char	*res;
+	int		dollars;
 
+	dollars = 0;
 	eq = NULL;
 	res = NULL;
 	if (ps)

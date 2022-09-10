@@ -109,3 +109,38 @@ it like ($NEWVAR) it seg faults
 "'cmd'" seg faults
 question: did u only handle quotes for echo ?! all the seg faults lead to the 
 ultimate function
+
+
+
+///****************
+
+-ENV UPDATE:
+
+Fixed everything related to dollars and quotes (for real this time i hope)
+ba9i one thing tho
+these tests dont work:
+
+echo $$USER output -> 10652USER
+echo $$$USER output -> 10652mbaioumy
+echo $$$$USER output -> 1065210652USER
+echo $$$$$USER output -> 1065210652mbaioumy
+
+when $ are divisable by 2 it doesn\'t get assigned if its the opposite,
+it gets assigned.
+dont\'t worry about the numbers they are just pids of the process we in
+normally it should get treated like echo $$ which outputs nothing
+but wait it gets crazier
+
+echo $$$$$"USER" -> 1065210652$USER
+echo $$$$$'USER' -> 1065210652USER
+echo $$$$"$USER" -> 1065210652mbaioumy
+
+its kinda like quotes logic but the first test fchkel af
+
+-HEREDOC UPDATE:
+
+i changed where and when to parse the heredoc, put it back with redirections,
+it still segfaults when i run it, i checked it on my side, everything is parsed
+saad checked too gal its from your side but we\'ll see tomorrow
+
+NB: didn\'t forget about redirections just wanna get had lbsala over with

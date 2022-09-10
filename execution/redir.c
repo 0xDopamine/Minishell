@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 11:50:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:34:47 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static	int	redir_checkname(char **filename, t_env **env_list)
 	return (0);
 }
 
-void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
+int	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 {
 	int	fd_file;
 	t_exec	*ex;
@@ -67,7 +67,7 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 	while (redir && redir->fd == STDIN_FILENO)
 	{
 		if (redir_checkname(&(redir->file), env_list) && redir->file[0] == '$')
-			return ;
+			return (0);
 		fd_file = open(redir->file, redir->mode, 0644);
 		red.in_fd = fd_file;
 		if (red.in_fd == -1)
@@ -75,14 +75,14 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 			ft_putstr_fd("no such file or directory: ", redir->file, STDERR_FILENO);
 			ft_putchar_fd('\n', STDERR_FILENO);
 			g.exit_status = EXIT_NOTFOUND;
-			return ;
+			return (-1);
 		}
 		redir = (t_redir *)redir->left;
 	}
 	while (redir && redir->fd == STDOUT_FILENO)
 	{
 		if (redir_checkname(&(redir->file), env_list) && redir->file[0] == '$')
-			return ;
+			return (0);
 		fd_file = open(redir->file, redir->mode, 0644);
 		red.out_fd = fd_file;
 		if (red.out_fd == -1)
@@ -90,11 +90,17 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 			ft_putstr_fd("no such file or directory: ", redir->file, STDERR_FILENO);
 			ft_putchar_fd('\n', STDERR_FILENO);
 			g.exit_status = EXIT_NOTFOUND;
-			return ;
+			return (-1);
 		}
 		redir = (t_redir *)redir->left;
 	}
 	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		g.exit_status = EXIT_FAILURE;
+		return (-1);
+	}
 	if (pid == 0)
 	{
 		if (red.in_fd != -1024 && red.in_fd != -1)
@@ -108,6 +114,7 @@ void	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 		g.exit_status = EXIT_NOTFOUND;
 	else
 		g.exit_status = EXIT_SUCCESS;
+	return (0);
 }
 
 // void	ft_redirect(t_redir *redir, char **env, t_env **env_list)

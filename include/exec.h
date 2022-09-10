@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 22:41:12 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:35:01 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		ft_echo(t_exec *line);
 int		ft_unset(t_env **env, t_exec *line);
 int		ft_pwd(void);
 int		ft_envcmp(char *s1, char *s2);
-void	ft_redirect(t_redir *redir, char **env, t_env **env_list);
+int		ft_redirect(t_redir *redir, char **env, t_env **env_list);
 void	ft_exec_mybuiltin(t_exec *line, char **env);
 int		ft_ifmybuiltin(char *cmd, char **mybuiltins,
 t_exec *line, t_env **env_list);
@@ -101,16 +101,16 @@ int		export_checkpathname(char *str);
 int		export_checkpath(char *str);
 int		exec_checkcmd(char *cmd);
 int		export_ifnotreplace(char *str, t_env *env_list);
-void	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list);
-void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list);
+int		pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list);
+int		pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list);
 void	pipes_access(t_exec *line);
-void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter);
+int		ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter);
 void	execnofork_loop(char *cmd, char **av, char **env);
 void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
 int		ft_lstsize(t_env *lst);
 char	**export_sortnames(t_env *env_list);
 int		exec_isdir(char *cmd);
-void	exec_checkcmd_fork(char *cmd, char **av, char **env);
+int		exec_checkcmd_fork(char *cmd, char **av, char **env);
 char	*ft_handle_quotes(char *q, t_env *env_list);
 char	*ft_assign_env(char *s, t_env *env_list);
 char	*ft_string_examiner(char *s, t_env *env_list);
@@ -119,5 +119,6 @@ t_cmd	*parseexec(char **ps, t_env *env_list, char **env);
 t_cmd	*redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd);
 t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list, char **env);
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
+int		exec_cmdpath(char *cmd, char **env, char **av);
 
 #endif

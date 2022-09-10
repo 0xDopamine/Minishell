@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 11:05:54 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 12:54:46 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_exec_nofork(t_exec *line, char **env, t_env **env_list)
 {
 	char	*cmd;
 
-	// printf("%s\n", line->argv[0]);
+	printf("%s\n", line->argv[0]);
 	if (!line->argv[0] || line->argv[0] == NULL)
 		return ;
 	cmd = ft_strdup(line->argv[0]);

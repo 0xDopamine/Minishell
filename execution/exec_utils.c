@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:08:57 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 11:31:20 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:00:02 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list)
 	if (cmd->type == EXEC)
 		ft_exec((t_exec *)cmd, env, env_list);
 	if (cmd->type == REDIR)
-		ft_redirect((t_redir *)cmd, env, env_list);
+		if (ft_redirect((t_redir *)cmd, env, env_list) == -1)
+			return ;
 	if (cmd->type == PIPE)
 		ft_pipes((t_pipe *)cmd, env, env_list);
 }

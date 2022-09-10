@@ -144,3 +144,10 @@ it still segfaults when i run it, i checked it on my side, everything is parsed
 saad checked too gal its from your side but we\'ll see tomorrow
 
 NB: didn\'t forget about redirections just wanna get had lbsala over with
+
+SEG FAULTS UPDATE:
+"ls          -la" segfaults see bash tests (and test more of tests similar to this one)
+echodsjjds "hello" (works as if its echo wtf )
+export var="la la" (you send me NULL string)
+" " seg faults
+" ' seg faults 

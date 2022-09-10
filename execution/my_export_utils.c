@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:51:47 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/08 14:18:03 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:37:58 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ char	**export_sortnames(t_env *env_list)
 	while (i < ft_lstsize(head) && env_list)
 	{
 		names[i] = ft_strdup(env_list->name);
-		printf("%s\n", names[i++]);
 		env_list = env_list->next;
 	}
 	i = 0;

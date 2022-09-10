@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/06 12:22:50 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:35:51 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char *heredoc_gen_name(void)
 	return (ft_strjoin("/tmp/", buffer));
 }
 
-void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter)
+int	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter)
 {
 	char	*file_path;
 	int		fd_cr;
@@ -49,12 +49,18 @@ void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter)
 		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		g.exit_status = EXIT_FAILURE;
-		return ;
+		return (0);
 	}
 	heredoc_writefile(delimiter, fd_cr, env_list);
 	if (cmd->type == EXEC)
 	{
 		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			g.exit_status = EXIT_FAILURE;
+			return (-1);
+		}
 		if (pid == 0)
 		{
 			fd_rd = open(file_path, O_RDONLY | O_CREAT, 0644);
@@ -69,4 +75,5 @@ void	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter)
 	close(fd_cr);
 	wait(NULL);
 	unlink(file_path);
+	return (1);
 }

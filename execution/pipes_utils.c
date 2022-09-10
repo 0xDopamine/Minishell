@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:04:38 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 14:39:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:27:32 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,19 @@ static int	access_checktype(t_cmd *cmd, int n)
 	return (0);
 }
 
-void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list)
+int	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list)
 {
 	int	pid;
 
 	if (access_checktype((t_cmd *)pipes->left, 0))
 		pipes_access((t_exec *)pipes->left);
 	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		g.exit_status = EXIT_FAILURE;
+		return (-1);
+	}
 	if (pid == 0)
 	{
 		close(fds[0]);
@@ -57,15 +63,22 @@ void	pipes_fork_left(t_pipe *pipes, int *fds, char **env, t_env **env_list)
 			ft_exec_nofork((t_exec *)pipes->left, env, env_list);
 		exit(EXIT_FAILURE);
 	}
+	return (0);
 }
 
-void	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list)
+int	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list)
 {
 	int	pid;
 
 	if (access_checktype((t_cmd *)pipes->right, 1))
 		pipes_access((t_exec *)pipes->right);
 	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		g.exit_status = EXIT_FAILURE;
+		return (-1);
+	}
 	if (pid == 0)
 	{
 		close(fds[1]);
@@ -75,4 +88,5 @@ void	pipes_fork_right(t_pipe *pipes, int *fds, char **env, t_env **env_list)
 			ft_exec_nofork((t_exec *)pipes->right, env, env_list);
 		exit(EXIT_FAILURE);
 	}
+	return (0);
 }

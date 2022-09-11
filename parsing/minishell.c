@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 13:21:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 00:53:09 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 	dollars = 0;
 	eq = NULL;
 	res = NULL;
+	printf("ps: %s\n", *ps);
 	if (ps)
 	{
 		q = *ps;

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:04:26 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 21:20:35 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 00:56:02 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,7 @@ char	**ft_split_quotes(char *s, char c)
 	if (!str)
 		return (NULL);
 	split = splitting_quotes(s, c, 0, str);
+	printf("split 0: %s\n", split[0]);
+	printf("split 1: %s\n", split[1]);
 	return (split);
 }

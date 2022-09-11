@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:51:47 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 17:37:58 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:46:33 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**export_sortnames(t_env *env_list)
 	names = (char **)ft_calloc(sizeof(char *), ft_lstsize(head));
 	while (i < ft_lstsize(head) && env_list)
 	{
-		names[i] = ft_strdup(env_list->name);
+		names[i++] = ft_strdup(env_list->name);
 		env_list = env_list->next;
 	}
 	i = 0;
@@ -102,7 +102,7 @@ int	export_checkpath(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((!(str[i] >= 65 && str[i] <= 90)
+		if ((!(str[i] >= 48 && str[i] <= 57) && !(str[i] >= 65 && str[i] <= 90)
 			&& !(str[i] >= 97 && str[i] <= 122))
 				|| (str[i] == '<' || str[i] == '>' || str[i] == '('
 				|| str[i] == ')'))

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:08:57 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 18:00:02 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:21:42 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	exec_isdir(char *cmd)
 {
-	struct stat path_stat;
+	struct stat	path_stat;
 
 	stat(&cmd[2], &path_stat);
-	return S_ISDIR(path_stat.st_mode);
+	return (S_ISDIR(path_stat.st_mode));
 }
 
 void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list)

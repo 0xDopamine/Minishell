@@ -6,11 +6,27 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:30:04 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 17:23:15 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:07:35 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+static	int	exec_check_exitcode(char *cmd)
+{
+	if (g.exit_status == 127)
+	{
+		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
+	if (g.exit_status == 256)
+	{
+		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
+		g.exit_status = EXIT_NOTFOUND;
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
 
 int	exec_cmdpath(char *cmd, char **env, char **av)
 {
@@ -26,7 +42,7 @@ int	exec_cmdpath(char *cmd, char **env, char **av)
 	if (pid == 0)
 	{
 		execve(cmd, av, env);
-		perror("execv");
+		perror("execve");
 		exit(1);
 	}
 	return (1);
@@ -45,8 +61,6 @@ int	exec_checkcmd_fork(char *cmd, char **av, char **env)
 			g.exit_status = EXIT_FAILURE;
 			return (-1);
 		}
-		if (pid)
-		if (pid)
 		if (pid == 0)
 		{
 			execve(cmd, av, env);
@@ -56,18 +70,7 @@ int	exec_checkcmd_fork(char *cmd, char **av, char **env)
 	else
 		return (EXIT_SUCCESS);
 	wait(&g.exit_status);
-	if (g.exit_status == 127)
-	{
-		printf("here\n");
-		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
+	if (exec_check_exitcode(cmd))
 		return (EXIT_FAILURE);
-	}
-	if (g.exit_status == 256)
-	{
-		printf("no here\n");
-		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-		g.exit_status = EXIT_NOTFOUND;
-		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:49:02 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/09 11:27:19 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 21:14:00 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	ft_ifmybuiltin_up(char *cmd, char **mybuiltins,
 {
 	if (!cmd)
 		return (0);
-	if (strncmp(cmd, mybuiltins[0], ft_strlen(mybuiltins[0])) == 0)
+	if (strncmp(cmd, mybuiltins[0], ft_strlen(cmd)) == 0)
 		return (ft_echo(line));
-	else if (strncmp(cmd, mybuiltins[1], ft_strlen(mybuiltins[1])) == 0)
+	else if (strncmp(cmd, mybuiltins[1], ft_strlen(cmd)) == 0)
 		return (ft_pwd());
-	else if (!ft_strncmp(cmd, mybuiltins[2], ft_strlen(mybuiltins[2])))
+	else if (!ft_strncmp(cmd, mybuiltins[2], ft_strlen(cmd)))
 		return (ft_env(*env_list, ENV));
 	else
 		return (0);
@@ -52,19 +52,19 @@ int	ft_ifmybuiltin(char *cmd, char **mybuiltins,
 {
 	if (!cmd)
 		return (0);
-	if (ft_strncmp(cmd, mybuiltins[0], ft_strlen(mybuiltins[0])) == 0)
+	if (ft_strncmp(cmd, mybuiltins[0], ft_strlen(cmd)) == 0)
 		return (ft_echo(line));
-	else if (ft_strncmp(cmd, mybuiltins[1], ft_strlen(mybuiltins[1])) == 0)
+	else if (ft_strncmp(cmd, mybuiltins[1], ft_strlen(cmd)) == 0)
 		return (ft_cd(line, env_list));
-	else if (strncmp(cmd, mybuiltins[2], ft_strlen(mybuiltins[2])) == 0)
+	else if (strncmp(cmd, mybuiltins[2], ft_strlen(cmd)) == 0)
 		return (ft_pwd());
-	else if (ft_strncmp(cmd, mybuiltins[3], ft_strlen(mybuiltins[3])) == 0)
+	else if (ft_strncmp(cmd, mybuiltins[3], ft_strlen(cmd)) == 0)
 		return (ft_export(env_list, line));
-	else if (ft_strncmp(cmd, mybuiltins[4], ft_strlen(mybuiltins[4])) == 0)
+	else if (ft_strncmp(cmd, mybuiltins[4], ft_strlen(cmd)) == 0)
 		return (ft_unset(env_list, line));
-	else if (ft_strncmp(cmd, mybuiltins[5], ft_strlen(mybuiltins[5])) == 0)
+	else if (ft_strncmp(cmd, mybuiltins[5], ft_strlen(cmd)) == 0)
 		return (ft_env(*env_list, 'a'));
-	else if (ft_strncmp(cmd, mybuiltins[6], ft_strlen(mybuiltins[6])) == 0)
+	else if (ft_strncmp(cmd, mybuiltins[6], ft_strlen(cmd)) == 0)
 		return (ft_exit(line->argv));
 	else
 		return (0);

@@ -6,29 +6,19 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 17:59:46 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:32:52 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	pipes_access(t_exec *line)
+static	void	access_loop(char *cmd)
 {
+	char	*join;
 	char	**path;
 	int		i;
-	char	*cmd;
-	char	*join;
 
 	i = 0;
-	if (!line->argv[0])
-		return ;
-	cmd = ft_strdup(line->argv[0]);
-	if (exec_checkcmd(cmd))
-	{
-		g.exit_status = EXIT_SUCCESS;
-		return ;
-	}
-	cmd = ft_strjoin("/", cmd);
 	path = ft_find_path();
 	while (path[i])
 	{
@@ -43,6 +33,24 @@ void	pipes_access(t_exec *line)
 		i++;
 	}
 	g.exit_status = EXIT_NOTFOUND;
+}
+
+void	pipes_access(t_exec *line)
+{
+	int		i;
+	char	*cmd;
+
+	i = 0;
+	if (!line->argv[0])
+		return ;
+	cmd = ft_strdup(line->argv[0]);
+	if (exec_checkcmd(cmd))
+	{
+		g.exit_status = EXIT_SUCCESS;
+		return ;
+	}
+	cmd = ft_strjoin("/", cmd);
+	access_loop(cmd);
 }
 
 void	ft_pipes(t_pipe *pipes, char **env, t_env **env_list)

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/04 16:45:43 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:09:58 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int	ft_echo(t_exec *line)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	// if (echo_path(line->argv, i, env_list, ifnl))
-	// 	return (1);
 	if (ifnl)
 		echo_ifnewline(line, i, ifnl);
 	else

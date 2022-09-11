@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:31:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/30 16:00:37 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:26:11 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static	int	unset_checkstr(char *str)
 	while (str[i])
 	{
 		if (!(str[i] >= 65 && str[i] <= 90)
-				&& !(str[i] >= 97 && str[i] <= 122)
-				&& str[i] != '_' && !(str[i] >= '0'
+			&& !(str[i] >= 97 && str[i] <= 122)
+			&& str[i] != '_' && !(str[i] >= '0'
 				&& str[i] <= '9'))
 		{
 			ft_putstr_fd("unset: '", str, STDERR_FILENO);
@@ -67,18 +67,7 @@ int	ft_unset(t_env **env, t_exec *line)
 		g.exit_status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}
-	while (env2)
-	{
-		if (ft_envcmp(env2->name, line->argv[1]))
-		{
-			temp = env2;
-			prev->next = temp->next;
-			ft_lstdelone(env2, del);
-			break ;
-		}
-		prev = env2;
-		env2 = env2->next;
-	}
+	unset_loop(env2, temp, prev, line->argv[1]);
 	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }

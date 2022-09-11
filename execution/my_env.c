@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 13:50:32 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:13:06 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,7 @@ static	void	export_printenv(t_env *env_list)
 		printf("declare -x ");
 		printf("%s", names[i]);
 		list = env_list;
-		while (list)
-		{
-			if (ft_strcmp(list->name, names[i]) == 0)
-			{
-				if (list->path == NULL)
-					printf("\n");
-				if (list->path != NULL)
-				{
-					printf("=");
-					printf("%c%s%c\n", '"', list->path, '"');
-				}
-			}
-			list = list->next;
-		}
+		env_printloop(list, names, i);
 		i++;
 	}
 	g.exit_status = EXIT_SUCCESS;

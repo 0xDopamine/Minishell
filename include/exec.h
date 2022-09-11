@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 17:35:01 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:26:47 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,8 @@ t_cmd	*redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd);
 t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list, char **env);
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
 int		exec_cmdpath(char *cmd, char **env, char **av);
+void	env_printloop(t_env *list, char **names, int i);
+char	**export_swap(t_env *head, char **names);
+void	unset_loop(t_env *env, t_env *temp, t_env *prev, char *arg);
 
 #endif

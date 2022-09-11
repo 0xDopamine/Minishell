@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_echo_utils.c                                    :+:      :+:    :+:   */
+/*   my_export_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/20 17:30:38 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 20:14:15 by abaioumy         ###   ########.fr       */
+/*   Created: 2022/09/11 20:17:08 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/09/11 20:22:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	echo_case1(char *str)
+char	**export_swap(t_env *head, char **names)
 {
-	if (!str)
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	temp = NULL;
+	while (i < ft_lstsize(head))
 	{
-		g.exit_status = EXIT_SUCCESS;
-		printf("\n");
-		return (1);
+		j = i + 1;
+		while (j < ft_lstsize(head) && names[j])
+		{
+			if (ft_strcmp(names[i], names[j]) > 0)
+			{
+				temp = names[i];
+				names[i] = names[j];
+				names[j] = temp;
+			}
+			j++;
+		}
+		i++;
 	}
-	if (!ft_strncmp(str, "$?", 2))
-	{
-		printf("%d\n", g.exit_status);
-		g.exit_status = EXIT_SUCCESS;
-		return (1);
-	}
-	return (0);
+	return (names);
 }

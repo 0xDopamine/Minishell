@@ -10,12 +10,12 @@ EXEC = exec.c exec_nofork.c mini_libft.c \
 		my_echo.c my_cd.c my_pwd.c my_unset.c \
 		free.c exec_utils.c my_cd_utils.c my_echo_utils.c \
 		my_export_utils.c pipes_utils.c heredoc.c heredoc_utils.c \
-		exec_utils2.c
+		exec_utils2.c my_env_utils.c my_export_utils2.c my_unset_utils.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 
 #* READLINE PATH *#
-READLINE_PATH =  -lreadline -L ~/goinfre/homebrew/opt/readline/lib -I ~/goinfre/homebrew/opt/readline/include/readline
+READLINE_DIR = $(addprefix $(shell brew --prefix readline), /)
 #comment it if you have an error compiling it
 #* OBJECT FILES *#
 OBJS = $(SRC:%.c=%.o)
@@ -36,7 +36,7 @@ all: $(TARGET)
 	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
 
 $(TARGET): $(OBJS) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -lreadline $(OBJS) -o $(TARGET)
+	cc $(FLAGS) -I $(INCLUDE) -lreadline -L $(addprefix $(READLINE_DIR), lib) -I $(addprefix $(READLINE_DIR), include) $(OBJS) -o $(TARGET)
 
 re: fclean all
 

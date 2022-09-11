@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 13:29:28 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 21:04:26 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,17 +356,11 @@ void	ft_sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		// rl_on_new_line();
-		// write(1, "\n", 1);
-		// rl_replace_line("", 0); /* comment all of this cuz we need to install brew and other things in goinfre */
-		// rl_redisplay();
-		g.exit_status = 130;
-		return ;
-	}
-	else if (sig == SIGQUIT)
-	{
+		rl_on_new_line();
+		write(1, "\n", 1);
+		rl_replace_line("", 0); /* comment all of this cuz we need to install brew and other things in goinfre */
 		rl_redisplay();
-		g.exit_status = 0;
+		g.exit_status = 130;
 		return ;
 	}
 	return ;
@@ -390,7 +384,7 @@ int	main(int argc, char **argv, char **env)
 	printf("Two brothers minishell\n");
 	//don't use CTRL -C signal now
 	signal(SIGINT, ft_sig_handler);
-	signal(SIGQUIT, ft_sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (true)
 	{
 		line = readline(CYAN"TwoBrosShell\001\e[0m\001➜ ");

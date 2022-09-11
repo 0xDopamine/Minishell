@@ -6,12 +6,17 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:30:04 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 13:07:35 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 21:10:32 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
+void	handle(int sig)
+{
+	sig = 1;
+	ft_exit(NULL);
+}
 static	int	exec_check_exitcode(char *cmd)
 {
 	if (g.exit_status == 127)
@@ -41,6 +46,7 @@ int	exec_cmdpath(char *cmd, char **env, char **av)
 	}
 	if (pid == 0)
 	{
+		signal(SIGQUIT, handle);
 		execve(cmd, av, env);
 		perror("execve");
 		exit(1);

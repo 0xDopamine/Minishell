@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 17:22:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 21:05:04 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static	void	exec_loop(char *cmd, char **av, char **env)
 	char	*s;
 
 	s = NULL;
-	printf("%s\n", cmd);
 	if (exec_isdir(cmd) || ft_strcmp(cmd, getcwd(s, PATH_MAX)) == 0)
 	{
 		free(s);

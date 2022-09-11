@@ -6,13 +6,14 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 13:06:34 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:07:39 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static	int	heredoc_open(char *file_path, t_cmd *cmd, char **env, t_env **env_list)
+static	int	heredoc_open(char *file_path, t_cmd *cmd, char **env
+	, t_env **env_list)
 {
 	int	pid;
 	int	fd_rd;

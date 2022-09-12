@@ -6,14 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 20:07:39 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:58:25 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static	int	heredoc_open(char *file_path, t_cmd *cmd, char **env
-	, t_env **env_list)
+static	int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 {
 	int	pid;
 	int	fd_rd;
@@ -29,7 +28,7 @@ static	int	heredoc_open(char *file_path, t_cmd *cmd, char **env
 	{
 		fd_rd = open(file_path, O_RDONLY | O_CREAT, 0644);
 		dup2(fd_rd, STDIN_FILENO);
-		ft_exec_nofork((t_exec *)cmd, env, env_list);
+		ft_exec_nofork((t_exec *)cmd, env_list);
 		close(fd_rd);
 		// close(fd_cr);
 		exit(1);
@@ -59,7 +58,7 @@ static	char	*heredoc_gen_name(void)
 	return (ft_strjoin("/tmp/", buffer));
 }
 
-int	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter)
+int	ft_heredoc(t_env **env_list, t_cmd *cmd, char *delimiter)
 {
 	char	*file_path;
 	int		fd_cr;
@@ -78,7 +77,7 @@ int	ft_heredoc(t_env **env_list, t_cmd *cmd, char **env, char *delimiter)
 	heredoc_writefile(delimiter, fd_cr, env_list);
 	if (cmd->type == EXEC)
 	{
-		if (heredoc_open(file_path, cmd, env, env_list) == -1)
+		if (heredoc_open(file_path, cmd, env_list) == -1)
 			return (-1);
 	}
 	close(fd_cr);

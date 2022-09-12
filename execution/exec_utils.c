@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:08:57 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 12:21:42 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:07:16 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int	exec_isdir(char *cmd)
 	return (S_ISDIR(path_stat.st_mode));
 }
 
-void	ft_check_cmd(t_cmd *cmd, char **env, t_env **env_list)
+void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 {
 	if (cmd->type == EXEC)
-		ft_exec((t_exec *)cmd, env, env_list);
+		ft_exec((t_exec *)cmd, env_list);
 	if (cmd->type == REDIR)
-		if (ft_redirect((t_redir *)cmd, env, env_list) == -1)
+		if (ft_redirect((t_redir *)cmd, env_list) == -1)
 			return ;
 	if (cmd->type == PIPE)
-		ft_pipes((t_pipe *)cmd, env, env_list);
+		ft_pipes((t_pipe *)cmd, env_list);
 }
 
 char	*exec_ifaccess(char *cmd)

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 21:05:04 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:07:48 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@ static	void	exec_loop(char *cmd, char **av, char **env)
 	}
 }
 
-void	ft_exec(t_exec *line, char **env, t_env **env_list)
+void	ft_exec(t_exec *line, t_env **env_list)
 {
 	char	*cmd;
+	char	**my_env;
 
 	if (!line->argv[0])
 		return ;
+	my_env = ft_myenv(*env_list);
 	cmd = ft_strdup(line->argv[0]);
 	if (!cmd)
 		return ;
@@ -63,7 +65,7 @@ void	ft_exec(t_exec *line, char **env, t_env **env_list)
 		return ;
 	if (!exec_checkcmd(cmd))
 		cmd = ft_strjoin("/", cmd);
-	exec_loop(cmd, line->argv, env);
+	exec_loop(cmd, line->argv, my_env);
 	free(cmd);
 	return ;
 }

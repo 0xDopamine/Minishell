@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 17:34:47 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:55:44 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static	int	redir_checkname(char **filename, t_env **env_list)
 	return (0);
 }
 
-int	ft_redirect(t_redir *redir, char **env, t_env **env_list)
+int	ft_redirect(t_redir *redir, t_env **env_list)
 {
 	int	fd_file;
 	t_exec	*ex;
@@ -107,7 +107,7 @@ int	ft_redirect(t_redir *redir, char **env, t_env **env_list)
 			dup2(red.in_fd, STDIN_FILENO);
 		if (red.out_fd != -1024 && red.out_fd != -1)
 			dup2(red.out_fd, STDOUT_FILENO);
-		ft_exec_nofork(ex, env, env_list);
+		ft_exec_nofork(ex, env_list);
 	}
 	wait(&g.exit_status);
 	if (g.exit_status == 256)

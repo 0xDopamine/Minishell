@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 20:32:52 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:06:36 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void	pipes_access(t_exec *line)
 	access_loop(cmd);
 }
 
-void	ft_pipes(t_pipe *pipes, char **env, t_env **env_list)
+void	ft_pipes(t_pipe *pipes, t_env **env_list)
 {
 	int	fds[2];
 
 	pipe(fds);
-	if (pipes_fork_left(pipes, fds, env, env_list) == -1)
+	if (pipes_fork_left(pipes, fds, env_list) == -1)
 		return ;
-	if (pipes_fork_right(pipes, fds, env, env_list) == -1)
+	if (pipes_fork_right(pipes, fds, env_list) == -1)
 		return ;
 	close(fds[0]);
 	close(fds[1]);

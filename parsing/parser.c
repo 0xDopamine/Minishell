@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 11:29:24 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 13:02:34 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ int	is_whitespace(char *str, char *es)
 	return (0);
 }
 
-t_cmd	*ft_parse_heredoc(char **ps, t_env **env_list, t_cmd *cmd, char **env)
+t_cmd	*ft_parse_heredoc(char **ps, t_env **env_list, t_cmd *cmd)
 {
 	char	*delimiter;
 
 	delimiter = *ps;
-	ft_heredoc(env_list, cmd, env, delimiter);
+	ft_heredoc(env_list, cmd, delimiter);
 	return (cmd);
 }
 
-t_cmd	*parseexec(char **ps, t_env *env_list, char **env)
+t_cmd	*parseexec(char **ps, t_env *env_list)
 {
 	char	*q;
 	int		tok;
@@ -80,7 +80,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, char **env)
 	ret = execcmd(words);
 	cmd = (t_exec *)ret;
 	argc = 0;
-	ret = parseredir_test(ret, ps, env_list, env);
+	ret = parseredir_test(ret, ps, env_list);
 	while (!next(ps, "|"))
 	{
 		tok = get_token(ps, &q);
@@ -96,13 +96,13 @@ t_cmd	*parseexec(char **ps, t_env *env_list, char **env)
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
-		ret = parseredir_test(ret, ps, env_list, env);
+		ret = parseredir_test(ret, ps, env_list);
 	}
 	cmd->argv[argc] = NULL;
 	return (ret);
 }
 
-t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list, char **env_arr)
+t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 {
 	int		tok;
 	int		next_tok;
@@ -123,14 +123,14 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list, char **env_arr)
 			return (cmd);
 		}
 		else if (tok == 'c' && next_tok == 'H')
-			ft_parse_heredoc(ps, list, cmd, env_arr);
+			ft_parse_heredoc(ps, list, cmd);
 		split = ft_split(q, ' ');	
 		if (tok == '<')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_RDONLY, STDIN_FILENO);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_RDONLY, STDIN_FILENO);
 		else if (tok == '>')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 		else if (tok == 'A')
-			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list, env_arr), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
+			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
 	}
 	return (cmd);
 }
@@ -148,16 +148,16 @@ int		ft_is_heredoc(char **ps)
 	return (0);
 }
 
-t_cmd	*parsepipe(char **ps, t_env *env_list, char **env)
+t_cmd	*parsepipe(char **ps, t_env *env_list)
 {
 	t_cmd	*cmd;
 
-	cmd = parseexec(ps, env_list, env);
+	cmd = parseexec(ps, env_list);
 	// printf("ps: %s\n", *ps);
 	if (next(ps, "|"))
 	{
 		get_token(ps, 0);
-		cmd = pipecmd(cmd, parsepipe(ps, env_list, env));
+		cmd = pipecmd(cmd, parsepipe(ps, env_list));
 	}
 	return (cmd);
 }

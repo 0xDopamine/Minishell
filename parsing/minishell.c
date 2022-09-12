@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 11:26:56 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:58:45 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,9 +436,9 @@ int	main(int argc, char **argv, char **env)
 		}
 		add_history(temp);
 		temp = spaces(temp);
-		simpleCommand = parsepipe(&temp, env_list, env);
+		simpleCommand = parsepipe(&temp, env_list);
 		// system("leaks minishell");
-		ft_check_cmd(simpleCommand, env, &env_list);
+		ft_check_cmd(simpleCommand, &env_list);
 		// free(temp);
 		// demo(line);
 	}

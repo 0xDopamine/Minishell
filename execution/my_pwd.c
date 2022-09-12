@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   my_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:44:30 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:18:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:38:39 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+char	**ft_myenv(t_env *env)
+{
+	char	**str;
+	char	*name;
+	int		i;
+
+	i = 0;
+	name = NULL;
+	str = (char **)malloc(sizeof(char *) * ft_lstsize(env));
+	while (env)
+	{
+		name = ft_strjoin(env->name, "=");
+		str[i] = ft_strjoin(name, env->path);
+		env = env->next;
+		i++;
+	}
+	return (str);
+}
 
 int	ft_pwd(void)
 {

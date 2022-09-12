@@ -150,4 +150,4 @@ SEG FAULTS UPDATE:
 echodsjjds "hello" (works as if its echo wtf )
 export var="la la" (you send me NULL string)
 " " seg faults
-" ' seg faults 
+" ' seg faults

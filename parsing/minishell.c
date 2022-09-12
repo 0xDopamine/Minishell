@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/09/12 02:35:20 by mbaioumy         ###   ########.fr       */
+=======
 /*   Updated: 2022/09/11 21:04:26 by abaioumy         ###   ########.fr       */
+>>>>>>> 21f1deaa3ba23189768d6ed80e84004c194e79a7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +151,43 @@ void	trim_string(char *q)
 	q[i] = '\0';
 }
 
+int		ft_count_dollars(char *q)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (q[i])
+	{
+		while (q[i] == '$' && q[i])
+		{
+			i++;
+			count++;
+			if (q[i] != '$')
+				return(count);
+		}
+		i++;
+	}
+	return (count);
+}
+
+void	ft_check_envs(char **q)
+{
+	int		count;
+	char	*s;
+
+	s = *q;	
+	count = ft_count_dollars(s);
+	if (count % 2 == 0)
+		while (*s && *s == '$')
+			s++;
+	else if (count % 2 != 0)
+		while (*s && *(s + 1) == '$')
+			s++;
+	*q = s;
+}
+
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 {
 	char	*q;
@@ -157,7 +198,6 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 	dollars = 0;
 	eq = NULL;
 	res = NULL;
-	printf("ps: %s\n", *ps);
 	if (ps)
 	{
 		q = *ps;
@@ -185,13 +225,17 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 			}
 			else if (ft_strchr(*q, "$"))
 			{
-				fetch_env(&q, &eq);
-				q = ft_join_string(q, eq);
-				if (*q == '$' && *(q + 1) == '\0')
-					res = ft_strjoin(res, "$");
-				else
-					res = ft_strjoin(res, ft_assign_env(q, env_list));
-				q = eq;
+				ft_check_envs(&q);
+				if (*q == '$')
+				{	
+					fetch_env(&q, &eq);
+					q = ft_join_string(q, eq);
+					if (*q == '$' && *(q + 1) == '\0')
+						res = ft_strjoin(res, "$");
+					else
+						res = ft_strjoin(res, ft_assign_env(q, env_list));
+					q = eq;
+				}			
 			}
 			else
 			{
@@ -324,7 +368,6 @@ char	*ft_handle_quotes(char *q, t_env *env_list)
 				while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
 					res[i++] = *temp++;
 				res[i] = '\0';
-				// printf("res %s\n", res);
 				if (*(temp) != '\0')
 					s = temp + 1;
 				else

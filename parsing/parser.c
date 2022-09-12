@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 01:01:53 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 02:47:32 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ t_cmd	*parseexec(char **ps, t_env *env_list, char **env)
 			split = ft_split_quotes(q, ' ');
 		else
 			split = ft_split(q, ' ');
-		printf("split 0: %s\n", split[0]);
-		printf("split 1: %s\n", split[1]);
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = ft_ultimate_string_handler(&split[0], env_list);

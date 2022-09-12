@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 14:42:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:27:00 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ int		export_checkname(char *str);
 int		export_checkpathname(char *str);
 int		export_checkpath(char *str);
 int		export_ifnotreplace(char *str, t_env *env_list);
+void	export_addvar(char **av, t_env **env);
+int		export_ifexists(char *name, char *path, t_env **env);
+int		export_checkav(char *str, char **ptr, int n);
 char	**export_sortnames(t_env *env_list);
 char	**export_swap(t_env *head, char **names);
 int		unset_checkstr(char *str);

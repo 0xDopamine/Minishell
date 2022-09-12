@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:23:55 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:30:04 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	export_checkpathname(char *str)
 	return (0);
 }
 
-static	int	export_ifexists(char *name, char *path, t_env **env)
+int	export_ifexists(char *name, char *path, t_env **env)
 {
 	int		i;
 	t_env	*lst;
@@ -40,7 +40,7 @@ static	int	export_ifexists(char *name, char *path, t_env **env)
 	lst = *env;
 	while (lst)
 	{
-		if (!ft_strncmp(name, lst->name, ft_strlen(name)))
+		if (ft_strncmp(name, lst->name, ft_strlen(name) == 0))
 		{
 			if (lst->path == NULL && path[0] == 0)
 				return (1);
@@ -58,7 +58,7 @@ static	int	export_ifexists(char *name, char *path, t_env **env)
 	return (0);
 }
 
-static	int	export_checkav(char *str, char **ptr, int n)
+int	export_checkav(char *str, char **ptr, int n)
 {
 	int	i;
 
@@ -86,16 +86,6 @@ int	ft_export(t_env **env, t_exec *line)
 	i = 0;
 	if (!line->argv[1])
 		return (ft_env(*env, EXP));
-	str = ft_split_namecont(line->argv[1]);
-	if (!str || !str[0])
-		return (1);
-	if (export_ifexists(str[0], str[1], env))
-	{
-		g.exit_status = EXIT_SUCCESS;
-		return (1);
-	}
-	if (export_checkav(str[0], str, NAME) && export_checkav(str[1], str, PATH))
-		ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
-	g.exit_status = EXIT_SUCCESS;
+	export_addvar(line->argv, env);
 	return (1);
 }

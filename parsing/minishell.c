@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:58:45 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:54:25 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -426,7 +426,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	while (true)
 	{
-		line = readline(CYAN"TwoBrosShell\001\e[0m\001➜ ");
+		line = readline("TwoBrosShell➤ ");
 		temp = line;
 		if (!temp)
 		{

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:31:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:02:41 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:59:00 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 // 	return (len);
 // }
 
-static	int	unset_checkstr(char *str)
+int	unset_checkstr(char *str)
 {
 	int	i;
 
@@ -38,36 +38,15 @@ static	int	unset_checkstr(char *str)
 	{
 		if (!(str[i] >= 65 && str[i] <= 90)
 			&& !(str[i] >= 97 && str[i] <= 122)
-			&& str[i] != '_' && !(str[i] >= '0'
-				&& str[i] <= '9'))
+			&& str[i] != '_')
 		{
 			ft_putstr_fd("unset: '", str, STDERR_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
-			return (EXIT_FAILURE);
+			return (EXIT_SUCCESS);
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
-}
-
-static	int	unset_checkname(char **argv)
-{
-	int	j;
-
-	j = 0;
-	if (argv[1][0] >= '0' && argv[1][0] <= '9')
-	{
-		ft_putstr_fd("unset: '", argv[1], STDERR_FILENO);
-		ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
-	while (argv[j])
-	{
-		if (unset_checkstr(argv[j]))
-			return (EXIT_FAILURE);
-		j++;
-	}
-	return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 int	ft_unset(t_env **env, t_exec *line)
@@ -75,7 +54,6 @@ int	ft_unset(t_env **env, t_exec *line)
 	t_env	*env2;
 	t_env	*temp;
 	t_env	*prev;
-	// char	**args;
 
 	temp = *env;
 	env2 = *env;
@@ -85,14 +63,11 @@ int	ft_unset(t_env **env, t_exec *line)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	// args = (char **)malloc(sizeof(char *) * unset_argslen(line->argv) + 1);
-	// args = unset_copyargs(line->argv, args);
-	if (unset_checkname(line->argv))
-	{
-		g.exit_status = EXIT_FAILURE;
-		return (EXIT_FAILURE);
-	}
+	// if (unset_checkname(line->argv))
+	// {
+	// 	g.exit_status = EXIT_FAILURE;
+	// 	return (EXIT_FAILURE);
+	// }
 	unset_loop(env2, temp, prev, line->argv);
-	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }

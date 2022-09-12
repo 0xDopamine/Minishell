@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:25:04 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:09:21 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:45:21 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ void	unset_loop(t_env *env, t_env *temp, t_env *prev, char **args)
 	prev = env;
 	while (args[i])
 	{
+		if (unset_checkstr(args[i]))
+			g.exit_status = EXIT_FAILURE;
 		list = env;
 		while (list)
 		{
 			if (ft_envcmp(list->name, args[i]))
 			{
+				g.exit_status = EXIT_SUCCESS;
 				temp = list;
 				prev->next = temp->next;
 				ft_lstdelone(list, del);

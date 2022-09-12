@@ -100,4 +100,6 @@ void		rl_replace_line(const char *str, int mod);
 void		null_terminate(char **s);
 int			ft_is_heredoc(char **ps);
 int			ft_isalnum(int arg);
+int     count_words(char *str, char c);
+
 #endif

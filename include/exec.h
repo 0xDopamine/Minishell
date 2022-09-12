@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 20:26:47 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:52:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
 int		exec_cmdpath(char *cmd, char **env, char **av);
 void	env_printloop(t_env *list, char **names, int i);
 char	**export_swap(t_env *head, char **names);
-void	unset_loop(t_env *env, t_env *temp, t_env *prev, char *arg);
+void	unset_loop(t_env *env, t_env *temp, t_env *prev, char **args);
+char	**unset_copyargs(char **av, char **args);
 
 #endif

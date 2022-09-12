@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 02:47:32 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:29:24 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, char **env)
 		words = num_words(*ps, 0);
 	else
 		words = num_words(*ps, 1);
+	printf("nbr of words: %d\n", words);
 	ret = execcmd(words);
 	cmd = (t_exec *)ret;
 	argc = 0;

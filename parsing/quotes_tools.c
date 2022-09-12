@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:04:26 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 02:45:53 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 00:52:13 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ int	wdcount_q(char *s, char c)
 
 	i = 0;
 	count = 0;
+	(void)c;
 	if (ft_strchr(s[i], "\'\"") && s[i + 1] == '\0')
 		return (1);
 	while (s[i])
 	{
-		if (s[i] == '"' || s[i] == '\'')
+		if (ft_strchr(s[i], "\'\""))
 		{	
 			while (ft_strchr(s[i], "\'\"") && s[i])
 				i++;
@@ -60,11 +61,11 @@ int	wdcount_q(char *s, char c)
 				i++;
 			while (ft_strchr(s[i], "\'\"") && s[i])
 				i++;
-			count++;
 		}
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		if (s[i] == c || s[i] == '\0')
 			count++;
-		i++;
+		if (s[i])
+			i++;
 	}
 	return (count);
 }

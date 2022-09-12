@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 00:03:56 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 00:48:50 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,22 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 		words = num_words(*ps, 0);
 	else
 		words = num_words(*ps, 1);
-	printf("nbr of words: %d\n", words);
 	ret = execcmd(words);
 	cmd = (t_exec *)ret;
 	argc = 0;
 	ret = parseredir_test(ret, ps, env_list);
 	while (!next(ps, "|"))
 	{
-		printf("ps: %s\n", *ps);
 		tok = get_token(ps, &q);
 		if (tok == 0)
 			break ;
-		printf("q: %s\n", q);
-		if (!ft_strchr(*q, "\'\""))
+		if (ft_strchr(*q, "\'\""))
 			split = ft_split_quotes(q, ' ');
 		else
 			split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
 		cmd->argv[argc] = ft_ultimate_string_handler(&split[0], env_list);
-		printf("cmd: %s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;

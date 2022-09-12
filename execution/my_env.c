@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 20:13:06 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 00:50:31 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static	void	export_printenv(t_env *env_list)
 	names = export_sortnames(env_list);
 	while (i < ft_lstsize(env_list))
 	{
-		printf("declare -x ");
-		printf("%s", names[i]);
+		// printf("declare -x ");
+		// printf("%s", names[i]);
 		list = env_list;
-		env_printloop(list, names, i);
+		// env_printloop(list, names, i);
 		i++;
 	}
 	g.exit_status = EXIT_SUCCESS;

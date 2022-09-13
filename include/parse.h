@@ -22,7 +22,8 @@
 enum {
 	PIPE,
 	REDIR,
-	EXEC
+	EXEC,
+	HEREDOC
 } ;
 
 enum {

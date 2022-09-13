@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 02:20:41 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 02:32:14 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,54 +200,50 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state)
 		q = *ps;
 		while (q)
 		{
-			// if (!check_state(state))
-			// {
-				if (ft_strchr(*q, "\'\""))
-				{
-					fetch_quoted(&q, &eq);
+			if (ft_strchr(*q, "\'\""))
+			{
+				fetch_quoted(&q, &eq);
+				if (*q == 1)
+					return NULL;
+				if (*q == '$' && *eq != '\'')
+				{					
+					fetch_env(&q, &eq);
 					if (*q == 1)
 						return NULL;
-					if (*q == '$' && *eq != '\'')
-					{					
-						fetch_env(&q, &eq);
-						if (*q == 1)
-							return NULL;
-						q = ft_join_string(q, eq);
-						res = ft_strjoin(res, ft_assign_env(q, env_list));
-						
-					}
-					else if (*q == '\'' && (*(q + 1) == '$') && *eq ==  '"')
-						res = ft_strjoin(res, ft_search_for_env(q, env_list));
-					else
-						res = ft_strjoin(res, ft_join_string(q, eq));
-					if (*eq + 1)
-						q = eq + 1;
+					q = ft_join_string(q, eq);
+					res = ft_strjoin(res, ft_assign_env(q, env_list));
+					
 				}
-				else if (ft_strchr(*q, "$"))
-				{
-					ft_check_envs(&q);
-					if (*q == '$')
-					{	
-						fetch_env(&q, &eq);
-						q = ft_join_string(q, eq);
-						if (*q == '$' && *(q + 1) == '\0')
-							res = ft_strjoin(res, "$");
-						else
-							res = ft_strjoin(res, ft_assign_env(q, env_list));
-						q = eq;
-					}			
-				}
+				else if (*q == '\'' && (*(q + 1) == '$') && *eq ==  '"')
+					res = ft_strjoin(res, ft_search_for_env(q, env_list));
 				else
-				{
-					fetch_string(&q, &eq);
 					res = ft_strjoin(res, ft_join_string(q, eq));
-					if (*eq == '\0')
-						break ;
+				if (*eq + 1)
+					q = eq + 1;
+			}
+			else if (ft_strchr(*q, "$"))
+			{
+				ft_check_envs(&q);
+				if (*q == '$')
+				{	
+					fetch_env(&q, &eq);
+					q = ft_join_string(q, eq);
+					if (*q == '$' && *(q + 1) == '\0')
+						res = ft_strjoin(res, "$");
 					else
-						q = eq;
-				}
-			// }
-			// return (*ps);
+						res = ft_strjoin(res, ft_assign_env(q, env_list));
+					q = eq;
+				}			
+			}
+			else
+			{
+				fetch_string(&q, &eq);
+				res = ft_strjoin(res, ft_join_string(q, eq));
+				if (*eq == '\0')
+					break ;
+				else
+					q = eq;
+			}
 		}
 	}
 	if (res)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_nofork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:47:56 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 03:18:15 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 		g.exit_status = EXIT_FAILURE;
 		return ;
 	}
+	
+	printf ("hello");
 	cmd = ft_strdup(line->argv[0]);
 	if (ft_builtins(cmd, line, env_list))
 		return ;

@@ -1,0 +1,5 @@
+exec : echo
+hello
+[?2004hTwoBrosShell➤ ^C[?2004l
+TwoBrosShell➤ [?2004hecho hello > $USER[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5Ptouch '$USER'[2P< a cat < b[4Pcat < a< a cat < b < c[10Pclearecho echo^C[?2004l
+TwoBrosShell➤ [?2004h^Z[?2004l

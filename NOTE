@@ -114,7 +114,7 @@ ultimate function
 
 ///****************
 
--ENV UPDATE:
+-ENV UPDATE: FIXED
 
 Fixed everything related to dollars and quotes (for real this time i hope)
 ba9i one thing tho
@@ -166,3 +166,12 @@ so you should fix blan receiving var=la la cause im getting this export error
 export: not valid in this context
 
 try different tests, the outputs cmd: and split 0 & 1 will show you how it was parsed
+
+HEREDOC UPDATE
+
+the issue was trying to execute the heredoc mid parsing, the solution is
+parsing the heredoc with redirects, ill send you the redir node with HEREDOC as mode
+and 0 in fd, the delimiter in "*q", check it on ft_redir and call ft_heredoc
+and we should change the tree to a normal node as it was before cause dak lblan li kan kiw93
+is fixable. 
+

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 02:16:05 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 03:42:17 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 
 	list = malloc(sizeof(t_env **));
 	*list = env_list;
-	if (next(ps, "<>") || ft_is_heredoc(ps))
+	if (next(ps, "<>"))
 	{
 		tok = get_token(ps, 0);
 		next_tok = get_token(ps, &q);
@@ -164,6 +164,8 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 		else if (tok == 'A')
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
+		else if (tok == 'H')
+			cmd = redircmd_test(cmd, NULL, split[0], HEREDOC, 0);
 	}
 	return (cmd);
 }

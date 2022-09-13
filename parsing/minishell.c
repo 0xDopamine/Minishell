@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 14:54:25 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 02:20:41 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ void	ft_check_envs(char **q)
 	*q = s;
 }
 
-char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
+char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state)
 {
 	char	*q;
 	char	*eq;
@@ -194,54 +194,60 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 	dollars = 0;
 	eq = NULL;
 	res = NULL;
+	(void)state;
 	if (ps)
 	{
 		q = *ps;
 		while (q)
 		{
-			if (ft_strchr(*q, "\'\""))
-			{	
-				fetch_quoted(&q, &eq);
-				if (*q == 1)
-					return NULL;
-				if (*q == '$' && *eq != '\'')
+			// if (!check_state(state))
+			// {
+				if (ft_strchr(*q, "\'\""))
 				{
-					fetch_env(&q, &eq);
+					fetch_quoted(&q, &eq);
 					if (*q == 1)
 						return NULL;
-					q = ft_join_string(q, eq);
-					res = ft_strjoin(res, ft_assign_env(q, env_list));
-				}
-				else if (*q == '\'' && (*(q + 1) == '$') && *eq ==  '"')
-					res = ft_strjoin(res, ft_search_for_env(q, env_list));
-				else
-					res = ft_strjoin(res, ft_join_string(q, eq));
-				if (*eq + 1)
-					q = eq + 1;
-			}
-			else if (ft_strchr(*q, "$"))
-			{
-				ft_check_envs(&q);
-				if (*q == '$')
-				{	
-					fetch_env(&q, &eq);
-					q = ft_join_string(q, eq);
-					if (*q == '$' && *(q + 1) == '\0')
-						res = ft_strjoin(res, "$");
-					else
+					if (*q == '$' && *eq != '\'')
+					{					
+						fetch_env(&q, &eq);
+						if (*q == 1)
+							return NULL;
+						q = ft_join_string(q, eq);
 						res = ft_strjoin(res, ft_assign_env(q, env_list));
-					q = eq;
-				}			
-			}
-			else
-			{
-				fetch_string(&q, &eq);
-				res = ft_strjoin(res, ft_join_string(q, eq));
-				if (*eq == '\0')
-					break ;
+						
+					}
+					else if (*q == '\'' && (*(q + 1) == '$') && *eq ==  '"')
+						res = ft_strjoin(res, ft_search_for_env(q, env_list));
+					else
+						res = ft_strjoin(res, ft_join_string(q, eq));
+					if (*eq + 1)
+						q = eq + 1;
+				}
+				else if (ft_strchr(*q, "$"))
+				{
+					ft_check_envs(&q);
+					if (*q == '$')
+					{	
+						fetch_env(&q, &eq);
+						q = ft_join_string(q, eq);
+						if (*q == '$' && *(q + 1) == '\0')
+							res = ft_strjoin(res, "$");
+						else
+							res = ft_strjoin(res, ft_assign_env(q, env_list));
+						q = eq;
+					}			
+				}
 				else
-					q = eq;
-			}
+				{
+					fetch_string(&q, &eq);
+					res = ft_strjoin(res, ft_join_string(q, eq));
+					if (*eq == '\0')
+						break ;
+					else
+						q = eq;
+				}
+			// }
+			// return (*ps);
 		}
 	}
 	if (res)
@@ -410,7 +416,6 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	t_cmd	*simpleCommand;
 	t_env 	*env_list;
-	// t_env_p	*env_list_p;
 	char	*temp;
 
 	line = NULL;
@@ -419,9 +424,7 @@ int	main(int argc, char **argv, char **env)
 	(void)env;
 	simpleCommand = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
-	// env_list_p = (t_env_p *)env_list;
 	printf("Two brothers minishell\n");
-	//don't use CTRL -C signal now
 	signal(SIGINT, ft_sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (true)
@@ -439,8 +442,6 @@ int	main(int argc, char **argv, char **env)
 		simpleCommand = parsepipe(&temp, env_list);
 		// system("leaks minishell");
 		ft_check_cmd(simpleCommand, &env_list);
-		// free(temp);
-		// demo(line);
 	}
 	free(temp);
 	freethis(&line);

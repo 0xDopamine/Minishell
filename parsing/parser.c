@@ -6,12 +6,43 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 00:48:50 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 02:16:05 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include <unistd.h>
+
+int	*check_var(char *str)
+{
+	int	i;
+	int	*state;
+
+	i = 0;
+	state = malloc(sizeof(int) * 2);
+	state[0] = NOT_VAR;
+	state[1] = NOT_QUOTED;
+	while (str[i])
+	{
+		if (str[i] == ' ')
+			break ;
+		if (str[i] == '=')
+		{
+			state[0] = IS_VAR;
+			if (ft_strchr(str[i + 1], "\'\""))
+				state[1] = QUOTED;
+		}
+		i++;
+	}
+	return (state);
+}
+
+int	check_state(int *state)
+{
+	if (state[0] == IS_VAR && state[1] == QUOTED)
+		return (1);
+	return (0);
+}
 
 int	num_words(char *str, int quote_flag)
 {
@@ -71,6 +102,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 	int		words;
 	t_cmd	*ret;
 	char	**split;
+	int		*state;
 
 	if (ft_strchr(**ps, "\'\""))
 		words = num_words(*ps, 0);
@@ -85,13 +117,15 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 		tok = get_token(ps, &q);
 		if (tok == 0)
 			break ;
-		if (ft_strchr(*q, "\'\""))
+		state = check_var(q);
+		if (ft_strchr(*q, "\'\"") || check_state(state))
 			split = ft_split_quotes(q, ' ');
 		else
 			split = ft_split(q, ' ');
 		if (tok != 'c')
 			printf("syntax error\n");
-		cmd->argv[argc] = ft_ultimate_string_handler(&split[0], env_list);
+		cmd->argv[argc] = ft_ultimate_string_handler(&split[0], env_list, state);
+		printf("cmd: %s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;

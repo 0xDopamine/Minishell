@@ -19,11 +19,21 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-enum e_define {
+enum {
 	PIPE,
 	REDIR,
 	EXEC
 } ;
+
+enum {
+	QUOTED,
+	NOT_QUOTED
+}	;
+
+enum {
+	IS_VAR,
+	NOT_VAR
+}	;
 
 typedef struct s_cmd {
 	int	type;
@@ -100,6 +110,9 @@ void		rl_replace_line(const char *str, int mod);
 void		null_terminate(char **s);
 int			ft_is_heredoc(char **ps);
 int			ft_isalnum(int arg);
-int     count_words(char *str, char c);
+int     	count_words(char *str, char c);
+void		fetch_quoted(char **q, char **eq);
+char		*ft_join_string(char *q, char *eq);
+int			check_state(int *state);
 
 #endif

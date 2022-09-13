@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 03:42:17 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 22:38:30 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 {
 	int		tok;
-	int		next_tok;
 	char	*q;
 	char	**split;
 	t_env	**list;
@@ -148,24 +147,32 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 	if (next(ps, "<>"))
 	{
 		tok = get_token(ps, 0);
-		next_tok = get_token(ps, &q);
-		if (next_tok != 'c' && next_tok != 'H')
+		if (get_token(ps, &q) != 'c')
 		{
 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
 			cmd->type = 0;
 			return (cmd);
 		}
-		else if (tok == 'c' && next_tok == 'H')
-			ft_parse_heredoc(ps, list, cmd);
-		split = ft_split(q, ' ');	
+		if (*q)
+			split = ft_split(q, ' ');	
 		if (tok == '<')
+		{
+			printf("cmd type: %d\n", cmd->type);
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_RDONLY, STDIN_FILENO);
+		}
 		else if (tok == '>')
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 		else if (tok == 'A')
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
 		else if (tok == 'H')
+		{
 			cmd = redircmd_test(cmd, NULL, split[0], HEREDOC, 0);
+			// printf("split[0]: %s\n", split[0]);
+			// printf("split[1]: %s\n", split[1]);
+			// printf("type: %d\n", cmd->type);
+		}
+		t_redir *redir = (t_redir *)cmd;
+		printf("file: %s\nfd: %d\n", redir->file, redir->fd);
 	}
 	return (cmd);
 }

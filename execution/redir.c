@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 18:53:22 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 22:43:56 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,12 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 	red.in_fd = -1024;
 	red.out_fd = -1024;
 	fd_file = 0;
-	ex = (t_exec *)redir->right;
+	// ex = (t_exec *)redir->right;
+	if (redir->mode == HEREDOC)
+		ft_heredoc(env_list, redir->right, redir->file);
 	while (redir && redir->fd == STDIN_FILENO)
 	{
+		printf("file: %s\n", redir->file);
 		if (redir_checkname(&(redir->file), env_list) && redir->file[0] == '$')
 			return (0);
 		fd_file = open(redir->file, redir->mode, 0644);
@@ -77,6 +80,7 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 			g.exit_status = EXIT_NOTFOUND;
 			return (-1);
 		}
+		ex = (t_exec *)redir->right;
 		redir = (t_redir *)redir->left;
 	}
 	while (redir && redir->fd == STDOUT_FILENO)
@@ -92,6 +96,7 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 			g.exit_status = EXIT_NOTFOUND;
 			return (-1);
 		}
+		ex = (t_exec *)redir->right;
 		redir = (t_redir *)redir->left;
 	}
 	pid = fork();

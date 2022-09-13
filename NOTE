@@ -175,3 +175,7 @@ and 0 in fd, the delimiter in "*q", check it on ft_redir and call ft_heredoc
 and we should change the tree to a normal node as it was before cause dak lblan li kan kiw93
 is fixable. 
 
+
+export var="la $la" (ignore la)
+export var="ls -la" and then $var khass t executa ls -la
+export var="" and then env seg faults

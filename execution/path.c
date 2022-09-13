@@ -6,11 +6,19 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 20:28:50 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:42:09 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+char	**split_specialcase(char *str, char **ret)
+{
+	printf("hello\n");
+	ret[0] = ft_strdup(str);
+	ret[1] = NULL;
+	return (ret);
+}
 
 int	ft_envcmp(char *s1, char *s2)
 {
@@ -44,7 +52,7 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 		i++;
 	}
 	ret[0][i++] = '\0';
-	if (export_checkpathname(ret[0]))
+	if (export_checkname(ret[0]) == 0)
 	{
 		ret[0] = NULL;
 		ret[1] = NULL;
@@ -68,6 +76,8 @@ char	**ft_split_namecont(char *str)
 	len = 0;
 	sublen = 0;
 	ret = (char **)malloc(sizeof(char *) * 2);
+	// if (str[ft_strlen(str) - 1] == '=')
+	// 	return (split_specialcase(str, ret));
 	while (str[len])
 		len++;
 	while (str[sublen] != '=' && str[sublen])

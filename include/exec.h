@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 02:16:32 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:22:36 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_env
 	char			*name;
 	char			*path;
 	struct s_env	*next;
+	int				ifnull;
 }				t_env;
 
 typedef struct s_red
@@ -58,7 +59,7 @@ typedef struct s_red
 
 
 size_t	ft_strlen(char *str);
-t_env	*ft_lstnew(char *path, char *name);
+t_env	*ft_lstnew(char *path, char *name, int ifnull);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 void	ft_lstadd_front(t_env **lst, t_env *new);
 void	ft_lstdelone(t_env *lst, void (*del)(char*));
@@ -108,8 +109,8 @@ char	*ft_assign_env(char *s, t_env *env_list);
 void	ft_check_cmd(t_cmd *cmd, t_env **env_list);
 int		ft_redirect(t_redir *redir, t_env **env_list);
 int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
-int		ft_ifmybuiltin(char *cmd, char **mybuiltins,
-t_exec *line, t_env **env_list);
+int		ft_ifmybuiltin(char *cmd, t_exec *line, t_env **env_list);
+int		ft_ifmybuiltin_up(char *cmd, t_exec *line, t_env **env_list);
 void	ft_pipes(t_pipe *pipes, t_env **env_list);
 int		pipes_fork_right(t_pipe *pipes, int *fds, t_env **env_list);
 int		pipes_fork_left(t_pipe *pipes, int *fds, t_env **env_list);

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 14:07:48 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:35:54 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_exec(t_exec *line, t_env **env_list)
 	cmd = ft_strdup(line->argv[0]);
 	if (!cmd)
 		return ;
-	if (ft_builtins(cmd, line, env_list))
+	if (ft_ifmybuiltin(cmd, line, env_list) || ft_ifmybuiltin_up(cmd, line, env_list))
 		return ;
 	if (!exec_checkcmd(cmd))
 		cmd = ft_strjoin("/", cmd);

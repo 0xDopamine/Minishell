@@ -150,6 +150,19 @@ SEG FAULTS UPDATE:
 echodsjjds "hello" (works as if its echo wtf )
 export var="la la" (you send me NULL string)
 " " seg faults
-" ' seg faults
+\" \' seg faults
 
+UPDATE
 
+the seg faults above are fixed but there is an issue with the following type of tests:
+export var="la la" (test 1)
+or anything like it
+idk whether you should receive the argument quoted or not
+if i\'m passing VAR="hi" to export, you receive VAR=hi, makes total sense
+but in the case of test 1 idk whether you should receive var="la la" or var=la la
+for now you get them unquoted cause export works
+so you should fix blan receiving var=la la cause im getting this export error
+
+export: not valid in this context
+
+try different tests, the outputs cmd: and split 0 & 1 will show you how it was parsed

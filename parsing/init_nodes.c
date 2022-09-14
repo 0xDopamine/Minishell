@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 11:21:20 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 23:22:36 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,12 @@ t_cmd   *execcmd(int words)
 //     return ((t_cmd *)red);
 // }
 
-t_cmd   *redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd)
+t_cmd   *redircmd_test(t_cmd *right, char *q, int mode, int fd)
 {
     t_redir *red;
 
     red = malloc(sizeof(t_redir));
     red->right = right;
-	red->left = left;
     red->file = q;
     red->mode = mode;
     red->type = REDIR;

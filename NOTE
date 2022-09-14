@@ -183,3 +183,11 @@ export var="" and then env seg faults
 
 we have a problem f multiple heredocs and multiple pipes stopped working for some reason,
 removed some leaks
+
+********************************************************
+
+UPDATE REDIR
+
+the node now is simple, check file for the name of the file and fd for the
+convenient fd to the redirection, you just need to modify your function
+(file name is already split)

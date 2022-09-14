@@ -43,7 +43,6 @@ typedef struct s_cmd {
 typedef struct s_redir {
 	int		type;
 	t_cmd	*right;
-	t_cmd	*left;
 	char	*file;
 	int		mode;
 	int		fd;

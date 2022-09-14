@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 02:32:14 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 02:16:04 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,8 +436,9 @@ int	main(int argc, char **argv, char **env)
 		add_history(temp);
 		temp = spaces(temp);
 		simpleCommand = parsepipe(&temp, env_list);
-		// system("leaks minishell");
+		
 		ft_check_cmd(simpleCommand, &env_list);
+		
 	}
 	free(temp);
 	freethis(&line);

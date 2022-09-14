@@ -179,3 +179,7 @@ is fixable.
 export var="la $la" (ignore la)
 export var="ls -la" and then $var khass t executa ls -la
 export var="" and then env seg faults
+
+
+we have a problem f multiple heredocs and multiple pipes stopped working for some reason,
+removed some leaks

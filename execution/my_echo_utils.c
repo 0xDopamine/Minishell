@@ -6,23 +6,23 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:30:38 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 20:14:15 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:12:44 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	echo_case1(char *str)
+int	echo_case1(char *str, int fd)
 {
 	if (!str)
 	{
 		g.exit_status = EXIT_SUCCESS;
-		printf("\n");
+		ft_putstr_fd("\n", NULL, fd);
 		return (1);
 	}
 	if (!ft_strncmp(str, "$?", 2))
 	{
-		printf("%d\n", g.exit_status);
+		ft_putnbr_fd(g.exit_status, fd);
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}

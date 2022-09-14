@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_libft.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:16:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:18:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:11:13 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,27 @@ void	ft_putstr_fd(char *str, char *str2, int fd)
 	i = 0;
 	while (str2[i])
 		ft_putchar_fd(str2[i++], fd);
+}
+
+void	ft_putnbr_fd(int nb, int fd)
+{
+	int	nbr;
+
+	if (nb < 0)
+	{
+		ft_putchar_fd('-', fd);
+		if (nb == -2147483648)
+		{
+			write(fd, "2147483648", 10);
+			return ;
+		}		
+		nbr = nb * -1;
+	}
+	else
+		nbr = nb;
+	if (nbr >= 10)
+	{
+		ft_putnbr_fd(nbr / 10, fd);
+	}
+	ft_putchar_fd(nbr % 10 + '0', fd);
 }

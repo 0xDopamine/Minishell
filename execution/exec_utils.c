@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:08:57 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 14:07:16 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:22:03 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	exec_isdir(char *cmd)
 void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 {
 	if (cmd->type == EXEC)
+	{
 		ft_exec((t_exec *)cmd, env_list);
+		printf("eeey\n");
+	}
 	if (cmd->type == REDIR)
 		if (ft_redirect((t_redir *)cmd, env_list) == -1)
 			return ;

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 18:22:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:17:18 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		ft_lstsize(t_env *lst);
 void	del(char *path);
 int		ft_cd(t_exec *line, t_env **env_list);
 int		ft_unset(t_env **env, t_exec *line);
-int		ft_echo(t_exec *line);
+int		ft_echo(t_exec *line, int fd);
 int		ft_pwd(void);
 int		ft_export(t_env **env, t_exec *line);
 int		ft_env(t_env *env_list, char c);
@@ -86,7 +86,7 @@ int		cd_errors(void);
 int		cd_ifoldpwd(char *str, t_env **env_list);
 int		cd_home(void);
 int		cd_oldpwd(t_env **env_list);
-int		echo_case1(char *str);
+int		echo_case1(char *str, int fd);
 int		echo_path(char **av, int i, t_env *env_list, int ifnl);
 int		export_checkname(char *str);
 int		export_checkpathname(char *str);
@@ -130,5 +130,6 @@ t_cmd	*parseexec(char **ps, t_env *env_list);
 t_cmd	*redircmd_test(t_cmd *right, t_cmd *left,char *q, int mode, int fd);
 t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list);
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state);
+void	ft_putnbr_fd(int nb, int fd);
 
 #endif

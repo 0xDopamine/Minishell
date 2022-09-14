@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 20:09:58 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:16:04 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,33 @@ static	int	echo_check_nl(char *str)
 	return (0);
 }
 
-static void	echo_ifnewline(t_exec *line, int i, int ifnl)
+static void	echo_ifnewline(t_exec *line, int i, int ifnl, int fd)
 {
 	if (ifnl)
 	{
-		printf("%s", line->argv[i++]);
+		ft_putstr_fd(line->argv[i++], NULL, fd);
 		while (line->argv[i])
-			printf(" %s", line->argv[i++]);
+			ft_putstr_fd(line->argv[i++], NULL, fd);
 	}
 	else
 	{
 		i = 1;
-		printf("%s", line->argv[i++]);
+		ft_putstr_fd(line->argv[i++], NULL, fd);
 		if (!line->argv[i])
-			printf("\n");
+			ft_putchar_fd('\n', fd);
 		while (line->argv[i])
-			printf(" %s\n", line->argv[i++]);
+			ft_putstr_fd(line->argv[i++], "\n", fd);
 	}
 }
 
-int	ft_echo(t_exec *line)
+int	ft_echo(t_exec *line, int fd)
 {
 	int	i;
 	int	ifnl;
 
 	i = 1;
 	ifnl = 0;
-	if (echo_case1(line->argv[1]))
+	if (echo_case1(line->argv[1], fd))
 		return (1);
 	while (echo_check_nl(line->argv[i]))
 	{
@@ -71,10 +71,12 @@ int	ft_echo(t_exec *line)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
+	if (echo_case1(line->argv[i], fd))
+		return (1);
 	if (ifnl)
-		echo_ifnewline(line, i, ifnl);
+		echo_ifnewline(line, i, ifnl, fd);
 	else
-		echo_ifnewline(line, i, ifnl);
+		echo_ifnewline(line, i, ifnl, fd);
 	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }

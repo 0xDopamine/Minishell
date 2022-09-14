@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 22:32:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:25:38 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 	char	**my_env;
 
 	my_env = ft_myenv(*env_list);
+	printf("heheeee\n");
 	if (!line->argv[0] || line->argv[0] == NULL)
 	{
 		g.exit_status = EXIT_FAILURE;
@@ -53,7 +54,10 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 	}
 	cmd = ft_strdup(line->argv[0]);
 	if (ft_ifmybuiltin(cmd, line, env_list) || ft_ifmybuiltin_up(cmd, line, env_list))
+	{
+		printf("hello\n");
 		return ;
+	}
 	cmd = ft_strjoin("/", cmd);
 	execnofork_loop(cmd, line->argv, my_env);
 	exit(EXIT_SUCCESS);

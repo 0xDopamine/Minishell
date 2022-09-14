@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 22:43:56 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/14 20:46:49 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,11 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 	red.out_fd = -1024;
 	fd_file = 0;
 	// ex = (t_exec *)redir->right;
-	if (redir->mode == HEREDOC)
+	while (redir && redir->mode == HEREDOC)
+	{
 		ft_heredoc(env_list, redir->right, redir->file);
+		redir = (t_redir *)redir->left;
+	}
 	while (redir && redir->fd == STDIN_FILENO)
 	{
 		printf("file: %s\n", redir->file);

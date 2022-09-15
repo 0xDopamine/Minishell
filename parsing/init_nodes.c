@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/14 23:22:36 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:29:32 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ t_cmd   *redircmd_test(t_cmd *cmd, t_redir *next, char *q, int mode, int fd)
     red->mode = mode;
     red->type = REDIR;
     red->fd = fd;
-	red->next = next;
+	if (cmd == (t_cmd *)next)
+		red->next = NULL;
+	else
+		red->next = (t_cmd *)next;
     return ((t_cmd *)red);
 }
 

@@ -6,13 +6,13 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 12:58:25 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/15 18:48:37 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static	int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
+int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 {
 	int	pid;
 	int	fd_rd;
@@ -36,7 +36,7 @@ static	int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 	return (0);
 }
 
-static	char	*heredoc_gen_name(void)
+char	*heredoc_gen_name(void)
 {
 	int		fd;
 	char	*buffer;
@@ -58,30 +58,31 @@ static	char	*heredoc_gen_name(void)
 	return (ft_strjoin("/tmp/", buffer));
 }
 
-int	ft_heredoc(t_env **env_list, t_cmd *cmd, char *delimiter)
+int	heredoc_create(char *file_path)
 {
-	char	*file_path;
-	int		fd_cr;
 	int		pid;
+	int		fd_creat;
 
-	file_path = heredoc_gen_name();
 	pid = 0;
-	fd_cr = open(file_path, O_WRONLY | O_CREAT, 0644);
-	if (fd_cr < 0)
+	fd_creat = open(file_path, O_WRONLY | O_CREAT, 0644);
+	if (fd_creat < 0)
 	{
 		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		g.exit_status = EXIT_FAILURE;
-		return (0);
+		return (-1);
 	}
-	heredoc_writefile(delimiter, fd_cr, env_list);
-	if (cmd->type == EXEC)
-	{
-		if (heredoc_open(file_path, cmd, env_list) == -1)
-			return (-1);
-	}
-	close(fd_cr);
-	wait(NULL);
-	unlink(file_path);
-	return (1);
+	return (fd_creat);
+}
+
+int	ft_heredoc(t_here *here, t_redir *redir, t_env **env_list)
+{
+	here->file_path = heredoc_gen_name();
+	here->fd_creat = heredoc_create(here->file_path);
+	if (here->fd_creat == -1)
+		return (-1);
+	here->delimiter = redir->file;
+	here->cmd = redir->cmd;
+	heredoc_writefile(here->delimiter, here->fd_creat, env_list);
+	return (EXIT_SUCCESS);
 }

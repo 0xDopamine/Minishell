@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/14 23:24:05 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/15 19:04:56 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,15 @@ typedef struct s_env
 	struct s_env	*next;
 	int				ifnull;
 }				t_env;
+
+typedef	struct s_here
+{
+	int		fd_creat;
+	int		fd_read;
+	char	*file_path;
+	char	*delimiter;
+	t_cmd	*cmd;
+}				t_here;
 
 typedef struct s_red
 {
@@ -108,6 +117,8 @@ char	**ft_myenv(t_env *env);
 char	*ft_assign_env(char *s, t_env *env_list);
 void	ft_check_cmd(t_cmd *cmd, t_env **env_list);
 int		ft_redirect(t_redir *redir, t_env **env_list);
+int		ft_redirect_input(t_redir *redir, t_red *red);
+int		ft_redirect_output(t_redir *redir, t_red *red);
 int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
 int		ft_ifmybuiltin(char *cmd, t_exec *line, t_env **env_list);
 int		ft_ifmybuiltin_up(char *cmd, t_exec *line, t_env **env_list);
@@ -121,8 +132,11 @@ void	ft_putstr_fd(char *str, char *str2, int fd);
 void	ft_putchar_fd(char c, int fd);
 int		ft_atoi(char *str);
 void	ft_free_doubleptr(char **ptr);
-int		ft_heredoc(t_env **env_list, t_cmd *cmd, char *delimiter);
+int		ft_heredoc(t_here *here, t_redir *redir, t_env **env_list);
+int		heredoc_create(char *file_path);
 void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
+int		heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list);
+char	*heredoc_gen_name(void);
 char	*ft_handle_quotes(char *q, t_env *env_list);
 char	*ft_string_examiner(char *s, t_env *env_list);
 t_cmd	*parsepipe(char **ps, t_env *env_list);
@@ -131,5 +145,6 @@ t_cmd	*redircmd_test(t_cmd *cmd, t_cmd *next, char *q, int mode, int fd);
 t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list);
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state);
 void	ft_putnbr_fd(int nb, int fd);
+char	*get_next_line(int fd);
 
 #endif

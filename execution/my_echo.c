@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/14 22:16:04 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:13:28 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,61 @@ static	int	echo_check_nl(char *str)
 
 static void	echo_ifnewline(t_exec *line, int i, int ifnl, int fd)
 {
+	int ifspace;
+
+	ifspace = 0;
 	if (ifnl)
 	{
-		ft_putstr_fd(line->argv[i++], NULL, fd);
+		if (!ft_strncmp(line->argv[i], "$?", 2))
+		{
+			ft_putnbr_fd(g.exit_status, fd);
+			g.exit_status = EXIT_SUCCESS;
+		}
+		else
+			ft_putstr_fd(line->argv[i], NULL, fd);
+		i++;
 		while (line->argv[i])
-			ft_putstr_fd(line->argv[i++], NULL, fd);
+		{
+			ft_putchar_fd(' ', fd);
+			if (!ft_strncmp(line->argv[i], "$?", 2))
+			{
+				ft_putnbr_fd(g.exit_status, fd);
+				g.exit_status = EXIT_SUCCESS;
+			}
+			else
+				ft_putstr_fd(line->argv[i], NULL, fd);
+			i++;
+		}
 	}
 	else
 	{
 		i = 1;
-		ft_putstr_fd(line->argv[i++], NULL, fd);
+		if (!ft_strncmp(line->argv[i], "$?", 2))
+		{
+			ft_putnbr_fd(g.exit_status, fd);
+			g.exit_status = EXIT_SUCCESS;
+		}
+		else
+			ft_putstr_fd(line->argv[i], NULL, fd);
+		i++;
 		if (!line->argv[i])
+		{
 			ft_putchar_fd('\n', fd);
+			return ;
+		}
 		while (line->argv[i])
-			ft_putstr_fd(line->argv[i++], "\n", fd);
+		{
+			ft_putchar_fd(' ', fd);
+			if (!ft_strncmp(line->argv[i], "$?", 2))
+			{
+				ft_putnbr_fd(g.exit_status, fd);
+				g.exit_status = EXIT_SUCCESS;
+			}
+			else
+				ft_putstr_fd(line->argv[i], NULL, fd);
+			i++;
+		}
+		ft_putchar_fd('\n', fd);
 	}
 }
 
@@ -59,7 +100,7 @@ int	ft_echo(t_exec *line, int fd)
 
 	i = 1;
 	ifnl = 0;
-	if (echo_case1(line->argv[1], fd))
+	if (echo_case1(line->argv[0], fd))
 		return (1);
 	while (echo_check_nl(line->argv[i]))
 	{
@@ -71,8 +112,6 @@ int	ft_echo(t_exec *line, int fd)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	if (echo_case1(line->argv[i], fd))
-		return (1);
 	if (ifnl)
 		echo_ifnewline(line, i, ifnl, fd);
 	else

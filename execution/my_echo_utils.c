@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:30:38 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/14 22:12:44 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/15 12:40:59 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ int	echo_case1(char *str, int fd)
 		ft_putstr_fd("\n", NULL, fd);
 		return (1);
 	}
-	if (!ft_strncmp(str, "$?", 2))
-	{
-		ft_putnbr_fd(g.exit_status, fd);
-		g.exit_status = EXIT_SUCCESS;
-		return (1);
-	}
+	// if (!ft_strncmp(str, "$?", 2))
+	// {
+	// 	ft_putnbr_fd(g.exit_status, fd);
+	// 	ft_putchar_fd('\n', fd);
+	// 	g.exit_status = EXIT_SUCCESS;
+	// 	return (1);
+	// }
 	return (0);
 }

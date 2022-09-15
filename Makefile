@@ -10,7 +10,8 @@ EXEC = exec.c exec_nofork.c mini_libft.c \
 		my_echo.c my_cd.c my_pwd.c my_unset.c \
 		free.c exec_utils.c my_cd_utils.c my_echo_utils.c \
 		my_export_utils.c pipes_utils.c heredoc.c heredoc_utils.c \
-		exec_utils2.c my_env_utils.c my_export_utils2.c my_unset_utils.c
+		exec_utils2.c my_env_utils.c my_export_utils2.c my_unset_utils.c \
+		 redir_utils.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 

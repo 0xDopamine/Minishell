@@ -42,10 +42,11 @@ typedef struct s_cmd {
 
 typedef struct s_redir {
 	int		type;
-	t_cmd	*right;
+	t_cmd	*cmd;
 	char	*file;
 	int		mode;
 	int		fd;
+	t_cmd	*next;
 } t_redir ;
 
 typedef struct s_redir_tst {

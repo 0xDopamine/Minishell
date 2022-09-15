@@ -55,16 +55,17 @@ t_cmd   *execcmd(int words)
 //     return ((t_cmd *)red);
 // }
 
-t_cmd   *redircmd_test(t_cmd *right, char *q, int mode, int fd)
+t_cmd   *redircmd_test(t_cmd *cmd, t_redir *next, char *q, int mode, int fd)
 {
     t_redir *red;
 
     red = malloc(sizeof(t_redir));
-    red->right = right;
+    red->cmd = cmd;
     red->file = q;
     red->mode = mode;
     red->type = REDIR;
     red->fd = fd;
+	red->next = next;
     return ((t_cmd *)red);
 }
 

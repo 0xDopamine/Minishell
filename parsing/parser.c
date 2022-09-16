@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/15 14:45:52 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/16 02:12:48 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,9 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 			split = ft_split_quotes(q, ' ');
 		else
 			split = ft_split(q, ' ');
-		printf("q: %s\n", q);
 		if (tok != 'c')
 			printf("syntax error\n"); 
 		cmd->argv[argc] = ft_ultimate_string_handler(&split[0], env_list, state);
-		printf("cmd: %s\n", cmd->argv[argc]);
 		argc++;
 		if (argc >= words || split[1] == NULL)
 			break ;
@@ -149,7 +147,6 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 
 	list = malloc(sizeof(t_env **));
 	*list = env_list;
-	t_redir	*redir;
 	split = NULL;
 	if (next(ps, "<>"))
 	{
@@ -170,9 +167,6 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], O_WRONLY | O_CREAT | O_APPEND, 1);
 		else if (tok == 'H')
 			cmd = redircmd_test(cmd, parseredir_test(cmd, ps, env_list), split[0], HEREDOC, 0);
-		redir = (t_redir *)cmd;
-		// redir->next = NULL;
-		// printf("file: %s\nfd: %d\n", redir->file, redir->fd);
 	}
 	return (cmd);
 }

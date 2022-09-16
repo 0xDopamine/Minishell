@@ -1,9 +1,1 @@
-Makefile
-NOTE
-a
-execution
-include
-minishell
-paint.tldr
-parsing
-test.c
+hello

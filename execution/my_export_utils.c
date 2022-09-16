@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:51:47 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 18:42:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/16 02:12:06 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ int	export_ifnotreplace(char *str, t_env *env_list)
 	while (env_list)
 	{
 		if (!ft_strncmp(str, env_list->name, ft_strlen(str)))
-		{
-			printf("hello\n");
 			return (1);
-		}
 		env_list = env_list->next;
 	}
 	return (0);
@@ -50,7 +47,6 @@ int	export_checkname(char *str)
 	i = 0;
 	if (str[0] >= '0' && str[0] <= '9')
 	{
-		printf("hello\n");
 		g.exit_status = EXIT_FAILURE;
 		ft_putstr_fd("export: not valid in this context\n",
 			NULL, STDERR_FILENO);
@@ -75,7 +71,6 @@ int	export_checkname(char *str)
 		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97
 				&& str[i] <= 122) && str[i] != '_' && str[i] != '+' && str[i] == '-')
 		{
-			printf("hey\n");
 			g.exit_status = EXIT_FAILURE;
 			ft_putstr_fd("export: not valid in this context\n",
 				NULL, STDERR_FILENO);
@@ -96,7 +91,6 @@ int	export_checkpath(char *str)
 		if ((!(str[i] >= 48 && str[i] <= 57) && !(str[i] >= 65 && str[i] <= 90)
 				&& !(str[i] >= 97 && str[i] <= 122) && str[i] != '-'))
 		{
-			printf("hey\n");
 			g.exit_status = EXIT_FAILURE;
 			ft_putstr_fd("export: not valid in this context\n",
 				NULL, STDERR_FILENO);

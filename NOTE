@@ -191,3 +191,12 @@ UPDATE REDIR
 the node now is simple, check file for the name of the file and fd for the
 convenient fd to the redirection, you just need to modify your function
 (file name is already split)
+
+
+************************************
+UPDATE
+
+
+Fixed the tests you sent me, the <> and >< cases are treated as syntax errors
+saad didnt even handle them
+

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/16 02:12:48 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/16 02:41:15 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 		if (argc >= words || split[1] == NULL)
 			break ;
 		ret = parseredir_test(ret, ps, env_list);
+		if (ret == NULL)
+			return (NULL);
 	}
 	cmd->argv[argc] = NULL;
 	return (ret);
@@ -154,7 +156,7 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 		if (get_token(ps, &q) != 'c')
 		{
 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
-			cmd->type = 0;
+			cmd = NULL;
 			return (cmd);
 		}
 		if (*q)
@@ -189,6 +191,8 @@ t_cmd	*parsepipe(char **ps, t_env *env_list)
 	t_cmd	*cmd;
 	
 	cmd = parseexec(ps, env_list);
+	if (cmd == NULL)
+		return (NULL);
 	// printf("ps: %s\n", *ps);
 	if (next(ps, "|"))
 	{

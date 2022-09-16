@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/16 02:15:56 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/16 02:35:25 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 		}
 		if (in == 0 && red.in_fd != -1024 && red.in_fd != -1)
 		{
+			printf ("%d && %s\n", in, redir->file);
 			dup2(red.in_fd, STDIN_FILENO);
 			in++;
 		}

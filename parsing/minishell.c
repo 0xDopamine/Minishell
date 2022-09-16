@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/14 19:39:12 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/16 02:43:52 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,9 +436,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(temp);
 		temp = spaces(temp);
 		simpleCommand = parsepipe(&temp, env_list);
-		
 		ft_check_cmd(simpleCommand, &env_list);
-		
 	}
 	free(temp);
 	freethis(&line);

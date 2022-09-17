@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_nofork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/16 00:45:18 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:01:35 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 		return ;
 	}
 	cmd = ft_strdup(line->argv[0]);
-	if (ft_ifmybuiltin(cmd, line, env_list) || ft_ifmybuiltin_up(cmd, line, env_list))
+	if (ft_ifmybuiltin(cmd, line, env_list)
+		|| ft_ifmybuiltin_up(cmd, line, env_list))
 		return ;
 	cmd = ft_strjoin("/", cmd);
 	execnofork_loop(cmd, line->argv, my_env);

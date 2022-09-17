@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 18:26:15 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:54:34 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ int	export_ifexists(char *name, char *path, t_env **env)
 	lst = *env;
 	while (lst)
 	{
-		if (ft_strncmp(name, lst->name, ft_strlen(name) == 0))
+		if (ft_strncmp(name, lst->name, ft_strlen(name)) == 0)
 		{
-			if (lst->path == NULL && path[0] == 0)
-				return (1);
 			if (path[0] == 0)
 				return (1);
 			free(lst->path);
@@ -73,7 +71,6 @@ int	export_checkav(char *str, char **ptr, int n)
 			return (1);
 		}
 		return (2);
-		// return (export_checkpath(str));
 	}
 	return (1);
 }
@@ -90,98 +87,3 @@ int	ft_export(t_env **env, t_exec *line)
 	export_addvar(line->argv, env);
 	return (1);
 }
-
-// int	export_checkpathname(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (str[0] >= '0' && str[0] <= '9')
-// 	{
-// 		g.exit_status = EXIT_FAILURE;
-// 		ft_putstr_fd("export: not valid in this context\n",
-// 			NULL, STDERR_FILENO);
-// 		return (0);
-// 	}
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '+' || str[i] == '-')
-// 		{
-// 			if (str[i+1])
-// 				printf("error\n");
-// 		}
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97
-// 				&& str[i] <= 122) && str[i] != '_' && str[i] != '+' && str[i] == '-')
-// 		{
-// 			ft_putstr_fd("export: '", str, STDERR_FILENO);
-// 			ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
-// 			return (1);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-// int	export_ifexists(char *name, char *path, t_env **env)
-// {
-// 	int		i;
-// 	t_env	*lst;
-
-// 	i = 0;
-// 	lst = *env;
-// 	while (lst)
-// 	{
-// 		if (ft_strncmp(name, lst->name, ft_strlen(name) == 0))
-// 		{
-// 			if (lst->path == NULL && path[0] == 0)
-// 				return (1);
-// 			if (path[0] == 0)
-// 				return (1);
-// 			free(lst->path);
-// 			lst->path = ft_strdup(path);
-// 			free(name);
-// 			free(path);
-// 			return (1);
-// 		}
-// 		i++;
-// 		lst = lst->next;
-// 	}
-// 	return (0);
-// }
-
-// int	export_checkav(char *str, char **ptr, int n)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (n == NAME)
-// 		return (export_checkpathname(str));
-// 	else
-// 	{
-// 		if (str[0] == 0)
-// 		{
-// 			ptr[1] = NULL;
-// 			return (1);
-// 		}
-// 		return (1);
-// 		// return (export_checkpath(str));
-// 	}
-// 	printf("hahah\n");
-// 	return (1);
-// }
-
-// int	ft_export(t_env **env, t_exec *line)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	if (line->argv[1] == NULL)
-// 		return (ft_env(*env, EXP));
-// 	export_addvar(line->argv, env);
-// 	return (1);
-// }

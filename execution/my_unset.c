@@ -6,28 +6,11 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:31:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 14:59:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 19:02:38 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-// static	int	unset_argslen(char **av)
-// {
-// 	int	i;
-// 	int	len;
-
-// 	i = 1;
-// 	len = 0;
-// 	while (av[i])
-// 	{
-// 		printf("%s\n", av[i]);
-// 		i++;
-// 		len++;
-// 	}
-// 	printf("%d\n", len);
-// 	return (len);
-// }
 
 int	unset_checkstr(char *str)
 {
@@ -63,11 +46,6 @@ int	ft_unset(t_env **env, t_exec *line)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	// if (unset_checkname(line->argv))
-	// {
-	// 	g.exit_status = EXIT_FAILURE;
-	// 	return (EXIT_FAILURE);
-	// }
 	unset_loop(env2, temp, prev, line->argv);
 	return (1);
 }

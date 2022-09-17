@@ -6,59 +6,26 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:10:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/15 19:40:56 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:50:52 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include <readline/readline.h>
 
-static	int	ft_strlen_char(char *str, char ch)
+static	char	*heredoc_normalcase(char *line, char *str)
 {
-	unsigned int	len;
-
-	len = 0;
-	while (str[len] != ch && str[len])
-		len++;
-	return (len);
-}
-
-static	char	*heredoc_getstr(char *str)
-{
-	char	*ret;
-	int		i;
-
-	i = 0;
-	ret = (char *)malloc(ft_strlen_char(str, '$') + 1);
-	if (str[0] == '$')
-		return (NULL);
-	while (str[i] != '$' && str[i])
-	{
-		ret[i] = str[i];
-		i++;
-	}
-	ret[i] = '\0';
-	return (ret);
-}
-
-static	int	heredoc_findsign(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			return (i);
-		i++;
-	}
-	return (-1);
+	line = ft_strjoin(line, "\n");
+	str = ft_strjoin(str, line);
+	return (str);
 }
 
 static	char	*heredoc_findenv(char *line, t_env *env_list, int n)
 {
 	if (n == FIND)
 	{
+		if (line[0] == '?')
+			return ("exit");
 		while (env_list)
 		{
 			if (ft_strncmp(line, env_list->name
@@ -92,37 +59,38 @@ static	char	*heredoc_compare(char *line, char *str
 	}
 	if (ft_strncmp(ret, "not found", 9) == 0)
 		str = ft_strjoin(str, "\n");
+	if (ft_strncmp(ret, "exit", 4) == 0)
+	{
+		line = ft_strjoin(ft_itoa(g.exit_status), &line[index + 2]);
+		line = ft_strjoin(line, "\n");
+		str = ft_strjoin(str, line);
+	}
 	return (str);
 }
 
 void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 {
-	char	*line;
-	char	*ret;
-	char	*str;
-	int		index;
+	t_write	w;
 
-	line = NULL;
-	ret = NULL;
-	str = NULL;
-	index = -1;
+	w.line = NULL;
+	w.ret = NULL;
+	w.str = NULL;
+	w.index = -1;
 	while (true)
 	{
-		line = readline(YELLOW"heredoc> " RESET);
-		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
+		w.line = readline(YELLOW"heredoc> " RESET);
+		if (ft_strncmp(w.line, delimiter, ft_strlen(w.line)) == 0)
 			break ;
-		index = heredoc_findsign(line);
-		if (index != -1)
+		w.index = heredoc_findsign(w.line);
+		if (w.index != -1)
 		{
-			ret = heredoc_findenv(&line[index + 1], *env_list, FIND);
-			str = heredoc_compare(line, str, ret, *env_list);
-			str = ft_strjoin(heredoc_getstr(line), str);
+			w.ret = heredoc_findenv(&w.line[w.index + 1], *env_list, FIND);
+			w.str = heredoc_compare(w.line, w.str, w.ret, *env_list);
+			w.str = ft_strjoin(heredoc_getstr(w.line), w.str);
 		}
 		else
-		{	
-			line = ft_strjoin(line, "\n");
-			str = ft_strjoin(str, line);
-		}
+			w.str = heredoc_normalcase(w.line, w.str);
 	}
-	ft_putstr_fd(str, NULL, fd);
+	ft_putstr_fd(w.str, NULL, fd);
+	free(w.str);
 }

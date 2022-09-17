@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 01:44:31 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:34:53 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ typedef struct s_env
 	int				ifnull;
 }				t_env;
 
+typedef struct s_write
+{
+	char	*line;
+	char	*ret;
+	char	*str;
+	int		index;
+}				t_write;
+
 typedef	struct s_here
 {
 	int		fd_creat;
@@ -68,7 +76,7 @@ typedef struct s_red
 
 
 size_t	ft_strlen(char *str);
-t_env	*ft_lstnew(char *path, char *name, int ifnull);
+t_env	*ft_lstnew(char *path, char *name);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 void	ft_lstadd_front(t_env **lst, t_env *new);
 void	ft_lstdelone(t_env *lst, void (*del)(char*));
@@ -97,6 +105,8 @@ int		cd_home(void);
 int		cd_oldpwd(t_env **env_list);
 int		echo_case1(char *str, int fd);
 int		echo_path(char **av, int i, t_env *env_list, int ifnl);
+void	echo_str_nl(char **av, int i);
+void	echo_str_nonl(char **av, int i);
 int		export_checkname(char *str);
 int		export_checkpathname(char *str);
 int		export_checkpath(char *str);
@@ -104,6 +114,8 @@ int		export_ifnotreplace(char *str, t_env *env_list);
 void	export_addvar(char **av, t_env **env);
 int		export_ifexists(char *name, char *path, t_env **env);
 int		export_checkav(char *str, char **ptr, int n);
+int		export_checkop(char *str);
+int		export_checknbr(char ch);
 char	**export_sortnames(t_env *env_list);
 char	**export_swap(t_env *head, char **names);
 int		unset_checkstr(char *str);
@@ -119,9 +131,11 @@ void	ft_check_cmd(t_cmd *cmd, t_env **env_list);
 int		ft_redirect(t_redir *redir, t_env **env_list);
 int		ft_redirect_input(t_redir *redir, t_red *red);
 int		ft_redirect_output(t_redir *redir, t_red *red);
+int		redir_isdir(char *cmd);
 int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
 int		ft_ifmybuiltin(char *cmd, t_exec *line, t_env **env_list);
 int		ft_ifmybuiltin_up(char *cmd, t_exec *line, t_env **env_list);
+int		ft_strlen_char(char *str, char ch);
 void	ft_pipes(t_pipe *pipes, t_env **env_list);
 int		pipes_fork_right(t_pipe *pipes, int *fds, t_env **env_list);
 int		pipes_fork_left(t_pipe *pipes, int *fds, t_env **env_list);
@@ -131,12 +145,15 @@ void	ft_copy(char **ret, char *str, int sublen, int len);
 void	ft_putstr_fd(char *str, char *str2, int fd);
 void	ft_putchar_fd(char c, int fd);
 int		ft_atoi(char *str);
+char	*ft_itoa(int n);
 void	ft_free_doubleptr(char **ptr);
 int		ft_heredoc(t_here *here, t_redir *redir, t_env **env_list);
 int		heredoc_create(char *file_path);
 void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
 int		heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list);
+char	*heredoc_getstr(char *str);
 char	*heredoc_gen_name(void);
+int		heredoc_findsign(char *str);
 char	*ft_handle_quotes(char *q, t_env *env_list);
 char	*ft_string_examiner(char *s, t_env *env_list);
 t_cmd	*parsepipe(char **ps, t_env *env_list);

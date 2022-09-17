@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   list_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 12:45:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 18:34:34 by abaioumy         ###   ########.fr       */
+/*   Created: 2022/09/17 17:52:00 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/09/17 17:52:33 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "exec.h"
 
-int	ft_lstsize(t_env *lst)
+t_redir	*ft_lstlastredir(t_redir *lst)
 {
-	int		size;
-	t_env	*temp;
-
-	size = 0;
-	temp = lst;
-	while (temp)
-	{
-		size++;
-		temp = temp->next;
-	}
-	return (size);
-}
-
-t_env	*ft_lstlast(t_env *lst)
-{
-	t_env	*last;
+	t_redir	*last;
 
 	last = lst;
 	if (last == NULL)
@@ -40,7 +24,7 @@ t_env	*ft_lstlast(t_env *lst)
 	return (last);
 }
 
-void	ft_lstadd_front(t_env **lst, t_env *new)
+void	ft_lstadd_frontredir(t_redir **lst, t_redir *new)
 {
 	if (lst == NULL && new == NULL)
 		return ;
@@ -50,32 +34,18 @@ void	ft_lstadd_front(t_env **lst, t_env *new)
 	*lst = new;
 }
 
-t_env	*ft_lstnew(char *path, char *name)
+void	ft_lstadd_redir(t_redir **lst, t_redir *new)
 {
-	t_env	*head;
-	int		i;
-
-	i = 0;
-	head = (t_env *)malloc(sizeof(t_env));
-	if (!head)
-		return (NULL);
-	head->path = ft_strdup(path);
-	head->name = ft_strdup(name);
-	head->next = NULL;
-	return (head);
-}
-
-void	ft_lstadd_back(t_env **lst, t_env *new)
-{
-	t_env	*last;
+	t_redir	*last;
 
 	if (!new)
 		return ;
 	if (*lst == NULL)
 	{
-		ft_lstadd_front(lst, new);
+		ft_lstadd_frontredir(lst, new);
 		return ;
 	}
-	last = ft_lstlast(*lst);
+	printf("new: %s\n", new->file);
+	last = ft_lstlastredir(*lst);
 	last->next = new;
 }

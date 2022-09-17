@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:30:04 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/11 21:10:32 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:01:57 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	handle(int sig)
 	sig = 1;
 	ft_exit(NULL);
 }
+
 static	int	exec_check_exitcode(char *cmd)
 {
 	if (g.exit_status == 127)

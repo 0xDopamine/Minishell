@@ -6,11 +6,45 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 18:26:43 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:37:42 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+int	export_checkop(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '+' || str[i] == '-')
+		{
+			if (str[i + 1])
+			{
+				ft_putstr_fd("export: not valid in this context\n",
+					NULL, STDERR_FILENO);
+				return (EXIT_SUCCESS);
+			}
+		}
+		i++;
+	}
+	return (EXIT_FAILURE);
+}
+
+int	export_checknbr(char ch)
+{
+	if (ch >= '0' && ch <= '9')
+	{
+		g.exit_status = EXIT_FAILURE;
+		ft_putstr_fd("export: not valid in this context\n",
+			NULL, STDERR_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	else
+		return (EXIT_FAILURE);
+}
 
 void	export_addvar(char **av, t_env **env)
 {
@@ -34,7 +68,7 @@ void	export_addvar(char **av, t_env **env)
 		if (export_checkav(str[0], str, NAME))
 		{
 			g.exit_status = EXIT_SUCCESS;
-			ft_lstadd_back(env, ft_lstnew(str[1], str[0], ifnull));
+			ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
 		}
 		i++;
 	}

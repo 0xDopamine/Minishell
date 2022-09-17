@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:51:47 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/16 02:12:06 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:09:00 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,31 +45,16 @@ int	export_checkname(char *str)
 	int	i;
 
 	i = 0;
-	if (str[0] >= '0' && str[0] <= '9')
-	{
-		g.exit_status = EXIT_FAILURE;
-		ft_putstr_fd("export: not valid in this context\n",
-			NULL, STDERR_FILENO);
+	if (!export_checknbr(str[0]))
 		return (0);
-	}
-	while (str[i])
-	{
-		if (str[i] == '+' || str[i] == '-')
-		{
-			if (str[i+1])
-			{
-				ft_putstr_fd("export: not valid in this context\n",
-					NULL, STDERR_FILENO);
-				return (0);
-			}
-		}
-		i++;
-	}
+	if (!export_checkop(str))
+		return (0);
 	i = 0;
 	while (str[i])
 	{
 		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97
-				&& str[i] <= 122) && str[i] != '_' && str[i] != '+' && str[i] == '-')
+				&& str[i] <= 122) && str[i] != '_'
+			&& str[i] != '+' && str[i] == '-')
 		{
 			g.exit_status = EXIT_FAILURE;
 			ft_putstr_fd("export: not valid in this context\n",
@@ -100,29 +85,3 @@ int	export_checkpath(char *str)
 	}
 	return (1);
 }
-
-
-// int	export_checkpath(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	printf("%s\n", str);
-// 	while (str[i])
-// 	{
-// 		if ((!(str[i] >= 48 && str[i] <= 57) && !(str[i] >= 65 && str[i] <= 90)
-// 				&& !(str[i] >= 97 && str[i] <= 122)) || str[i] != ' '
-// 			|| (str[i] == '<' || str[i] == '>' || str[i] == '('
-// 				|| str[i] == ')'))
-// 		{
-// 			printf("%c\n", str[i]);
-// 			printf("hello\n");
-// 			g.exit_status = EXIT_FAILURE;
-// 			ft_putstr_fd("export: not valid in this context\n",
-// 				NULL, STDERR_FILENO);
-// 			return (0);
-// 		}
-// 		i++;
-// 	}
-// 	return (1);
-// }

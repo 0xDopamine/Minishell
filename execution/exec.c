@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 14:35:54 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:19:48 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,30 @@ int	exec_checkcmd(char *cmd)
 	return (0);
 }
 
-static	void	exec_loop(char *cmd, char **av, char **env)
+static	void	exec_loop2(char *cmd, char **av, char **env)
 {
 	char	*join;
+
+	join = NULL;
+	if (exec_checkcmd_fork(cmd, av, env) == -1)
+		return ;
+	join = exec_ifaccess(cmd);
+	if (join != NULL)
+	{
+		if (exec_cmdpath(join, env, av) == -1)
+			return ;
+		free(join);
+	}
+	g.exit_status = EXIT_SUCCESS;
+	if (wait(&g.exit_status) < 0)
+	{
+		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
+		g.exit_status = EXIT_NOTFOUND;
+	}
+}
+
+static	void	exec_loop(char *cmd, char **av, char **env)
+{
 	char	*s;
 
 	s = NULL;
@@ -33,21 +54,7 @@ static	void	exec_loop(char *cmd, char **av, char **env)
 		return ;
 	}
 	free(s);
-	if (exec_checkcmd_fork(cmd, av, env) == -1)
-		return ;
-	join = exec_ifaccess(cmd);
-	if (join != NULL)
-	{
-		if (exec_cmdpath(join, env, av) == -1)
-			return ; 
-		free(join);
-	}
-	g.exit_status = EXIT_SUCCESS;
-	if (wait(&g.exit_status) < 0)
-	{
-		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-		g.exit_status = EXIT_NOTFOUND;
-	}
+	exec_loop2(cmd, av, env);
 }
 
 void	ft_exec(t_exec *line, t_env **env_list)
@@ -61,7 +68,8 @@ void	ft_exec(t_exec *line, t_env **env_list)
 	cmd = ft_strdup(line->argv[0]);
 	if (!cmd)
 		return ;
-	if (ft_ifmybuiltin(cmd, line, env_list) || ft_ifmybuiltin_up(cmd, line, env_list))
+	if (ft_ifmybuiltin(cmd, line, env_list)
+		|| ft_ifmybuiltin_up(cmd, line, env_list))
 		return ;
 	if (!exec_checkcmd(cmd))
 		cmd = ft_strjoin("/", cmd);

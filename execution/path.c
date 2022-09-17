@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 17:42:09 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 19:03:06 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	**split_specialcase(char *str, char **ret)
 {
-	printf("hello\n");
 	ret[0] = ft_strdup(str);
 	ret[1] = NULL;
 	return (ret);
@@ -76,8 +75,6 @@ char	**ft_split_namecont(char *str)
 	len = 0;
 	sublen = 0;
 	ret = (char **)malloc(sizeof(char *) * 2);
-	// if (str[ft_strlen(str) - 1] == '=')
-	// 	return (split_specialcase(str, ret));
 	while (str[len])
 		len++;
 	while (str[sublen] != '=' && str[sublen])

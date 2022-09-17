@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/15 18:48:37 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:51:29 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 		dup2(fd_rd, STDIN_FILENO);
 		ft_exec_nofork((t_exec *)cmd, env_list);
 		close(fd_rd);
-		// close(fd_cr);
 		exit(1);
 	}
 	return (0);

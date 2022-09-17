@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:55:27 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/15 19:05:33 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:13:00 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 int	ft_redirect_output(t_redir *redir, t_red *red)
 {
-	printf("file: %s\n", redir->file);
+	if (redir_isdir(redir->file))
+	{
+		printf("hello\n");
+		ft_putstr_fd(redir->file, ": is a directory\n", STDERR_FILENO);
+		return (-1);
+	}
 	red->out_fd = open(redir->file, redir->mode, 0644);
 	if (red->out_fd == -1)
 	{
@@ -28,7 +33,12 @@ int	ft_redirect_output(t_redir *redir, t_red *red)
 
 int	ft_redirect_input(t_redir *redir, t_red *red)
 {
-	printf("file: %s\n", redir->file);
+	if (redir_isdir(redir->file))
+	{
+		printf("hello\n");
+		ft_putstr_fd(redir->file, ": is a directory\n", STDERR_FILENO);
+		return (-1);
+	}
 	red->in_fd = open(redir->file, redir->mode, 0644);
 	if (red->in_fd == -1)
 	{

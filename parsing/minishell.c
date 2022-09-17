@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/16 02:43:52 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 00:28:26 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,6 @@ char	*ft_search_for_env(char *s, t_env *env_list)
 	return (s);
 }
 
-int	ft_strlen_q(char *q, char *eq)
-{
-	int		len;
-	char	*temp;
-	char	*es;
-
-	len = 0;
-	temp = q;
-	es = eq;
-	while (temp++ < es)
-		len++;
-	return (len);
-}
-
 char	*ft_join_string(char *q, char *eq)
 {
 	char	*res;
@@ -83,25 +69,6 @@ char	*ft_join_string(char *q, char *eq)
 	}
 	res[i] = '\0';
 	return(res);
-}
-
-void	fetch_quoted(char **q, char **eq)
-{
-	char	*s;
-	int		tok;
-
-	tok = **q;
-	s = *q + 1;
-	*q = s;
-	while (*s != tok && *s)
-		s++;
-	if (*s == '\0')
-	{
-		**q = 1;
-		ft_putstr_fd("Quotes error\n", NULL, STDERR_FILENO);
-		return ;
-	}
-	*eq = s;
 }
 
 void	fetch_string(char **q, char **eq)
@@ -316,34 +283,6 @@ char	*ft_assign_env(char *s, t_env *env_list)
 	return (NULL);
 }
 
-int	ft_check_quotes(char *s)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (s[i])
-	{
-		if (ft_strchr(s[i], "\'\""))
-		{
-			j = i + 1;
-			while (s[j] != s[i] && s[j])
-				j++;
-			if (s[j] == '\0')
-			{
-				perror("Quotes error");
-				g.exit_status  = 256;
-				return (0);
-			}
-			else
-				i++;
-		}
-		else
-			i++;
-	}
-	return (1);
-}
-
 char	*ft_handle_quotes(char *q, t_env *env_list)
 {
 	char	*s;
@@ -414,10 +353,9 @@ int	main(int argc, char **argv, char **env)
 	t_env 	*env_list;
 	char	*temp;
 
-	line = NULL;
 	(void)argc;
 	(void)argv;
-	(void)env;
+	line = NULL;
 	simpleCommand = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
 	printf("Two brothers minishell\n");

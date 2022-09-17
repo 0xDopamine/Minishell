@@ -3,7 +3,7 @@
 TARGET = minishell
 
 #*SOURCE FILES *#
-PARSING = quotes_tools.c spaces_tools.c strings_tools.c strings_tools_2.c minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c  
+PARSING = split_quotes.c quotes.c spaces_tools.c strings_tools.c strings_tools_2.c minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c  
 EXEC = exec.c exec_nofork.c mini_libft.c \
 		path.c list.c redir.c pipes.c find_builtins.c \
 		my_exit.c my_env.c my_export.c \

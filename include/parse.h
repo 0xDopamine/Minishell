@@ -103,7 +103,6 @@ char		*handle_spaces(char *line);
 int			check(char before, char after);
 char		*add_spaces(char *line, int count);
 void		rl_replace_line(const char *str, int mod);
-// char	*null_terminate(char *q);
 void		null_terminate(char **s);
 int			ft_is_heredoc(char **ps);
 int			ft_isalnum(int arg);
@@ -112,5 +111,8 @@ void		fetch_quoted(char **q, char **eq);
 char		*ft_join_string(char *q, char *eq);
 int			check_state(int *state);
 void		ft_lstadd_redir(t_redir **lst, t_redir *new);
+int			ft_strlen_q(char *q, char *eq);
+char		**ft_split_q(char *str, char sep);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 04:17:04 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 00:09:59 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	num_words(char *str, int quote_flag)
 	if (quote_flag)
 		split = ft_split(str, ' ');
 	else
-		split = ft_split_quotes(str, ' ');
+		split = ft_split_q(str, ' ');
 	while(split[i++])
 		words++;
 	return (words);
@@ -123,7 +123,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 			break ;
 		state = check_var(q);
 		if (ft_strchr(*q, "\'\"") || check_state(state))
-			split = ft_split_quotes(q, ' ');
+			split = ft_split_q(q, ' ');
 		else
 			split = ft_split(q, ' ');
 		if (tok != 'c')

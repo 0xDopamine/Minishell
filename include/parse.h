@@ -46,12 +46,8 @@ typedef struct s_redir {
 	char	*file;
 	int		mode;
 	int		fd;
-	t_cmd	*next;
+	struct s_redir	*next;
 } t_redir ;
-
-typedef struct s_redir_tst {
-
-}	t_redir_tst ;
 
 typedef struct s_pipe {
 	int		type;
@@ -115,5 +111,6 @@ int     	count_words(char *str, char c);
 void		fetch_quoted(char **q, char **eq);
 char		*ft_join_string(char *q, char *eq);
 int			check_state(int *state);
+void		ft_lstadd_redir(t_redir **lst, t_redir *new);
 
 #endif

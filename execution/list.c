@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:45:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/13 17:58:18 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 01:51:10 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,43 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 		return ;
 	}
 	last = ft_lstlast(*lst);
+	last->next = new;
+}
+
+t_redir	*ft_lstlastredir(t_redir *lst)
+{
+	t_redir	*last;
+
+	last = lst;
+	if (last == NULL)
+		return (lst);
+	while (last->next != NULL)
+		last = last->next;
+	return (last);
+}
+
+void	ft_lstadd_frontredir(t_redir **lst, t_redir *new)
+{
+	if (lst == NULL && new == NULL)
+		return ;
+	if (new == NULL)
+		return ;
+	new->next = *lst;
+	*lst = new;
+}
+
+void	ft_lstadd_redir(t_redir **lst, t_redir *new)
+{
+	t_redir	*last;
+
+	if (!new)
+		return ;
+	if (*lst == NULL)
+	{
+		ft_lstadd_frontredir(lst, new);
+		return ;
+	}
+	printf("new: %s\n", new->file);
+	last = ft_lstlastredir(*lst);
 	last->next = new;
 }

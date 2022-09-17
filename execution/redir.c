@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/16 14:09:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 04:18:12 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 	t_here	here;
 	t_exec	*ex;
 	t_red	red;
+	t_redir	*tmp;
 	int		pid;
+	int		i = 0;
 
+	tmp = redir;
 	here.file_path = NULL;
 	here.fd_creat = -1024;
 	red.in_fd = -1024;
@@ -70,18 +73,21 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 			return (1);
 		redir = (t_redir *)redir->next;
 	}
-	if (here.file_path)
+	if (here.file_path) 
 		here.fd_read = open(here.file_path, O_RDONLY | O_CREAT, 0644);
 	while (redir && redir->fd == STDIN_FILENO)
 	{
+		printf ("filename : %s %d %d\n", redir->file, redir->cmd->type, i);
 		ft_redirect_input(redir, &red);
-		ex = (t_exec *)redir->cmd;
+		if (i == 0)
+			ex = (t_exec *)redir->cmd;
 		redir = (t_redir *)redir->next;
+		i++;
 	}
 	while (redir && redir->fd == STDOUT_FILENO)
 	{
 		ft_redirect_output(redir, &red);
-		if (redir->cmd->type == EXEC)
+		if (i == 0)
 			ex = (t_exec *)redir->cmd;
 		redir = (t_redir *)redir->next;
 	}

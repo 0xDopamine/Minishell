@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/15 11:29:32 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/17 01:43:37 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_cmd   *execcmd(int words)
 //     return ((t_cmd *)red);
 // }
 
-t_cmd   *redircmd_test(t_cmd *cmd, t_redir *next, char *q, int mode, int fd)
+t_redir *redircmd_test(t_cmd *cmd, char *q, int mode, int fd)
 {
     t_redir *red;
 
@@ -65,11 +65,8 @@ t_cmd   *redircmd_test(t_cmd *cmd, t_redir *next, char *q, int mode, int fd)
     red->mode = mode;
     red->type = REDIR;
     red->fd = fd;
-	if (cmd == (t_cmd *)next)
-		red->next = NULL;
-	else
-		red->next = (t_cmd *)next;
-    return ((t_cmd *)red);
+	red->next = NULL;
+    return (red);
 }
 
 t_cmd	*pipecmd(t_cmd *left, t_cmd *right)

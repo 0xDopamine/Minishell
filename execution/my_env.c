@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 18:40:53 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 15:39:17 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static	void	env_printenv(t_env *env_list)
 {
 	while (env_list)
 	{
-		if (env_list->path != NULL && env_list->ifnull != 1)
+		if (env_list->path != NULL)
 		{
 			printf("%s", env_list->name);
 			printf("=");

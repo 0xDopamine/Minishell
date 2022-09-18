@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:52:00 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 17:52:33 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:58:26 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ft_lstadd_redir(t_redir **lst, t_redir *new)
 		ft_lstadd_frontredir(lst, new);
 		return ;
 	}
-	printf("new: %s\n", new->file);
 	last = ft_lstlastredir(*lst);
 	last->next = new;
 }

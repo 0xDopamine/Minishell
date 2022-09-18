@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 01:15:39 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:49:23 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,9 @@ void	ft_sig_handler(int sig)
 		g.exit_status = 130;
 		return ;
 	}
+	if (sig == SIGQUIT)
+		exit(255);
+
 	return ;
 }
 
@@ -169,6 +172,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	line = NULL;
+	g.here_sig = 0;
 	simple_command = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
 	printf("Two brothers minishell\n");
@@ -188,6 +192,7 @@ int	main(int argc, char **argv, char **env)
 		temp = spaces(temp);
 		simple_command = parsepipe(&temp, env_list);
 		ft_check_cmd(simple_command, &env_list);
+		// system("leaks minishell");
 	}
 	free(temp);
 	freethis(&line);

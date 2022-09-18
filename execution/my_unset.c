@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:31:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 19:02:38 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 14:34:01 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ int	unset_checkstr(char *str)
 int	ft_unset(t_env **env, t_exec *line)
 {
 	t_env	*env2;
-	t_env	*temp;
 	t_env	*prev;
 
-	temp = *env;
 	env2 = *env;
 	prev = env2;
 	if (line->argv[1] == NULL)
@@ -46,6 +44,6 @@ int	ft_unset(t_env **env, t_exec *line)
 		g.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
-	unset_loop(env2, temp, prev, line->argv);
+	unset_loop(env2, prev, line->argv);
 	return (1);
 }

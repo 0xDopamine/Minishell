@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 01:39:40 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:00:17 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 		if (parse->tok != 'c')
 			printf("syntax error %c\n", parse->tok); 
 		cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0], env_list, parse->state);
-		printf("cmd: %s\n", cmd->argv[parse->argc]);
 		parse->argc++;
 		if (parse->argc >= parse->words || parse->split[1] == NULL)
 			break ;

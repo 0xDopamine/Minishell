@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:07:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/03 15:22:46 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:00:22 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**splitting(char *s, char c, int len, char **str)
 	j = -1;
 	while (s[i])
 	{
-		while (s[i] && !ft_strncmp((char *)&s[i], &c, 1))
+		while (s[i] && s[i] == c)
 			i++;
 		if (!s[i])
 			break ;

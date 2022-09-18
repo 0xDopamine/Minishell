@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 00:28:26 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:15:39 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "exec.h"
 #include <readline/readline.h>
 
-t_global g = { 0 };
+t_global	g = {0};
 
 void	null_terminate(char **s)
 {
@@ -26,129 +26,8 @@ void	null_terminate(char **s)
 	q = *s;
 	len = ft_strlen(q);
 	while (++i < len)
-		q++; 
+		q++;
 	*q = '\0';
-}
-
-char	*ft_search_for_env(char *s, t_env *env_list)
-{
-	char	*res;
-	int		i;
-
-	i = 0;
-	res = ft_strdup("");
-	while (s[i])
-	{
-		if (s[i] == '\'')
-		{
-			i++;
-			s = ft_handle_quotes(s, env_list);
-			res = ft_strjoin(res, "'");
-			res = ft_strjoin(res, ft_assign_env(s + 1, env_list));
-			res = ft_strjoin(res, "'");
-			return (res);
-		}
-		else
-			return (ft_strjoin(res, ft_assign_env(s + 1, env_list)));
-		i++;
-	}
-	return (s);
-}
-
-char	*ft_join_string(char *q, char *eq)
-{
-	char	*res;
-	int		i;
-
-	i = 0;
-	res = malloc(sizeof(1) * ft_strlen_q(q, eq) + 1);
-	while (q < eq)
-	{
-		res[i++] = *q;
-		q++;	
-	}
-	res[i] = '\0';
-	return(res);
-}
-
-void	fetch_string(char **q, char **eq)
-{
-	char	*s;
-	int		tok;
-
-	tok = **q;
-	s = *q;
-	*q = s;
-	while (!ft_strchr(*s, "\'\"") && *s)
-		s++;
-	*eq = s--;	
-}
-
-void	fetch_env(char **q, char **eq)
-{
-	char	*s;
-
-	s = *q;
-	while (*s)
-	{
-		if (ft_strchr(*s, "\'\"") || !ft_isalnum(*s))
-			break ;
-		s++;
-	}
-	*eq = s;
-}
-
-void	trim_string(char *q)
-{
-	int		i;
-	char	*temp;
-
-	i = 0;
-	temp = q;
-	while (temp[i])
-	{
-		if (ft_strchr(temp[i], "\'\""))
-			break ;
-		i++;		
-	}
-	q[i] = '\0';
-}
-
-int		ft_count_dollars(char *q)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (q[i])
-	{
-		while (q[i] == '$' && q[i])
-		{
-			i++;
-			count++;
-			if (q[i] != '$')
-				return(count);
-		}
-		i++;
-	}
-	return (count);
-}
-
-void	ft_check_envs(char **q)
-{
-	int		count;
-	char	*s;
-
-	s = *q;	
-	count = ft_count_dollars(s);
-	if (count % 2 == 0)
-		while (*s && *s == '$')
-			s++;
-	else if (count % 2 != 0)
-		while (*s && *(s + 1) == '$')
-			s++;
-	*q = s;
 }
 
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state)
@@ -171,17 +50,16 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state)
 			{
 				fetch_quoted(&q, &eq);
 				if (*q == 1)
-					return NULL;
+					return (NULL);
 				if (*q == '$' && *eq != '\'')
 				{					
 					fetch_env(&q, &eq);
 					if (*q == 1)
-						return NULL;
+						return (NULL);
 					q = ft_join_string(q, eq);
 					res = ft_strjoin(res, ft_assign_env(q, env_list));
-					
 				}
-				else if (*q == '\'' && (*(q + 1) == '$') && *eq ==  '"')
+				else if (*q == '\'' && (*(q + 1) == '$') && *eq == '"')
 					res = ft_strjoin(res, ft_search_for_env(q, env_list));
 				else
 					res = ft_strjoin(res, ft_join_string(q, eq));
@@ -216,71 +94,6 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state)
 	if (res)
 		*ps = res;
 	return (*ps);
-}
-
-int	ft_env_examiner(char **s)
-{
-	char	*q;
-
-	q = *s;
-	while (*q)
-	{
-		if (*q == '$' && *q)
-			q++;
-		while (!ft_strchr(*q, "\'\"") && *q)
-			q++;
-		if (ft_strchr(*q, "\'\"") && *q)
-		{
-			q--;
-			*q = 1;
-			*s = q + 1;
-			return (0);
-		}
-		if (!*q)
-			break ;
-		q++;
-	}
-	return (1);
-}
-
-char	*ft_assign_env(char *s, t_env *env_list)
-{
-	int	i;
-	char	**split;
-	char	*ret;
-	t_env	*temp_list;
-	int		flag;
-
-	i = 0;
-	flag = 0;
-	if (*s == '$' && *(s + 1) == '\0')
-		return (NULL);
-	split = ft_split(s, '$');
-	if (*split == NULL)
-		return (NULL);
-	ret = ft_strdup("\0");
-	if (!ft_env_examiner(&s))
-		return (s);
-	if (**split == '?')
-		return ("$?");
-	while (split[i])
-	{
-		temp_list = env_list;
-		while (temp_list != NULL)
-		{
-			if (ft_strcmp(split[i], temp_list->name) == 0)
-			{
-				ret = ft_strjoin(ret, temp_list->path);
-				flag = 1;
-				break ;
-			}
-			temp_list = temp_list->next;
-		}
-		i++;
-	}
-	if (ret != NULL)
-		return (ret);
-	return (NULL);
 }
 
 char	*ft_handle_quotes(char *q, t_env *env_list)
@@ -327,9 +140,9 @@ char	*ft_handle_quotes(char *q, t_env *env_list)
 				return (res);
 		}
 		else
-			s++;	
+			s++;
 	}
-	return(res);
+	return (res);
 }
 
 void	ft_sig_handler(int sig)
@@ -338,7 +151,7 @@ void	ft_sig_handler(int sig)
 	{
 		rl_on_new_line();
 		write(1, "\n", 1);
-		rl_replace_line("", 0); /* comment all of this cuz we need to install brew and other things in goinfre */
+		rl_replace_line("", 0);
 		rl_redisplay();
 		g.exit_status = 130;
 		return ;
@@ -349,14 +162,14 @@ void	ft_sig_handler(int sig)
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
-	t_cmd	*simpleCommand;
-	t_env 	*env_list;
+	t_cmd	*simple_command;
+	t_env	*env_list;
 	char	*temp;
 
 	(void)argc;
 	(void)argv;
 	line = NULL;
-	simpleCommand = malloc(sizeof(t_cmd));
+	simple_command = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
 	printf("Two brothers minishell\n");
 	signal(SIGINT, ft_sig_handler);
@@ -369,15 +182,15 @@ int	main(int argc, char **argv, char **env)
 		{
 			free(temp);
 			ft_putstr_fd("\nexit\n", NULL, STDOUT_FILENO);
-			exit(255); /* needs to be finished */
+			exit(255);
 		}
 		add_history(temp);
 		temp = spaces(temp);
-		simpleCommand = parsepipe(&temp, env_list);
-		ft_check_cmd(simpleCommand, &env_list);
+		simple_command = parsepipe(&temp, env_list);
+		ft_check_cmd(simple_command, &env_list);
 	}
 	free(temp);
 	freethis(&line);
-	free(simpleCommand);
-	return 0;
+	free(simple_command);
+	return (0);
 }

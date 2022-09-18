@@ -36,6 +36,15 @@ enum {
 	NOT_VAR
 }	;
 
+typedef struct s_parse {
+	int		tok;
+	int		argc;
+	int		*state;
+	int		words;
+	char	**split;
+	char	*q;
+}	t_parse ;
+
 typedef struct s_cmd {
 	int	type;
 }	t_cmd ;
@@ -113,6 +122,17 @@ int			check_state(int *state);
 void		ft_lstadd_redir(t_redir **lst, t_redir *new);
 int			ft_strlen_q(char *q, char *eq);
 char		**ft_split_q(char *str, char sep);
-
+char		*ft_join_string(char *q, char *eq);
+void		fetch_string(char **q, char **eq);
+void		fetch_env(char **q, char **eq);
+void		trim_string(char *q);
+int			ft_count_dollars(char *q);
+int			ft_strlen_q(char *q, char *eq);
+void		fetch_quoted(char **q, char **eq);
+int			ft_check_quotes(char *s);
+int			ft_env_examiner(char **s);
+void		ft_check_envs(char **q);
+int			*check_var(char *str);
+int			num_words(char *str, int quote_flag);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:08:56 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 21:12:19 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 00:34:51 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_check_quotes(char *s)
 			if (s[j] == '\0')
 			{
 				perror("Quotes error");
-				g.exit_status  = 256;
+				g.exit_status = 256;
 				return (0);
 			}
 			else

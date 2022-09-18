@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:54:34 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/10 23:12:32 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:30:38 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,58 @@ int	ft_isalnum(int arg)
 		return (1);
 	else
 		return (0);
+}
+
+int	num_words(char *str, int quote_flag)
+{
+	int		words;
+	char	**split;
+	int		i;
+
+	words = 1;
+	i = 0;
+	if (quote_flag)
+		split = ft_split(str, ' ');
+	else
+		split = ft_split_q(str, ' ');
+	while(split[i++])
+		words++;
+	return (words);
+}
+
+int	is_whitespace(char *str, char *es)
+{
+	char	*whitespaces;
+	int		i;
+	int		j;
+
+	whitespaces = ft_strdup("\n\t\r\v ");
+	i = 0;
+	es = NULL;
+	while (str[i])
+	{
+		j = 0;
+		while (whitespaces[j])
+		{
+			if (whitespaces[j] == str[i])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	ft_strchr(char s, char *buf)
+{
+	int	i;
+
+	i = 0;
+	while (buf[i])
+	{
+		if (buf[i] == s)
+			return (1);
+		i++;
+	}
+	return (0);
 }

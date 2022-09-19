@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 01:39:40 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:55:41 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,6 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 		cmd = (t_cmd *)head;
 	}
 	return (cmd);
-}
-
-int		ft_is_heredoc(char **ps)
-{
-	char	*q;
-	int		i;
-
-	i = -1;
-	q = *ps;
-	while (q[++i])
-		if (q[i] == '<' && q[i + 1] == '<')
-			return (1);
-	return (0);
 }
 
 t_cmd	*parsepipe(char **ps, t_env *env_list)

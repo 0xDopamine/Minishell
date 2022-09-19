@@ -36,6 +36,12 @@ enum {
 	NOT_VAR
 }	;
 
+typedef struct s_handle {
+	char	*q;
+	char	*eq;
+	char	*res;
+}	t_handle ;
+
 typedef struct s_parse {
 	int		tok;
 	int		argc;

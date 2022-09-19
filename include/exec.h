@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 21:56:21 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:25:07 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ t_cmd	*parsepipe(char **ps, t_env *env_list);
 t_cmd	*parseexec(char **ps, t_env *env_list);
 t_redir	*redircmd_test(t_cmd *cmd, char *q, int mode, int fd);
 t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list);
-char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state);
+char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
 void	ft_putnbr_fd(int nb, int fd);
 char	*get_next_line(int fd);
 char	*ft_search_for_env(char *s, t_env *env_list);

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 08:33:14 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:45:05 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,71 +30,6 @@ void	null_terminate(char **s)
 	*q = '\0';
 }
 
-char	*ft_ultimate_string_handler(char **ps, t_env *env_list, int *state)
-{
-	char	*q;
-	char	*eq;
-	char	*res;
-	int		dollars;
-
-	dollars = 0;
-	eq = NULL;
-	res = NULL;
-	(void)state;
-	if (ps)
-	{
-		q = *ps;
-		while (q)
-		{
-			if (ft_strchr(*q, "\'\""))
-			{
-				fetch_quoted(&q, &eq);
-				if (*q == 1)
-					return (NULL);
-				if (*q == '$' && *eq != '\'')
-				{					
-					fetch_env(&q, &eq);
-					if (*q == 1)
-						return (NULL);
-					q = ft_join_string(q, eq);
-					res = ft_strjoin(res, ft_assign_env(q, env_list));
-				}
-				else if (*q == '\'' && (*(q + 1) == '$') && *eq == '"')
-					res = ft_strjoin(res, ft_search_for_env(q, env_list));
-				else
-					res = ft_strjoin(res, ft_join_string(q, eq));
-				if (*eq + 1)
-					q = eq + 1;
-			}
-			else if (ft_strchr(*q, "$"))
-			{
-				ft_check_envs(&q);
-				if (*q == '$')
-				{	
-					fetch_env(&q, &eq);
-					q = ft_join_string(q, eq);
-					if (*q == '$' && *(q + 1) == '\0')
-						res = ft_strjoin(res, "$");
-					else
-						res = ft_strjoin(res, ft_assign_env(q, env_list));
-					q = eq;
-				}			
-			}
-			else
-			{
-				fetch_string(&q, &eq);
-				res = ft_strjoin(res, ft_join_string(q, eq));
-				if (*eq == '\0')
-					break ;
-				else
-					q = eq;
-			}
-		}
-	}
-	if (res)
-		*ps = res;
-	return (*ps);
-}
 
 char	*ft_handle_quotes(char *q, t_env *env_list)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 01:22:43 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:56:21 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 typedef struct s_global
 {
 	int	exit_status;
+	int here_sig;
 }	t_global;
 
 extern t_global	g;
@@ -48,7 +49,6 @@ typedef struct s_env
 	char			*name;
 	char			*path;
 	struct s_env	*next;
-	int				ifnull;
 }				t_env;
 
 typedef struct s_write
@@ -93,6 +93,7 @@ int		ft_exit(char **argv);
 void	ft_exec(t_exec *line, t_env **env_list);
 void	ft_exec_nofork(t_exec *line, t_env **env_list);
 void	ft_exec_mybuiltin(t_exec *line, char **env);
+void	ft_sig_handler(int sig);
 char	*exec_ifaccess(char *cmd);
 int		exec_isdir(char *cmd);
 int		exec_checkcmd_fork(char *cmd, char **av, char **env);
@@ -119,7 +120,7 @@ int		export_checknbr(char ch);
 char	**export_sortnames(t_env *env_list);
 char	**export_swap(t_env *head, char **names);
 int		unset_checkstr(char *str);
-void	unset_loop(t_env *env, t_env *temp, t_env *prev, char **args);
+void	unset_loop(t_env *env, t_env *prev, char **args);
 char	**unset_copyargs(char **av, char **args);
 void	env_printloop(t_env *list, char **names, int i);
 char	**ft_find_path(void);

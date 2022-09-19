@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 19:22:05 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:55:34 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,42 @@ static	void	redirect_exec(t_red *red, t_here *here
 	exit(1);
 }
 
+void	ft_sig_here(int signal)
+{
+	(void)signal;
+	close(0);
+	g.here_sig = 1;
+}
+
 static	int	redirect_loop(t_redir *redir, t_red *red
 	, t_here *here, t_env **env_list)
 {
+	int infd;
+
 	here->file_path = NULL;
 	here->fd_creat = -1024;
 	red->in_fd = -1024;
 	red->out_fd = -1024;
-	while (redir && redir->mode == HEREDOC)
+	infd = dup(0);
+	signal(SIGINT, ft_sig_here);
+	while (!g.here_sig && redir && redir->mode == HEREDOC)
 	{
 		if (ft_heredoc(here, redir, env_list) == -1)
+		{
+			close(infd);
 			return (1);
+		}
 		redir = redir->next;
 	}
+	if (g.here_sig)
+	{
+		signal(SIGINT, ft_sig_handler);
+		g.here_sig = 0;
+		dup2(infd, 0);
+		close(infd);
+		return (1);
+	}
+	close(infd);
 	if (here->file_path)
 		here->fd_read = open(here->file_path, O_RDONLY | O_CREAT, 0644);
 	while (redir && redir->fd == STDIN_FILENO)

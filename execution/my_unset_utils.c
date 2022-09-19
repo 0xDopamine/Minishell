@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:25:04 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 19:02:18 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:59:33 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ char	**unset_copyargs(char **av, char **args)
 		j++;
 		i++;
 	}
-	printf("%d\n", j);
 	args[j] = NULL;
 	return (args);
 }
 
-void	unset_loop(t_env *env, t_env *temp, t_env *prev, char **args)
+void	unset_loop(t_env *env, t_env *prev, char **args)
 {
 	int		i;
 	t_env	*list;
@@ -48,8 +47,7 @@ void	unset_loop(t_env *env, t_env *temp, t_env *prev, char **args)
 			if (ft_envcmp(list->name, args[i]))
 			{
 				g.exit_status = EXIT_SUCCESS;
-				temp = list;
-				prev->next = temp->next;
+				prev->next = list->next;
 				ft_lstdelone(list, del);
 				break ;
 			}

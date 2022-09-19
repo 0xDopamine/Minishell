@@ -200,3 +200,4 @@ UPDATE
 Fixed the tests you sent me, the <> and >< cases are treated as syntax errors
 saad didnt even handle them
 
+echo $"$"

@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:44:30 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 15:28:13 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:08:54 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	**ft_myenv(t_env *env)
 		name = ft_strjoin(env->name, "=");
 		if (!env->path)
 			str[i] = name;
-		
 		else
 		{
 			str[i] = ft_strjoin(name, env->path);

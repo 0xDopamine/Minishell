@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 14:37:15 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:08:19 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,9 @@ void	ft_exec(t_exec *line, t_env **env_list)
 		tmp = cmd;
 		cmd = ft_strjoin("/", cmd);
 		free(tmp);
-
 	}
 	exec_loop(cmd, line->argv, my_env);
 	freethis(my_env);
 	free(cmd);
-
 	return ;
 }

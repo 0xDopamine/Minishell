@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 14:56:06 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:09:15 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_sig_here(int signal)
 static	int	redirect_loop(t_redir *redir, t_red *red
 	, t_here *here, t_env **env_list)
 {
-	int infd;
+	int	infd;
 
 	here->file_path = NULL;
 	here->fd_creat = -2;

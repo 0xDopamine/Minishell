@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 09:25:07 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:52:54 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int		heredoc_create(char *file_path);
 void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
 int		heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list);
 char	*heredoc_getstr(char *str);
-char	*heredoc_gen_name(void);
+char	*heredoc_gen_name(int i);
 int		heredoc_findsign(char *str);
 char	*ft_handle_quotes(char *q, t_env *env_list);
 char	*ft_string_examiner(char *s, t_env *env_list);

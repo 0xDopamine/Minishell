@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:10:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 22:02:56 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:54:43 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 		if (!w.line)
 			break ;
 		if (ft_strcmp(w.line, delimiter) == 0)
+		{
+			free(w.line);
 			break ;
+		}
 		w.index = heredoc_findsign(w.line);
 		if (w.index != -1)
 		{

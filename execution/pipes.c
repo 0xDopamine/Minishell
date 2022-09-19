@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/12 14:06:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:04:15 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static	void	access_loop(char *cmd)
 		free(join);
 		i++;
 	}
+	ft_free_doubleptr(path);
 	g.exit_status = EXIT_NOTFOUND;
 }
 
@@ -39,6 +40,7 @@ void	pipes_access(t_exec *line)
 {
 	int		i;
 	char	*cmd;
+	char	*tmp;
 
 	i = 0;
 	if (!line->argv[0])
@@ -49,8 +51,10 @@ void	pipes_access(t_exec *line)
 		g.exit_status = EXIT_SUCCESS;
 		return ;
 	}
-	cmd = ft_strjoin("/", cmd);
+	tmp = ft_strjoin("/", cmd);
 	access_loop(cmd);
+	free (cmd);
+	free (tmp);
 }
 
 void	ft_pipes(t_pipe *pipes, t_env **env_list)

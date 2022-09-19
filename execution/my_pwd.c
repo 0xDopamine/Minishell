@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:44:30 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 18:54:53 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:28:13 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,22 @@ char	**ft_myenv(t_env *env)
 
 	i = 0;
 	name = NULL;
-	str = (char **)malloc(sizeof(char *) * ft_lstsize(env));
+	str = (char **)malloc(sizeof(char *) * (ft_lstsize(env) + 1));
 	while (env)
 	{
 		name = ft_strjoin(env->name, "=");
 		if (!env->path)
-		{
-			env->path = NULL;
-			str[i] = env->name;
-		}
+			str[i] = name;
+		
 		else
+		{
 			str[i] = ft_strjoin(name, env->path);
+			free(name);
+		}
 		env = env->next;
 		i++;
 	}
+	str[i] = NULL;
 	return (str);
 }
 
@@ -50,6 +52,8 @@ int	ft_pwd(void)
 		return (1);
 	}
 	printf("%s\n", ret);
+	free (ret);
+	free (s);
 	g.exit_status = EXIT_SUCCESS;
 	return (1);
 }

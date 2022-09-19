@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 14:37:24 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:37:15 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,36 +44,52 @@ static	void	exec_loop2(char *cmd, char **av, char **env)
 static	void	exec_loop(char *cmd, char **av, char **env)
 {
 	char	*s;
+	char	*tmp;
 
 	s = NULL;
-	if (exec_isdir(cmd) || ft_strcmp(cmd, getcwd(s, PATH_MAX)) == 0)
+	tmp = getcwd(s, PATH_MAX);
+	if (exec_isdir(cmd) || ft_strcmp(cmd, tmp) == 0)
 	{
 		free(s);
+		free(tmp);
 		ft_putstr_fd(cmd, ": is a directory\n", STDERR_FILENO);
 		g.exit_status = 126;
 		return ;
 	}
 	free(s);
+	free(tmp);
 	exec_loop2(cmd, av, env);
 }
 
 void	ft_exec(t_exec *line, t_env **env_list)
 {
 	char	*cmd;
+	char	*tmp;
 	char	**my_env;
 
 	if (!line->argv[0])
 		return ;
-	my_env = ft_myenv(*env_list);
 	cmd = ft_strdup(line->argv[0]);
 	if (!cmd)
 		return ;
+	my_env = ft_myenv(*env_list);
 	if (ft_ifmybuiltin(cmd, line, env_list)
 		|| ft_ifmybuiltin_up(cmd, line, env_list))
+	{
+		freethis(my_env);
+		free(cmd);
 		return ;
+	}
 	if (!exec_checkcmd(cmd))
+	{
+		tmp = cmd;
 		cmd = ft_strjoin("/", cmd);
+		free(tmp);
+
+	}
 	exec_loop(cmd, line->argv, my_env);
+	freethis(my_env);
 	free(cmd);
+
 	return ;
 }

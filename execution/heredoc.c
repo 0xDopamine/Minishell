@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 17:51:29 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:52:23 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,14 @@ int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 	return (0);
 }
 
-char	*heredoc_gen_name(void)
+char	*heredoc_gen_name(int i)
 {
 	int		fd;
 	char	*buffer;
-	int		i;
+	char	*tmp;
 	char	*s;
 
 	s = ft_strdup("0123456789abcdefghijklmnopqrstuvwxyz");
-	i = 0;
 	buffer = (char *)malloc(9);
 	buffer[8] = '\0';
 	fd = open("/dev/random", O_RDONLY, 0);
@@ -54,7 +53,10 @@ char	*heredoc_gen_name(void)
 		i++;
 	}
 	free(s);
-	return (ft_strjoin("/tmp/", buffer));
+	tmp = buffer;
+	buffer = ft_strjoin("/tmp/", buffer);
+	free (tmp);
+	return (buffer);
 }
 
 int	heredoc_create(char *file_path)
@@ -76,7 +78,10 @@ int	heredoc_create(char *file_path)
 
 int	ft_heredoc(t_here *here, t_redir *redir, t_env **env_list)
 {
-	here->file_path = heredoc_gen_name();
+	int	i;
+
+	i = 0;
+	here->file_path = heredoc_gen_name(i);
 	here->fd_creat = heredoc_create(here->file_path);
 	if (here->fd_creat == -1)
 		return (-1);

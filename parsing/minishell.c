@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 09:45:05 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:00:53 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int	main(int argc, char **argv, char **env)
 		temp = spaces(temp);
 		simple_command = parsepipe(&temp, env_list);
 		ft_check_cmd(simple_command, &env_list);
+		free(simple_command);
 		// system("leaks minishell");
 	}
 	free(temp);

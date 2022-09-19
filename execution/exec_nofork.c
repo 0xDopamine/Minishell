@@ -6,7 +6,7 @@
 /*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:47:42 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 17:01:35 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:03:49 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 void	ft_exec_nofork(t_exec *line, t_env **env_list)
 {
 	char	*cmd;
+	char	*tmp;
 	char	**my_env;
 
 	my_env = ft_myenv(*env_list);
@@ -55,7 +56,10 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 	if (ft_ifmybuiltin(cmd, line, env_list)
 		|| ft_ifmybuiltin_up(cmd, line, env_list))
 		return ;
-	cmd = ft_strjoin("/", cmd);
-	execnofork_loop(cmd, line->argv, my_env);
+	tmp = ft_strjoin("/", cmd);
+	execnofork_loop(tmp, line->argv, my_env);
+	free(cmd);
+	free(tmp);
+	freethis(my_env);
 	exit(EXIT_SUCCESS);
 }

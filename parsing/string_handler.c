@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 10:44:09 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:43:07 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,26 @@
 // 	q = *ps;
 // 	eq = *es;
 // 	fetch_quoted(&q, &eq);
-// 	if (*q == 1)
-// 		return (NULL);
-// 	if (*q == '$' && *eq != '\'')
-// 	{					
-// 		fetch_env(&q, &eq);
+// 	if (*q)
+// 	{
 // 		if (*q == 1)
 // 			return (NULL);
-// 		q = ft_join_string(q, eq);
-// 		res = ft_strjoin(res, ft_assign_env(q, env_list));
+// 		if (*q == '$' && *eq != '\'')
+// 		{					
+// 			fetch_env(&q, &eq);
+// 			if (*q == 1)
+// 				return (NULL);
+// 			q = ft_join_string(q, eq);
+// 			res = ft_strjoin(res, ft_assign_env(q, env_list));
+// 		}
+// 		else if (*q == '\'' && (*(q + 1) == '$') && *eq == '"')
+// 			res = ft_strjoin(res, ft_search_for_env(q, env_list));
+// 		else
+// 			res = ft_strjoin(res, ft_join_string(q, eq));
 // 	}
-// 	else if (*q == '\'' && (*(q + 1) == '$') && *eq == '"')
-// 		res = ft_strjoin(res, ft_search_for_env(q, env_list));
 // 	else
-// 		res = ft_strjoin(res, ft_join_string(q, eq));
-// 	if (*eq + 1)
+// 		return (NULL);
+// 	if (*(eq + 1))
 // 		*ps = eq + 1;
 // 	return (res);
 // }
@@ -48,6 +53,8 @@
 // 	q = *ps;
 // 	eq = *es;
 // 	ft_check_envs(&q);
+// 	if (!*q)
+// 		return (NULL);
 // 	if (*q == '$')
 // 	{	
 // 		fetch_env(&q, &eq);
@@ -85,15 +92,17 @@
 // 	if (ps)
 // 	{
 // 		q = *ps;
-// 		while (q)
+// 		while (*q)
 // 		{
+// 			printf("here\n");
 // 			if (ft_strchr(*q, "\'\""))
 // 				res = ft_quotes_case(&q, &eq, res, env_list);
 // 			else if (ft_strchr(*q, "$"))
 // 				res = ft_env_case(&q, &eq, res, env_list);
 // 			else
 // 				res = ft_string_case(&q, &eq, res);
-// 			if (*q == '\0')
+// 			printf("---q: %s\n", q);
+// 			if (*q == '\0' || !res)
 // 				break ;
 // 		}
 // 	}

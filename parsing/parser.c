@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 09:25:22 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:55:33 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 		if (ret == NULL)
 			return (NULL);
 	}
+	// free(parse);
 	cmd->argv[parse->argc] = NULL;
 	return (ret);
 }
@@ -87,6 +88,7 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 			ft_lstadd_redir(&head, redircmd_test(cmd, parse->split[0], HEREDOC, 0));
 		cmd = (t_cmd *)head;
 	}
+	free(parse);
 	return (cmd);
 }
 

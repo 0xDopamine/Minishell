@@ -17,7 +17,7 @@ SRC = $(addprefix parsing/, $(PARSING)) \
 
 #* READLINE PATH *#
 READLINE_DIR = $(addprefix $(shell brew --prefix readline), /)
-#comment it if you have an error compiling it
+
 #* OBJECT FILES *#
 OBJS = $(SRC:%.c=%.o)
 

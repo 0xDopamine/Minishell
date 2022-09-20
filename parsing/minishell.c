@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 16:24:01 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/20 04:35:53 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,6 @@
 #include <readline/readline.h>
 
 t_global	g = {0};
-
-void	null_terminate(char **s)
-{
-	int		len;
-	int		i;
-	char	*q;
-
-	i = -1;
-	q = *s;
-	len = ft_strlen(q);
-	while (++i < len)
-		q++;
-	*q = '\0';
-}
-
 
 char	*ft_handle_quotes(char *q, t_env *env_list)
 {

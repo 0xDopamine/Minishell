@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 14:52:54 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:02:36 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ typedef struct s_red
 	int	out_fd;
 }				t_red;
 
+typedef struct s_mini {
+	t_exec	*cmd;
+	t_cmd	*ret;
+	t_parse	*parse;
+}	t_mini ;
 
 size_t	ft_strlen(char *str);
 t_env	*ft_lstnew(char *path, char *name);
@@ -160,11 +165,12 @@ char	*ft_string_examiner(char *s, t_env *env_list);
 t_cmd	*parsepipe(char **ps, t_env *env_list);
 t_cmd	*parseexec(char **ps, t_env *env_list);
 t_redir	*redircmd_test(t_cmd *cmd, char *q, int mode, int fd);
-t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list);
+t_cmd	*parseredir(t_cmd *cmd, char **ps);
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
 void	ft_putnbr_fd(int nb, int fd);
 char	*get_next_line(int fd);
 char	*ft_search_for_env(char *s, t_env *env_list);
 char	*ft_assign_env(char *s, t_env *env_list);
+void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list);
 
 #endif

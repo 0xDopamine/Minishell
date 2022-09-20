@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 22:00:09 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:00:31 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd	*execcmd(int words)
 	return ((t_cmd *)ex);
 }
 
-t_redir	*redircmd_test(t_cmd *cmd, char *q, int mode, int fd)
+t_redir	*redircmd(t_cmd *cmd, char *q, int mode, int fd)
 {
 	t_redir	*red;
 

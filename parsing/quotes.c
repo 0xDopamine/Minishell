@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:08:56 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/20 02:13:50 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:07:54 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	fetch_quoted(char **q, char **eq)
 	{
 		*q = NULL;
 		ft_putstr_fd("Quotes error\n", NULL, STDERR_FILENO);
-		g.exit_status = 256;	
+		g.exit_status = 256;
 		return ;
 	}
 	*eq = s;

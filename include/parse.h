@@ -36,6 +36,7 @@ enum {
 	NOT_VAR
 }	;
 
+
 typedef struct s_handle {
 	char	*q;
 	char	*eq;
@@ -103,10 +104,9 @@ int			is_whitespace(char *str, char *es);
 char		*ft_strrchr(char *s, int c);
 int			ft_strchr(char s, char *buf);
 t_cmd		*execcmd(int words);
-t_cmd		*redircmd(t_cmd *cmd, char *q, int mode, int fd);
+t_redir		*redircmd(t_cmd *cmd, char *q, int mode, int fd);
 t_cmd		*pipecmd(t_cmd *left, t_cmd *right);
 int			is_symbol(char *str, char *es);
-t_cmd		*parseredir(t_cmd *cmd, char **ps, char **env);
 t_cmd		*parsecmd(char *s);
 int			next(char **ps, char *toks);
 int			wdcount_q(char *s, char c);
@@ -140,5 +140,8 @@ int			ft_env_examiner(char **s);
 void		ft_check_envs(char **q);
 int			*check_var(char *str);
 int			num_words(char *str, int quote_flag);
+void		ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd);
+char		**ft_split_argv(t_parse *parse);
+int			ft_init_words(char	**ps);
 
 #endif

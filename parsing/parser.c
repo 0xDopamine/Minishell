@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/20 11:55:33 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:04:21 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,48 +20,34 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 	t_parse	*parse;
 
 	parse = malloc(sizeof(t_parse));
-	if (ft_strchr(**ps, "\'\""))
-		parse->words = num_words(*ps, 0);
-	else
-		parse->words = num_words(*ps, 1);
+	parse->words = ft_init_words(ps);
 	ret = execcmd(parse->words);
 	cmd = (t_exec *)ret;
 	parse->argc = 0;
-	ret = parseredir_test(ret, ps, env_list);
+	ret = parseredir(ret, ps);
 	while (!next(ps, "|"))
 	{
 		parse->tok = get_token(ps, &parse->q);
 		if (parse->tok == 0)
 			break ;
-		parse->state = check_var(parse->q);
-		if (ft_strchr(*parse->q, "\'\"") || check_state(parse->state))
-			parse->split = ft_split_q(parse->q, ' ');
-		else
-			parse->split = ft_split(parse->q, ' ');
-		if (parse->tok != 'c')
-			printf("syntax error %c\n", parse->tok); 
-		cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0], env_list);
+		ft_append_command(cmd, parse, env_list);
 		parse->argc++;
 		if (parse->argc >= parse->words || parse->split[1] == NULL)
 			break ;
-		ret = parseredir_test(ret, ps, env_list);
+		ret = parseredir(ret, ps);
 		if (ret == NULL)
 			return (NULL);
 	}
-	// free(parse);
 	cmd->argv[parse->argc] = NULL;
 	return (ret);
 }
 
-t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
+t_cmd	*parseredir(t_cmd *cmd, char **ps)
 {
 	t_parse	*parse;
-	t_env	**list;
 	t_redir	*head;
 
 	parse = malloc(sizeof(t_parse));
-	list = malloc(sizeof(t_env **));
-	*list = env_list;
 	parse->split = NULL;
 	if (cmd->type == EXEC)
 		head = NULL;
@@ -78,14 +64,7 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 		}
 		if (*parse->q)
 			parse->split = ft_split(parse->q, ' ');
-		if (parse->tok == '<')
-			ft_lstadd_redir(&head, redircmd_test(cmd, parse->split[0], O_RDONLY, STDIN_FILENO));
-		else if (parse->tok == '>')
-			ft_lstadd_redir(&head, redircmd_test(cmd, parse->split[0], O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO));
-		else if (parse->tok == 'A')
-			ft_lstadd_redir(&head, redircmd_test(cmd, parse->split[0], O_WRONLY | O_CREAT | O_APPEND, 1));
-		else if (parse->tok == 'H')
-			ft_lstadd_redir(&head, redircmd_test(cmd, parse->split[0], HEREDOC, 0));
+		ft_append_redir_list(&head, parse, cmd);
 		cmd = (t_cmd *)head;
 	}
 	free(parse);
@@ -95,7 +74,7 @@ t_cmd	*parseredir_test(t_cmd *cmd, char **ps, t_env *env_list)
 t_cmd	*parsepipe(char **ps, t_env *env_list)
 {
 	t_cmd	*cmd;
-	
+
 	cmd = parseexec(ps, env_list);
 	if (cmd == NULL)
 		return (NULL);
@@ -106,4 +85,3 @@ t_cmd	*parsepipe(char **ps, t_env *env_list)
 	}
 	return (cmd);
 }
-

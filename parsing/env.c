@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 03:46:17 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 05:33:41 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@ char	*ft_search_for_env(char *s, t_env *env_list)
 			res = ft_strjoin(res, "'");
 			res = ft_strjoin(res, ft_assign_env(q, env_list));
 			res = ft_strjoin(res, "'");
+			free(q);
 			return (res);
 		}
 		else
 			return (ft_strjoin(res, ft_assign_env(q + 1, env_list)));
 		q++;
 	}
+	free(q);
+	free(res);
 	return (s);
 }
 
@@ -99,6 +102,7 @@ char	*ft_append_env(char **split, char *ret, t_env *env_list)
 			temp_list = temp_list->next;
 		}
 	}
+	freethis(split);
 	return (ret);
 }	
 
@@ -107,18 +111,29 @@ char	*ft_assign_env(char *s, t_env *env_list)
 	char	**split;
 	char	*ret;
 
+	ret = ft_strdup("\0");
 	if (*s == '$' && *(s + 1) == '\0')
+	{
+		free(s);
+		free(ret);
 		return (NULL);
+	}
 	split = ft_split(s, '$');
 	if (*split == NULL)
+	{
+		freethis(split);
 		return (NULL);
-	ret = ft_strdup("\0");
+	}
 	if (!ft_env_examiner(&s))
 		return (s);
 	if (**split == '?')
 		return ("$?");
 	ret = ft_append_env(split, ret, env_list);
 	if (ret != NULL)
+	{
+		free(s);
 		return (ret);
+	}
+	free(ret);
 	return (NULL);
 }

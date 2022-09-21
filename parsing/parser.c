@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 00:04:21 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 05:39:44 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 		if (parse->tok == 0)
 			break ;
 		ft_append_command(cmd, parse, env_list);
+		printf("cmd: %s\n", cmd->argv[parse->argc]);
 		parse->argc++;
 		if (parse->argc >= parse->words || parse->split[1] == NULL)
 			break ;
@@ -39,6 +40,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 			return (NULL);
 	}
 	cmd->argv[parse->argc] = NULL;
+	free(parse);
 	return (ret);
 }
 

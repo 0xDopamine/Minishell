@@ -31,13 +31,15 @@ static	void	redirect_exec(t_red *red, t_here *here
 		ft_exec_nofork(ex, env_list);
 		close(here->fd_creat);
 		close(here->fd_read);
-		exit(1);
 	}
-	if (red->in_fd != -2 && red->in_fd != -1)
-		dup2(red->in_fd, STDIN_FILENO);
-	if (red->out_fd != -2 && red->out_fd != -1)
-		dup2(red->out_fd, STDOUT_FILENO);
-	ft_exec_nofork(ex, env_list);
+	if (red->in_fd != -2 || red->out_fd != -2)
+	{
+		if (red->in_fd != -2 && red->in_fd != -1)
+			dup2(red->in_fd, STDIN_FILENO);
+		if (red->out_fd != -2 && red->out_fd != -1)
+			dup2(red->out_fd, STDOUT_FILENO);
+		ft_exec_nofork(ex, env_list);
+	}
 	exit(1);
 }
 
@@ -52,32 +54,17 @@ static	int	redirect_loop(t_redir *redir, t_red *red
 	red->out_fd = -2;
 	infd_dup = dup(0);
 	signal(SIGINT, ft_sig_here);
-	while (!g_var.here_sig && redir && redir->mode == HEREDOC)
+	while (redir)
 	{
-		if (ft_heredoc(here, redir, env_list) == -1)
+		if (redir->mode == HEREDOC && !g_var.here_sig)
 		{
+			if (start_heredoc(here, redir, infd_dup, env_list) == -1)
+				return (1);
 			close(infd_dup);
-			return (1);
 		}
-		redir = redir->next;
-	}
-	if (g_var.here_sig)
-	{
-		free(here->file_path);
-		return (ft_here_signal(infd_dup));
-	}
-	close(infd_dup);
-	if (here->file_path)
-		here->fd_read = open(here->file_path, O_RDONLY | O_CREAT, 0644);
-	while (redir && redir->fd == STDIN_FILENO)
-	{
-		if (ft_redirect_input(redir, red) == -1)
-			return (1);
-		redir = redir->next;
-	}
-	while (redir && redir->fd == STDOUT_FILENO)
-	{
-		if (ft_redirect_output(redir, red) == -1)
+		if (here->file_path)
+			here->fd_read = open(here->file_path, O_RDONLY | O_CREAT, 0644);
+		if (start_redir(redir, red))
 			return (1);
 		redir = redir->next;
 	}

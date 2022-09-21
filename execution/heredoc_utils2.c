@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:20:33 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 17:21:42 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:21:55 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+int	start_heredoc(t_here *here, t_redir *redir, int infd_dup, t_env **env_list)
+{
+	if (ft_heredoc(here, redir, env_list) == -1)
+		return (close(infd_dup) * 0 + 1);
+	if (g_var.here_sig)
+	{
+		free(here->file_path);
+		return (ft_here_signal(infd_dup));
+	}
+}
 
 int	ft_strlen_char(char *str, char ch)
 {

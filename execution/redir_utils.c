@@ -12,6 +12,21 @@
 
 #include "exec.h"
 
+int	start_redir(t_redir *redir, t_red *red)
+{
+	if (redir->fd == STDIN_FILENO)
+	{
+		if (ft_redirect_input(redir, red) == -1)
+			return (1);
+	}
+	if (redir->fd == STDOUT_FILENO)
+	{
+		if (ft_redirect_output(redir, red) == -1)
+			return (1);
+	}
+	return (0);
+}
+
 int	ft_redirect_output(t_redir *redir, t_red *red)
 {
 	if (redir_isdir(redir->file))

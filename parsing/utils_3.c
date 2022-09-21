@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:55:10 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/01 02:15:36 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 02:29:39 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,46 +40,16 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-char	*add_spaces(char *line, int count)
+int	ft_strchr(char s, char *buf)
 {
-	int		i;
-	int		j;
-	char	*str;
-	int		len;
+	int	i;
 
 	i = 0;
-	j = 0;
-	len = ft_strlen(line);
-	str = malloc(sizeof(char) * (len + (count * 2) + 1));
-	while (line[i])
+	while (buf[i])
 	{
-		if (ft_strchr(line[i], "|<>"))
-		{
-			str[j] = ' ';
-			if (line[i] == '>' && line[i + 1] == '>')
-			{
-				str[j + 1] = line[i];
-				str[j + 2] = line [i + 1];
-				str[j + 3] = ' ';
-				j += 4;
-				i += 2;
-			}
-			else
-			{
-				str[j + 1] = line[i];
-				str[j + 2] = ' ';
-				j += 3;
-				i++;
-			}
-		}
-		else
-		{
-			str[j] = line[i];
-			i++;
-			j++;
-		}
+		if (buf[i] == s)
+			return (1);
+		i++;
 	}
-	str[j] = '\0';
-	free(line);
-	return (str);
+	return (0);
 }

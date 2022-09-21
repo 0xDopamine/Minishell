@@ -36,6 +36,12 @@ enum {
 	NOT_VAR
 }	;
 
+typedef struct s_space {
+	int		i;
+	int		j;
+	char	*str;
+	size_t	len;
+}	t_space ;
 
 typedef struct s_handle {
 	char	*q;

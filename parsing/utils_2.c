@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:54:34 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/20 11:28:36 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:15:59 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	num_words(char *str, int quote_flag)
 		split = ft_split(str, ' ');
 	else
 		split = ft_split_q(str, ' ');
-	while(split[i++])
+	while (split[i++])
 		words++;
 	freethis(split);
 	return (words);
@@ -82,20 +82,6 @@ int	is_whitespace(char *str, char *es)
 				return (1);
 			j++;
 		}
-		i++;
-	}
-	return (0);
-}
-
-int	ft_strchr(char s, char *buf)
-{
-	int	i;
-
-	i = 0;
-	while (buf[i])
-	{
-		if (buf[i] == s)
-			return (1);
 		i++;
 	}
 	return (0);

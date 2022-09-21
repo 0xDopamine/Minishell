@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 03:41:31 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 03:52:07 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_mini {
 	t_exec	*cmd;
 	t_cmd	*ret;
 	t_parse	*parse;
-}	t_mini ;
+}				t_mini ;
 
 size_t	ft_strlen(char *str);
 t_env	*ft_lstnew(char *path, char *name);

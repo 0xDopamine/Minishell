@@ -13,11 +13,11 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 enum {
 	PIPE,
@@ -41,13 +41,13 @@ typedef struct s_space {
 	int		j;
 	char	*str;
 	size_t	len;
-}	t_space ;
+}	t_space;
 
 typedef struct s_handle {
 	char	*q;
 	char	*eq;
 	char	*res;
-}	t_handle ;
+}	t_handle;
 
 typedef struct s_parse {
 	int		tok;
@@ -56,41 +56,41 @@ typedef struct s_parse {
 	int		words;
 	char	**split;
 	char	*q;
-}	t_parse ;
+}	t_parse;
 
 typedef struct s_cmd {
 	int	type;
-}	t_cmd ;
+}	t_cmd;
 
 typedef struct s_redir {
-	int		type;
-	t_cmd	*cmd;
-	char	*file;
-	int		mode;
-	int		fd;
+	int				type;
+	t_cmd			*cmd;
+	char			*file;
+	int				mode;
+	int				fd;
 	struct s_redir	*next;
-} t_redir ;
+}	t_redir;
 
 typedef struct s_pipe {
 	int		type;
 	t_cmd	*left;
 	t_cmd	*right;
-}	t_pipe ;
+}	t_pipe;
 
 typedef struct s_exec {
 	int		type;
 	char	**argv;
-}	t_exec ;
+}	t_exec;
 
 typedef struct s_env_p
 {
 	char			*name;
 	char			*path;
 	struct s_env_p	*next;
-}				t_env_p;
+}	t_env_p;
 
 void		ft_bzero(void *s, size_t n);
-void		*ft_calloc (size_t count, size_t size);
+void		*ft_calloc(size_t count, size_t size);
 char		**ft_split(char *s, char c);
 void		freethis1(char **str);
 int			wdlen(char *s, char c);
@@ -127,7 +127,7 @@ void		rl_replace_line(const char *str, int mod);
 void		null_terminate(char **s);
 int			ft_is_heredoc(char **ps);
 int			ft_isalnum(int arg);
-int     	count_words(char *str, char c);
+int			count_words(char *str, char c);
 void		fetch_quoted(char **q, char **eq);
 char		*ft_join_string(char *q, char *eq);
 int			check_state(int *state);

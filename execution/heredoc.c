@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:31:13 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 14:52:23 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 	if (pid == -1)
 	{
 		perror("fork");
-		g.exit_status = EXIT_FAILURE;
+		g_var.exit_status = EXIT_FAILURE;
 		return (-1);
 	}
 	if (pid == 0)
@@ -70,7 +70,7 @@ int	heredoc_create(char *file_path)
 	{
 		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
-		g.exit_status = EXIT_FAILURE;
+		g_var.exit_status = EXIT_FAILURE;
 		return (-1);
 	}
 	return (fd_creat);

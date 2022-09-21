@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:44:30 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 17:08:54 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	ft_pwd(void)
 	ret = getcwd(s, PATH_MAX);
 	if (ret == NULL)
 	{
-		g.exit_status = EXIT_FAILURE;
+		g_var.exit_status = EXIT_FAILURE;
 		return (1);
 	}
 	printf("%s\n", ret);
 	free (ret);
 	free (s);
-	g.exit_status = EXIT_SUCCESS;
+	g_var.exit_status = EXIT_SUCCESS;
 	return (1);
 }

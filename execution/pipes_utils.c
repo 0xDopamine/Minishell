@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:04:38 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/20 12:18:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	pipes_fork_left(t_pipe *pipes, int *fds, t_env **env_list)
 	if (pid == -1)
 	{
 		perror("fork");
-		g.exit_status = EXIT_FAILURE;
+		g_var.exit_status = EXIT_FAILURE;
 		return (-1);
 	}
 	if (pid == 0)
@@ -84,7 +84,7 @@ int	pipes_fork_right(t_pipe *pipes, int *fds, t_env **env_list)
 	if (pid == -1)
 	{
 		perror("fork");
-		g.exit_status = EXIT_FAILURE;
+		g_var.exit_status = EXIT_FAILURE;
 		return (-1);
 	}
 	if (pid == 0)

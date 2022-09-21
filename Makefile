@@ -11,7 +11,7 @@ EXEC = exec.c exec_nofork.c mini_libft.c \
 		free.c exec_utils.c my_cd_utils.c my_echo_utils.c \
 		my_export_utils.c pipes_utils.c heredoc.c heredoc_utils.c \
 		exec_utils2.c my_env_utils.c my_export_utils2.c my_unset_utils.c \
-		 redir_utils.c heredoc_utils2.c itoa.c list_redir.c
+		 redir_utils.c heredoc_utils2.c itoa.c list_redir.c signals.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 
@@ -22,7 +22,7 @@ READLINE_DIR = $(addprefix $(shell brew --prefix readline), /)
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS = -g -fsanitize=address
 
 #* parse FILES *#
 INCLUDE = include/

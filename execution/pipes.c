@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 12:32:15 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 15:04:15 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static	void	access_loop(char *cmd)
 		if (access(join, X_OK) == 0)
 		{
 			ft_free_doubleptr(path);
-			g.exit_status = EXIT_SUCCESS;
+			g_var.exit_status = EXIT_SUCCESS;
 			return ;
 		}
 		free(join);
 		i++;
 	}
 	ft_free_doubleptr(path);
-	g.exit_status = EXIT_NOTFOUND;
+	g_var.exit_status = EXIT_NOTFOUND;
 }
 
 void	pipes_access(t_exec *line)
@@ -48,7 +48,7 @@ void	pipes_access(t_exec *line)
 	cmd = ft_strdup(line->argv[0]);
 	if (exec_checkcmd(cmd))
 	{
-		g.exit_status = EXIT_SUCCESS;
+		g_var.exit_status = EXIT_SUCCESS;
 		return ;
 	}
 	tmp = ft_strjoin("/", cmd);

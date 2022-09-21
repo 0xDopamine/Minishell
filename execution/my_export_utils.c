@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:51:47 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 18:09:00 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	export_checkname(char *str)
 				&& str[i] <= 122) && str[i] != '_'
 			&& str[i] != '+' && str[i] == '-')
 		{
-			g.exit_status = EXIT_FAILURE;
+			g_var.exit_status = EXIT_FAILURE;
 			ft_putstr_fd("export: not valid in this context\n",
 				NULL, STDERR_FILENO);
 			return (0);
@@ -76,7 +76,7 @@ int	export_checkpath(char *str)
 		if ((!(str[i] >= 48 && str[i] <= 57) && !(str[i] >= 65 && str[i] <= 90)
 				&& !(str[i] >= 97 && str[i] <= 122) && str[i] != '-'))
 		{
-			g.exit_status = EXIT_FAILURE;
+			g_var.exit_status = EXIT_FAILURE;
 			ft_putstr_fd("export: not valid in this context\n",
 				NULL, STDERR_FILENO);
 			return (0);

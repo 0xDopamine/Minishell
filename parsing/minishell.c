@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 05:36:51 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:15:40 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,7 @@
 #include "exec.h"
 #include <readline/readline.h>
 
-t_global	g = {0};
-
-void	ft_sig_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		rl_on_new_line();
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g.exit_status = 130;
-		return ;
-	}
-	if (sig == SIGQUIT)
-		exit(255);
-	return ;
-}
+t_global	g_var = {0};
 
 int	main(int argc, char **argv, char **env)
 {
@@ -42,13 +26,14 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	line = NULL;
-	g.here_sig = 0;
+	g_var.here_sig = 0;
+	env_list = NULL;
 	simple_command = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
 	printf("Two brothers minishell\n");
 	signal(SIGINT, ft_sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	while (true)
+	while (TRUE)
 	{
 		line = readline(CYAN"TwoBrosShell➤ "RESET);
 		temp = line;

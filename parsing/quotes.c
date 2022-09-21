@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:08:56 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 03:31:56 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	fetch_quoted(char **q, char **eq)
 	{
 		*q = NULL;
 		ft_putstr_fd("Quotes error\n", NULL, STDERR_FILENO);
-		g.exit_status = 256;
+		g_var.exit_status = 256;
 		return ;
 	}
 	*eq = s;
@@ -63,7 +63,7 @@ int	ft_check_quotes(char *s)
 			if (s[j] == '\0')
 			{
 				perror("Quotes error");
-				g.exit_status = 256;
+				g_var.exit_status = 256;
 				return (0);
 			}
 			else

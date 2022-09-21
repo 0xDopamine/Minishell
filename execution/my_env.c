@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:12:41 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 15:39:17 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static	void	export_printenv(t_env *env_list)
 		env_printloop(list, names, i);
 		i++;
 	}
-	g.exit_status = EXIT_SUCCESS;
+	g_var.exit_status = EXIT_SUCCESS;
 }
 
 static	void	env_printenv(t_env *env_list)
@@ -64,7 +64,7 @@ static	void	env_printenv(t_env *env_list)
 		}
 		env_list = env_list->next;
 	}
-	g.exit_status = EXIT_SUCCESS;
+	g_var.exit_status = EXIT_SUCCESS;
 }
 
 int	ft_env(t_env *env_list, char c)

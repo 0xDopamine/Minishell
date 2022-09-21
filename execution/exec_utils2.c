@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:30:04 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 17:01:57 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	handle(int sig)
 
 static	int	exec_check_exitcode(char *cmd)
 {
-	if (g.exit_status == 127)
+	if (g_var.exit_status == 127)
 	{
 		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (g.exit_status == 256)
+	if (g_var.exit_status == 256)
 	{
 		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-		g.exit_status = EXIT_NOTFOUND;
+		g_var.exit_status = EXIT_NOTFOUND;
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -42,7 +42,7 @@ int	exec_cmdpath(char *cmd, char **env, char **av)
 	if (pid == -1)
 	{
 		perror("fork");
-		g.exit_status = EXIT_FAILURE;
+		g_var.exit_status = EXIT_FAILURE;
 		return (-1);
 	}
 	if (pid == 0)
@@ -65,7 +65,7 @@ int	exec_checkcmd_fork(char *cmd, char **av, char **env)
 		if (pid == -1)
 		{
 			perror("fork");
-			g.exit_status = EXIT_FAILURE;
+			g_var.exit_status = EXIT_FAILURE;
 			return (-1);
 		}
 		if (pid == 0)
@@ -76,7 +76,7 @@ int	exec_checkcmd_fork(char *cmd, char **av, char **env)
 	}
 	else
 		return (EXIT_SUCCESS);
-	wait(&g.exit_status);
+	wait(&g_var.exit_status);
 	if (exec_check_exitcode(cmd))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

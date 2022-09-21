@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:47:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/20 11:35:55 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:14:44 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static	void	exec_loop2(char *cmd, char **av, char **env)
 			return ;
 		free(join);
 	}
-	g.exit_status = EXIT_SUCCESS;
-	if (wait(&g.exit_status) < 0)
+	g_var.exit_status = EXIT_SUCCESS;
+	if (wait(&g_var.exit_status) < 0)
 	{
 		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-		g.exit_status = EXIT_NOTFOUND;
+		g_var.exit_status = EXIT_NOTFOUND;
 	}
 }
 
@@ -53,7 +53,7 @@ static	void	exec_loop(char *cmd, char **av, char **env)
 		free(s);
 		free(tmp);
 		ft_putstr_fd(cmd, ": is a directory\n", STDERR_FILENO);
-		g.exit_status = 126;
+		g_var.exit_status = 126;
 		return ;
 	}
 	free(s);
@@ -70,8 +70,6 @@ void	ft_exec(t_exec *line, t_env **env_list)
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);
-	if (!cmd)
-		return ;
 	my_env = ft_myenv(*env_list);
 	if (ft_ifmybuiltin(cmd, line, env_list)
 		|| ft_ifmybuiltin_up(cmd, line, env_list))

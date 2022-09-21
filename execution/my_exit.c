@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:11:59 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 17:08:40 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int	ft_exit(char **argv)
 	if (argv[1] && !argv[2])
 		exit(ft_atoi(argv[1]));
 	else if (!argv[1])
-		exit(g.exit_status);
-	g.exit_status = EXIT_FAILURE;
+		exit(g_var.exit_status);
+	g_var.exit_status = EXIT_FAILURE;
 	ft_putstr_fd("exit: too many arguments\n", NULL, STDERR_FILENO);
 	return (1);
 }

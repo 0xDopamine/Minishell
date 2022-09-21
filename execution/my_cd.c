@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:13:11 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/08/29 02:18:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int	cd_oldpwd(t_env **env_list)
 			if (chdir(env->path) < 0)
 			{
 				perror("cd");
-				g.exit_status = EXIT_FAILURE;
+				g_var.exit_status = EXIT_FAILURE;
 				return (0);
 			}
-			g.exit_status = EXIT_SUCCESS;
+			g_var.exit_status = EXIT_SUCCESS;
 			env->path = pwd;
 			cd_update_pwd(env_list);
 			return (1);
@@ -113,6 +113,6 @@ int	ft_cd(t_exec *line, t_env **env_list)
 	}
 	if (cd_update_pwd(env_list))
 		return (cd_errors());
-	g.exit_status = EXIT_SUCCESS;
+	g_var.exit_status = EXIT_SUCCESS;
 	return (1);
 }

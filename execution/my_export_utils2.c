@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 18:37:42 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	export_checknbr(char ch)
 {
 	if (ch >= '0' && ch <= '9')
 	{
-		g.exit_status = EXIT_FAILURE;
+		g_var.exit_status = EXIT_FAILURE;
 		ft_putstr_fd("export: not valid in this context\n",
 			NULL, STDERR_FILENO);
 		return (EXIT_SUCCESS);
@@ -61,13 +61,13 @@ void	export_addvar(char **av, t_env **env)
 			return ;
 		if (export_ifexists(str[0], str[1], env))
 		{
-			g.exit_status = EXIT_SUCCESS;
+			g_var.exit_status = EXIT_SUCCESS;
 			return ;
 		}
 		ifnull = export_checkav(str[1], str, PATH);
 		if (export_checkav(str[0], str, NAME))
 		{
-			g.exit_status = EXIT_SUCCESS;
+			g_var.exit_status = EXIT_SUCCESS;
 			ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
 		}
 		i++;

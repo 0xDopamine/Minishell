@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:10:51 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 14:54:43 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:35 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static	char	*heredoc_compare(char *line, char *str
 		str = ft_strjoin(str, "\n");
 	if (ft_strncmp(ret, "exit", 4) == 0)
 	{
-		line = ft_strjoin(ft_itoa(g.exit_status), &line[index + 2]);
+		line = ft_strjoin(ft_itoa(g_var.exit_status), &line[index + 2]);
 		line = ft_strjoin(line, "\n");
 		str = ft_strjoin(str, line);
 	}
@@ -76,7 +76,7 @@ void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 	w.ret = NULL;
 	w.str = NULL;
 	w.index = -1;
-	while (true)
+	while (TRUE)
 	{
 		w.line = readline(YELLOW"heredoc> " RESET);
 		if (!w.line)

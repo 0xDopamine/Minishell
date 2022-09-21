@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:58:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 17:09:15 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:21:56 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+static void	redir_exit_status(void)
+{
+	if (g_var.exit_status == 256)
+		g_var.exit_status = EXIT_NOTFOUND;
+	else
+		g_var.exit_status = EXIT_SUCCESS;
+}
 
 static	void	redirect_exec(t_red *red, t_here *here
 	, t_exec *ex, t_env **env_list)
@@ -33,43 +41,32 @@ static	void	redirect_exec(t_red *red, t_here *here
 	exit(1);
 }
 
-void	ft_sig_here(int signal)
-{
-	(void)signal;
-	close(0);
-	g.here_sig = 1;
-}
-
 static	int	redirect_loop(t_redir *redir, t_red *red
 	, t_here *here, t_env **env_list)
 {
-	int	infd;
+	int	infd_dup;
 
 	here->file_path = NULL;
 	here->fd_creat = -2;
 	red->in_fd = -2;
 	red->out_fd = -2;
-	infd = dup(0);
+	infd_dup = dup(0);
 	signal(SIGINT, ft_sig_here);
-	while (!g.here_sig && redir && redir->mode == HEREDOC)
+	while (!g_var.here_sig && redir && redir->mode == HEREDOC)
 	{
 		if (ft_heredoc(here, redir, env_list) == -1)
 		{
-			close(infd);
+			close(infd_dup);
 			return (1);
 		}
 		redir = redir->next;
 	}
-	if (g.here_sig)
+	if (g_var.here_sig)
 	{
 		free(here->file_path);
-		signal(SIGINT, ft_sig_handler);
-		g.here_sig = 0;
-		dup2(infd, 0);
-		close(infd);
-		return (1);
+		return (ft_here_signal(infd_dup));
 	}
-	close(infd);
+	close(infd_dup);
 	if (here->file_path)
 		here->fd_read = open(here->file_path, O_RDONLY | O_CREAT, 0644);
 	while (redir && redir->fd == STDIN_FILENO)
@@ -108,8 +105,9 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 	pid = fork();
 	if (pid == -1)
 	{
+		free(here.file_path);
 		perror("fork");
-		g.exit_status = EXIT_FAILURE;
+		g_var.exit_status = EXIT_FAILURE;
 		return (-1);
 	}
 	if (pid == 0)
@@ -117,10 +115,7 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 	if (here.file_path)
 		unlink(here.file_path);
 	free(here.file_path);
-	wait(&g.exit_status);
-	if (g.exit_status == 256)
-		g.exit_status = EXIT_NOTFOUND;
-	else
-		g.exit_status = EXIT_SUCCESS;
+	wait(&g_var.exit_status);
+	redir_exit_status();
 	return (0);
 }

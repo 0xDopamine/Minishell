@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:01:03 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 15:53:52 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ int	ft_echo(t_exec *line, int fd)
 	}
 	if (!line->argv[i])
 	{
-		g.exit_status = EXIT_SUCCESS;
+		g_var.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
 	if (ifnl)
 		echo_ifnewline(line, i, ifnl);
 	else
 		echo_ifnewline(line, i, ifnl);
-	g.exit_status = EXIT_SUCCESS;
+	g_var.exit_status = EXIT_SUCCESS;
 	return (1);
 }

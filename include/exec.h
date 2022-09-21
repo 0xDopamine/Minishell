@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 03:52:07 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:22:17 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
-# define true 1
+# define TRUE 1
 # define NAME 1
 # define PATH 2
 # define EXIT_NOTFOUND 127
@@ -39,10 +39,10 @@
 typedef struct s_global
 {
 	int	exit_status;
-	int here_sig;
+	int	here_sig;
 }	t_global;
 
-extern t_global	g;
+extern t_global	g_var;
 
 typedef struct s_env
 {
@@ -59,7 +59,7 @@ typedef struct s_write
 	int		index;
 }				t_write;
 
-typedef	struct s_here
+typedef struct s_here
 {
 	int		fd_creat;
 	int		fd_read;
@@ -78,7 +78,7 @@ typedef struct s_mini {
 	t_exec	*cmd;
 	t_cmd	*ret;
 	t_parse	*parse;
-}				t_mini ;
+}				t_mini;
 
 size_t	ft_strlen(char *str);
 t_env	*ft_lstnew(char *path, char *name);
@@ -155,7 +155,7 @@ char	*ft_itoa(int n);
 void	ft_free_doubleptr(char **ptr);
 int		ft_heredoc(t_here *here, t_redir *redir, t_env **env_list);
 int		heredoc_create(char *file_path);
-void    heredoc_writefile(char *delimiter, int fd, t_env **env_list);
+void	heredoc_writefile(char *delimiter, int fd, t_env **env_list);
 int		heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list);
 char	*heredoc_getstr(char *str);
 char	*heredoc_gen_name(int i);
@@ -172,5 +172,7 @@ char	*get_next_line(int fd);
 char	*ft_search_for_env(char *s, t_env *env_list);
 char	*ft_assign_env(char *s, t_env *env_list);
 void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list);
+int		ft_here_signal(int infd);
+void	ft_sig_here(int signal);
 
 #endif

@@ -60,7 +60,7 @@ static	char	*heredoc_compare(char *line, char *str
 	return (str);
 }
 
-void    heredoc_specialcase(t_write *w, t_env **env_list)
+void	heredoc_specialcase(t_write *w, t_env **env_list)
 {
 	w->ret = heredoc_findenv(&w->line[w->index + 1], *env_list, FIND);
 	w->str = heredoc_compare(w->line, w->str, w->ret, *env_list);

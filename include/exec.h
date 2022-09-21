@@ -175,7 +175,8 @@ char	*ft_assign_env(char *s, t_env *env_list);
 void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list);
 int		ft_here_signal(int infd);
 void	ft_sig_here(int signal);
-int		start_heredoc(t_here *here, t_redir *redir, int infd_dup, t_env **env_list);
+int		start_heredoc(t_here *here, t_redir *redir,
+			int infd_dup, t_env **env_list);
 int		start_redir(t_redir *redir, t_red *red);
 
 #endif

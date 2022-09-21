@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 10:53:07 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 02:58:56 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_qword_count(char *str, char sep)
 
 	i = 0;
 	words = 1;
-	while (str[i])
+	while (str[i++])
 	{
 		if (str[i] && str[i] == sep)
 		{
@@ -37,8 +37,6 @@ int	ft_qword_count(char *str, char sep)
 				break ;
 			i++;
 		}
-		else
-			i++;
 	}
 	return (words);
 }

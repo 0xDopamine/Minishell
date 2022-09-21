@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 02:49:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/20 11:42:52 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 03:48:08 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,6 @@
 #include <readline/readline.h>
 
 t_global	g = {0};
-
-char	*ft_handle_quotes(char *q, t_env *env_list)
-{
-	char	*s;
-	char	*res;
-	char	*temp;
-	int		i;
-
-	s = q;
-	(void)env_list;
-	res = malloc(sizeof(char) * 10000000000);
-	res[0] = 0;
-	i = 0;
-	while (s)
-	{
-		if (*s && ft_strchr(*s, "\"\'"))
-		{
-			temp = s + 1;
-			if (*temp != '\0' && *temp != *s)
-			{
-				while ((*temp != *s || !ft_strchr(*temp, "\'\"")) && *temp)
-					res[i++] = *temp++;
-				res[i] = '\0';
-				if (*(temp) != '\0')
-					s = temp + 1;
-				else
-					return (res);
-			}
-			else
-				s++;
-			while (*temp == *s && *s)
-				s++;
-		}
-		else if (!ft_strchr(*s, "\"\'"))
-		{
-			temp = s;
-			while (!ft_strchr(*temp, "\'\"") && *temp)
-					res[i++] = *temp++;
-			res[i] = '\0';
-			if (*temp != '\0')
-					s = temp;
-			else
-				return (res);
-		}
-		else
-			s++;
-	}
-	return (res);
-}
 
 void	ft_sig_handler(int sig)
 {
@@ -78,7 +29,6 @@ void	ft_sig_handler(int sig)
 	}
 	if (sig == SIGQUIT)
 		exit(255);
-
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 11:48:26 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 00:02:36 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 03:41:31 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int		heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list);
 char	*heredoc_getstr(char *str);
 char	*heredoc_gen_name(int i);
 int		heredoc_findsign(char *str);
-char	*ft_handle_quotes(char *q, t_env *env_list);
+char	*ft_handle_quotes(char *q);
 char	*ft_string_examiner(char *s, t_env *env_list);
 t_cmd	*parsepipe(char **ps, t_env *env_list);
 t_cmd	*parseexec(char **ps, t_env *env_list);

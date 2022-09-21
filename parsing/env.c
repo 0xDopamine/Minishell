@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 22:00:04 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 03:46:17 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,25 @@
 char	*ft_search_for_env(char *s, t_env *env_list)
 {
 	char	*res;
-	int		i;
+	char	*q;
+	char	*eq;
 
-	i = 0;
+	q = s;
 	res = ft_strdup("");
-	while (s[i])
+	while (q)
 	{
-		if (s[i] == '\'')
+		if (*q == '\'')
 		{
-			i++;
-			s = ft_handle_quotes(s, env_list);
+			fetch_quoted(&q, &eq);
+			q = ft_join_string(q, eq);
 			res = ft_strjoin(res, "'");
-			res = ft_strjoin(res, ft_assign_env(s + 1, env_list));
+			res = ft_strjoin(res, ft_assign_env(q, env_list));
 			res = ft_strjoin(res, "'");
 			return (res);
 		}
 		else
-			return (ft_strjoin(res, ft_assign_env(s + 1, env_list)));
-		i++;
+			return (ft_strjoin(res, ft_assign_env(q + 1, env_list)));
+		q++;
 	}
 	return (s);
 }
@@ -79,16 +80,33 @@ int	ft_env_examiner(char **s)
 	return (1);
 }
 
-char	*ft_assign_env(char *s, t_env *env_list)
+char	*ft_append_env(char **split, char *ret, t_env *env_list)
 {
 	int		i;
-	char	**split;
-	char	*ret;
 	t_env	*temp_list;
-	int		flag;
 
 	i = -1;
-	flag = 0;
+	while (split[++i])
+	{
+		temp_list = env_list;
+		while (temp_list != NULL)
+		{
+			if (ft_strcmp(split[i], temp_list->name) == 0)
+			{
+				ret = ft_strjoin(ret, temp_list->path);
+				break ;
+			}
+			temp_list = temp_list->next;
+		}
+	}
+	return (ret);
+}	
+
+char	*ft_assign_env(char *s, t_env *env_list)
+{
+	char	**split;
+	char	*ret;
+
 	if (*s == '$' && *(s + 1) == '\0')
 		return (NULL);
 	split = ft_split(s, '$');
@@ -99,20 +117,7 @@ char	*ft_assign_env(char *s, t_env *env_list)
 		return (s);
 	if (**split == '?')
 		return ("$?");
-	while (split[++i])
-	{
-		temp_list = env_list;
-		while (temp_list != NULL)
-		{
-			if (ft_strcmp(split[i], temp_list->name) == 0)
-			{
-				ret = ft_strjoin(ret, temp_list->path);
-				flag = 1;
-				break ;
-			}
-			temp_list = temp_list->next;
-		}
-	}
+	ret = ft_append_env(split, ret, env_list);
 	if (ret != NULL)
 		return (ret);
 	return (NULL);

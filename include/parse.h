@@ -149,5 +149,6 @@ int			num_words(char *str, int quote_flag);
 void		ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd);
 char		**ft_split_argv(t_parse *parse);
 int			ft_init_words(char	**ps);
+char		*loop_spaces(t_space space, char *line);
 
 #endif

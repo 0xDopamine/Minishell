@@ -6,14 +6,13 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:31:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/18 01:31:51 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/21 03:08:00 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "exec.h"
 
-// looks past any whitespace character and stops at first non whitespace char
 int	next(char **ps, char *toks)
 {
 	char	*s;
@@ -22,7 +21,6 @@ int	next(char **ps, char *toks)
 	while (s && ft_strchr(*s, " \t\r\v\n\f"))
 		s++;
 	*ps = s;
-	// if the char we stopped in at s, one of the chars we scanning for, if its true it returns true
 	return (*s && ft_strchr(*s, toks));
 }
 
@@ -32,7 +30,7 @@ int	is_symbol(char *str, char *es)
 	char	*temp;
 	int		i;
 	int		j;
-	
+
 	symbols = ft_strdup("<>|");
 	temp = symbols;
 	i = 0;
@@ -52,37 +50,54 @@ int	is_symbol(char *str, char *es)
 	return (0);
 }
 
+int	ft_token_redir(char **s, int tok)
+{
+	char	*p;
+
+	p = *s;
+	p++;
+	if (*p == '<')
+	{
+		tok = 'H';
+		p++;
+	}
+	else if (*p == '>')
+	{
+		p++;
+		if (*p == '>')
+		{
+			tok = 'A';
+			p++;
+		}
+	}
+	*s = p;
+	return (tok);
+}
+
+void	ft_skip_whitespace(char **ps)
+{
+	char	*s;
+
+	s = *ps;
+	while (s && ft_strchr(*s, " \t\f\n\v\r"))
+		s++;
+	*ps = s;
+}
+
 int	get_token(char **ps, char **q)
 {
 	char	*s;
 	int		tok;
 
 	s = *ps;
-	while (s && ft_strchr(*s, " \t\f\n\v\r"))
-		s++;
+	ft_skip_whitespace(&s);
 	if (q)
 		*q = s;
 	tok = *s;
 	if (*s == '|')
 		s++;
-	else if (*s == '<')
-	{
-		s++;
-		if (*s == '<')
-		{
-			tok = 'H';
-			s++;
-		}
-	}
-	else if (*s == '>')
-	{
-		s++;
-		if (*s == '>')
-		{
-			tok = 'A';
-			s++;
-		}
-	} 
+	else if (*s == '<' || *s == '>')
+		tok = ft_token_redir(&s, tok);
 	else if (*s == 0)
 		return (0);
 	else
@@ -91,8 +106,7 @@ int	get_token(char **ps, char **q)
 		while (*s != '\0' && !ft_strchr(*s, " \t\f\n\v\r") && !ft_strchr(*s, "|<>"))
 			s++;
 	}
-	while (s && ft_strchr(*s, " \t\f\n\v\r"))
-		s++;
+	ft_skip_whitespace(&s);
 	*ps = s;
 	return (tok);
 }

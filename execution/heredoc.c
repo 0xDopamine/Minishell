@@ -65,10 +65,8 @@ char	*heredoc_gen_name(int i)
 
 int	heredoc_create(char *file_path)
 {
-	int		pid;
 	int		fd_creat;
 
-	pid = 0;
 	fd_creat = open(file_path, O_WRONLY | O_CREAT, 0644);
 	if (fd_creat < 0)
 	{

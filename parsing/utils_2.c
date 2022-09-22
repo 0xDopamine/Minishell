@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 18:54:34 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 00:15:59 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:09:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	num_words(char *str, int quote_flag)
 	return (words);
 }
 
-int	is_whitespace(char *str, char *es)
+int	is_whitespace(char *str)
 {
 	char	*whitespaces;
 	int		i;
@@ -72,7 +72,6 @@ int	is_whitespace(char *str, char *es)
 
 	whitespaces = ft_strdup("\n\t\r\v ");
 	i = 0;
-	es = NULL;
 	while (str[i])
 	{
 		j = 0;

@@ -50,10 +50,8 @@ void	export_addvar(char **av, t_env **env)
 {
 	int		i;
 	char	**str;
-	int		ifnull;
 
 	i = 1;
-	ifnull = 0;
 	while (av[i])
 	{
 		str = ft_split_namecont(av[i]);
@@ -64,7 +62,7 @@ void	export_addvar(char **av, t_env **env)
 			g_var.exit_status = EXIT_SUCCESS;
 			return ;
 		}
-		ifnull = export_checkav(str[1], str, PATH);
+		export_checkav(str[1], str, PATH);
 		if (export_checkav(str[0], str, NAME))
 		{
 			g_var.exit_status = EXIT_SUCCESS;

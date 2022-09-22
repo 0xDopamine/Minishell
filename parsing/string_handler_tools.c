@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler_tools.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:09:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 11:44:36 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:07:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ char	*ft_join_string(char *q, char *eq)
 void	fetch_string(char **q, char **eq)
 {
 	char	*s;
-	int		tok;
 
-	tok = **q;
 	s = *q;
 	*q = s;
 	while (!ft_strchr(*s, "\'\"") && *s)

@@ -13,7 +13,7 @@
 #include "exec.h"
 #include <readline/readline.h>
 
-static	char	*heredoc_normalcase(t_write *w)
+static	void	heredoc_normalcase(t_write *w)
 {
 	char	*tmp;
 

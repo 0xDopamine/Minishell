@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokeniser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:31:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 03:08:00 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:06:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	next(char **ps, char *toks)
 	return (*s && ft_strchr(*s, toks));
 }
 
-int	is_symbol(char *str, char *es)
+int	is_symbol(char *str)
 {
 	char	*symbols;
 	char	*temp;
@@ -34,7 +34,6 @@ int	is_symbol(char *str, char *es)
 	symbols = ft_strdup("<>|");
 	temp = symbols;
 	i = 0;
-	es = NULL;
 	while (str[i])
 	{
 		j = 0;

@@ -38,11 +38,9 @@ static	void	access_loop(char *cmd)
 
 void	pipes_access(t_exec *line)
 {
-	int		i;
 	char	*cmd;
 	char	*tmp;
 
-	i = 0;
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);

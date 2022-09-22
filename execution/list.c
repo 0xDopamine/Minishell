@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:45:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 18:34:34 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:09:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void	ft_lstadd_front(t_env **lst, t_env *new)
 t_env	*ft_lstnew(char *path, char *name)
 {
 	t_env	*head;
-	int		i;
 
-	i = 0;
 	head = (t_env *)malloc(sizeof(t_env));
 	if (!head)
 		return (NULL);

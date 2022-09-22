@@ -94,9 +94,6 @@ static	int	cd_update_oldpwd(t_env **env_list)
 
 int	ft_cd(t_exec *line, t_env **env_list)
 {
-	t_env	*env;
-
-	env = *env_list;
 	if (cd_ifoldpwd(line->argv[1], env_list))
 		return (1);
 	if (cd_update_oldpwd(env_list))

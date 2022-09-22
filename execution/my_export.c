@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 18:54:34 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:12:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ int	export_ifexists(char *name, char *path, t_env **env)
 
 int	export_checkav(char *str, char **ptr, int n)
 {
-	int	i;
-
-	i = 0;
 	if (n == NAME)
 		return (export_checkname(str));
 	else
@@ -77,11 +74,6 @@ int	export_checkav(char *str, char **ptr, int n)
 
 int	ft_export(t_env **env, t_exec *line)
 {
-	char	**str;
-	int		i;
-
-	str = NULL;
-	i = 0;
 	if (!line->argv[1])
 		return (ft_env(*env, EXP));
 	export_addvar(line->argv, env);

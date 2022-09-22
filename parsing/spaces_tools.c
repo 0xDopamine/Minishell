@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spaces_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 05:04:52 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:07:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ char	*handle_spaces(char *line)
 {
 	int		i;
 	int		count;
-	int		index;
 
 	i = 0;
 	count = 0;
-	index = 0;
 	while (line[i])
 	{
 		if (ft_strchr(line[i], "|<>"))

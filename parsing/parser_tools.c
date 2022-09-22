@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 23:59:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 00:06:52 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 04:03:24 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,16 @@ int	ft_init_words(char	**ps)
 
 char	**ft_split_argv(t_parse *parse)
 {
+	char	**ps;
+
+	printf("q: %s\n", parse->q);
 	if (ft_strchr(*parse->q, "\'\"") || check_state(parse->state))
+	{
+		ps = ft_split_q(parse->q, ' ');
+		printf("split: %s\n", ps[0]);
+		printf("split: %s\n", ps[1]);
 		return (ft_split_q(parse->q, ' '));
+	}
 	else
 		return (ft_split(parse->q, ' '));
 }

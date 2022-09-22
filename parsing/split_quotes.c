@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 05:35:16 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 04:40:08 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_qword_count(char *str, char sep)
 {
 	int	words;
 	int	i;
+	int	tok;
 
 	i = 0;
 	words = 1;
@@ -29,15 +30,14 @@ int	ft_qword_count(char *str, char sep)
 		}
 		if (ft_strchr(str[i], "\'\""))
 		{
-			if (str[i + 1] && ft_strchr(str[i], "\'\""))
+			tok = str[i];
+			while (str[i] && str[i] != tok)			
 				i++;
-			while (str[i] && !ft_strchr(str[i], "\'\""))
-				i++;
-			if (!str[i])
-				break ;
-			i++;
 		}
+		else if (str[i])
+			i++;
 	}
+	printf("words: %d\n", words);
 	return (words);
 }
 
@@ -68,6 +68,7 @@ char	**ft_split_string(char *str, char **split, char sep)
 	int		j;
 	int		k;
 	int		len;
+	int		tok;
 
 	i = 0;
 	j = -1;
@@ -82,10 +83,25 @@ char	**ft_split_string(char *str, char **split, char sep)
 			freethis(split);
 			return (NULL);
 		}
-		k = -1;
-		while (++k < len)
-			split[j][k] = str[i++];
+		if (ft_strchr(str[i], "\'\""))
+		{
+			tok = str[i];
+			i++;
+			k = -1;
+			while (++k < len && str[i] && str[i] != tok)
+				split[j][k] = str[i++];
+		}
+		else
+		{
+			k = -1;
+			while (++k < len && str[i] && str[i] != sep)
+				split[j][k] = str[i++];
+		}
+		split[j][k] = '\0';
 	}
+	split[j] = NULL;
+	printf("split 0: %s\n", split[0]);
+	printf("split 1: %s\n", split[1]);
 	return (split);
 }
 
@@ -93,7 +109,7 @@ char	**ft_split_q(char *str, char sep)
 {
 	char	**split;
 
-	split = ft_calloc((ft_qword_count(str, sep) + 1), sizeof(char *));
+	split = ft_calloc((ft_qword_count(str, sep) + 2), sizeof(char *));
 	if (!split)
 		return (NULL);
 	return (ft_split_string(str, split, sep));

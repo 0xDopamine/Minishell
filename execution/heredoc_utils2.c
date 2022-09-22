@@ -21,6 +21,7 @@ int	start_heredoc(t_here *here, t_redir *redir, int infd_dup, t_env **env_list)
 		free(here->file_path);
 		return (ft_here_signal(infd_dup));
 	}
+	return (0);
 }
 
 int	ft_strlen_char(char *str, char ch)

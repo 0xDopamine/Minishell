@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **env)
 	line = NULL;
 	g_var.here_sig = 0;
 	env_list = NULL;
-	simple_command = malloc(sizeof(t_cmd));
+	// simple_command = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
 	printf("Two brothers minishell\n");
 	signal(SIGINT, ft_sig_handler);

@@ -65,7 +65,6 @@ typedef struct s_here
 	int		fd_read;
 	char	*file_path;
 	char	*delimiter;
-	t_cmd	*cmd;
 }				t_here;
 
 typedef struct s_red

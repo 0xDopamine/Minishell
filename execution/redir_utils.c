@@ -14,12 +14,12 @@
 
 int	start_redir(t_redir *redir, t_red *red)
 {
-	if (redir->fd == STDIN_FILENO)
+	if (redir->fd == STDIN_FILENO && redir->mode != HEREDOC)
 	{
 		if (ft_redirect_input(redir, red) == -1)
 			return (1);
 	}
-	if (redir->fd == STDOUT_FILENO)
+	if (redir->fd == STDOUT_FILENO && redir->mode != HEREDOC)
 	{
 		if (ft_redirect_output(redir, red) == -1)
 			return (1);

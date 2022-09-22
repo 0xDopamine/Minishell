@@ -16,7 +16,7 @@ int	exec_isdir(char *cmd)
 {
 	struct stat	path_stat;
 
-	stat(&cmd[2], &path_stat);
+	stat(cmd, &path_stat);
 	return (S_ISDIR(path_stat.st_mode));
 }
 
@@ -53,5 +53,6 @@ char	*exec_ifaccess(char *cmd)
 		free(join);
 		i++;
 	}
+	ft_free_doubleptr(path);
 	return (NULL);
 }

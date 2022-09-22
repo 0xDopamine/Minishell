@@ -40,9 +40,9 @@ char	*heredoc_getstr(char *str)
 	int		i;
 
 	i = 0;
-	ret = (char *)malloc(ft_strlen_char(str, '$') + 1);
 	if (str[0] == '$')
 		return (NULL);
+   	ret = (char *)malloc(ft_strlen_char(str, '$') + 1);
 	while (str[i] != '$' && str[i])
 	{
 		ret[i] = str[i];

@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 05:24:05 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:16:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "exec.h"
+
+char	*strjoin_and_free(char *s1, char *s2)
+{
+	char	*res;
+
+	res = ft_strjoin(s1, s2);
+	free(s1);
+	return (res);
+}
 
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 {
@@ -37,12 +46,12 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 					if (*q == 1)
 						return (NULL);
 					q = ft_join_string(q, eq);
-					res = ft_strjoin(res, ft_assign_env(q, env_list));
+					res = strjoin_and_free(res, ft_assign_env(q, env_list));
 				}
 				else if (*q == '\'' && (*(q + 1) == '$') && *eq == '"')
-					res = ft_strjoin(res, ft_search_for_env(q, env_list));
+					res = strjoin_and_free(res, ft_search_for_env(q, env_list));
 				else
-					res = ft_strjoin(res, ft_join_string(q, eq));
+					res = strjoin_and_free(res, ft_join_string(q, eq));
 				if (*eq + 1)
 					q = eq + 1;
 			}
@@ -54,16 +63,16 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 					fetch_env(&q, &eq);
 					q = ft_join_string(q, eq);
 					if (*q == '$' && *(q + 1) == '\0')
-						res = ft_strjoin(res, "$");
+						res = strjoin_and_free(res, "$");
 					else
-						res = ft_strjoin(res, ft_assign_env(q, env_list));
+						res = strjoin_and_free(res, ft_assign_env(q, env_list));
 					q = eq;
 				}			
 			}
 			else
 			{
 				fetch_string(&q, &eq);
-				res = ft_strjoin(res, ft_join_string(q, eq));
+				res = strjoin_and_free(res, ft_join_string(q, eq));
 				if (*eq == '\0')
 					break ;
 				else

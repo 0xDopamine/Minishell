@@ -13,11 +13,17 @@
 #include "exec.h"
 #include <readline/readline.h>
 
-static	char	*heredoc_normalcase(char *line, char *str)
+static	char	*heredoc_normalcase(t_write *w)
 {
-	line = ft_strjoin(line, "\n");
-	str = ft_strjoin(str, line);
-	return (str);
+	char	*tmp;
+
+	tmp = w->line;
+	w->line = ft_strjoin(tmp, "\n");
+	free(tmp);
+	tmp = w->str;
+	w->str = ft_strjoin(tmp, w->line);
+	free(w->line);
+	free(tmp);
 }
 
 void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
@@ -42,7 +48,7 @@ void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 		if (w.index != -1)
 			heredoc_specialcase(&w, env_list);
 		else
-			w.str = heredoc_normalcase(w.line, w.str);
+			heredoc_normalcase(&w);
 	}
 	ft_putstr_fd(w.str, NULL, fd);
 	free(w.str);

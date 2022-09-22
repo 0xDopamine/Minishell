@@ -37,22 +37,26 @@ int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 
 char	*heredoc_gen_name(int i)
 {
-	int		fd;
-	char	*buffer;
-	char	*tmp;
-	char	*s;
+	int			fd;
+	const char	*s = "0123456789abcdefghijklmnopqrstuvwxyz";
+	char		*buffer;
+	char		*tmp;
 
-	s = ft_strdup("0123456789abcdefghijklmnopqrstuvwxyz");
 	buffer = (char *)malloc(9);
 	buffer[8] = '\0';
 	fd = open("/dev/random", O_RDONLY, 0);
+	if (fd < 0)
+	{
+		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);
+		g_var.exit_status = EXIT_FAILURE;
+		return (NULL);
+	}
 	read(fd, buffer, 8);
 	while (buffer[i])
 	{
-		buffer[i] = s[(buffer[i] + 360) % 36];
+		buffer[i] = s[(buffer[i] + 255) % 36];
 		i++;
 	}
-	free(s);
 	tmp = buffer;
 	buffer = ft_strjoin("/tmp/", buffer);
 	free (tmp);
@@ -69,7 +73,6 @@ int	heredoc_create(char *file_path)
 	if (fd_creat < 0)
 	{
 		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
 		g_var.exit_status = EXIT_FAILURE;
 		return (-1);
 	}
@@ -82,11 +85,12 @@ int	ft_heredoc(t_here *here, t_redir *redir, t_env **env_list)
 
 	i = 0;
 	here->file_path = heredoc_gen_name(i);
+	if (here->file_path == NULL)
+		return (-1);
 	here->fd_creat = heredoc_create(here->file_path);
 	if (here->fd_creat == -1)
 		return (-1);
 	here->delimiter = redir->file;
-	here->cmd = redir->cmd;
 	heredoc_writefile(here->delimiter, here->fd_creat, env_list);
 	return (EXIT_SUCCESS);
 }

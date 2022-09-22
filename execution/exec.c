@@ -70,6 +70,8 @@ void	ft_exec(t_exec *line, t_env **env_list)
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);
+	if (!cmd)
+		return ;
 	my_env = ft_myenv(*env_list);
 	if (ft_ifmybuiltin(cmd, line, env_list)
 		|| ft_ifmybuiltin_up(cmd, line, env_list))

@@ -20,8 +20,7 @@ static	char	*heredoc_findenv(char *line, t_env *env_list, int n)
 			return ("exit");
 		while (env_list)
 		{
-			if (ft_strncmp(line, env_list->name
-					, ft_strlen(env_list->name)) == 0)
+			if (ft_strcmp(line, env_list->name) == 0)
 				return ("found");
 			env_list = env_list->next;
 		}
@@ -29,40 +28,67 @@ static	char	*heredoc_findenv(char *line, t_env *env_list, int n)
 	}
 	while (env_list)
 	{
-		if (ft_strncmp(&line[1], env_list->name
-				, ft_strlen(env_list->name)) == 0)
+		if (ft_strcmp(&line[1], env_list->name) == 0)
 			return (env_list->path);
 		env_list = env_list->next;
 	}
 	return (NULL);
 }
 
-static	char	*heredoc_compare(char *line, char *str
-	, char *ret, t_env *env_list)
+static	char	*heredoc_compare(char *line, char *str, char *ret, t_env *env_list)
 {
 	int	index;
+	char	*nbr;
+	char	*tmp;
 
 	index = heredoc_findsign(line);
-	if (ft_strncmp(ret, "found", 5) == 0)
+	if (ft_strcmp(ret, "found") == 0)
 	{
-		line = heredoc_findenv(&line[index], env_list, EDIT);
-		line = ft_strjoin(line, "\n");
-		str = ft_strjoin(str, line);
+		tmp = &line[index];
+		line = heredoc_findenv(tmp, env_list, EDIT);
+		free(tmp);
+		tmp = line;
+		line = ft_strjoin(tmp, "\n");
+		free(tmp);
+		tmp = str;
+		str = ft_strjoin(tmp, line);
+		free(tmp);
 	}
-	if (ft_strncmp(ret, "not found", 9) == 0)
-		str = ft_strjoin(str, "\n");
-	if (ft_strncmp(ret, "exit", 4) == 0)
+	if (ft_strcmp(ret, "not found") == 0)
 	{
-		line = ft_strjoin(ft_itoa(g_var.exit_status), &line[index + 2]);
-		line = ft_strjoin(line, "\n");
-		str = ft_strjoin(str, line);
+		tmp = str;
+		str = ft_strjoin(tmp, "\n");
+		free(tmp);
+	}
+	if (ft_strcmp(ret, "exit") == 0)
+	{
+		nbr = ft_itoa(g_var.exit_status);
+		line = ft_strjoin(nbr, &line[index + 2]);
+		free (nbr);
+		tmp = line;
+		line = ft_strjoin(tmp, "\n");
+		free(tmp);
+		tmp = str;
+		str = ft_strjoin(tmp, line);
+		free(line);
+		free(tmp);
 	}
 	return (str);
 }
 
 void	heredoc_specialcase(t_write *w, t_env **env_list)
 {
+	char	*tmp;
+	char	*tmp2;
+
 	w->ret = heredoc_findenv(&w->line[w->index + 1], *env_list, FIND);
-	w->str = heredoc_compare(w->line, w->str, w->ret, *env_list);
-	w->str = ft_strjoin(heredoc_getstr(w->line), w->str);
+	tmp2 = heredoc_compare(w->line, w->str, w->ret, *env_list);
+	tmp = (w->line);
+	
+	w->line = heredoc_getstr(tmp);
+	free(tmp);
+	tmp = w->line;
+	w->str = ft_strjoin(tmp, tmp2);
+	free (tmp2);
+	free(tmp);
 }

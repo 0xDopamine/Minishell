@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 05:39:44 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:59:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps)
 		ft_append_redir_list(&head, parse, cmd);
 		cmd = (t_cmd *)head;
 	}
+	free(parse->split);
 	free(parse);
 	return (cmd);
 }

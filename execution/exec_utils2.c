@@ -12,12 +12,6 @@
 
 #include "exec.h"
 
-void	handle(int sig)
-{
-	sig = 1;
-	ft_exit(NULL);
-}
-
 static	int	exec_check_exitcode(char *cmd)
 {
 	if (g_var.exit_status == 127)
@@ -47,7 +41,6 @@ int	exec_cmdpath(char *cmd, char **env, char **av)
 	}
 	if (pid == 0)
 	{
-		signal(SIGQUIT, handle);
 		execve(cmd, av, env);
 		perror("execve");
 		exit(1);

@@ -70,12 +70,15 @@ void	ft_exec(t_exec *line, t_env **env_list)
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);
+	printf("%s\n", cmd);
 	if (!cmd)
 		return ;
 	my_env = ft_myenv(*env_list);
 	if (ft_ifmybuiltin(cmd, line, env_list)
 		|| ft_ifmybuiltin_up(cmd, line, env_list))
 	{
+		printf("hello\n");
+		freethis(line->argv);
 		freethis(my_env);
 		free(cmd);
 		return ;
@@ -89,5 +92,6 @@ void	ft_exec(t_exec *line, t_env **env_list)
 	exec_loop(cmd, line->argv, my_env);
 	freethis(my_env);
 	free(cmd);
+	freethis(line->argv);
 	return ;
 }

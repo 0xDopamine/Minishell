@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 07:32:12 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:13:36 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 			break ;
 		ret = parseredir(ret, ps);
 		if (ret == NULL)
+		{
+			freethis(parse->split);
 			return (NULL);
-		free(parse->split);
+		}
+		freethis(parse->split);
 		free(parse->q);
 	}
 	cmd->argv[parse->argc] = NULL;
-	free(parse->split);
 	free(parse);
 	return (ret);
 }

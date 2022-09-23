@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 06:56:16 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:14:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ char	*strjoin_and_free(char *s1, char *s2)
 	char	*res;
 
 	res = ft_strjoin(s1, s2);
-	free(s1);
+	if (s2)
+		free(s2);
+	if (s1)
+		free(s1);
 	return (res);
 }
 

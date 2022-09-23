@@ -45,18 +45,18 @@ int	ft_atoi(char *str)
 	return (result * sign);
 }
 
-static	void	exit_ifnumeric(char *str)
+static	int	exit_ifnumeric(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (!str)
-		return ;
+		return (0);
 	if (str[i] == '-' && str[i + 1] == '\0')
 	{
 		ft_putstr_fd("exit: '", str, STDERR_FILENO);
 		ft_putstr_fd("': numeric argument required\n", NULL, STDERR_FILENO);
-		exit(255);
+		return (1);
 	}
 	while (str[i])
 	{
@@ -64,20 +64,36 @@ static	void	exit_ifnumeric(char *str)
 		{
 			ft_putstr_fd("exit: '", str, STDERR_FILENO);
 			ft_putstr_fd("': numeric argument required\n", NULL, STDERR_FILENO);
-			exit(255);
+			return (1);
 		}
 		i++;
 	}
+	return (0);
 }
 
 int	ft_exit(char **argv)
 {
-	printf("exit\n");
-	exit_ifnumeric(argv[1]);
+	int	exit_val;
+
 	if (argv[1] && !argv[2])
-		exit(ft_atoi(argv[1]));
+		exit_val = ft_atoi(argv[1]);
+	printf("exit\n");
+	if (exit_ifnumeric(argv[1]))
+	{
+		freethis(argv);
+		exit(255);
+	}
+	if (argv[1] && !argv[2])
+	{
+		freethis(argv);
+		exit(exit_val);
+	}
 	else if (!argv[1])
+	{
+		freethis(argv);
 		exit(g_var.exit_status);
+	}
+	freethis(argv);
 	g_var.exit_status = EXIT_FAILURE;
 	ft_putstr_fd("exit: too many arguments\n", NULL, STDERR_FILENO);
 	return (1);

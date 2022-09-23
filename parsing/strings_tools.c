@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:07:43 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 13:39:43 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/23 17:10:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (s2 == NULL)
 		return (ft_strdup(s1));
 	total = ft_strlen(s1) + ft_strlen(s2) + 1;
-	tab = (char *)calloc(total, sizeof(char));
+	tab = (char *)ft_calloc(total, sizeof(char));
 	if (!tab)
 		return (NULL);
 	while (s1[i])
@@ -65,14 +65,14 @@ int	wdcount(char *s, char c)
 	return (count);
 }
 
-char	**splitting(char *s, char c, int len, char **str)
+void	splitting(char *s, char c, int len, char **str)
 {
 	int		k;
 	int		j;
 	int		i;
 
 	i = 0;
-	j = -1;
+	j = 0;
 	while (s[i])
 	{
 		while (s[i] && s[i] == c)
@@ -80,29 +80,28 @@ char	**splitting(char *s, char c, int len, char **str)
 		if (!s[i])
 			break ;
 		len = wdlen(s + i, c);
-		str[++j] = (char *)ft_calloc(len + 1, sizeof(char));
+		str[j] = (char *)ft_calloc(len + 1, sizeof(char));
 		if (!str[j])
 		{
 			freethis(str);
-			return (NULL);
+			return ;
 		}
 		k = -1;
 		while (++k < len)
 			str[j][k] = s[i++];
+		j++;
 	}
-	return (str);
 }
 
 char	**ft_split(char *s, char c)
 {
 	char	**split;
-	char	**str;
 
 	if (!s)
 		return (NULL);
-	str = (char **)ft_calloc((wdcount(s, c) + 1), sizeof(char *));
-	if (!str)
+	split = (char **)ft_calloc((wdcount(s, c) + 1), sizeof(char *));
+	if (!split)
 		return (NULL);
-	split = splitting(s, c, 0, str);
+	splitting(s, c, 0, split);
 	return (split);
 }

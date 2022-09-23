@@ -66,6 +66,7 @@ int	pipes_fork_left(t_pipe *pipes, int *fds, t_env **env_list)
 		ft_exec_nofork((t_exec *)pipes->left, env_list);
 		exit(EXIT_FAILURE);
 	}
+	freethis(((t_exec *)pipes->left)->argv);
 	return (0);
 }
 
@@ -95,5 +96,6 @@ int	pipes_fork_right(t_pipe *pipes, int *fds, t_env **env_list)
 		ft_exec_nofork((t_exec *)pipes->right, env_list);
 		exit(EXIT_FAILURE);
 	}
+	freethis(((t_exec *)pipes->right)->argv);
 	return (0);
 }

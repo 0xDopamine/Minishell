@@ -66,6 +66,7 @@ static	int	redirect_loop(t_redir *redir, t_red *red
 			here->fd_read = open(here->file_path, O_RDONLY | O_CREAT, 0644);
 		if (start_redir(redir, red))
 			return (1);
+		free(redir->file);
 		redir = redir->next;
 	}
 	return (0);
@@ -102,6 +103,8 @@ int	ft_redirect(t_redir *redir, t_env **env_list)
 	if (here.file_path)
 		unlink(here.file_path);
 	free(here.file_path);
+	freethis(ex->argv);
+	free(ex);
 	wait(&g_var.exit_status);
 	redir_exit_status();
 	return (0);

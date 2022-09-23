@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 13:36:35 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/23 16:46:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,5 @@ char	**ft_split_q(char *str, char sep)
 	if (!split)
 		return (NULL);
 	ret = ft_split_string(str, split, sep);
-	free(str);
-	freethis(split);
 	return (ret);
 }

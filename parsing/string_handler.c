@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 11:14:12 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/23 18:25:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 			}
 		}
 	}
-	if (res)
-		*ps = res;
-	return (*ps);
+	// free (q);
+	return (res);
 }

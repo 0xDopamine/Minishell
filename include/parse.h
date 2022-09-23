@@ -103,7 +103,7 @@ char		**ft_split(char *s, char c);
 void		freethis1(char **str);
 int			wdlen(char *s, char c);
 int			wdcount(char *s, char c);
-char		**splitting(char *s, char c, int len, char **str);
+void		splitting(char *s, char c, int len, char **str);
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
 void		freethis(char **str);
 char		*ft_strdup(char *src);

@@ -17,10 +17,7 @@ int	start_heredoc(t_here *here, t_redir *redir, int infd_dup, t_env **env_list)
 	if (ft_heredoc(here, redir, env_list) == -1)
 		return (close(infd_dup) * 0 + 1);
 	if (g_var.here_sig)
-	{
-		free(here->file_path);
 		return (ft_here_signal(infd_dup));
-	}
 	return (0);
 }
 

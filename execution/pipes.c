@@ -64,6 +64,8 @@ void	ft_pipes(t_pipe *pipes, t_env **env_list)
 		return ;
 	if (pipes_fork_right(pipes, fds, env_list) == -1)
 		return ;
+	free(pipes->right);
+	free(pipes->left);
 	close(fds[0]);
 	close(fds[1]);
 	wait(NULL);

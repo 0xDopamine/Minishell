@@ -6,7 +6,5 @@ ls
 Makefile
 minishell
 NOTE
-o
-ou
 out
 parsing

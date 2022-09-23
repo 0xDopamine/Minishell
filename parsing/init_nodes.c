@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 06:38:29 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 19:00:19 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_redir	*redircmd(t_cmd *cmd, char *q, int mode, int fd)
 
 	red = malloc(sizeof(t_redir));
 	red->cmd = cmd;
-	red->file = q;
+	red->file = ft_strdup(q);
 	red->mode = mode;
 	red->type = REDIR;
 	red->fd = fd;

@@ -29,7 +29,6 @@ int	main(int argc, char **argv, char **env)
 	line = NULL;
 	g_var.here_sig = 0;
 	env_list = NULL;
-	// simple_command = malloc(sizeof(t_cmd));
 	ft_get_env(env, &env_list);
 	printf("Two brothers minishell\n");
 	signal(SIGINT, ft_sig_handler);
@@ -37,21 +36,20 @@ int	main(int argc, char **argv, char **env)
 	while (TRUE)
 	{
 		line = readline(CYAN"TwoBrosShell➤ "RESET);
-		temp = line;
-		if (!temp)
+		if (!line)
 		{
-			free(temp);
+			free(line);
 			ft_putstr_fd("\nexit\n", NULL, STDOUT_FILENO);
 			exit(255);
 		}
+		temp = ft_strdup(line);
 		add_history(temp);
-		temp = spaces(temp);
-		simple_command = parsepipe(&temp, env_list);
+		free(line);
+		line = spaces(temp);
+		simple_command = parsepipe(&line, env_list);
 		ft_check_cmd(simple_command, &env_list);
 		free(simple_command);
-		//free(temp);
-		free(line);
-		//system("leaks minishell");
+		free(temp);
 	}
 	free(simple_command);
 	return (0);

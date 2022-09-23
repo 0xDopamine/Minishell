@@ -63,6 +63,7 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 	}
 	tmp = ft_strjoin("/", cmd);
 	execnofork_loop(tmp, line->argv, my_env);
+	freethis(line->argv);
 	free(cmd);
 	free(tmp);
 	freethis(my_env);

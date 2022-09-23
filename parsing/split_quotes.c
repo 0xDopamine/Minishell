@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/22 04:40:08 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 05:17:21 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**ft_split_string(char *str, char **split, char sep)
 		while (str[i] && str[i] == sep)
 			i++;
 		len = ft_word_len(str, sep);
-		split[++j] = ft_calloc(len + 1, sizeof(char));
+		split[++j] = ft_calloc(len + 2, sizeof(char));
 		if (!*split)
 		{
 			freethis(split);
@@ -95,13 +95,23 @@ char	**ft_split_string(char *str, char **split, char sep)
 		{
 			k = -1;
 			while (++k < len && str[i] && str[i] != sep)
+			{
+				if (ft_strchr(str[i], "\'\""))
+				{
+					tok = str[i];
+					split[j][k++] = str[i];
+					i++;
+					while (k < len && str[i] && str[i] != tok)
+						split[j][k++] = str[i++];
+				}
 				split[j][k] = str[i++];
+			}
 		}
+		if (str[i])
+			i++;
 		split[j][k] = '\0';
 	}
-	split[j] = NULL;
-	printf("split 0: %s\n", split[0]);
-	printf("split 1: %s\n", split[1]);
+	split[j + 1] = NULL;
 	return (split);
 }
 

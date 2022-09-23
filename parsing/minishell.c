@@ -49,8 +49,7 @@ int	main(int argc, char **argv, char **env)
 		simple_command = parsepipe(&temp, env_list);
 		ft_check_cmd(simple_command, &env_list);
 		free(simple_command);
-		for (int i = 0; i < 3; i++)
-			system("leaks minishell");
+		system("leaks minishell");
 	}
 	free(temp);
 	freethis(&line);

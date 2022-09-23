@@ -201,4 +201,6 @@ Fixed the tests you sent me, the <> and >< cases are treated as syntax errors
 saad didnt even handle them
 
 
-problem with "ls" -la it outputs cmd not found 
+problem with "ls" -la it outputs cmd not found
+
+fixed the remaining bugs, only 5 leaks remaining at the first command

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 06:57:10 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 07:32:12 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 		if (ret == NULL)
 			return (NULL);
 		free(parse->split);
+		free(parse->q);
 	}
 	cmd->argv[parse->argc] = NULL;
 	free(parse->split);

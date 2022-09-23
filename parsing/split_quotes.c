@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 05:37:04 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:36:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,13 @@ char	**ft_split_string(char *str, char **split, char sep)
 char	**ft_split_q(char *str, char sep)
 {
 	char	**split;
+	char	**ret;
 
 	split = ft_calloc((ft_qword_count(str, sep) + 2), sizeof(char *));
 	if (!split)
 		return (NULL);
-	return (ft_split_string(str, split, sep));
+	ret = ft_split_string(str, split, sep);
+	free(str);
+	freethis(split);
+	return (ret);
 }

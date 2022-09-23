@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:24:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/22 17:08:07 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/23 06:38:29 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ t_cmd	*parsecmd(char *s)
 	cmd = malloc(sizeof(t_cmd));
 	next(&s, "");
 	if (s)
-	{
 		exit(2);
-	}
 	return (cmd);
 }
 

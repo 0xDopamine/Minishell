@@ -62,6 +62,14 @@ typedef struct s_cmd {
 	int	type;
 }	t_cmd;
 
+typedef struct s_split {
+	int		i;
+	int		j;
+	int		k;
+	int		len;
+	int		tok;
+}	t_split ;
+
 typedef struct s_redir {
 	int				type;
 	t_cmd			*cmd;

@@ -1,0 +1,544 @@
+┌─────────┤ LEAKS LOG ├─────────┐
+│ Total leaks found:        108 │
+│ Total leaks size:        2626 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02cb0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02d20 │
+│ size (bytes):              50 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02db0 │
+│ size (bytes):               7 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02e30 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02ea0 │
+│ size (bytes):              15 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02f00 │
+│ size (bytes):              24 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02fe0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02bf0 │
+│ size (bytes):              16 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc030a0 │
+│ size (bytes):               5 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03150 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc031c0 │
+│ size (bytes):               9 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03220 │
+│ size (bytes):               6 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03330 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc033a0 │
+│ size (bytes):              49 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03430 │
+│ size (bytes):              27 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc034f0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03560 │
+│ size (bytes):              52 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03300 │
+│ size (bytes):              14 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc037c0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03830 │
+│ size (bytes):             331 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03120 │
+│ size (bytes):               5 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc036e0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03750 │
+│ size (bytes):               9 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc037b0 │
+│ size (bytes):               8 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03b10 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc036b0 │
+│ size (bytes):               2 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03bd0 │
+│ size (bytes):              17 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03c90 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc034c0 │
+│ size (bytes):               2 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc02f90 │
+│ size (bytes):              15 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03e10 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03660 │
+│ size (bytes):               9 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03ed0 │
+│ size (bytes):               5 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03fa0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03c60 │
+│ size (bytes):               4 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04060 │
+│ size (bytes):              10 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04160 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03f70 │
+│ size (bytes):              10 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04220 │
+│ size (bytes):              29 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc042e0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03a90 │
+│ size (bytes):               7 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03de0 │
+│ size (bytes):              13 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04490 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc042b0 │
+│ size (bytes):               7 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04550 │
+│ size (bytes):              21 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04610 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc040e0 │
+│ size (bytes):              12 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc03ae0 │
+│ size (bytes):               5 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04790 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04130 │
+│ size (bytes):              10 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04850 │
+│ size (bytes):              10 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04980 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc049f0 │
+│ size (bytes):              91 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04410 │
+│ size (bytes):              12 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04b90 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04c00 │
+│ size (bytes):             100 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04cc0 │
+│ size (bytes):              24 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04d60 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04dd0 │
+│ size (bytes):              33 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04e50 │
+│ size (bytes):              30 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04f80 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04ff0 │
+│ size (bytes):              96 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc050a0 │
+│ size (bytes):              24 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05160 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc051d0 │
+│ size (bytes):              76 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05270 │
+│ size (bytes):              22 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05300 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05130 │
+│ size (bytes):               2 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc053c0 │
+│ size (bytes):              17 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc054c0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05530 │
+│ size (bytes):              60 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04ee0 │
+│ size (bytes):               8 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05670 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc056e0 │
+│ size (bytes):              39 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04910 │
+│ size (bytes):               4 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05800 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04f50 │
+│ size (bytes):              15 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04d50 │
+│ size (bytes):               5 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05980 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05450 │
+│ size (bytes):               2 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04b10 │
+│ size (bytes):               6 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05b30 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05ba0 │
+│ size (bytes):              39 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05660 │
+│ size (bytes):               7 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05ce0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05d50 │
+│ size (bytes):              27 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05b00 │
+│ size (bytes):               4 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05e60 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05950 │
+│ size (bytes):               5 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc057d0 │
+│ size (bytes):               6 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05fe0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05ad0 │
+│ size (bytes):               3 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04b60 │
+│ size (bytes):               5 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc06180 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc061f0 │
+│ size (bytes):              23 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05630 │
+│ size (bytes):               9 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc06320 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc06390 │
+│ size (bytes):              21 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05fb0 │
+│ size (bytes):               8 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc064a0 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05e30 │
+│ size (bytes):               3 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc04460 │
+│ size (bytes):              13 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc06650 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc066c0 │
+│ size (bytes):              47 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc05c90 │
+│ size (bytes):               8 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc06820 │
+│ size (bytes):              24 │
+│ file:        execution/list.c │
+│ line:                      57 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc06890 │
+│ size (bytes):              51 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+├───────────────────────────────┤
+│ address:       0x7f8d9bc06620 │
+│ size (bytes):               2 │
+│ file: parsing/strings_tools_2.c │
+│ line:                      72 │
+└───────────────────────────────┘└───────────────────────────────┘

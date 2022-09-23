@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 05:33:41 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 06:25:48 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*ft_search_for_env(char *s, t_env *env_list)
 	char	*res;
 	char	*q;
 	char	*eq;
+	char	*temp;
 
 	q = s;
 	res = ft_strdup("");
@@ -30,11 +31,15 @@ char	*ft_search_for_env(char *s, t_env *env_list)
 			res = ft_strjoin(res, "'");
 			res = ft_strjoin(res, ft_assign_env(q, env_list));
 			res = ft_strjoin(res, "'");
-			free(q);
 			return (res);
 		}
 		else
-			return (ft_strjoin(res, ft_assign_env(q + 1, env_list)));
+			{
+				temp = ft_assign_env(q + 1, env_list);
+				res = ft_strjoin(res, temp);
+				free(temp);
+				return (res);				
+			}		
 		q++;
 	}
 	free(q);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/22 16:59:43 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/23 06:57:10 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 {
 	t_exec	*cmd;
 	t_cmd	*ret;
-	t_parse	*parse;
+	t_parse	*parse; 
 
 	parse = malloc(sizeof(t_parse));
 	parse->words = ft_init_words(ps);
@@ -31,15 +31,16 @@ t_cmd	*parseexec(char **ps, t_env *env_list)
 		if (parse->tok == 0)
 			break ;
 		ft_append_command(cmd, parse, env_list);
-		printf("cmd: %s\n", cmd->argv[parse->argc]);
 		parse->argc++;
 		if (parse->argc >= parse->words || parse->split[1] == NULL)
 			break ;
 		ret = parseredir(ret, ps);
 		if (ret == NULL)
 			return (NULL);
+		free(parse->split);
 	}
 	cmd->argv[parse->argc] = NULL;
+	free(parse->split);
 	free(parse);
 	return (ret);
 }

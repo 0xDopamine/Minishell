@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 23:59:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/22 04:03:24 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 06:57:42 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,8 @@ int	ft_init_words(char	**ps)
 
 char	**ft_split_argv(t_parse *parse)
 {
-	char	**ps;
-
-	printf("q: %s\n", parse->q);
 	if (ft_strchr(*parse->q, "\'\"") || check_state(parse->state))
-	{
-		ps = ft_split_q(parse->q, ' ');
-		printf("split: %s\n", ps[0]);
-		printf("split: %s\n", ps[1]);
 		return (ft_split_q(parse->q, ' '));
-	}
 	else
 		return (ft_split(parse->q, ' '));
 }
@@ -43,7 +35,7 @@ void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list)
 	parse->split = ft_split_argv(parse);
 	if (parse->tok != 'c')
 		printf("syntax error %c\n", parse->tok);
-	cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0],
+	cmd->argv[parse->argc] = ft_ultimae_string_handler(&parse->split[0],
 			env_list);
 }
 

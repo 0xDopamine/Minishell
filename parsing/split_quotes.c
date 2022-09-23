@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 05:17:21 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/23 05:37:04 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_qword_count(char *str, char sep)
 		if (ft_strchr(str[i], "\'\""))
 		{
 			tok = str[i];
-			while (str[i] && str[i] != tok)			
+			while (str[i] && str[i] != tok)
 				i++;
 		}
 		else if (str[i])
@@ -83,33 +83,22 @@ char	**ft_split_string(char *str, char **split, char sep)
 			freethis(split);
 			return (NULL);
 		}
-		if (ft_strchr(str[i], "\'\""))
+		k = -1;
+		while (++k < len && str[i] && str[i] != sep)
 		{
-			tok = str[i];
-			i++;
-			k = -1;
-			while (++k < len && str[i] && str[i] != tok)
-				split[j][k] = str[i++];
-		}
-		else
-		{
-			k = -1;
-			while (++k < len && str[i] && str[i] != sep)
+			if (ft_strchr(str[i], "\'\""))
 			{
-				if (ft_strchr(str[i], "\'\""))
-				{
-					tok = str[i];
-					split[j][k++] = str[i];
-					i++;
-					while (k < len && str[i] && str[i] != tok)
-						split[j][k++] = str[i++];
-				}
-				split[j][k] = str[i++];
+				tok = str[i];
+				split[j][k++] = str[i];
+				i++;
+				while (k < len && str[i] && str[i] != tok)
+					split[j][k++] = str[i++];
 			}
+			split[j][k] = str[i++];
 		}
+		split[j][k] = '\0';
 		if (str[i])
 			i++;
-		split[j][k] = '\0';
 	}
 	split[j + 1] = NULL;
 	return (split);

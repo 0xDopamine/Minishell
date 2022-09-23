@@ -50,6 +50,7 @@ int	main(int argc, char **argv, char **env)
 		ft_check_cmd(simple_command, &env_list);
 		free(simple_command);
 		free(temp);
+		system("leaks minishell");
 	}
 	free(simple_command);
 	return (0);

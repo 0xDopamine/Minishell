@@ -1,9 +1,9 @@
+Makefile
+NOTE
 a
+draw.tldr
 execution
 include
 leak.log
-Makefile
 minishell
-NOTE
-out
 parsing

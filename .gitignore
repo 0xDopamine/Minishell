@@ -7,3 +7,4 @@ NOTE
 include/leak_hunter.h
 parsing/leak_hunter.c
 parsing/list_tools.c
+*.log

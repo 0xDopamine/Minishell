@@ -42,10 +42,12 @@ int	main(int argc, char **argv, char **env)
 	t_cmd	*simple_command;
 	t_env	*env_list;
 	char	*temp;
+	t_parse	*parse;
 
 	(void)argc;
 	(void)argv;
 	line = NULL;
+	parse = malloc(sizeof(t_parse));
 	g_var.here_sig = 0;
 	env_list = NULL;
 	ft_get_env(env, &env_list);
@@ -61,17 +63,18 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("\nexit\n", NULL, STDOUT_FILENO);
 			exit(255);
 		}
+		add_history(line);
 		temp = ft_strdup(line);
-		add_history(temp);
 		free(line);
 		line = spaces(temp);
-		simple_command = parsepipe(&line, env_list);
+		simple_command = parsepipe(&line, parse, env_list);
 		ft_check_cmd(simple_command, &env_list);
 		ft_wait_pids(simple_command);
+		freethis(parse->split);
+		free(parse->state);
+		free(parse);
 		free_cmd(simple_command);
-		// free(simple_command);
 		free(temp);
-		// system("leaks minishell");
 	}
 	free(simple_command);
 	return (0);

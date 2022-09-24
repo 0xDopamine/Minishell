@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/22 22:07:46 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/24 22:57:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*spaces(char *line)
 	int	i;
 
 	i = 0;
+	if (!line)
+		return (line);
 	if (ft_strlen(line) == 1)
 		return (line);
 	while (line[i])

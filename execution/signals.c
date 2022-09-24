@@ -16,7 +16,7 @@
 void	ft_sig_here(int signal)
 {
 	(void)signal;
-	close(0);
+	close(0), printf("%s:%d ---> %d\n", __FILE__, __LINE__, 0);
 	g_var.here_sig = 1;
 }
 
@@ -39,6 +39,6 @@ int	ft_here_signal(int infd)
 	signal(SIGINT, ft_sig_handler);
 	g_var.here_sig = 0;
 	dup2(infd, 0);
-	close(infd);
+	close(infd), printf("%s:%d ---> %d\n", __FILE__, __LINE__, infd);
 	return (1);
 }

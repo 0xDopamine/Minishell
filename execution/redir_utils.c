@@ -34,7 +34,7 @@ int	ft_redirect_output(t_redir *redir, t_red *red)
 		ft_putstr_fd(redir->file, ": is a directory\n", STDERR_FILENO);
 		return (-1);
 	}
-	red->out_fd = open(redir->file, redir->mode, 0644);
+	red->out_fd  = open(redir->file, redir->mode, 0644), printf("%s:%d --> %d\n", __FILE__, __LINE__, 	red->out_fd); // TOREMOVE
 	if (red->out_fd == -1)
 	{
 		ft_putstr_fd("no such file or directory: ", redir->file, STDERR_FILENO);
@@ -52,12 +52,11 @@ int	ft_redirect_input(t_redir *redir, t_red *red)
 		ft_putstr_fd(redir->file, ": is a directory\n", STDERR_FILENO);
 		return (-1);
 	}
-	red->in_fd = open(redir->file, redir->mode, 0644);
+	red->in_fd  = open(redir->file, redir->mode, 0644), printf("%s:%d --> %d\n", __FILE__, __LINE__, 	red->in_fd); // TOREMOVE
 	if (red->in_fd == -1)
 	{
 		ft_putstr_fd("no such file or directory: ", redir->file, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
-		g_var.exit_status = EXIT_NOTFOUND;
 		return (-1);
 	}
 	return (EXIT_SUCCESS);

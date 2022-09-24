@@ -22,15 +22,15 @@ int	exec_isdir(char *cmd)
 
 void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 {
-	if (cmd == NULL)
-		return ;
-	if (cmd->type == EXEC)
-		ft_exec((t_exec *)cmd, env_list);
-	if (cmd->type == REDIR)
-		if (ft_redirect((t_redir *)cmd, env_list) == -1)
-			return ;
-	if (cmd->type == PIPE)
-		ft_pipes((t_pipe *)cmd, env_list);
+	int	fds[2] = {0, 1};
+	int in = 0;
+
+	dispatch_pipe_node(cmd, &in, fds, env_list);
+	if (fds[1] != 1)
+		close(fds[1]), printf("%s:%d ---> %d\n", __FILE__, __LINE__, fds[1]);
+	if (in != 0)
+		close(in);
+
 }
 
 char	*exec_ifaccess(char *cmd)

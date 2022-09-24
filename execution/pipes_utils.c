@@ -23,20 +23,16 @@ static int	ft_check_type(t_cmd *cmd, t_env **env_list, int n)
 	}
 	if (cmd->type == PIPE && n == 1)
 	{
-		ft_pipes((t_pipe *)cmd, env_list);
+		ft_pipes((t_pipe *)cmd, env_list, 0);
 		return (0);
 	}
 	return (0);
 }
 
-static int	access_checktype(t_cmd *cmd, int n)
+static int	access_checktype(t_cmd *cmd)
 {
 	if (cmd->type == EXEC)
 		return (1);
-	if (cmd->type == REDIR)
-		return (0);
-	if (cmd->type == PIPE && n == 1)
-		return (0);
 	return (0);
 }
 
@@ -47,10 +43,10 @@ int	pipes_fork_left(t_pipe *pipes, int *fds, t_env **env_list)
 
 	pid = 1;
 	iff = 0;
-	if (access_checktype((t_cmd *)pipes->left, 0))
+	if (pipes->left->type == EXEC)
 		pipes_access((t_exec *)pipes->left);
 	iff = ft_check_type((t_cmd *)pipes->left, env_list, 0);
-	if (iff != 2 && iff == 1)
+	if (iff == 1)
 		pid = fork();
 	if (pid == -1)
 	{
@@ -60,13 +56,12 @@ int	pipes_fork_left(t_pipe *pipes, int *fds, t_env **env_list)
 	}
 	if (pid == 0)
 	{
-		close(fds[0]);
+		close(fds[0]), printf("%s:%d ---> %d\n", __FILE__, __LINE__, fds[0]);
 		dup2(fds[1], 1);
-		close(fds[1]);
+		close(fds[1]), printf("%s:%d ---> %d\n", __FILE__, __LINE__, fds[1]);
 		ft_exec_nofork((t_exec *)pipes->left, env_list);
 		exit(EXIT_FAILURE);
 	}
-	freethis(((t_exec *)pipes->left)->argv);
 	return (0);
 }
 
@@ -77,7 +72,7 @@ int	pipes_fork_right(t_pipe *pipes, int *fds, t_env **env_list)
 
 	iff = 0;
 	pid = 1;
-	if (access_checktype((t_cmd *)pipes->right, 1))
+	if (access_checktype((t_cmd *)pipes->right))
 		pipes_access((t_exec *)pipes->right);
 	iff = ft_check_type((t_cmd *)pipes->right, env_list, 1);
 	if (iff != 2 && iff == 1)
@@ -90,9 +85,9 @@ int	pipes_fork_right(t_pipe *pipes, int *fds, t_env **env_list)
 	}
 	if (pid == 0)
 	{
-		close(fds[1]);
+		close(fds[1]), printf("%s:%d ---> %d\n", __FILE__, __LINE__, fds[1]);
 		dup2(fds[0], 0);
-		close(fds[0]);
+		close(fds[0]), printf("%s:%d ---> %d\n", __FILE__, __LINE__, fds[0]);
 		ft_exec_nofork((t_exec *)pipes->right, env_list);
 		exit(EXIT_FAILURE);
 	}

@@ -6,12 +6,22 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 18:25:33 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/24 15:22:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "exec.h"
+
+char	*strjoin_and_free1(char *s1, char *s2)
+{
+	char	*res;
+
+	res = ft_strjoin(s1, s2);
+	if (s1)
+		free(s1);
+	return (res);
+}
 
 char	*strjoin_and_free(char *s1, char *s2)
 {
@@ -66,7 +76,7 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 					fetch_env(&q, &eq);
 					q = ft_join_string(q, eq);
 					if (*q == '$' && *(q + 1) == '\0')
-						res = strjoin_and_free(res, "$");
+						res = strjoin_and_free1(res, "$");
 					else
 						res = strjoin_and_free(res, ft_assign_env(q, env_list));
 					q = eq;

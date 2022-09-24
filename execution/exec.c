@@ -39,6 +39,7 @@ static	void	exec_loop2(char *cmd, char **av, char **env)
 		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
 		g_var.exit_status = EXIT_NOTFOUND;
 	}
+	g_var.exit_status = WEXITSTATUS(g_var.exit_status);
 }
 
 static	void	exec_loop(char *cmd, char **av, char **env)
@@ -70,7 +71,6 @@ void	ft_exec(t_exec *line, t_env **env_list)
 	if (!line->argv[0])
 		return ;
 	cmd = ft_strdup(line->argv[0]);
-	printf("%s\n", cmd);
 	if (!cmd)
 		return ;
 	my_env = ft_myenv(*env_list);
@@ -92,6 +92,6 @@ void	ft_exec(t_exec *line, t_env **env_list)
 	exec_loop(cmd, line->argv, my_env);
 	freethis(my_env);
 	free(cmd);
-	freethis(line->argv);
+	// freethis(line->argv);
 	return ;
 }

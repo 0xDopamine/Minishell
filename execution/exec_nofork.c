@@ -25,7 +25,6 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 		join = ft_strjoin(path[i], cmd);
 		if (access(join, X_OK) == 0)
 		{
-			g_var.exit_status = EXIT_SUCCESS;
 			ft_free_doubleptr(path);
 			execve(join, av, env);
 			perror("execve");
@@ -38,6 +37,7 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 	g_var.exit_status = EXIT_NOTFOUND;
 	ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
 	ft_free_doubleptr(path);
+	exit(EXIT_NOTFOUND);
 }
 
 void	ft_exec_nofork(t_exec *line, t_env **env_list)
@@ -46,14 +46,20 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 	char	*tmp;
 	char	**my_env;
 
-	my_env = ft_myenv(*env_list);
 	if (!line->argv[0])
 	{
-		freethis(my_env);
 		g_var.exit_status = EXIT_FAILURE;
 		return ;
 	}
 	cmd = ft_strdup(line->argv[0]);
+	my_env = ft_myenv(*env_list);
+	if (exec_checkcmd_fork(cmd, line->argv, my_env) == -1)
+	{
+		freethis(my_env);
+		free(cmd);
+		freethis(line->argv);
+		return ;
+	}
 	if (ft_ifmybuiltin(cmd, line, env_list)
 		|| ft_ifmybuiltin_up(cmd, line, env_list))
 	{

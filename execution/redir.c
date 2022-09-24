@@ -29,8 +29,8 @@ static	void	redirect_exec(t_red *red, t_here *here
 		if (red->out_fd != -2 && red->out_fd != -1)
 			dup2(red->out_fd, STDOUT_FILENO);
 		ft_exec_nofork(ex, env_list);
-		close(here->fd_creat);
-		close(here->fd_read);
+		close(here->fd_creat), printf("%s:%d ---> %d\n", __FILE__, __LINE__, here->fd_creat);
+		close(here->fd_read), printf("%s:%d ---> %d\n", __FILE__, __LINE__, here->fd_read);
 	}
 	if (red->in_fd != -2 || red->out_fd != -2)
 	{
@@ -60,13 +60,12 @@ static	int	redirect_loop(t_redir *redir, t_red *red
 		{
 			if (start_heredoc(here, redir, infd_dup, env_list) == -1)
 				return (1);
-			close(infd_dup);
+			close(infd_dup), printf("%s:%d ---> %d\n", __FILE__, __LINE__, infd_dup);
 		}
 		if (here->file_path)
-			here->fd_read = open(here->file_path, O_RDONLY | O_CREAT, 0644);
+			here->fd_read  = open(here->file_path, O_RDONLY, 0644), printf("%s:%d --> %d\n", __FILE__, __LINE__, 			here->fd_read); // TOREMOVE
 		if (start_redir(redir, red))
 			return (1);
-		free(redir->file);
 		redir = redir->next;
 	}
 	return (0);

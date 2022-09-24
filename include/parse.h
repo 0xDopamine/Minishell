@@ -88,6 +88,7 @@ typedef struct s_pipe {
 typedef struct s_exec {
 	int		type;
 	char	**argv;
+	pid_t	pid;
 }	t_exec;
 
 typedef struct s_env_p

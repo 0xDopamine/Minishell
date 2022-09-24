@@ -12,21 +12,11 @@
 
 #include "exec.h"
 
-static	int	exec_check_exitcode(char *cmd)
-{
-	if (g_var.exit_status == 127)
-	{
-		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
-	if (g_var.exit_status == 256)
-	{
-		ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
-		g_var.exit_status = EXIT_NOTFOUND;
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
+// static	int	exec_check_exitcode(char *cmd)
+// {
+// 	ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
+// 	return (EXIT_FAILURE);
+// }
 
 int	exec_cmdpath(char *cmd, char **env, char **av)
 {
@@ -68,9 +58,7 @@ int	exec_checkcmd_fork(char *cmd, char **av, char **env)
 		}
 	}
 	else
-		return (EXIT_SUCCESS);
-	wait(&g_var.exit_status);
-	if (exec_check_exitcode(cmd))
 		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	g_var.exit_status = EXIT_SUCCESS;
+	return (-1);
 }

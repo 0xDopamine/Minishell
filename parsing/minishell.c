@@ -17,6 +17,25 @@
 
 t_global	g_var = {0};
 
+void free_cmd(t_cmd *cmd) ;
+
+void	ft_wait_pids(t_cmd *cmd)
+{
+	if (cmd->type == PIPE)
+	{
+		ft_wait_pids(((t_pipe *)cmd)->left);
+		ft_wait_pids(((t_pipe *)cmd)->right);
+	}
+	else if (cmd->type == EXEC)
+	{
+		waitpid(((t_exec *)cmd)->pid, &g_var.exit_status, 0);
+		g_var.exit_status = WEXITSTATUS(g_var.exit_status); // TODO CHECK IF THE MACRO IS CORRECT
+	}
+	else if (cmd->type == REDIR)
+		ft_wait_pids(((t_redir *)cmd)->cmd);
+}
+
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -48,10 +67,43 @@ int	main(int argc, char **argv, char **env)
 		line = spaces(temp);
 		simple_command = parsepipe(&line, env_list);
 		ft_check_cmd(simple_command, &env_list);
-		free(simple_command);
+		ft_wait_pids(simple_command);
+		free_cmd(simple_command);
+		// free(simple_command);
 		free(temp);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 	free(simple_command);
 	return (0);
+}
+
+void	free_red(t_redir *red)
+{
+	while (red)
+	{
+		free(red->file);
+		red = red->next;
+	}
+}
+
+void free_cmd(t_cmd *cmd) {
+	t_redir *const	_red = (t_redir *)cmd;
+	t_exec *const	_exec = (t_exec *)cmd;
+	t_pipe *const	_pipe = (t_pipe *)cmd;
+
+	if (cmd == NULL)
+		return ;
+	if (cmd->type == EXEC)
+		freethis(_exec->argv);
+	else if (cmd->type == REDIR)
+	{
+		free_cmd(_red->cmd);
+		free_red(_red);
+	}
+	else if (cmd->type == PIPE)
+	{
+		free_cmd(_pipe->left);
+		free_cmd(_pipe->right);
+	}
+	free(cmd);
 }

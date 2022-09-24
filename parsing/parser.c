@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/24 00:33:05 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/24 15:07:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_cmd	*parsepipe(char **ps, t_env *env_list)
 		cmd = pipecmd(cmd, parsepipe(ps, env_list));
 	}
 	freethis(parse->split);
-	// free(parse->state);
+	free(parse->state);
 	free(parse);
 	return (cmd);
 }

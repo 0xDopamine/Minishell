@@ -26,10 +26,10 @@ int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 	}
 	if (pid == 0)
 	{
-		fd_rd = open(file_path, O_RDONLY | O_CREAT, 0644);
+		fd_rd  = open(file_path, O_RDONLY | O_CREAT, 0644), printf("%s:%d --> %d\n", __FILE__, __LINE__, 		fd_rd); // TOREMOVE
 		dup2(fd_rd, STDIN_FILENO);
 		ft_exec_nofork((t_exec *)cmd, env_list);
-		close(fd_rd);
+		close(fd_rd), printf("%s:%d ---> %d\n", __FILE__, __LINE__, fd_rd);
 		exit(1);
 	}
 	return (0);
@@ -44,7 +44,7 @@ char	*heredoc_gen_name(int i)
 
 	buffer = (char *)malloc(9);
 	buffer[8] = '\0';
-	fd = open("/dev/random", O_RDONLY, 0);
+	fd  = open("/dev/random", O_RDONLY, 0), printf("%s:%d --> %d\n", __FILE__, __LINE__, 	fd); // TOREMOVE
 	if (fd < 0)
 	{
 		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);
@@ -58,8 +58,9 @@ char	*heredoc_gen_name(int i)
 		i++;
 	}
 	tmp = buffer;
-	buffer = ft_strjoin("/tmp/", buffer);
+	buffer = ft_strjoin("/tmp/", tmp);
 	free (tmp);
+	close(fd);
 	return (buffer);
 }
 
@@ -67,7 +68,7 @@ int	heredoc_create(char *file_path)
 {
 	int		fd_creat;
 
-	fd_creat = open(file_path, O_WRONLY | O_CREAT, 0644);
+	fd_creat  = open(file_path, O_WRONLY | O_CREAT, 0644), printf("%s:%d --> %d\n", __FILE__, __LINE__, 	fd_creat); // TOREMOVE
 	if (fd_creat < 0)
 	{
 		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);
@@ -90,5 +91,8 @@ int	ft_heredoc(t_here *here, t_redir *redir, t_env **env_list)
 		return (-1);
 	here->delimiter = redir->file;
 	heredoc_writefile(here->delimiter, here->fd_creat, env_list);
+	free(redir->file);
+	redir->file = here->file_path;
+	close(here->fd_creat);
 	return (EXIT_SUCCESS);
 }

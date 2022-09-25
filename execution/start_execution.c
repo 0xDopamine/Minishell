@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:28:35 by codespace         #+#    #+#             */
-/*   Updated: 2022/09/25 16:25:17 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 16:36:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list)
 	else if (cmd->type == EXEC)
 	{
 		((t_exec *)cmd)->pid = fork();
+        if (((t_exec *)cmd)->pid == -1)
+        {
+            perror("fork");
+		    g_var.exit_status = EXIT_FAILURE;
+		    return ;
+        }
 		if (((t_exec *)cmd)->pid == 0)
 		{
             fprintf(stderr, "%d %d", *in, fds[1]);

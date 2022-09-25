@@ -77,10 +77,16 @@ int	main(int argc, char **argv, char **env)
 
 void	free_red(t_redir *red)
 {
+	void	*tmp;
+
+	free(red->file);
+	red = red->next;
 	while (red)
 	{
 		free(red->file);
+		tmp = red;
 		red = red->next;
+		free(tmp);
 	}
 }
 
@@ -92,10 +98,7 @@ void free_cmd(t_cmd *cmd) {
 	if (cmd == NULL)
 		return ;
 	if (cmd->type == EXEC)
-	{
-		printf("I'm here\n");
 		freethis(_exec->argv);
-	}
 	else if (cmd->type == REDIR)
 	{
 		free_cmd(_red->cmd);

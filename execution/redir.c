@@ -31,7 +31,7 @@ int	ft_open_file(t_redir *redir)
 	return (fd);
 }
 
-int		ft_handle_redirections(t_redir *redir, int *in, int *out, t_env **env_list)
+int	ft_handle_redirections(t_redir *redir, int *in, int *out, t_env **env_list)
 {
 	int		infd_dup;
 	t_here	here;

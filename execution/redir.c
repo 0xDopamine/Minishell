@@ -12,23 +12,32 @@
 
 #include "exec.h"
 
-int	ft_open_file(t_redir *redir)
+static	int	start_redir(t_redir *redir, int *in, int *out, int *infd_dup)
 {
-	int fd;
+	if (redir->fd == STDIN_FILENO && redir->mode != HEREDOC)
+	{
+		if (redirect_input(redir, in) == -1)
+			return (1);
+	}
+	else if (redir->fd == STDOUT_FILENO && redir->mode != HEREDOC)
+	{
+		if (redirect_output(redir, out) == -1)
+			return (1);
+	}
+	if (*in == -1 || *out == -1)
+	{
+		close(*infd_dup);
+		return (1);
+	}
+	return (0);
+}
 
-	if (redir_isdir(redir->file))
-	{
-		ft_putstr_fd(redir->file, ": is a directory\n", STDERR_FILENO);
-		return (-1);
-	}
-	fd  = open(redir->file, redir->mode, 0644);
-	if (fd == -1)
-	{
-		ft_putstr_fd("no such file or directory: ", redir->file, STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
-		return (-1);
-	}
-	return (fd);
+static	void	init_vars(t_here *here, int *infd_dup)
+{
+	here->file_path = NULL;
+	here->fd_creat = -2;
+	*infd_dup = dup(0);
+	signal(SIGINT, ft_sig_here);
 }
 
 int	ft_handle_redirections(t_redir *redir, int *in, int *out, t_env **env_list)
@@ -36,51 +45,25 @@ int	ft_handle_redirections(t_redir *redir, int *in, int *out, t_env **env_list)
 	int		infd_dup;
 	t_here	here;
 
-	here.file_path = NULL;
-	here.fd_creat = -2;
-	infd_dup = dup(0);
-	signal(SIGINT, ft_sig_here);
+	init_vars(&here, &infd_dup);
 	while (redir)
 	{
 		if (redir->mode == HEREDOC && !g_var.here_sig)
 		{
 			if (start_heredoc(&here, redir, infd_dup, env_list) == -1)
-			{
-				close(infd_dup);
-				return (1);
-			}
+				return (close(infd_dup) * 0 + 1);
 			if (*in != 0)
 				close(*in);
-			*in  = open(here.file_path, O_RDONLY, 0644);
+			*in = open(here.file_path, O_RDONLY, 0644);
 			if (*in == -1)
 				return (-1);
 		}
-		else if (redir->fd == STDIN_FILENO)
-		{
-			if (*in != 0)
-				close(*in);
-			*in = ft_open_file(redir);
-			if (*in == -1)
-				return (-1);
-		}
-		else if (redir->fd == STDOUT_FILENO)
-		{
-			if (*out != 1)
-				close(*out);
-			*out = ft_open_file(redir);
-			if (*out == -1)
-				return (-1);
-		}
-		if (*in == -1 || *out == -1)
-		{
-			close(infd_dup);
-			return (1);
-		}
+		if (start_redir(redir, in, out, &infd_dup))
+			return (EXIT_FAILURE);
 		redir = redir->next;
 	}
 	signal(SIGINT, ft_sig_handler);
-	close(infd_dup);
-	return (0);
+	return (close(infd_dup) * 0);
 }	
 
 int	redir_isdir(char *cmd)

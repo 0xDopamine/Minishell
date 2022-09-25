@@ -12,52 +12,41 @@
 
 #include "exec.h"
 
-int	start_redir(t_redir *redir, t_red *red)
+int	redirect_input(t_redir *redir, int *in)
 {
-	if (redir->fd == STDIN_FILENO && redir->mode != HEREDOC)
-	{
-		if (ft_redirect_input(redir, red) == -1)
-			return (1);
-	}
-	if (redir->fd == STDOUT_FILENO && redir->mode != HEREDOC)
-	{
-		if (ft_redirect_output(redir, red) == -1)
-			return (1);
-	}
+	if (*in != 0)
+		close(*in);
+	*in = ft_open_file(redir);
+	if (*in == -1)
+		return (-1);
 	return (0);
 }
 
-int	ft_redirect_output(t_redir *redir, t_red *red)
+int	redirect_output(t_redir *redir, int *out)
 {
-	if (redir_isdir(redir->file))
-	{
-		ft_putstr_fd(redir->file, ": is a directory\n", STDERR_FILENO);
+	if (*out != 1)
+		close(*out);
+	*out = ft_open_file(redir);
+	if (*out == -1)
 		return (-1);
-	}
-	red->out_fd  = open(redir->file, redir->mode, 0644), printf("%s:%d --> %d\n", __FILE__, __LINE__, 	red->out_fd); // TOREMOVE
-	if (red->out_fd == -1)
-	{
-		ft_putstr_fd("no such file or directory: ", redir->file, STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
-		g_var.exit_status = EXIT_NOTFOUND;
-		return (-1);
-	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
-int	ft_redirect_input(t_redir *redir, t_red *red)
+int	ft_open_file(t_redir *redir)
 {
+	int	fd;
+
 	if (redir_isdir(redir->file))
 	{
 		ft_putstr_fd(redir->file, ": is a directory\n", STDERR_FILENO);
 		return (-1);
 	}
-	red->in_fd  = open(redir->file, redir->mode, 0644), printf("%s:%d --> %d\n", __FILE__, __LINE__, 	red->in_fd); // TOREMOVE
-	if (red->in_fd == -1)
+	fd = open(redir->file, redir->mode, 0644);
+	if (fd == -1)
 	{
 		ft_putstr_fd("no such file or directory: ", redir->file, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		return (-1);
 	}
-	return (EXIT_SUCCESS);
+	return (fd);
 }

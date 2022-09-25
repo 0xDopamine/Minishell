@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:31:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 14:14:26 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 20:35:30 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ int	ft_token_redir(char **s, int tok)
 	char	*p;
 
 	p = *s;
-	p++;
+	// p++;
 	if (*p == '<')
 	{
-		tok = 'H';
+		p++;
+		if (*p == '<')
+			tok = 'H';
 		p++;
 	}
 	else if (*p == '>')

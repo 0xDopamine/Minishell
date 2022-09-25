@@ -16,9 +16,8 @@ int	start_heredoc(t_here *here, t_redir *redir, int infd_dup, t_env **env_list)
 {
 	if (ft_heredoc(here, redir, env_list) == -1)
 	{
-
 		close(infd_dup);
-		return 1;
+		return (1);
 	}
 	if (g_var.here_sig)
 		return (ft_here_signal(infd_dup));
@@ -43,7 +42,7 @@ char	*heredoc_getstr(char *str)
 	i = 0;
 	if (str[0] == '$')
 		return (NULL);
-   	ret = (char *)malloc(ft_strlen_char(str, '$') + 1);
+	ret = (char *)malloc(ft_strlen_char(str, '$') + 1);
 	if (!ret)
 		return (NULL);
 	while (str[i] != '$' && str[i])

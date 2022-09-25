@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:45:53 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/22 22:09:40 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 19:38:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_env	*ft_lstnew(char *path, char *name)
 		return (NULL);
 	head->path = ft_strdup(path);
 	head->name = ft_strdup(name);
+	free(path);
+	free(name);
 	head->next = NULL;
 	return (head);
 }

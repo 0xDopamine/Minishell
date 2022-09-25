@@ -1,6 +1,7 @@
 a
 b
 c
+e
 execution
 file
 include
@@ -8,3 +9,4 @@ Makefile
 minishell
 NOTE
 parsing
+w

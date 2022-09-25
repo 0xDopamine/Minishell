@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 12:29:25 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/22 22:12:24 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 19:38:21 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,13 @@ int	export_ifexists(char *name, char *path, t_env **env)
 
 int	export_checkav(char *str, char **ptr, int n)
 {
+	int	ret;
+
 	if (n == NAME)
-		return (export_checkname(str));
+	{
+		ret = export_checkname(str);
+		return (ret);
+	}
 	else
 	{
 		if (str[0] == 0)

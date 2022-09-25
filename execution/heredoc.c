@@ -26,7 +26,7 @@ int	heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list)
 	}
 	if (pid == 0)
 	{
-		fd_rd  = open(file_path, O_RDONLY | O_CREAT, 0644);
+		fd_rd = open(file_path, O_RDONLY | O_CREAT, 0644);
 		dup2(fd_rd, STDIN_FILENO);
 		ft_exec_nofork((t_exec *)cmd, env_list);
 		close(fd_rd);
@@ -44,7 +44,7 @@ char	*heredoc_gen_name(int i)
 
 	buffer = (char *)malloc(9);
 	buffer[8] = '\0';
-	fd  = open("/dev/random", O_RDONLY, 0);
+	fd = open("/dev/random", O_RDONLY, 0);
 	if (fd < 0)
 	{
 		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);
@@ -66,8 +66,9 @@ char	*heredoc_gen_name(int i)
 
 int	heredoc_create(char *file_path)
 {
-	int		fd_creat;
-	fd_creat  = open(file_path, O_WRONLY | O_CREAT, 0644);
+	int	fd_creat;
+
+	fd_creat = open(file_path, O_WRONLY | O_CREAT, 0644);
 	if (fd_creat < 0)
 	{
 		ft_putstr_fd("file creation failed\n", NULL, STDERR_FILENO);

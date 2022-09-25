@@ -105,6 +105,7 @@ int		exec_checkcmd_fork(char *cmd, char **av, char **env);
 int		exec_checkcmd(char *cmd);
 int		exec_cmdpath(char *cmd, char **env, char **av);
 void	execnofork_loop(char *cmd, char **av, char **env);
+int		exec_specialcases(char *cmd, t_exec *line, char **my_env, t_env **env_list);
 int		cd_errors(void);
 int		cd_ifoldpwd(char *str, t_env **env_list);
 int		cd_home(void);
@@ -142,6 +143,8 @@ int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
 int		ft_ifmybuiltin(char *cmd, t_exec *line, t_env **env_list);
 int		ft_ifmybuiltin_up(char *cmd, t_exec *line, t_env **env_list);
 int		ft_open_file(t_redir *redir);
+int		redirect_input(t_redir *redir, int *in);
+int		redirect_output(t_redir *redir, int *out);
 int		ft_strlen_char(char *str, char ch);
 void	ft_pipes(t_pipe *pipes, t_env **env_list, int *in);
 void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list);
@@ -172,6 +175,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse);
 t_redir	*redircmd_test(t_cmd *cmd, char *q, int mode, int fd);
 t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse);
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
+char	*strjoin_and_free1(char *s1, char *s2);
 void	ft_putnbr_fd(int nb, int fd);
 char	*get_next_line(int fd);
 char	*ft_search_for_env(char *s, t_env *env_list);
@@ -181,6 +185,5 @@ int		ft_here_signal(int infd);
 void	ft_sig_here(int signal);
 int		start_heredoc(t_here *here, t_redir *redir,
 			int infd_dup, t_env **env_list);
-int		start_redir(t_redir *redir, t_red *red);
 
 #endif

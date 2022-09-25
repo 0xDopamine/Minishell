@@ -67,6 +67,7 @@ void	export_addvar(char **av, t_env **env)
 		{
 			g_var.exit_status = EXIT_SUCCESS;
 			ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
+			free(str);
 		}
 		i++;
 	}

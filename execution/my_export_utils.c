@@ -20,7 +20,7 @@ char	**export_sortnames(t_env *env_list)
 
 	i = 0;
 	head = env_list;
-	names = (char **)ft_calloc(sizeof(char *), ft_lstsize(head));
+	names = (char **)ft_calloc(sizeof(char *), ft_lstsize(head) + 1);
 	while (i < ft_lstsize(head) && env_list)
 	{
 		names[i++] = ft_strdup(env_list->name);

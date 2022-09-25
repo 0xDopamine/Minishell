@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:27:29 by codespace         #+#    #+#             */
-/*   Updated: 2022/09/25 15:46:35 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 19:06:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,6 @@ int	exec_checkcmd_fork(char *cmd, char **av, char **env)
 		return (EXIT_FAILURE);
 	g_var.exit_status = EXIT_SUCCESS;
 	return (-1);
-}
-
-static	int	ft_check_if_dir(char *cmd)
-{
-	char	*s;
-	char	*tmp;
-
-	s = NULL;
-	tmp = getcwd(s, PATH_MAX);
-	if (exec_isdir(cmd) || ft_strcmp(cmd, tmp) == 0)
-	{
-		free(s);
-		free(tmp);
-		ft_putstr_fd(cmd, ": is a directory\n", STDERR_FILENO);
-		g_var.exit_status = 126;
-		return (EXIT_FAILURE);
-	}
-	free(s);
-	free(tmp);
-	return (EXIT_SUCCESS);
 }
 
 void	execnofork_loop(char *cmd, char **av, char **env)
@@ -104,27 +84,9 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 		return ;
 	}
 	cmd = ft_strdup(line->argv[0]);
-	if (ft_check_if_dir(cmd))
-	{
-		free(cmd);
-		return ;
-	}
 	my_env = ft_myenv(*env_list);
-	if (exec_checkcmd_fork(cmd, line->argv, my_env) == -1)
-	{
-		freethis(my_env);
-		free(cmd);
-		freethis(line->argv);
+	if (exec_specialcases(cmd, line, my_env, env_list))
 		return ;
-	}
-	if (ft_ifmybuiltin(cmd, line, env_list)
-		|| ft_ifmybuiltin_up(cmd, line, env_list))
-	{
-		free(cmd);
-		freethis(my_env);
-		exit(EXIT_SUCCESS);
-		return ;
-	}
 	tmp = ft_strjoin("/", cmd);
 	execnofork_loop(tmp, line->argv, my_env);
 	freethis(line->argv);

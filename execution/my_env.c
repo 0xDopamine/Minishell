@@ -22,10 +22,6 @@ void	ft_get_env(char **env, t_env **env_list)
 	{
 		str = ft_split_namecont(env[i]);
 		ft_lstadd_back(env_list, ft_lstnew(str[1], str[0]));
-		if (str[0])
-			free(str[0]);
-		if (str[1])
-			free(str[1]);
 		free(str);
 		i++;
 	}
@@ -49,6 +45,7 @@ static	void	export_printenv(t_env *env_list)
 		env_printloop(list, names, i);
 		i++;
 	}
+	freethis(names);
 	g_var.exit_status = EXIT_SUCCESS;
 }
 

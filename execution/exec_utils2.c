@@ -6,19 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 18:01:08 by codespace         #+#    #+#             */
-/*   Updated: 2022/09/25 18:02:00 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 19:07:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-int	exec_isdir(char *cmd)
-{
-	struct stat	path_stat;
-
-	stat(cmd, &path_stat);
-	return (S_ISDIR(path_stat.st_mode));
-}
 
 void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 {

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 23:59:08 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 18:34:06 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 20:30:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)
 		ft_lstadd_redir(head, redircmd(cmd, parse->split[0],
 				O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO));
 	else if (parse->tok == 'A')
+	{
+		printf("hello\n");
 		ft_lstadd_redir(head, redircmd(cmd, parse->split[0],
 				O_WRONLY | O_CREAT | O_APPEND, 1));
+	}
 	else if (parse->tok == 'H')
 		ft_lstadd_redir(head,
 			redircmd(cmd, parse->split[0], HEREDOC, 0));

@@ -67,7 +67,7 @@ char	*heredoc_gen_name(int i)
 int	heredoc_create(char *file_path)
 {
 	int		fd_creat;
-
+	fprintf(stderr, "%s\n", file_path);
 	fd_creat  = open(file_path, O_WRONLY | O_CREAT, 0644), printf("%s:%d --> %d\n", __FILE__, __LINE__, 	fd_creat); // TOREMOVE
 	if (fd_creat < 0)
 	{

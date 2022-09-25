@@ -16,8 +16,43 @@ int	exec_isdir(char *cmd)
 {
 	struct stat	path_stat;
 
+	printf("cmd: %s\n", cmd);
 	stat(cmd, &path_stat);
 	return (S_ISDIR(path_stat.st_mode));
+}
+
+void		handle_one_command(t_cmd *cmd, t_env **env_list)
+{
+	int			in;
+	int			out;
+
+	in = 0;
+	out = 1;
+	if (cmd->type == REDIR)
+	{
+		const int	tmp_in = dup(0);
+		const int	tmp_out = dup(1);
+		if (ft_handle_redirections((t_redir *)cmd, &in, &out, env_list) == 0)
+		{
+			dup2(in, 0);
+			dup2(out, 1);
+			if (in != 0)
+				close(in);
+			if (out != 1)
+				close(out);
+			handle_one_command(((t_redir *)cmd)->cmd, env_list);
+		}
+		dup2(tmp_in, 0);
+		dup2(tmp_out, 1);
+		close(tmp_in);
+		close(tmp_out);
+	} else {
+		if (ft_ifmybuiltin(((t_exec *)cmd)->argv[0], (t_exec *)cmd, env_list)
+			|| ft_ifmybuiltin_up(((t_exec *)cmd)->argv[0], (t_exec *)cmd, env_list))
+			return;
+		int fds[2] = {0, 1};
+		ft_start_pipe(cmd, &in, fds, env_list);
+	}
 }
 
 void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
@@ -25,34 +60,15 @@ void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 	int	fds[2] = {0, 1};
 	int in = 0;
 
-	dispatch_pipe_node(cmd, &in, fds, env_list);
+	if (cmd->type != PIPE)
+	{
+		handle_one_command(cmd, env_list);
+		return ;
+	}
+	ft_start_pipe(cmd, &in, fds, env_list);
 	if (fds[1] != 1)
-		close(fds[1]), printf("%s:%d ---> %d\n", __FILE__, __LINE__, fds[1]);
+		close(fds[1]);
 	if (in != 0)
 		close(in);
 
-}
-
-char	*exec_ifaccess(char *cmd)
-{
-	char	**path;
-	char	*join;
-	int		i;
-
-	i = 0;
-	path = ft_find_path();
-	while (path[i])
-	{
-		join = ft_strjoin(path[i], cmd);
-		if (access(join, X_OK) == 0)
-		{
-			ft_free_doubleptr(path);
-			g_var.exit_status = EXIT_SUCCESS;
-			return (join);
-		}
-		free(join);
-		i++;
-	}
-	ft_free_doubleptr(path);
-	return (NULL);
 }

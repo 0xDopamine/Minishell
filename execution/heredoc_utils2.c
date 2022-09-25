@@ -17,7 +17,7 @@ int	start_heredoc(t_here *here, t_redir *redir, int infd_dup, t_env **env_list)
 	if (ft_heredoc(here, redir, env_list) == -1)
 	{
 
-		close(infd_dup), printf("%s:%d ---> %d\n", __FILE__, __LINE__, infd_dup);
+		close(infd_dup);
 		return 1;
 	}
 	if (g_var.here_sig)

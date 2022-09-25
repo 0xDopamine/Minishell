@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:49:02 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/19 19:30:54 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:08:36 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_ifmybuiltin(char *cmd, t_exec *line, t_env **env_list)
 	else if (ft_strcmp(cmd, "unset") == 0)
 		return (ft_unset(env_list, line));
 	else if (ft_strcmp(cmd, "env") == 0)
-		return (ft_env(*env_list, 'a'));
+		return (ft_env(*env_list, 'a') );
 	else if (ft_strcmp(cmd, "exit") == 0)
 		return (ft_exit(line->argv));
 	else

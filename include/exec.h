@@ -20,6 +20,7 @@
 # define EDIT 4
 # define ENV 'a'
 # define EXP 'e'
+# define EXT 9
 # define RED "\001\e[0;31m\002"
 # define CYAN "\033[0;36m"
 # define RESET   "\001\e[0m\002"
@@ -140,10 +141,11 @@ int		redir_isdir(char *cmd);
 int		ft_builtins(char *cmd, t_exec *line, t_env **env_list);
 int		ft_ifmybuiltin(char *cmd, t_exec *line, t_env **env_list);
 int		ft_ifmybuiltin_up(char *cmd, t_exec *line, t_env **env_list);
+int		ft_open_file(t_redir *redir);
 int		ft_strlen_char(char *str, char ch);
 void	ft_pipes(t_pipe *pipes, t_env **env_list, int *in);
-void	dispatch_pipe_node(t_cmd *cmd, int *in, int fds[2], t_env **env_list);
-
+void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list);
+int		ft_handle_redirections(t_redir *redir, int *in, int *out, t_env **env_list);
 int		pipes_fork_right(t_pipe *pipes, int *fds, t_env **env_list);
 int		pipes_fork_left(t_pipe *pipes, int *fds, t_env **env_list);
 void	pipes_access(t_exec *line);
@@ -164,7 +166,7 @@ char	*heredoc_gen_name(int i);
 int		heredoc_findsign(char *str);
 char	*ft_handle_quotes(char *q);
 char	*ft_string_examiner(char *s, t_env *env_list);
-t_cmd	*parsepipe(char **ps, t_parse *parse, t_env *env_list);
+t_cmd	*parsepipe(char **ps, t_env *env_list);
 t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse);
 t_redir	*redircmd_test(t_cmd *cmd, char *q, int mode, int fd);
 t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse);

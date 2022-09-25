@@ -21,6 +21,8 @@ char	**ft_myenv(t_env *env)
 	i = 0;
 	name = NULL;
 	str = (char **)malloc(sizeof(char *) * (ft_lstsize(env) + 1));
+	if (!str)
+		return (NULL);
 	while (env)
 	{
 		name = ft_strjoin(env->name, "=");

@@ -158,6 +158,7 @@ char	*ft_itoa(int n);
 void	ft_free_doubleptr(char **ptr);
 int		ft_heredoc(t_here *here, t_redir *redir, t_env **env_list);
 int		heredoc_create(char *file_path);
+void	handle_one_command(t_cmd *cmd, t_env **env_list);
 void	heredoc_writefile(char *delimiter, int fd, t_env **env_list);
 int		heredoc_open(char *file_path, t_cmd *cmd, t_env **env_list);
 void	heredoc_specialcase(t_write *w, t_env **env_list);

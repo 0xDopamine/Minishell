@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_env_utils.c                                     :+:      :+:    :+:   */
+/*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/11 20:11:35 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 16:54:16 by codespace        ###   ########.fr       */
+/*   Created: 2022/09/25 18:01:08 by codespace         #+#    #+#             */
+/*   Updated: 2022/09/25 18:02:00 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	env_printloop(t_env *list, char **names, int i)
+int	exec_isdir(char *cmd)
 {
-	while (list)
+	struct stat	path_stat;
+
+	stat(cmd, &path_stat);
+	return (S_ISDIR(path_stat.st_mode));
+}
+
+void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
+{
+	int	fds[2];
+	int	in;
+
+	in = 0;
+	fds[0] = 0;
+	fds[1] = 1;
+	if (cmd->type != PIPE)
 	{
-		if (ft_strcmp(list->name, names[i]) == 0)
-		{
-			if (list->path != NULL)
-			{
-				ft_putchar_fd('=', STDOUT_FILENO);
-				printf("%c%s%c\n", '"', list->path, '"');
-			}
-			if (list->path == NULL)
-				printf("\n");
-		}
-		list = list->next;
+		handle_one_command(cmd, env_list);
+		return ;
 	}
+	ft_start_pipe(cmd, &in, fds, env_list);
+	if (fds[1] != 1)
+		close(fds[1]);
+	if (in != 0)
+		close(in);
 }

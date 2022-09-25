@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:09:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 10:50:30 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 17:17:37 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_join_string(char *q, char *eq)
 
 	i = 0;
 	res = malloc(sizeof(1) * ft_strlen_q(q, eq) + 1);
+	if (!res)
+		return (NULL);
 	while (q < eq)
 	{
 		res[i++] = *q;

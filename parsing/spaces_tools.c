@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/24 22:57:24 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 17:17:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	*add_spaces(char *line, int count)
 	space.j = 0;
 	space.len = ft_strlen(line);
 	space.str = malloc(sizeof(char) * (space.len + (count * 2) + 1));
+	if (!space.str)
+		return (NULL);
 	space.str = loop_spaces(space, line);
 	free(line);
 	return (space.str);

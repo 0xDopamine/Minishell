@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 16:43:43 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 17:52:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	t_cmd	*ret; 
 
 	parse->words = ft_init_words(ps);
+	parse->state = NULL;
 	ret = execcmd(parse->words);
 	cmd = (t_exec *)ret;
 	parse->argc = 0;
@@ -36,6 +37,8 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 		ret = parseredir(ret, ps, parse);
 		if (ret == NULL)
 			return (NULL);
+		free(parse->state);
+		parse->state = NULL;
 	}
 	cmd->argv[parse->argc] = NULL;
 	return (ret);

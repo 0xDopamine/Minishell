@@ -1,9 +1,5 @@
-cmd: ls
-a
-b
-c
 execution
-f
+file
 include
 Makefile
 minishell

@@ -18,6 +18,8 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 enum {
 	PIPE,

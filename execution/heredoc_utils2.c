@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:20:33 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 20:21:55 by abaioumy        ###   ########.fr       */
+/*   Updated: 2022/09/21 20:21:55 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	start_heredoc(t_here *here, t_redir *redir, int infd_dup, t_env **env_list)
 		return (1);
 	}
 	if (g_var.here_sig)
-		return (ft_here_signal(infd_dup));
+		return (ft_get_sigint(infd_dup));
 	return (0);
 }
 

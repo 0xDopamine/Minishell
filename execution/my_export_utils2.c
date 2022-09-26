@@ -3,34 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   my_export_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/21 18:30:10 by abaioumy        ###   ########.fr       */
+/*   Updated: 2022/09/21 18:30:10 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	export_checkop(char *str)
+static	void	free_str(char **str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '+' || str[i] == '-')
-		{
-			if (str[i + 1])
-			{
-				ft_putstr_fd("export: not valid in this context\n",
-					NULL, STDERR_FILENO);
-				return (EXIT_SUCCESS);
-			}
-		}
-		i++;
-	}
-	return (EXIT_FAILURE);
+	free(str[0]);
+	free(str[1]);
+	free(str);
 }
 
 int	export_checknbr(char ch)
@@ -46,6 +32,20 @@ int	export_checknbr(char ch)
 		return (EXIT_FAILURE);
 }
 
+int	export1(char *str1, char *str2, char **str, t_env **env)
+{
+	if (export_ifexists(str[0], str[1], env))
+	{
+		free(str1);
+		free(str2);
+		free(str);
+		g_var.exit_status = EXIT_SUCCESS;
+		return (1);
+	}
+	export_checkav(str2, str, PATH);
+	return (0);
+}
+
 void	export_addvar(char **av, t_env **env)
 {
 	int		i;
@@ -55,20 +55,21 @@ void	export_addvar(char **av, t_env **env)
 	while (av[i])
 	{
 		str = ft_split_namecont(av[i]);
-		if (!str || !str[0])
+		if (!str)
 			return ;
-		if (export_ifexists(str[0], str[1], env))
-		{
-			g_var.exit_status = EXIT_SUCCESS;
-			return ;
-		}
-		export_checkav(str[1], str, PATH);
+		if (!str[0])
+			return (free_str(str));
+		if (export1(str[0], str[1], str, env))
+			return (free_str(str));
 		if (export_checkav(str[0], str, NAME))
 		{
 			g_var.exit_status = EXIT_SUCCESS;
 			ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
 			free(str);
+			return ;
 		}
+		else
+			free_str(str);
 		i++;
 	}
 }

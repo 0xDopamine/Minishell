@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 18:01:08 by codespace         #+#    #+#             */
-/*   Updated: 2022/09/25 19:07:26 by codespace        ###   ########.fr       */
+/*   Created: 2022/09/25 18:01:08 by abaioumy         #+#    #+#              */
+/*   Updated: 2022/09/25 19:07:26 by abaioumy        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+int	export_checkop(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '+' || str[i] == '-')
+		{
+			if (str[i + 1])
+			{
+				ft_putstr_fd("export: not valid in this context\n",
+					NULL, STDERR_FILENO);
+				return (EXIT_SUCCESS);
+			}
+		}
+		i++;
+	}
+	return (EXIT_FAILURE);
+}
 
 void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 {

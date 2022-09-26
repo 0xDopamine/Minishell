@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/26 02:49:06 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:06:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 	char	*q;
 	char	*eq;
 	char	*res;
+	// char	*tmp;
 
 	eq = NULL;
 	res = NULL;
@@ -78,16 +79,12 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 					if (*q == '$' && *(q + 1) == '\0')
 						res = strjoin_and_free1(res, "$");
 					else if (*q == '$' && *(q + 1) == '?')
-					{	
 						res = strjoin_and_free(res, ft_assign_env(q, env_list));
-						free(q);
-					}
 					else
-					{		
 						res = strjoin_and_free(res, ft_assign_env(q, env_list));
-						free(q);
-					}
+					void	*tmp = q;
 					q = eq;
+					free(tmp);
 				}			
 			}
 			else
@@ -97,7 +94,10 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 				if (*eq == '\0')
 					break ;
 				else
+				{
+					// free(q);
 					q = eq;
+				}
 			}
 		}
 	}

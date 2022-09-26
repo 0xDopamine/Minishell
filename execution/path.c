@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:17:08 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/17 19:03:06 by abaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:19:30 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,14 @@ void	ft_copy(char **ret, char *str, int sublen, int len)
 	ret[0][i++] = '\0';
 	if (export_checkname(ret[0]) == 0)
 	{
+		free(ret[0]);
+		free(ret[1]);
 		ret[0] = NULL;
 		ret[1] = NULL;
 		return ;
 	}
 	while (i < len && str[i])
-	{
-		ret[1][j] = str[i];
-		i++;
-		j++;
-	}
+		ret[1][j++] = str[i++];
 	ret[1][j] = '\0';
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 19:51:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 17:52:38 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 17:52:38 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 {
 	t_exec	*cmd;
-	t_cmd	*ret; 
+	t_cmd	*ret;
 
 	parse->words = ft_init_words(ps);
 	parse->state = NULL;

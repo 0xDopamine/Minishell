@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler_tools.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:09:27 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 20:28:33 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 20:28:33 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_join_string(char *q, char *eq)
 	int		i;
 
 	i = 0;
-	res = malloc(sizeof(1) * ft_strlen_q(q, eq) + 1);
+	res = malloc(sizeof(char) * (ft_strlen_q(q, eq) + 1));
 	if (!res)
 		return (NULL);
 	while (q < eq)

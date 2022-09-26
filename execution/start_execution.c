@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 15:28:35 by codespace         #+#    #+#             */
-/*   Updated: 2022/09/25 19:49:20 by codespace        ###   ########.fr       */
+/*   Created: 2022/09/25 15:28:35 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/09/25 19:49:20 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list)
 		{
 			ft_dup_fds(in, &fds[0], &fds[1]);
 			ft_exec_nofork((t_exec *)cmd, env_list);
-			exit(EXIT_FAILURE);
+			exit(0);
 		}
 	}
 	else if (cmd->type == REDIR)

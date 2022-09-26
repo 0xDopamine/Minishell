@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 20:11:35 by abaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 16:54:16 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 16:54:16 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	env_printloop(t_env *list, char **names, int i)
 		{
 			if (list->path != NULL)
 			{
-				ft_putchar_fd('=', STDOUT_FILENO);
+				printf("=");
 				printf("%c%s%c\n", '"', list->path, '"');
 			}
 			if (list->path == NULL)

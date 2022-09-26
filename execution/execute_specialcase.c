@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_specialcase.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 19:01:32 by codespace         #+#    #+#             */
-/*   Updated: 2022/09/25 19:07:47 by codespace        ###   ########.fr       */
+/*   Created: 2022/09/25 19:01:32 by abaioumy         #+#    #+#              */
+/*   Updated: 2022/09/25 19:07:47 by abaioumy        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_check_if_dir(char *cmd)
 		free(s);
 		free(tmp);
 		ft_putstr_fd(cmd, ": is a directory\n", STDERR_FILENO);
-		g_var.exit_status = 126;
+		exit(126);
 		return (EXIT_FAILURE);
 	}
 	free(s);

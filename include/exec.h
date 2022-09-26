@@ -36,6 +36,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include "parse.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct s_global
 {
@@ -181,7 +183,7 @@ char	*get_next_line(int fd);
 char	*ft_search_for_env(char *s, t_env *env_list);
 char	*ft_assign_env(char *s, t_env *env_list);
 void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list);
-int		ft_here_signal(int infd);
+int		ft_get_sigint(int infd);
 void	ft_sig_here(int signal);
 int		start_heredoc(t_here *here, t_redir *redir,
 			int infd_dup, t_env **env_list);

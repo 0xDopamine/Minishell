@@ -3,7 +3,9 @@
 TARGET = minishell
 
 #*SOURCE FILES *#
-PARSING = parser_tools.c string_handler.c tokeniser.c evar.c string_handler_tools.c env.c split_quotes.c quotes.c spaces_tools.c strings_tools.c strings_tools_2.c minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c  
+PARSING = parser_tools.c string_handler.c tokeniser.c evar.c string_handler_tools.c \
+		env.c split_quotes.c quotes.c spaces_tools.c strings_tools.c strings_tools_2.c \
+		minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c  
 EXEC = execute.c execute_specialcase.c start_execution.c mini_libft.c \
 		path.c list.c redir.c pipes.c exec_utils2.c find_builtins.c \
 		my_exit.c my_env.c my_export.c \
@@ -22,7 +24,7 @@ READLINE_DIR = $(addprefix $(shell brew --prefix readline), /)
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 #* parse FILES *#
 INCLUDE = include/
@@ -34,10 +36,10 @@ all: $(TARGET)
 	
 
 %.o: %.c
-	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
+	cc $(FLAGS) -lreadline  -c -I $(INCLUDE) $< -o $@
 
 $(TARGET): $(OBJS) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -lreadline -L $(addprefix $(READLINE_DIR), lib) -I $(addprefix $(READLINE_DIR), include) $(OBJS) -o $(TARGET)
+	cc $(FLAGS) -I $(INCLUDE) -L $(addprefix $(READLINE_DIR), lib) -I $(addprefix $(READLINE_DIR), include) $(OBJS) -o $(TARGET) -lreadline
 
 re: fclean all
 

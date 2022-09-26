@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spaces_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/26 02:08:43 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:21:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*spaces(char *line)
 	char	*temp;
 
 	i = 0;
-	temp = ft_strdup(line);
 	if (!line)
 		return (line);
 	if (ft_strlen(line) == 1)
@@ -60,13 +59,13 @@ char	*spaces(char *line)
 	while (line[i])
 	{
 		if (line[i] == '|')
+		{
 			if (line[i - 1] != ' ' || line[i + 1] != ' ')
 			{
-				free(line);
-				line = handle_spaces(temp);
-				free(temp);
-				return (line);
+				temp = handle_spaces(line);
+				return (temp);
 			}
+		}
 		i++;
 	}
 	return (line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokeniser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:31:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 20:35:30 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 20:35:30 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	ft_token_redir(char **s, int tok)
 	char	*p;
 
 	p = *s;
-	// p++;
 	if (*p == '<')
 	{
 		p++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 18:15:05 by abaioumy         #+#    #+#             */
-/*   Updated: 2022/09/21 18:22:40 by abaioumy        ###   ########.fr       */
+/*   Created: 2022/09/21 18:15:05 by abaioumy          #+#    #+#             */
+/*   Updated: 2022/09/21 18:22:40 by abaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_sig_here(int signal)
 {
 	(void)signal;
 	close(0);
+	g_var.exit_status = 130;
 	g_var.here_sig = 1;
 }
 
@@ -34,7 +35,7 @@ void	ft_sig_handler(int sig)
 	return ;
 }
 
-int	ft_here_signal(int infd)
+int	ft_get_sigint(int infd)
 {
 	signal(SIGINT, ft_sig_handler);
 	g_var.here_sig = 0;

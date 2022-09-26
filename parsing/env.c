@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/26 02:15:01 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:54:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,8 @@ char	*ft_assign_env(char *s, t_env *env_list)
 	}
 	ret = ft_append_env(split, ret, env_list);
 	if (ret != NULL)
-	{
-		free(s);
 		return (ret);
-	}
+	
 	free(ret);
 	return (NULL);
 }

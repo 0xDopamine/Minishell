@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 15:27:29 by codespace         #+#    #+#             */
-/*   Updated: 2022/09/25 19:06:17 by codespace        ###   ########.fr       */
+/*   Created: 2022/09/25 15:27:29 by abaioumy         #+#    #+#              */
+/*   Updated: 2022/09/25 19:06:17 by abaioumy        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ int	exec_checkcmd_fork(char *cmd, char **av, char **env)
 		if (pid == 0)
 		{
 			execve(cmd, av, env);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	else
 		return (EXIT_FAILURE);
-	g_var.exit_status = EXIT_SUCCESS;
 	return (-1);
 }
 
@@ -66,7 +65,6 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 		free(join);
 		i++;
 	}
-	g_var.exit_status = EXIT_NOTFOUND;
 	ft_putstr_fd(&cmd[1], ": command not found\n", STDERR_FILENO);
 	ft_free_doubleptr(path);
 	exit(EXIT_NOTFOUND);

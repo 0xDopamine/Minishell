@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(temp);
 		line = spaces(temp);
 		simple_command = parsepipe(&line, env_list);
-		// free(line);
+		system ("leaks minishell");
 		ft_check_cmd(simple_command, &env_list);
 		ft_wait_pids(simple_command);
 		free_cmd(simple_command);

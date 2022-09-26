@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 06:25:48 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/26 02:15:01 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ char	*ft_search_for_env(char *s, t_env *env_list)
 			return (res);
 		}
 		else
-			{
-				temp = ft_assign_env(q + 1, env_list);
-				res = ft_strjoin(res, temp);
-				free(temp);
-				return (res);				
-			}		
+		{
+			temp = ft_assign_env(q + 1, env_list);
+			res = ft_strjoin(res, temp);
+			free(temp);
+			return (res);
+		}		
 		q++;
 	}
 	free(q);
@@ -132,7 +132,11 @@ char	*ft_assign_env(char *s, t_env *env_list)
 	if (!ft_env_examiner(&s))
 		return (s);
 	if (**split == '?')
+	{
+		free(s);
+		freethis(split);
 		return ("$?");
+	}
 	ret = ft_append_env(split, ret, env_list);
 	if (ret != NULL)
 	{

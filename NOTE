@@ -204,3 +204,18 @@ saad didnt even handle them
 problem with "ls" -la it outputs cmd not found
 
 fixed the remaining bugs, only 5 leaks remaining at the first command
+
+bug from my side
+
+echo $USER:$PATH -> should assign them both but it only assigns one
+
+bug from your side
+
+the output from export is weird, the '=' doesnt show where it should be
+but its at the start of the string so the env vars look like this:
+=declare -x ZDOTDIR"/var/folders/zz/zyxvpxvq6csfxvn_n0000hhm000445/T/vscode-zsh"
+=declare -x ZSH"/Users/mbaioumy/.oh-my-zsh"
+=declare -x _"/Users/mbaioumy/Documents/mini_update2/./minishell"
+=declare -x __CF_USER_TEXT_ENCODING"0x1085:0x0:0x0"
+=declare -x a"b"
+=declare -x b"a"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spaces_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 17:17:23 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/26 02:08:43 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ char	*handle_spaces(char *line)
 
 char	*spaces(char *line)
 {
-	int	i;
+	int		i;
+	char	*temp;
 
 	i = 0;
+	temp = ft_strdup(line);
 	if (!line)
 		return (line);
 	if (ft_strlen(line) == 1)
@@ -59,7 +61,12 @@ char	*spaces(char *line)
 	{
 		if (line[i] == '|')
 			if (line[i - 1] != ' ' || line[i + 1] != ' ')
-				return (handle_spaces(line));
+			{
+				free(line);
+				line = handle_spaces(temp);
+				free(temp);
+				return (line);
+			}
 		i++;
 	}
 	return (line);
@@ -75,9 +82,9 @@ char	*add_spaces(char *line, int count)
 	space.str = malloc(sizeof(char) * (space.len + (count * 2) + 1));
 	if (!space.str)
 		return (NULL);
-	space.str = loop_spaces(space, line);
-	free(line);
-	return (space.str);
+	else
+		line = loop_spaces(space, line);
+	return (line);
 }
 
 char	*loop_spaces(t_space space, char *line)

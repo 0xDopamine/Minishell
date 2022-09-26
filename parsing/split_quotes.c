@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 16:46:51 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/25 23:17:00 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	ft_qword_count(char *str, char sep)
 		else if (str[i])
 			i++;
 	}
-	printf("words: %d\n", words);
 	return (words);
 }
 

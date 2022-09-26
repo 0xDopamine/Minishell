@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 20:29:34 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/26 02:49:06 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,16 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 					q = ft_join_string(q, eq);
 					if (*q == '$' && *(q + 1) == '\0')
 						res = strjoin_and_free1(res, "$");
-					else
+					else if (*q == '$' && *(q + 1) == '?')
+					{	
 						res = strjoin_and_free(res, ft_assign_env(q, env_list));
+						free(q);
+					}
+					else
+					{		
+						res = strjoin_and_free(res, ft_assign_env(q, env_list));
+						free(q);
+					}
 					q = eq;
 				}			
 			}
@@ -93,6 +101,5 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 			}
 		}
 	}
-	// free (q);
 	return (res);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/26 15:54:53 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/27 04:19:34 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,29 +118,17 @@ char	*ft_assign_env(char *s, t_env *env_list)
 
 	ret = ft_strdup("\0");
 	if (*s == '$' && *(s + 1) == '\0')
-	{
-		free(s);
-		free(ret);
-		return (NULL);
-	}
+		return(set_free(s, ret, NULL, NULL));
 	split = ft_split(s, '$');
 	if (*split == NULL)
-	{
-		freethis(split);
-		return (NULL);
-	}
+		return (set_free(NULL, NULL, split, NULL));
 	if (!ft_env_examiner(&s))
 		return (s);
 	if (**split == '?')
-	{
-		free(s);
-		freethis(split);
-		return ("$?");
-	}
+		return (set_free(s, NULL, split, "$?"));
 	ret = ft_append_env(split, ret, env_list);
 	if (ret != NULL)
 		return (ret);
-	
 	free(ret);
 	return (NULL);
 }

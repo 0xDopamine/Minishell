@@ -103,6 +103,7 @@ int	main(int argc, char **argv, char **env)
 		ft_wait_pids(simple_command);
 		free_cmd(simple_command);
 		free(temp);
+		system("leaks minishell");
 	}
 	return (0);
 }

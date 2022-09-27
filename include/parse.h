@@ -38,12 +38,19 @@ enum {
 	NOT_VAR
 }	;
 
+typedef struct s_data {
+	char	*res;
+	char	*q;
+	char	*eq;
+	char	*temp;
+}	t_data ;
+
 typedef struct s_space {
 	int		i;
 	int		j;
 	char	*str;
 	size_t	len;
-}	t_space;
+}	t_space ;
 
 typedef struct s_handle {
 	char	*q;
@@ -168,5 +175,6 @@ char		**ft_split(char *s, char c);
 char		**ft_split_q(char *str, char sep);
 int			ft_strchr(char s, char *buf);
 t_redir		*redircmd(t_cmd *cmd, char *q, int mode, int fd);
+char		*set_free(char *ptr, char *ptr2, char **dptr, char *return_value);
 
 #endif

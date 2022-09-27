@@ -3,7 +3,7 @@
 TARGET = minishell
 
 #*SOURCE FILES *#
-PARSING = parser_tools.c string_handler.c tokeniser.c evar.c string_handler_tools.c \
+PARSING = parser_tools.c free.c string_handler.c tokeniser.c evar.c string_handler_tools.c \
 		env.c split_quotes.c quotes.c spaces_tools.c strings_tools.c strings_tools_2.c \
 		minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c  
 EXEC = execute.c execute_specialcase.c start_execution.c mini_libft.c \
@@ -24,7 +24,7 @@ READLINE_DIR = $(addprefix $(shell brew --prefix readline), /)
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 #* parse FILES *#
 INCLUDE = include/

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/27 03:09:46 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/27 04:22:34 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 	char	*q;
 	char	*eq;
 	char	*res;
-	// char	*tmp;
+	void	*tmp;
 
 	eq = NULL;
 	res = NULL;
 	if (ps)
 	{
 		q = *ps;
+		tmp = q;
 		while (q)
 		{
 			if (ft_strchr(*q, "\'\""))
@@ -66,8 +67,10 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 					res = strjoin_and_free(res, ft_search_for_env(q, env_list));
 				else
 					res = strjoin_and_free(res, ft_join_string(q, eq));
+				tmp = q;
 				if (*eq + 1)
 					q = eq + 1;
+				free(tmp);
 			}
 			else if (ft_strchr(*q, "$"))
 			{
@@ -82,7 +85,7 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 						res = strjoin_and_free(res, ft_assign_env(q, env_list));
 					else
 						res = strjoin_and_free(res, ft_assign_env(q, env_list));
-					void	*tmp = q;
+					tmp = q;
 					q = eq;
 					free(tmp);
 				}			
@@ -91,13 +94,12 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 			{
 				fetch_string(&q, &eq);
 				res = strjoin_and_free(res, ft_join_string(q, eq));
+				tmp = q;
 				if (*eq == '\0')
 					break ;
 				else
-				{
-					// free(q);
 					q = eq;
-				}
+				free(tmp);
 			}
 		}
 	}

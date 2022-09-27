@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/25 23:17:00 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/27 06:12:49 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,43 +63,29 @@ int	ft_word_len(char *str, char sep)
 
 char	**ft_split_string(char *str, char **split, char sep)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		len;
-	int		tok;
+	t_split	data;
 
-	i = 0;
-	j = -1;
-	while (str[i])
+	data.i = 0;
+	data.j = -1;
+	while (str[data.i])
 	{
-		while (str[i] && str[i] == sep)
-			i++;
-		len = ft_word_len(str, sep);
-		split[++j] = ft_calloc(len + 2, sizeof(char));
-		if (!*split)
+		while (str[data.i] && str[data.i] == sep)
+			data.i++;
+		data.len = ft_word_len(str, sep);
+		split[++data.j] = ft_calloc(data.len + 2, sizeof(char));
+		ft_split_protection(split);
+		data.k = -1;
+		while (++data.k < data.len && str[data.i] && str[data.i] != sep)
 		{
-			freethis(split);
-			return (NULL);
+			if (ft_strchr(str[data.i], "\'\""))
+				ft_quotes_case(split, str, data);
+			split[data.j][data.k] = str[data.i++];
 		}
-		k = -1;
-		while (++k < len && str[i] && str[i] != sep)
-		{
-			if (ft_strchr(str[i], "\'\""))
-			{
-				tok = str[i];
-				split[j][k++] = str[i];
-				i++;
-				while (k < len && str[i] && str[i] != tok)
-					split[j][k++] = str[i++];
-			}
-			split[j][k] = str[i++];
-		}
-		split[j][k] = '\0';
-		if (str[i])
-			i++;
+		split[data.j][data.k] = '\0';
+		if (str[data.i])
+			data.i++;
 	}
-	split[j + 1] = NULL;
+	split[data.j + 1] = NULL;
 	return (split);
 }
 

@@ -177,5 +177,10 @@ int			ft_strchr(char s, char *buf);
 t_redir		*redircmd(t_cmd *cmd, char *q, int mode, int fd);
 char		*set_free(char *ptr, char *ptr2, char **dptr, char *return_value);
 char		*strjoin_and_free(char *s1, char *s2);
+void		ft_quotes_case(char **split, char *str, t_split data);
+void		ft_split_quotes_case(char **split, char *str, t_split data);
+void		ft_append_quoted_split(char **split, char *str, t_split data);
+void		ft_split_protection(char **split);
+
 
 #endif

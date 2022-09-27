@@ -192,4 +192,5 @@ int		num_words(char *str, int quote_flag);
 char	*ft_env_quoted(char **s, char **es, t_env *env_list);
 void	*init_main(char	*line, int argc, char **argv, t_env *env_list);
 void	ft_line_protection(char	*line);
+
 #endif

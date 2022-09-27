@@ -36,10 +36,10 @@ all: $(TARGET)
 	
 
 %.o: %.c
-	cc $(FLAGS) -lreadline  -c -I $(INCLUDE) $< -o $@
+	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
 
 $(TARGET): $(OBJS) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -L $(addprefix $(READLINE_DIR), lib) -I $(addprefix $(READLINE_DIR), include) $(OBJS) -o $(TARGET) -lreadline
+	cc $(FLAGS) -I $(INCLUDE) -lreadline -L $(addprefix $(READLINE_DIR), lib) -I $(addprefix $(READLINE_DIR), include) $(OBJS) -o $(TARGET)
 
 re: fclean all
 

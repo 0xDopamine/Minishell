@@ -37,7 +37,7 @@ void	fetch_string(char **q, char **eq)
 
 	s = *q;
 	*q = s;
-	while (!ft_strchr(*s, "\'\"") && *s)
+	while (!ft_strchr(*s, "\'\"$") && *s)
 		s++;
 	*eq = s--;
 }

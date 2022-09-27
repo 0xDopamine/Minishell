@@ -28,7 +28,7 @@ char	**ft_split_argv(t_parse *parse)
 	else
 		return (ft_split(parse->q, ' '));
 }
-
+ 
 void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list)
 {
 	parse->state = check_var(parse->q);

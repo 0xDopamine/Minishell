@@ -161,5 +161,12 @@ void		ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd);
 char		**ft_split_argv(t_parse *parse);
 int			ft_init_words(char	**ps);
 char		*loop_spaces(t_space space, char *line);
+int			check_state(int *state);
+int			*check_var(char *str);
+void		ft_lstadd_redir(t_redir **lst, t_redir *new);
+char		**ft_split(char *s, char c);
+char		**ft_split_q(char *str, char sep);
+int			ft_strchr(char s, char *buf);
+t_redir		*redircmd(t_cmd *cmd, char *q, int mode, int fd);
 
 #endif

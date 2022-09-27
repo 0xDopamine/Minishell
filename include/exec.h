@@ -187,5 +187,7 @@ int		ft_get_sigint(int infd);
 void	ft_sig_here(int signal);
 int		start_heredoc(t_here *here, t_redir *redir,
 			int infd_dup, t_env **env_list);
+char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
+int		num_words(char *str, int quote_flag);
 
 #endif

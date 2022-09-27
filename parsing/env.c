@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/27 04:19:34 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/27 05:32:18 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,11 @@ char	*ft_search_for_env(char *s, t_env *env_list)
 	while (q)
 	{
 		if (*q == '\'')
-		{
-			fetch_quoted(&q, &eq);
-			q = ft_join_string(q, eq);
-			res = ft_strjoin(res, "'");
-			res = ft_strjoin(res, ft_assign_env(q, env_list));
-			res = ft_strjoin(res, "'");
-			return (res);
-		}
+			return (ft_env_quoted(&q, &eq, env_list));
 		else
 		{
 			temp = ft_assign_env(q + 1, env_list);
-			res = ft_strjoin(res, temp);
+			res = strjoin_and_free1(res, temp);
 			free(temp);
 			return (res);
 		}		
@@ -118,7 +111,7 @@ char	*ft_assign_env(char *s, t_env *env_list)
 
 	ret = ft_strdup("\0");
 	if (*s == '$' && *(s + 1) == '\0')
-		return(set_free(s, ret, NULL, NULL));
+		return (set_free(s, ret, NULL, NULL));
 	split = ft_split(s, '$');
 	if (*split == NULL)
 		return (set_free(NULL, NULL, split, NULL));

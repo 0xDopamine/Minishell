@@ -13,6 +13,14 @@
 #include "exec.h"
 #include <unistd.h>
 
+void	parseexec_loop(char	**ps, t_parse *parse, t_env *env_list, t_exec *cmd)
+{
+	parse->tok = get_token(ps, &parse->q);
+	if (parse->tok == 0)
+		return ;
+	ft_append_command(cmd, parse, env_list);
+}
+
 t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 {
 	t_exec	*cmd;
@@ -26,10 +34,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	ret = parseredir(ret, ps, parse);
 	while (!next(ps, "|"))
 	{
-		parse->tok = get_token(ps, &parse->q);
-		if (parse->tok == 0)
-			break ;
-		ft_append_command(cmd, parse, env_list);
+		parseexec_loop(ps, parse, env_list, cmd);
 		parse->argc++;
 		if (parse->argc >= parse->words || parse->split[1] == NULL)
 			break ;

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "exec.h"
 
 char	*findthewae(char **str)
 {
@@ -52,4 +53,34 @@ int	ft_strchr(char s, char *buf)
 		i++;
 	}
 	return (0);
+}
+
+char	*ft_env_quoted(char **s, char **es, t_env *env_list)
+{
+	char	*temp;
+	char	*q;
+	char	*eq;
+	char	*res;
+
+	q = *s;
+	eq = *es;
+	res = ft_strdup("'");
+	fetch_quoted(&q, &eq);
+	q = ft_join_string(q, eq);
+	temp = ft_assign_env(q, env_list);
+	res = strjoin_and_free1(res, temp);
+	res = strjoin_and_free1(res, "'");
+	free(temp);
+	free(q);
+	return (res);
+}
+
+void	ft_line_protection(char	*line)
+{
+	if (!line)
+	{
+		free(line);
+		ft_putstr_fd("\nexit\n", NULL, STDOUT_FILENO);
+		exit(255);
+	}
 }

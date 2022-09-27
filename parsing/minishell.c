@@ -71,39 +71,39 @@ void	ft_wait_pids(t_cmd *cmd)
 		ft_wait_pids(((t_redir *)cmd)->cmd);
 }
 
+void	minishell(char *line, char *temp, t_env *env_list)
+{
+	t_cmd	*simple_command;
+
+	line = readline(CYAN"TwoBrosShell➤ "RESET);
+	ft_line_protection(line);
+	temp = line;
+	add_history(temp);
+	line = spaces(temp);
+	simple_command = parsepipe(&line, env_list);
+	ft_check_cmd(simple_command, &env_list);
+	ft_wait_pids(simple_command);
+	free_cmd(simple_command);
+	free(temp);
+	system("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
-	t_cmd	*simple_command;
 	t_env	*env_list;
 	char	*temp;
 
 	(void)argc;
 	(void)argv;
 	line = NULL;
+	temp = NULL;
 	g_var.here_sig = 0;
 	env_list = NULL;
 	ft_get_env(env, &env_list);
 	signal(SIGINT, ft_sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (TRUE)
-	{
-		line = readline(CYAN"TwoBrosShell➤ "RESET);
-		if (!line)
-		{
-			free(line);
-			ft_putstr_fd("\nexit\n", NULL, STDOUT_FILENO);
-			exit(255);
-		}
-		temp = line;
-		add_history(temp);
-		line = spaces(temp);
-		simple_command = parsepipe(&line, env_list);
-		ft_check_cmd(simple_command, &env_list);
-		ft_wait_pids(simple_command);
-		free_cmd(simple_command);
-		free(temp);
-		system("leaks minishell");
-	}
+		minishell(line, temp, env_list);
 	return (0);
 }

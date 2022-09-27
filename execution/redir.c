@@ -21,7 +21,7 @@ static	int	start_redir(t_redir *redir, int *in, int *out, int *infd_dup)
 	}
 	else if (redir->fd == STDOUT_FILENO && redir->mode != HEREDOC)
 	{
-		printf("hello\n");
+		printf("%s\n", redir->file);
 		if (redirect_output(redir, out) == -1)
 			return (1);
 	}

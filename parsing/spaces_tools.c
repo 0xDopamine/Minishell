@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/26 13:21:52 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/27 22:38:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ char	*handle_spaces(char *line)
 	{
 		if (ft_strchr(line[i], "|<>"))
 		{
-			if (line[i] == '>' && line[i + 1] == '>')
+			if (i > 0 && (line[i] == '>' && line[i + 1] == '>'))
 			{
 				if (!check(line[i - 1], line[i + 2]) && line)
 					count += 2;
 			}
-			else if (line[i - 1] != ' ' || line[i + 1] != ' ')
+			else if (i > 0 && (line[i - 1] != ' ' || line[i + 1] != ' '))
 					count += 1;
 		}
 		i++;
@@ -44,6 +44,20 @@ char	*handle_spaces(char *line)
 	if (count > 0)
 		return (add_spaces(line, count));
 	return (line);
+}
+
+int	ft_is_heredoc(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '<' && line[i + 1] == '<')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 char	*spaces(char *line)
@@ -58,9 +72,9 @@ char	*spaces(char *line)
 		return (line);
 	while (line[i])
 	{
-		if (line[i] == '|')
+		if (ft_strchr(line[i], "|<>") && !ft_is_heredoc(line))
 		{
-			if (line[i - 1] != ' ' || line[i + 1] != ' ')
+			if (i > 0 && (line[i - 1] != ' ' || line[i + 1] != ' '))
 			{
 				temp = handle_spaces(line);
 				return (temp);
@@ -82,8 +96,7 @@ char	*add_spaces(char *line, int count)
 	if (!space.str)
 		return (NULL);
 	else
-		line = loop_spaces(space, line);
-	return (line);
+		return (loop_spaces (space, line));
 }
 
 char	*loop_spaces(t_space space, char *line)

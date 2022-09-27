@@ -143,7 +143,7 @@ int			check(char before, char after);
 char		*add_spaces(char *line, int count);
 void		rl_replace_line(const char *str, int mod);
 void		null_terminate(char **s);
-int			ft_is_heredoc(char **ps);
+int			ft_is_heredoc(char *line);
 int			ft_isalnum(int arg);
 int			count_words(char *str, char c);
 void		fetch_quoted(char **q, char **eq);

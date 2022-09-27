@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/27 19:46:27 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/27 22:16:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 		{
 			fetch_quoted(&q, &eq);
 			if (q == NULL)
+			{
+				*ps = NULL;
 				return (NULL);
+			}
 			if (*q == '$' && *eq != '\'')
 			{
 				fetch_env(&q, &eq);

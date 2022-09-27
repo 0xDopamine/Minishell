@@ -50,6 +50,7 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 	int		i;
 
 	i = 0;
+	printf("%s\n", cmd);
 	path = ft_find_path();
 	while (path[i])
 	{
@@ -87,8 +88,8 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 		return ;
 	tmp = ft_strjoin("/", cmd);
 	execnofork_loop(tmp, line->argv, my_env);
-	freethis(line->argv);
-	free(cmd);
+	// freethis(line->argv);
+	// free(cmd);
 	free(tmp);
 	freethis(my_env);
 }

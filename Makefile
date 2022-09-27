@@ -24,7 +24,7 @@ READLINE_DIR = $(addprefix $(shell brew --prefix readline), /)
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 #* parse FILES *#
 INCLUDE = include/
@@ -39,7 +39,7 @@ all: $(TARGET)
 	cc $(FLAGS) -c -I $(INCLUDE) $< -o $@
 
 $(TARGET): $(OBJS) $(INCLUDE)
-	cc $(FLAGS) -I $(INCLUDE) -lreadline -L $(addprefix $(READLINE_DIR), lib) -I $(addprefix $(READLINE_DIR), include) $(OBJS) -o $(TARGET)
+	cc $(FLAGS) -I $(INCLUDE) -L $(addprefix $(READLINE_DIR), lib) -I $(addprefix $(READLINE_DIR), include) $(OBJS) -o $(TARGET) -lreadline
 
 re: fclean all
 

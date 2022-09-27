@@ -34,11 +34,8 @@ int	export_checknbr(char ch)
 
 int	export1(char *str1, char *str2, char **str, t_env **env)
 {
-	if (export_ifexists(str[0], str[1], env))
+	if (export_ifexists(str1, str2, env))
 	{
-		free(str1);
-		free(str2);
-		free(str);
 		g_var.exit_status = EXIT_SUCCESS;
 		return (1);
 	}
@@ -66,7 +63,6 @@ void	export_addvar(char **av, t_env **env)
 			g_var.exit_status = EXIT_SUCCESS;
 			ft_lstadd_back(env, ft_lstnew(str[1], str[0]));
 			free(str);
-			return ;
 		}
 		else
 			free_str(str);

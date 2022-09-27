@@ -57,6 +57,8 @@ void	free_cmd(t_cmd *cmd)
 
 void	ft_wait_pids(t_cmd *cmd)
 {
+	if (!cmd)
+		return ;
 	if (cmd->type == PIPE)
 	{
 		ft_wait_pids(((t_pipe *)cmd)->left);

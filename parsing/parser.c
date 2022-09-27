@@ -32,6 +32,8 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	cmd = (t_exec *)ret;
 	parse->argc = 0;
 	ret = parseredir(ret, ps, parse);
+	if (!ret)
+		return (NULL);
 	while (!next(ps, "|"))
 	{
 		parseexec_loop(ps, parse, env_list, cmd);
@@ -64,7 +66,6 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse)
 		if (get_token(ps, &parse->q) != 'c')
 		{
 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
-			cmd = NULL;
 			return (cmd);
 		}
 		if (*parse->q)

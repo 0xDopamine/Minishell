@@ -41,6 +41,8 @@ void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 	in = 0;
 	fds[0] = 0;
 	fds[1] = 1;
+	if (!cmd)
+		return ;
 	if (cmd->type != PIPE)
 	{
 		handle_one_command(cmd, env_list);

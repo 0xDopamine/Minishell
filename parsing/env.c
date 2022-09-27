@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/27 05:32:18 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:45:30 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_search_for_env(char *s, t_env *env_list)
 	char	*temp;
 
 	q = s;
-	res = ft_strdup("");
+	// res = ft_strdup("");
+	res = NULL;
 	while (q)
 	{
 		if (*q == '\'')
@@ -85,8 +86,10 @@ char	*ft_append_env(char **split, char *ret, t_env *env_list)
 {
 	int		i;
 	t_env	*temp_list;
+	char	*tmp;
 
 	i = -1;
+	tmp = ret;
 	while (split[++i])
 	{
 		temp_list = env_list;
@@ -94,7 +97,8 @@ char	*ft_append_env(char **split, char *ret, t_env *env_list)
 		{
 			if (ft_strcmp(split[i], temp_list->name) == 0)
 			{
-				ret = ft_strjoin(ret, temp_list->path);
+				ret = ft_strjoin(tmp, temp_list->path);
+				free(tmp);
 				break ;
 			}
 			temp_list = temp_list->next;

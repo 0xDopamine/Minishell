@@ -21,6 +21,7 @@ static	int	cd_update_pwd(t_env **env_list)
 	pwd = getcwd(NULL, 0);
 	if (!getcwd(pwd, PATH_MAX))
 	{
+		free(pwd);
 		perror("cd");
 		return (1);
 	}
@@ -30,11 +31,12 @@ static	int	cd_update_pwd(t_env **env_list)
 		{
 			if (env->path)
 				free(env->path);
-			env->path = pwd;
+			env->path = ft_strdup(pwd);
 			break ;
 		}
 		env = env->next;
 	}
+	free(pwd);
 	return (0);
 }
 
@@ -57,12 +59,16 @@ int	cd_oldpwd(t_env **env_list)
 				return (0);
 			}
 			g_var.exit_status = EXIT_SUCCESS;
-			env->path = pwd;
+			if (env->path)
+				free(env->path);
+			env->path = ft_strdup(pwd);
+			free(pwd);
 			cd_update_pwd(env_list);
 			return (1);
 		}
 		env = env->next;
 	}
+	free(pwd);
 	return (1);
 }
 
@@ -75,6 +81,7 @@ static	int	cd_update_oldpwd(t_env **env_list)
 	pwd = getcwd(NULL, 0);
 	if (!getcwd(pwd, PATH_MAX))
 	{
+		free(pwd);
 		perror("cd");
 		return (1);
 	}
@@ -84,11 +91,12 @@ static	int	cd_update_oldpwd(t_env **env_list)
 		{
 			if (env->path)
 				free(env->path);
-			env->path = pwd;
+			env->path = ft_strdup(pwd);
 			break ;
 		}
 		env = env->next;
 	}
+	free(pwd);
 	return (0);
 }
 

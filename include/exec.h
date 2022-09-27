@@ -82,6 +82,7 @@ typedef struct s_mini {
 	t_parse	*parse;
 }				t_mini;
 
+void	free_red(t_redir *red);
 size_t	ft_strlen(char *str);
 t_env	*ft_lstnew(char *path, char *name);
 void	ft_lstadd_back(t_env **lst, t_env *new);
@@ -178,6 +179,7 @@ t_redir	*redircmd_test(t_cmd *cmd, char *q, int mode, int fd);
 t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse);
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
 char	*strjoin_and_free1(char *s1, char *s2);
+char	*strjoin_and_free(char *s1, char *s2);
 void	ft_putnbr_fd(int nb, int fd);
 char	*get_next_line(int fd);
 char	*ft_search_for_env(char *s, t_env *env_list);

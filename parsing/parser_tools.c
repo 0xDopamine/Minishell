@@ -46,6 +46,9 @@ void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list)
 
 void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)
 {
+	char	*delimiter;
+
+	delimiter = NULL;
 	if (parse->tok == '<')
 		ft_lstadd_redir(head, redircmd(cmd, parse->split[0],
 				O_RDONLY, STDIN_FILENO));
@@ -58,6 +61,13 @@ void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)
 				O_WRONLY | O_CREAT | O_APPEND, 1));
 	}
 	else if (parse->tok == 'H')
+	{
+	if (!parse->split[0])
+		delimiter = ft_strdup("\0");
+	else
+		delimiter = ft_strdup(parse->split[0]);
 		ft_lstadd_redir(head,
-			redircmd(cmd, parse->split[0], HEREDOC, 0));
+			redircmd(cmd, delimiter, HEREDOC, 0));
+	}
+	free(delimiter);
 }

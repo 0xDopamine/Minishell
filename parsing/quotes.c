@@ -54,30 +54,14 @@ void	fetch_quoted(char **q, char **eq)
 	*eq = s;
 }
 
-int	ft_check_quotes(char *s)
+void	ft_check_quotes(char *str)
 {
-	int		i;
-	int		j;
+	char	*temp;
+	char	*temp_eq;
 
-	i = 0;
-	while (s[i])
-	{
-		if (ft_strchr(s[i], "\'\""))
-		{
-			j = i + 1;
-			while (s[j] != s[i] && s[j])
-				j++;
-			if (s[j] == '\0')
-			{
-				perror("Quotes error");
-				g_var.exit_status = 256;
-				return (0);
-			}
-			else
-				i++;
-		}
-		else
-			i++;
-	}
-	return (1);
+	temp_eq = NULL;
+	temp = str;
+	fetch_quoted(&temp, &temp_eq);
+	if (temp == NULL)
+		str = NULL;
 }

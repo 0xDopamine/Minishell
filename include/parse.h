@@ -159,7 +159,7 @@ void		trim_string(char *q);
 int			ft_count_dollars(char *q);
 int			ft_strlen_q(char *q, char *eq);
 void		fetch_quoted(char **q, char **eq);
-int			ft_check_quotes(char *s);
+void		ft_check_quotes(char *str);
 int			ft_env_examiner(char **s);
 void		ft_check_envs(char **q);
 int			*check_var(char *str);

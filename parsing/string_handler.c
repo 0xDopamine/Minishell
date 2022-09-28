@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 14:11:07 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/28 19:01:30 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,20 @@ char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 
 char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 {
-	char *ee = NULL;
-	fetch_quoted(q, eq);
-	printf("q: %s\n eq: %s\n", *q, *eq);
-	while (ee != *eq)
-	{
-		ee = *eq;
-		if (**q == '$' && **eq != '\'')
-			res = ft_env_case(q, &ee, res, env_list); 
+	if (**q)
+	{	
+		fetch_quoted(q, eq);
+		if (*q == NULL)
+			return (NULL);
+		if (**q == '$' && *(*q + 1) != ' ' && **eq != '\'')
+			res = ft_env_case(q, eq, res, env_list);
 		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
 			res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
-		else
+		else if (**q == '$' && *(*q + 1) == ' ')
 			res = strjoin_and_free(res, ft_join_string(*q, *eq));
-	// if (*(*eq + 1))
+		if (**eq + 1)
+			*q = *eq + 1;
 	}
-	*q = *eq + 1;
 	return (res);
 }
 

@@ -19,6 +19,8 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	t_cmd	*ret;
 
 	parse->words = ft_init_words(ps);
+	if (parse->words == 0)
+		return (NULL);
 	parse->state = NULL;
 	ret = execcmd(parse->words);
 	cmd = (t_exec *)ret;

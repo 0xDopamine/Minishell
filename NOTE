@@ -220,3 +220,7 @@ ba9i parser.c and split_quotes.c f norm
 BTW: the problem above is caused by fetch_quoted and fetch_env in that specific case
 print the values and see by yourself, we get quotes error cause the final quotes
 kaddoz bohdha lfunction.
+
+
+
+4t'"$"t

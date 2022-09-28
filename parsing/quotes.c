@@ -34,9 +34,9 @@ void	fetch_quoted(char **q, char **eq)
 
 	tok = **q;
 	s = NULL;
-	if (*q + 1 != '\0')
+	if (*q + 1 != 0)
 		s = *q + 1;
-	else if (!*q + 1)
+	else if (!(*q + 1))
 	{
 		*q = s;
 		return ;

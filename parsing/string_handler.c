@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 04:49:29 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/28 14:11:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 
 char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 {
-	char	*temp;
-
 	ft_check_envs(q);
+	printf("after fetch_env q: %s\n eq: %s\n", *q, *eq);
 	if (**q == '$')
 	{	
 		fetch_env(q, eq);
-		temp = *q;
+		// temp = *q;
 		*q = ft_join_string(*q, *eq);
-		if (**q == '$' && **(q + 1) == '\0')
+		if (**q == '$' && *(*q + 1) == '\0')
 			res = strjoin_and_free1(res, "$");
-		else if (**q == '$' && **(q + 1) == '?')
+		else if (**q == '$' && *(*q + 1) == '?')
 			res = strjoin_and_free(res, ft_assign_env(*q, env_list));
 		else
 			res = strjoin_and_free(res, ft_assign_env(*q, env_list));
@@ -37,15 +36,21 @@ char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 
 char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 {
+	char *ee = NULL;
 	fetch_quoted(q, eq);
-	if (**q == '$' && **eq != '\'')
-		res = ft_env_case(q, eq, res, env_list);
-	else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
-		res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
-	else
-		res = strjoin_and_free(res, ft_join_string(*q, *eq));
-	if (**eq + 1)
-		*q = *eq + 1;
+	printf("q: %s\n eq: %s\n", *q, *eq);
+	while (ee != *eq)
+	{
+		ee = *eq;
+		if (**q == '$' && **eq != '\'')
+			res = ft_env_case(q, &ee, res, env_list); 
+		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
+			res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
+		else
+			res = strjoin_and_free(res, ft_join_string(*q, *eq));
+	// if (*(*eq + 1))
+	}
+	*q = *eq + 1;
 	return (res);
 }
 

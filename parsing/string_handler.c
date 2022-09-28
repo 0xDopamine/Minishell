@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 04:49:29 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:49:49 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 		fetch_env(q, eq);
 		temp = *q;
 		*q = ft_join_string(*q, *eq);
-		if (**q == '$' && **(q + 1) == '\0')
+		if (**q == '$' && *(*q + 1) == '\0')
 			res = strjoin_and_free1(res, "$");
-		else if (**q == '$' && **(q + 1) == '?')
+		else if (**q == '$' && *(*q + 1) == '?')
 			res = strjoin_and_free(res, ft_assign_env(*q, env_list));
 		else
 			res = strjoin_and_free(res, ft_assign_env(*q, env_list));
@@ -37,15 +37,18 @@ char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 
 char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 {
-	fetch_quoted(q, eq);
-	if (**q == '$' && **eq != '\'')
-		res = ft_env_case(q, eq, res, env_list);
-	else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
-		res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
-	else
-		res = strjoin_and_free(res, ft_join_string(*q, *eq));
-	if (**eq + 1)
-		*q = *eq + 1;
+	if (**q)
+	{	
+		fetch_quoted(q, eq);
+		if (**q == '$' && *(*q + 1) != ' ' && **eq != '\'')
+			res = ft_env_case(q, eq, res, env_list);
+		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
+			res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
+		else if (**q == '$' && *(*q + 1) == ' ')
+			res = strjoin_and_free(res, ft_join_string(*q, *eq));
+		if (**eq + 1)
+			*q = *eq + 1;
+	}
 	return (res);
 }
 

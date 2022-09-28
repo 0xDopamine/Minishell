@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 05:01:24 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:41:44 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ char	**ft_split_q(char *str, char sep)
 	char	**ret;
 	t_split	*data;
 
+	if (*str == '"' && *(str + 1) == '\0')
+		return (NULL);
 	data = malloc(sizeof(t_data));
 	data->i = 0;
 	data->j = -1;

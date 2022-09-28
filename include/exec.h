@@ -176,7 +176,7 @@ char	*ft_string_examiner(char *s, t_env *env_list);
 t_cmd	*parsepipe(char **ps, t_env *env_list);
 t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse);
 t_redir	*redircmd_test(t_cmd *cmd, char *q, int mode, int fd);
-t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse);
+t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse, t_env *env_list);
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list);
 char	*strjoin_and_free1(char *s1, char *s2);
 char	*strjoin_and_free(char *s1, char *s2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 20:35:41 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/28 22:45:13 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 	if (**q == '$')
 	{	
 		fetch_env(q, eq);
-		// temp = *q;
 		*q = ft_join_string(*q, *eq);
 		if (**q == '$' && *(*q + 1) == '\0')
 			res = strjoin_and_free1(res, "$");

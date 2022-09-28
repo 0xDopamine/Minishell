@@ -26,7 +26,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	ret = execcmd(parse->words);
 	cmd = (t_exec *)ret;
 	parse->argc = 0;
-	ret = parseredir(ret, ps, parse);
+	ret = parseredir(ret, ps, parse, env_list);
 	freethis(parse->split);
 	parse->split = NULL;
 	while (!next(ps, "|"))
@@ -41,7 +41,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 		if (parse->argc >= parse->words || parse->split[1] == NULL)
 			break ;
 		freethis(parse->split);
-		ret = parseredir(ret, ps, parse);
+		ret = parseredir(ret, ps, parse, env_list);
 		if (ret == NULL)
 			return (NULL);
 		free(parse->state);
@@ -51,7 +51,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	return (ret);
 }
 
-t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse)
+t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse, t_env *env_list)
 {
 	t_redir	*head;
 
@@ -73,6 +73,7 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse)
 		{
 			freethis(parse->split);
 			parse->split = ft_split(parse->q, ' ');
+			parse->split[0] = ft_ultimate_string_handler(&parse->split[0], env_list);
 		}
 		ft_append_redir_list(&head, parse, cmd);
 		cmd = (t_cmd *)head;

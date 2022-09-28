@@ -33,7 +33,17 @@ void	fetch_quoted(char **q, char **eq)
 	int		tok;
 
 	tok = **q;
-	s = *q + 1;
+	s = NULL;
+	printf("\' %c \'\n", tok);
+	if (*q + 1 != '\0')
+		s = *q + 1;
+	else if (!*q + 1)
+	{
+		printf("here\n");
+		*q = s;
+		return ;
+	}
+	printf("\'%s\'\n", s);
 	*q = s;
 	while (*s && *s != tok)
 		s++;

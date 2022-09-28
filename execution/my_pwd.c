@@ -52,7 +52,7 @@ int	ft_pwd(void)
 		g_var.exit_status = EXIT_FAILURE;
 		return (1);
 	}
-	printf("%s\n", ret);
+	printf("retpwd:: %s\n", ret);
 	free (ret);
 	free (s);
 	g_var.exit_status = EXIT_SUCCESS;

@@ -62,6 +62,8 @@ int	ft_handle_redirections(t_redir *redir, int *in, int *out, t_env **env_list)
 			return (EXIT_FAILURE);
 		redir = redir->next;
 	}
+	if (g_var.here_sig)
+		return (ft_get_sigint(infd_dup));
 	signal(SIGINT, ft_sig_handler);
 	return (close(infd_dup) * 0);
 }	

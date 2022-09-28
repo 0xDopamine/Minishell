@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 18:49:49 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/28 19:13:48 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 	if (**q)
 	{	
 		fetch_quoted(q, eq);
+		if (*q == NULL)
+			return (NULL);
 		if (**q == '$' && *(*q + 1) != ' ' && **eq != '\'')
 			res = ft_env_case(q, eq, res, env_list);
 		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')

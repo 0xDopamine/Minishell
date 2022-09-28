@@ -20,10 +20,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 
 	parse->words = ft_init_words(ps);
 	if (parse->words == 0)
-	{
-		ft_putstr_fd("Quotes error\n", NULL, STDERR_FILENO);
 		return (NULL);
-	}
 	parse->state = NULL;
 	ret = execcmd(parse->words);
 	cmd = (t_exec *)ret;

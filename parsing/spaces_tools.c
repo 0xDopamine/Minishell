@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 04:58:51 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/28 19:58:17 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*handle_spaces(char *line)
 {
 	int		i;
 	int		count;
+	char	*temp;
 
 	i = 0;
 	count = 0;
@@ -42,14 +43,19 @@ char	*handle_spaces(char *line)
 		i++;
 	}
 	if (count > 0)
-		return (add_spaces(line, count));
+	{
+		temp = ft_strdup(line);
+		line = add_spaces(temp, count);
+		free(temp);
+		return (line);
+	}
 	return (line);
 }
 
 char	*spaces(char *line)
 {
 	int		i;
-	char	*temp;
+	// char	*temp;
 
 	i = 0;
 	if (!line)
@@ -62,8 +68,8 @@ char	*spaces(char *line)
 		{
 			if (i > 0 && (line[i - 1] != ' ' || line[i + 1] != ' '))
 			{
-				temp = handle_spaces(line);
-				return (temp);
+				line = handle_spaces(line);
+				return (line);
 			}
 		}
 		i++;
@@ -74,6 +80,7 @@ char	*spaces(char *line)
 char	*add_spaces(char *line, int count)
 {
 	t_space	space;
+	char	*temp;
 
 	space.i = 0;
 	space.j = 0;
@@ -82,7 +89,7 @@ char	*add_spaces(char *line, int count)
 	if (!space.str)
 		return (NULL);
 	else
-		return (loop_spaces (space, line));
+		return (loop_spaces(space, line));
 }
 
 char	*loop_spaces(t_space space, char *line)

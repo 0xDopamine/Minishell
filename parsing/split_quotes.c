@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:19:11 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 18:41:44 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/28 19:37:50 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,17 @@ char	**ft_split_q(char *str, char sep)
 	char	**ret;
 	t_split	*data;
 
-	if (*str == '"' && *(str + 1) == '\0')
-		return (NULL);
+	ret = NULL;
 	data = malloc(sizeof(t_data));
 	data->i = 0;
 	data->j = -1;
 	split = ft_calloc((ft_qword_count(str, sep) + 2), sizeof(char *));
-	if (!split)
+	if (!split || !str)
+	{
+		freethis(split);
+		free(data);
 		return (NULL);
+	}
 	ret = ft_split_string(str, split, sep, data);
 	free(data);
 	return (ret);

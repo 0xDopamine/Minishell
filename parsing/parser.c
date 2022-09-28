@@ -22,10 +22,13 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	if (parse->words == 0)
 		return (NULL);
 	parse->state = NULL;
+	parse->split = NULL;
 	ret = execcmd(parse->words);
 	cmd = (t_exec *)ret;
 	parse->argc = 0;
 	ret = parseredir(ret, ps, parse);
+	freethis(parse->split);
+	parse->split = NULL;
 	while (!next(ps, "|"))
 	{
 		parse->tok = get_token(ps, &parse->q);
@@ -63,7 +66,7 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse)
 		if (get_token(ps, &parse->q) != 'c')
 		{
 			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
-			cmd = NULL;
+			g_var.exit_status = 2;
 			return (cmd);
 		}
 		if (*parse->q)

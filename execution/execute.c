@@ -50,7 +50,6 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 	int		i;
 
 	i = 0;
-	printf("cmd: %s\n", cmd);
 	path = ft_find_path();
 	while (path && path[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 20:06:39 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/28 20:35:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 {
 	ft_check_envs(q);
-	printf("after fetch_env q: %s\n eq: %s\n", *q, *eq);
 	if (**q == '$')
 	{	
 		fetch_env(q, eq);

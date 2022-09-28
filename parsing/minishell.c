@@ -82,9 +82,9 @@ void	minishell(char *line, char *temp, t_env *env_list)
 	temp = line;
 	add_history(temp);
 	line = spaces(temp);
-	char *tttmp = line;
 	if (line)
 	{
+		char *tttmp = line;
 		simple_command = parsepipe(&line, env_list);
 		ft_check_cmd(simple_command, &env_list);
 		ft_wait_pids(simple_command);
@@ -93,6 +93,8 @@ void	minishell(char *line, char *temp, t_env *env_list)
 		free(tttmp);
 		free(temp);
 	}
+	else
+		free(temp);
 }
 
 int	main(int argc, char **argv, char **env)

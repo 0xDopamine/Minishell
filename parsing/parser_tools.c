@@ -42,7 +42,6 @@ void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list)
 		printf("syntax error %c\n", parse->tok);
 	cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0],
 			env_list);
-	printf("%s\n", cmd->argv[parse->argc]);
 }
 
 void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)
@@ -55,7 +54,6 @@ void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)
 				O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO));
 	else if (parse->tok == 'A')
 	{
-		printf("hello\n");
 		ft_lstadd_redir(head, redircmd(cmd, parse->split[0],
 				O_WRONLY | O_CREAT | O_APPEND, 1));
 	}

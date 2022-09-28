@@ -33,10 +33,16 @@ void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list)
 {
 	parse->state = check_var(parse->q);
 	parse->split = ft_split_argv(parse);
+	if (!parse->split)
+	{
+		cmd->argv[parse->argc] = NULL;
+		return ;
+	}
 	if (parse->tok != 'c')
 		printf("syntax error %c\n", parse->tok);
 	cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0],
 			env_list);
+	printf("%s\n", cmd->argv[parse->argc]);
 }
 
 void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)

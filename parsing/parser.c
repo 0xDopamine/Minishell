@@ -32,6 +32,8 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 		if (parse->tok == 0)
 			break ;
 		ft_append_command(cmd, parse, env_list);
+		if (!parse->split)
+			return (ret);
 		parse->argc++;
 		if (parse->argc >= parse->words || parse->split[1] == NULL)
 			break ;

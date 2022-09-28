@@ -48,7 +48,7 @@ int	ft_echo(t_exec *line, int fd)
 
 	i = 1;
 	ifnl = 0;
-	if (echo_case1(line->argv[0], fd))
+	if (echo_case1(line->argv[1], fd))
 		return (1);
 	while (echo_check_nl(line->argv[i]))
 	{

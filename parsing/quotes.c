@@ -54,14 +54,14 @@ void	fetch_quoted(char **q, char **eq)
 	*eq = s;
 }
 
-void	ft_check_quotes(char *str)
+void	ft_check_quotes(char **str)
 {
 	char	*temp;
 	char	*temp_eq;
 
 	temp_eq = NULL;
-	temp = str;
+	temp = *str;
 	fetch_quoted(&temp, &temp_eq);
 	if (temp == NULL)
-		str = NULL;
+		*str = NULL;
 }

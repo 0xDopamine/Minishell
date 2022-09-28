@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 19:01:30 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/28 20:06:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 			res = ft_env_case(q, eq, res, env_list);
 		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
 			res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
-		else if (**q == '$' && *(*q + 1) == ' ')
+		else
 			res = strjoin_and_free(res, ft_join_string(*q, *eq));
 		if (**eq + 1)
 			*q = *eq + 1;

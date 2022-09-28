@@ -77,7 +77,12 @@ typedef struct s_split {
 	int		k;
 	int		len;
 	int		tok;
-}	t_split ;
+}	t_split;
+
+typedef struct s_line {
+	int		flag;
+	char	*line;
+}	t_line;
 
 typedef struct s_redir {
 	int				type;
@@ -159,7 +164,7 @@ void		trim_string(char *q);
 int			ft_count_dollars(char *q);
 int			ft_strlen_q(char *q, char *eq);
 void		fetch_quoted(char **q, char **eq);
-void		ft_check_quotes(char *str);
+void		ft_check_quotes(char **str);
 int			ft_env_examiner(char **s);
 void		ft_check_envs(char **q);
 int			*check_var(char *str);

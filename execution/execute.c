@@ -52,7 +52,7 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 	i = 0;
 	printf("cmd: %s\n", cmd);
 	path = ft_find_path();
-	while (path[i])
+	while (path && path[i])
 	{
 		join = ft_strjoin(path[i], cmd);
 		if (access(join, X_OK) == 0)

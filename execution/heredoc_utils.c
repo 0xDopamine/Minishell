@@ -34,9 +34,15 @@ void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 	w.ret = NULL;
 	w.str = NULL;
 	w.index = -1;
+
+	printf("del: %s\n", delimiter);
+	if (!delimiter)
+		delimiter = ft_strdup("\n");
+	printf("del: %s\n", delimiter);
 	while (TRUE)
 	{
 		w.line = readline(YELLOW"heredoc> " RESET);
+		printf("wline: %s\n", w.line);
 		if (!w.line)
 			break ;
 		if (ft_strcmp(w.line, delimiter) == 0)

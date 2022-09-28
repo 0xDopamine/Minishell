@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spaces_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 20:17:46 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/28 23:11:47 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*handle_spaces(char *line)
 	char	*temp;
 
 	i = 0;
-	count = 0;
+	count = 1;
 	while (line[i])
 	{
 		if (ft_strchr(line[i], "|<>"))
@@ -35,10 +35,10 @@ char	*handle_spaces(char *line)
 			if (i > 0 && (line[i] == '>' && line[i + 1] == '>'))
 			{
 				if (!check(line[i - 1], line[i + 2]) && line)
-					count += 2;
+					count += 3;
 			}
 			else if (i > 0 && (line[i - 1] != ' ' || line[i + 1] != ' '))
-					count += 1;
+					count += 2;
 		}
 		i++;
 	}
@@ -84,11 +84,10 @@ char	*add_spaces(char *line, int count)
 {
 	t_space	space;
 	// char	*temp;
-
 	space.i = 0;
 	space.j = 0;
 	space.len = ft_strlen(line);
-	space.str = malloc(sizeof(char) * (space.len + (count * 2) + 1));
+	space.str = ft_calloc((space.len + (count * 2) + 1), 1);
 	if (!space.str)
 		return (NULL);
 	else

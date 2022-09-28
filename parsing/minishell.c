@@ -94,6 +94,7 @@ void	minishell(char *line, char *temp, t_env *env_list)
 	}
 	else
 		free(temp);
+	// system ("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **env)

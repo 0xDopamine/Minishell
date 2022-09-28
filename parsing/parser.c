@@ -73,9 +73,13 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse, t_env *env_list)
 		{
 			freethis(parse->split);
 			parse->split = ft_split(parse->q, ' ');
-			parse->split[0] = ft_ultimate_string_handler(&parse->split[0], env_list);
+			char *tmp = parse->split[0];
+			parse->split[0] = ft_ultimate_string_handler(&tmp, env_list);
+			free(tmp);
 		}
 		ft_append_redir_list(&head, parse, cmd);
+		freethis(parse->split);
+		parse->split = NULL;
 		cmd = (t_cmd *)head;
 	}
 	return (cmd);

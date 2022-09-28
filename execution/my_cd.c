@@ -12,6 +12,13 @@
 
 #include "exec.h"
 
+static	int	cd_norme(void)
+{
+	perror("cd");
+	g_var.exit_status = EXIT_FAILURE;
+	return (0);
+}
+
 static	int	cd_update_pwd(t_env **env_list)
 {
 	t_env	*env;
@@ -53,11 +60,7 @@ int	cd_oldpwd(t_env **env_list)
 		{
 			getcwd(pwd, PATH_MAX);
 			if (chdir(env->path) < 0)
-			{
-				perror("cd");
-				g_var.exit_status = EXIT_FAILURE;
-				return (0);
-			}
+				return (cd_norme());
 			g_var.exit_status = EXIT_SUCCESS;
 			if (env->path)
 				free(env->path);

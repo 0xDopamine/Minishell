@@ -62,10 +62,10 @@ void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)
 	}
 	else if (parse->tok == 'H')
 	{
-	if (!parse->split[0])
-		delimiter = ft_strdup("\0");
-	else
-		delimiter = ft_strdup(parse->split[0]);
+		if (!parse->split[0])
+			delimiter = ft_strdup("\0");
+		else
+			delimiter = ft_strdup(parse->split[0]);
 		ft_lstadd_redir(head,
 			redircmd(cmd, delimiter, HEREDOC, 0));
 	}

@@ -88,7 +88,10 @@ int	ft_heredoc(t_here *here, t_redir *redir, t_env **env_list)
 		return (-1);
 	here->fd_creat = heredoc_create(here->file_path);
 	if (here->fd_creat == -1)
+	{
+		free(here->file_path);
 		return (-1);
+	}
 	here->delimiter = redir->file;
 	heredoc_writefile(here->delimiter, here->fd_creat, env_list);
 	free(redir->file);

@@ -46,8 +46,6 @@ int	export_ifexists(char *name, char *path, t_env **env)
 				return (1);
 			free(lst->path);
 			lst->path = ft_strdup(path);
-			// free(name);
-			// free(path);
 			return (1);
 		}
 		i++;

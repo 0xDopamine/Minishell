@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spaces_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 23:11:47 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/28 22:39:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ char	*spaces(char *line)
 char	*add_spaces(char *line, int count)
 {
 	t_space	space;
-	// char	*temp;
 	space.i = 0;
 	space.j = 0;
 	space.len = ft_strlen(line);

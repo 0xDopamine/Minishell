@@ -13,6 +13,13 @@
 #include "exec.h"
 #include <readline/readline.h>
 
+static	void	init_vars(t_write *w)
+{
+	w->line = NULL;
+	w->ret = NULL;
+	w->str = NULL;
+	w->index = -1;
+}
 static	void	heredoc_normalcase(t_write *w)
 {
 	char	*tmp;
@@ -30,16 +37,15 @@ void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 {
 	t_write	w;
 
-	w.line = NULL;
-	w.ret = NULL;
-	w.str = NULL;
-	w.index = -1;
-
+	init_vars(&w);
 	while (TRUE)
 	{
 		w.line = readline(YELLOW"heredoc> " RESET);
 		if (!w.line || !delimiter)
+		{
+			free(w.line);
 			break ;
+		}
 		if (ft_strcmp(w.line, delimiter) == 0)
 		{
 			free(w.line);

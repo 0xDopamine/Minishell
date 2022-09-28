@@ -36,8 +36,6 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include "parse.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 
 typedef struct s_global
 {
@@ -108,7 +106,8 @@ int		exec_checkcmd_fork(char *cmd, char **av, char **env);
 int		exec_checkcmd(char *cmd);
 int		exec_cmdpath(char *cmd, char **env, char **av);
 void	execnofork_loop(char *cmd, char **av, char **env);
-int		exec_specialcases(char *cmd, t_exec *line, char **my_env, t_env **env_list);
+int		exec_specialcases(char *cmd, t_exec *line,
+			char **my_env, t_env **env_list);
 int		cd_errors(void);
 int		cd_ifoldpwd(char *str, t_env **env_list);
 int		cd_home(void);
@@ -151,7 +150,8 @@ int		redirect_output(t_redir *redir, int *out);
 int		ft_strlen_char(char *str, char ch);
 void	ft_pipes(t_pipe *pipes, t_env **env_list, int *in);
 void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list);
-int		ft_handle_redirections(t_redir *redir, int *in, int *out, t_env **env_list);
+int		ft_handle_redirections(t_redir *redir,
+			int *in, int *out, t_env **env_list);
 int		pipes_fork_right(t_pipe *pipes, int *fds, t_env **env_list);
 int		pipes_fork_left(t_pipe *pipes, int *fds, t_env **env_list);
 void	pipes_access(t_exec *line);

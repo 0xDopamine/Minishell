@@ -209,5 +209,14 @@ bug from my side
 
 echo $USER:$PATH -> should assign them both but it only assigns one
 
- echo 'abc
  echo "$ a"
+
+UPDATE !!!
+
+the above case hia li b9at, it shows double free, other cases f string handler
+dont show any leaks from my side, i normed all other files
+ba9i parser.c and split_quotes.c f norm
+
+BTW: the problem above is caused by fetch_quoted and fetch_env in that specific case
+print the values and see by yourself, we get quotes error cause the final quotes
+kaddoz bohdha lfunction.

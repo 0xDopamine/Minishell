@@ -87,8 +87,6 @@ void	minishell(char *line, char *temp, t_env *env_list)
 	ft_wait_pids(simple_command);
 	free_cmd(simple_command);
 	free(temp);
-	// free(line);
-	system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **env)

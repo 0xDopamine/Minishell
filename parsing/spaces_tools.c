@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spaces_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:14:07 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/27 22:38:25 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/28 04:58:51 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,6 @@ char	*handle_spaces(char *line)
 	if (count > 0)
 		return (add_spaces(line, count));
 	return (line);
-}
-
-int	ft_is_heredoc(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '<' && line[i + 1] == '<')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 char	*spaces(char *line)

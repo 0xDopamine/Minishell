@@ -37,3 +37,17 @@ void	freethis1(char **str)
 	}
 	freethis(str);
 }
+
+int	ft_is_heredoc(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '<' && line[i + 1] == '<')
+			return (1);
+		i++;
+	}
+	return (0);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaioumy <abaioumy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 09:44:17 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 22:45:13 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/28 22:52:38 by abaioumy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 	{	
 		fetch_quoted(q, eq);
 		if (*q == NULL)
+		{
+			free(res);
 			return (NULL);
+		}
 		if (**q == '$' && *(*q + 1) != ' ' && **eq != '\'')
 			res = ft_env_case(q, eq, res, env_list);
 		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')

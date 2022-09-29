@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse.h                                           :+:      :+:    :+:   */
@@ -18,8 +18,8 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 enum {
 	PIPE,
@@ -43,14 +43,14 @@ typedef struct s_data {
 	char	*q;
 	char	*eq;
 	char	*temp;
-}	t_data ;
+}	t_data;
 
 typedef struct s_space {
 	int		i;
 	int		j;
 	char	*str;
 	size_t	len;
-}	t_space ;
+}	t_space;
 
 typedef struct s_handle {
 	char	*q;

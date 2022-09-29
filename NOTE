@@ -228,4 +228,13 @@ kaddoz bohdha lfunction.
 
 <"file" or whatever
 
-heap buffer overflow redir append and pipe > | >>
+heap buffer overflow redir append and pipe > | 
+
+
+'small note
+
+cat | cat | ls this test doesnt work as it should
+it displays ^M until i ^C then cat stops reading
+try it
+i didnt touch any function related to it
+parseexec is left as it is cus i couldnt figure out norming it

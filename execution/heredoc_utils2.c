@@ -12,7 +12,7 @@
 
 #include "exec.h"
 
-static char	*ft_copy_char(char *res, char tok)
+char	*ft_copy_char(char *res, char tok)
 {
 	int		i;
 	char	*ret;

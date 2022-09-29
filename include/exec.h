@@ -184,7 +184,7 @@ void	ft_putnbr_fd(int nb, int fd);
 char	*get_next_line(int fd);
 char	*ft_search_for_env(char *s, t_env *env_list);
 char	*ft_assign_env(char *s, t_env *env_list);
-void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list);
+void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list, t_cmd *ret);
 int		ft_get_sigint(int infd);
 void	ft_sig_here(int signal);
 int		start_heredoc(t_here *here, t_redir *redir,
@@ -197,5 +197,6 @@ char	*ft_env_quoted(char **s, char **es, t_env *env_list);
 void	*init_main(char	*line, int argc, char **argv, t_env *env_list);
 void	ft_line_protection(char	*line);
 void	ft_filename(t_parse *parse, t_env *env_list);
+char	*ft_copy_char(char *res, char tok);
 
 #endif

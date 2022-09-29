@@ -40,17 +40,21 @@ void	ft_filename(t_parse *parse, t_env *env_list)
 	free(tmp);
 }
 
-void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list)
+void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list, t_cmd *ret)
 {
 	parse->state = check_var(parse->q);
 	parse->split = ft_split_argv(parse);
 	if (!parse->split)
 	{
+		ret->status = ERROR;
 		cmd->argv[parse->argc] = NULL;
 		return ;
 	}
 	if (parse->tok != 'c')
+	{
+		ret->status = ERROR;
 		printf("syntax error %c\n", parse->tok);
+	}
 	cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0],
 			env_list);
 }

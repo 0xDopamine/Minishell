@@ -28,25 +28,15 @@ char	*handle_spaces(char *line)
 
 	i = 0;
 	count = 1;
-	while (line[i])
+	while (line[i++])
 	{
-		if (ft_strchr(line[i], "|<>"))
-		{
-			if (i > 0 && (line[i] == '>' && line[i + 1] == '>'))
-			{
-				if (!check(line[i - 1], line[i + 2]) && line)
-					count += 3;
-			}
-			else if (i > 0 && (line[i - 1] != ' ' || line[i + 1] != ' '))
-					count += 2;
-		}
-		i++;
+		if (i > 0 && ft_strchr(line[i], "|<>"))
+			count = ft_space_count(line, i, count);
 	}
 	if (count > 0)
 	{
 		temp = (line);
 		line = add_spaces(temp, count);
-		// free(temp);
 		return (line);
 	}
 	return (line);
@@ -55,7 +45,6 @@ char	*handle_spaces(char *line)
 char	*spaces(char *line)
 {
 	int		i;
-	// char	*temp;
 
 	i = 0;
 	if (!line)
@@ -83,6 +72,7 @@ char	*spaces(char *line)
 char	*add_spaces(char *line, int count)
 {
 	t_space	space;
+
 	space.i = 0;
 	space.j = 0;
 	space.len = ft_strlen(line);

@@ -187,5 +187,6 @@ void		ft_split_quotes_case(char **split, char *str, t_split data);
 void		ft_append_quoted_split(char **split, char *str, t_split data);
 void		ft_split_protection(char **split);
 int			ft_is_heredoc(char *line);
+int			ft_space_count(char *line, int i, int count);
 
 #endif

@@ -20,7 +20,8 @@ static	void	init_vars(t_write *w)
 	w->str = NULL;
 	w->index = -1;
 }
-static	void	heredoc_normalcase(t_write *w)
+
+static void	heredoc_normalcase(t_write *w)
 {
 	char	*tmp;
 

@@ -51,3 +51,15 @@ int	ft_is_heredoc(char *line)
 	}
 	return (0);
 }
+
+int	ft_space_count(char *line, int i, int count)
+{
+	if ((line[i] == '>' && line[i + 1] == '>'))
+	{
+		if (!check(line[i - 1], line[i + 2]) && line)
+			count += 3;
+	}
+	else if (i > 0 && (line[i - 1] != ' ' || line[i + 1] != ' '))
+			count += 2;
+	return (count);
+}

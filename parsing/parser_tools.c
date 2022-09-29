@@ -29,6 +29,17 @@ char	**ft_split_argv(t_parse *parse)
 		return (ft_split(parse->q, ' '));
 }
 
+void	ft_filename(t_parse *parse, t_env *env_list)
+{
+	char	*tmp;
+
+	freethis(parse->split);
+	parse->split = ft_split(parse->q, ' ');
+	tmp = parse->split[0];
+	parse->split[0] = ft_ultimate_string_handler(&tmp, env_list);
+	free(tmp);
+}
+
 void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list)
 {
 	parse->state = check_var(parse->q);

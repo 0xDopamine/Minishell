@@ -61,19 +61,19 @@ int	ft_word_len(char *str, char sep)
 	return (len);
 }
 
+void	ft_skip_sep(t_split *data, char *str, char sep)
+{
+	while (str[data->i] && str[data->i] == sep)
+		data->i++;
+}
+
 char	**ft_split_string(char *str, char **split, char sep, t_split *data)
 {
 	while (str[data->i])
 	{
-		while (str[data->i] && str[data->i] == sep)
-			data->i++;
+		ft_skip_sep(data, str, sep);
 		data->len = ft_word_len(str, sep);
 		split[++data->j] = ft_calloc(data->len + 2, sizeof(char));
-		if (!*split)
-		{
-			freethis(split);
-			return (NULL);
-		}
 		data->k = -1;
 		while (++data->k < data->len && str[data->i] && str[data->i] != sep)
 		{

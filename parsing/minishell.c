@@ -76,6 +76,7 @@ void	ft_wait_pids(t_cmd *cmd)
 void	minishell(char *line, char *temp, t_env *env_list)
 {
 	t_cmd	*simple_command;
+	char	*tttmp;
 
 	line = readline(CYAN"TwoBrosShell➤ "RESET);
 	ft_line_protection(line);
@@ -84,7 +85,7 @@ void	minishell(char *line, char *temp, t_env *env_list)
 	line = spaces(temp);
 	if (line)
 	{
-		char *tttmp = line;
+		tttmp = line;
 		simple_command = parsepipe(&line, env_list);
 		ft_check_cmd(simple_command, &env_list);
 		ft_wait_pids(simple_command);
@@ -94,7 +95,6 @@ void	minishell(char *line, char *temp, t_env *env_list)
 	}
 	else
 		free(temp);
-	// system ("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **env)

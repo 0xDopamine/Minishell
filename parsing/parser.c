@@ -17,6 +17,7 @@ static	t_cmd	*parse_norme(t_cmd *cmd)
 {
 	ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
 	g_var.exit_status = 2;
+	cmd->type = ERROR;
 	return (cmd);
 }
 
@@ -47,15 +48,9 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 		if (parse->tok == 0)
 			break ;
 		ft_append_command(cmd, parse, env_list);
-		if (!parse->split)
-			return (ret);
-		parse->argc++;
-		if (parse->argc >= parse->words || parse->split[1] == NULL)
+		if (++parse->argc >= parse->words || parse->split[1] == NULL)
 			break ;
-		freethis(parse->split);
 		ret = parseredir(ret, ps, parse, env_list);
-		if (ret == NULL)
-			return (NULL);
 		free(parse->state);
 		parse->state = NULL;
 	}
@@ -66,8 +61,9 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse, t_env *env_list)
 {
 	t_redir	*head;
-	char	*tmp;
 
+	if (parse->split)
+		freethis(parse->split);
 	parse->split = NULL;
 	if (cmd->type == EXEC)
 		head = NULL;
@@ -79,13 +75,7 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse, t_env *env_list)
 		if (get_token(ps, &parse->q) != 'c')
 			return (parse_norme(cmd));
 		if (*parse->q)
-		{
-			freethis(parse->split);
-			parse->split = ft_split(parse->q, ' ');
-			tmp = parse->split[0];
-			parse->split[0] = ft_ultimate_string_handler(&tmp, env_list);
-			free(tmp);
-		}
+			ft_filename(parse, env_list);
 		ft_append_redir_list(&head, parse, cmd);
 		freethis(parse->split);
 		parse->split = NULL;

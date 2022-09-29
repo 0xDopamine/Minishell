@@ -1,0 +1,9 @@
+Makefile
+NOTE
+a
+draw.tldr
+execution
+include
+lol
+minishell
+parsing

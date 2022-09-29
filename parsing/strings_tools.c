@@ -100,8 +100,6 @@ char	**ft_split(char *s, char c)
 	if (!s)
 		return (NULL);
 	split = (char **)ft_calloc((wdcount(s, c) + 1), sizeof(char *));
-	if (!split)
-		return (NULL);
 	splitting(s, c, 0, split);
 	return (split);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/29 13:40:05 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/29 17:51:08 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,15 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
-<<<<<<< HEAD
 # include <readline/readline.h>
 # include <readline/history.h>
-=======
->>>>>>> ad8c805bbd53215aeccd7a803d3cba2091d0075c
 
 enum {
 	PIPE,
 	REDIR,
 	EXEC,
-	HEREDOC
+	HEREDOC,
+	ERROR
 } ;
 
 enum {

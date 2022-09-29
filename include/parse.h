@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/29 17:16:18 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/29 21:14:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ enum {
 	IS_VAR,
 	NOT_VAR
 }	;
+
+typedef struct s_norm {
+	int	words;
+	int	should_increment;
+	int	i;
+	int	tok;
+}	t_norm;
 
 typedef struct s_data {
 	char	*res;

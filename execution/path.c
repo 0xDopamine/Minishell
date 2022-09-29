@@ -99,5 +99,4 @@ char	**ft_find_path(char **_myenv)
 		i++;
 	}
 	return (NULL);
-	// return (ft_split(getenv("PATH"), ':'));
 }

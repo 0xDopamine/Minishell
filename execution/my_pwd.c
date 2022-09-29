@@ -12,6 +12,34 @@
 
 #include "exec.h"
 
+char	*expand_heredoc_nq(char *str, char *eq, t_env *env_list)
+{
+	char	*tmp;
+	char	*res;
+
+	fetch_env(&str, &eq);
+	tmp = ft_join_string(str, eq);
+	res = ft_assign_env(tmp, env_list);
+	free(tmp);
+	return (res);
+}
+
+char	*expand_heredoc_q(char *str, char *eq, char tok, t_env *env_list)
+{
+	char	*res;
+	char	*tmp;
+
+	fetch_env(&str, &eq);
+	res = malloc(2);
+	res[0] = tok;
+	res[1] = '\0';
+	tmp = ft_join_string(str, eq);
+	res = strjoin_and_free(res, ft_assign_env(tmp, env_list));
+	free(tmp);
+	res = ft_copy_char(res, tok);
+	return (res);
+}
+
 char	**ft_myenv(t_env *env)
 {
 	char	**str;

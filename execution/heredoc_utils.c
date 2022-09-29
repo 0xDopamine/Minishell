@@ -13,6 +13,13 @@
 #include "exec.h"
 #include <readline/readline.h>
 
+static	void	heredoc_norme(t_write *w, char *ret)
+{
+	free(w->line);
+	w->str = strjoin_and_free(w->str, ret);
+	w->str = strjoin_and_free1(w->str, "\n");
+}
+
 static	void	init_vars(t_write *w)
 {
 	w->line = NULL;
@@ -55,7 +62,7 @@ void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 		}
 		ret = heredoc_findsign(w.line, *env_list);
 		if (ret)
-			w.str = strjoin_and_free(w.str, ret);
+			heredoc_norme(&w, ret);
 		else
 			heredoc_normalcase(&w);
 	}

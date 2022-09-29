@@ -15,34 +15,29 @@
 
 int	ft_qword_count(char *str, char sep)
 {
-	int	words;
-	int should_increment;
-	int	i;
-	int	tok;
+	t_norm	norm;
 
-	i = 0;
-	words = 0;
-	should_increment = 1;
-	
-
-	while (str[i])
+	norm.i = 0;
+	norm.words = 0;
+	norm.should_increment = 1;
+	while (str[norm.i])
 	{
-		if (str[i] != sep && should_increment)
+		if (str[norm.i] != sep && norm.should_increment)
 		{
-			words++;
-			should_increment = 0;
+			norm.words++;
+			norm.should_increment = 0;
 		}
-		if (ft_strchr(str[i], "\'\""))
+		if (ft_strchr(str[norm.i], "\'\""))
 		{
-			tok = str[i];
-			while (str[i] && str[i] != tok)
-				i++;
+			norm.tok = str[norm.i];
+			while (str[norm.i] && str[norm.i] != norm.tok)
+				norm.i++;
 		}
-		if (str[i] == sep)
-			should_increment = 1;
-		i++;
+		if (str[norm.i] == sep)
+			norm.should_increment = 1;
+		norm.i++;
 	}
-	return (words);
+	return (norm.words);
 }
 
 int	ft_word_len(char *str, char sep)
@@ -99,7 +94,6 @@ char	**ft_split_string(char *str, char **split, char sep, t_split *data)
 			data->i++;
 	}
 	split[data->j + 1] = NULL;
-	printf("split: %s\n", split[data->j]);
 	return (split);
 }
 
@@ -117,9 +111,7 @@ char	**ft_split_q(char *str, char sep)
 	data = malloc(sizeof(t_data));
 	data->i = 0;
 	data->j = -1;
-	int rret = ft_qword_count(str, sep);
-	printf("%d\n", rret);
-	split = ft_calloc((rret + 2), sizeof(char *));
+	split = ft_calloc((ft_qword_count(str, sep) + 2), sizeof(char *));
 	ret = ft_split_string(str, split, sep, data);
 	free(data);
 	return (ret);

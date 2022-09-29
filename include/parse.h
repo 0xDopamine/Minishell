@@ -1,12 +1,12 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                           :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/08/25 03:46:13 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:40:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
 enum {
 	PIPE,
@@ -43,14 +41,14 @@ typedef struct s_data {
 	char	*q;
 	char	*eq;
 	char	*temp;
-}	t_data ;
+}	t_data;
 
 typedef struct s_space {
 	int		i;
 	int		j;
 	char	*str;
 	size_t	len;
-}	t_space ;
+}	t_space;
 
 typedef struct s_handle {
 	char	*q;

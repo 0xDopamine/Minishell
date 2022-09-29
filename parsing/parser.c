@@ -13,6 +13,13 @@
 #include "exec.h"
 #include <unistd.h>
 
+static	t_cmd	*parse_norme(t_cmd *cmd)
+{
+	ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
+	g_var.exit_status = 2;
+	return (cmd);
+}
+
 void	ft_init_parse(char	**ps, t_parse *parse)
 {
 	parse->words = ft_init_words(ps);
@@ -70,12 +77,7 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse, t_env *env_list)
 	{
 		parse->tok = get_token(ps, 0);
 		if (get_token(ps, &parse->q) != 'c')
-		{
-			ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
-			g_var.exit_status = 2;
-			cmd = NULL;
-			return (cmd);
-		}
+			return (parse_norme(cmd));
 		if (*parse->q)
 		{
 			freethis(parse->split);

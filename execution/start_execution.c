@@ -26,6 +26,8 @@ static	void	ft_dup_fds(int *in, int *read_fd, int *write_fd)
 
 void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list)
 {
+	if (cmd == NULL)
+		return ;
 	if (cmd->type == PIPE)
 		ft_pipes((t_pipe *)cmd, env_list, in);
 	else if (cmd->type == EXEC)

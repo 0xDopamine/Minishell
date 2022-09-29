@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_tools_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 02:09:26 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/23 06:16:26 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:27:47 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	ft_strcmp(char *s1, char *s2)
 	unsigned int	i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (-1);
 	while (s1[i] && s2[i])
 	{
 		if (s1[i] == s2[i])

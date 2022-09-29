@@ -53,16 +53,36 @@ char	*heredoc_getstr(char *str)
 	return (ret);
 }
 
-int	heredoc_findsign(char *str)
+char	*heredoc_findsign(char *str, t_env *env_list)
 {
-	int	i;
+	int		i;
+	char	*eq;
+	char	*res;
+	char	tok;
 
 	i = 0;
+	tok = 0;
+	eq = NULL;
+	res = NULL;
 	while (str[i])
 	{
-		if (str[i] == '$')
-			return (i);
+		if (ft_strchr(str[i], "\'\""))
+			tok = str[i++];
+		if (str[i] == '$' && !tok)
+		{
+			fetch_env(&str + i, &eq);
+			res = ft_join_string(str, eq);
+			res = ft_assign_env(res, env_list);
+		}
+		else if (str[i] == '$' && tok)
+		{
+			res[0] = tok;
+			res = ft_join_string(str + i, eq);
+			res = strjoin_and_free(res, ft_assign_env(res, env_list));
+			res = strjoin_and_free1(res, &tok);
+			return (res);
+		}
 		i++;
 	}
-	return (-1);
+	return (res);
 }

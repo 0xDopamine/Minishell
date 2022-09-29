@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/29 17:51:08 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:16:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ enum {
 	REDIR,
 	EXEC,
 	HEREDOC,
-	ERROR
+	ERROR,
+	OK
 } ;
 
 enum {
@@ -70,6 +71,7 @@ typedef struct s_parse {
 
 typedef struct s_cmd {
 	int	type;
+	int	status;
 }	t_cmd;
 
 typedef struct s_split {

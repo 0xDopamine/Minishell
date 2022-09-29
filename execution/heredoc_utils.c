@@ -37,24 +37,25 @@ static void	heredoc_normalcase(t_write *w)
 void	heredoc_writefile(char *delimiter, int fd, t_env **env_list)
 {
 	t_write	w;
+	char	*ret;
 
 	init_vars(&w);
 	while (TRUE)
 	{
 		w.line = readline(YELLOW"heredoc> " RESET);
-		if (!w.line || !delimiter)
+		if (!w.line || (!delimiter && ft_strlen(w.line) == 0))
 		{
 			free(w.line);
 			break ;
 		}
-		if (ft_strcmp(w.line, delimiter) == 0)
+		if (w.line && ft_strcmp(w.line, delimiter) == 0)
 		{
 			free(w.line);
 			break ;
 		}
-		w.index = heredoc_findsign(w.line);
-		if (w.index != -1)
-			heredoc_specialcase(&w, env_list);
+		ret = heredoc_findsign(w.line, *env_list);
+		if (ret)
+			w.str = strjoin_and_free(w.str, ret);
 		else
 			heredoc_normalcase(&w);
 	}

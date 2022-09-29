@@ -20,6 +20,7 @@ t_cmd	*parsecmd(char *s)
 	next(&s, "");
 	if (s)
 		exit(2);
+	cmd->status = OK;
 	return (cmd);
 }
 

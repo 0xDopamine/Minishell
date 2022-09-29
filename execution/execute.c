@@ -50,7 +50,7 @@ void	execnofork_loop(char *cmd, char **av, char **env)
 	int		i;
 
 	i = 0;
-	path = ft_find_path();
+	path = ft_find_path(env);
 	while (path && path[i])
 	{
 		join = ft_strjoin(path[i], cmd);

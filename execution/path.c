@@ -87,7 +87,17 @@ char	**ft_split_namecont(char *str)
 	return (ret);
 }
 
-char	**ft_find_path(void)
+char	**ft_find_path(char **_myenv)
 {
-	return (ft_split(getenv("PATH"), ':'));
+	int	i;
+
+	i = 0;
+	while (_myenv[i])
+	{
+		if (ft_strncmp(_myenv[i], "PATH=", 5) == 0)
+			return (ft_split(_myenv[i] + 5, ':'));
+		i++;
+	}
+	return (NULL);
+	// return (ft_split(getenv("PATH"), ':'));
 }

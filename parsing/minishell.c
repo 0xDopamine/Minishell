@@ -40,14 +40,14 @@ void	free_cmd(t_cmd *cmd)
 
 	if (cmd == NULL)
 		return ;
-	if (cmd->type == EXEC)
+	if (cmd->type == EXEC || (cmd->status == ERROR && cmd->type == EXEC))
 		freethis(_exec->argv);
-	else if (cmd->type == REDIR)
+	else if (cmd->type == REDIR || (cmd->status == ERROR && cmd->type == REDIR))
 	{
 		free_cmd(_red->cmd);
 		free_red(_red);
 	}
-	else if (cmd->type == PIPE)
+	else if (cmd->type == PIPE || (cmd->status == ERROR && cmd->type == PIPE))
 	{
 		free_cmd(_pipe->left);
 		free_cmd(_pipe->right);

@@ -33,7 +33,7 @@ int	export_checkop(char *str)
 	return (EXIT_FAILURE);
 }
 
-void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
+int	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 {
 	int	fds[2];
 	int	in;
@@ -42,15 +42,13 @@ void	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 	fds[0] = 0;
 	fds[1] = 1;
 	if (!cmd)
-		return ;
+		return (1);
 	if (cmd->type != PIPE)
-	{
-		handle_one_command(cmd, env_list);
-		return ;
-	}
+		return (handle_one_command(cmd, env_list));
 	ft_start_pipe(cmd, &in, fds, env_list);
 	if (fds[1] != 1)
 		close(fds[1]);
 	if (in != 0)
 		close(in);
+	return (0);
 }

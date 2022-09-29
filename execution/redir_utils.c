@@ -39,6 +39,7 @@ int	ft_open_file(t_redir *redir)
 	if (redir_isdir(redir->file))
 	{
 		ft_putstr_fd(redir->file, ": is a directory\n", STDERR_FILENO);
+		g_var.exit_status = 126;
 		return (-1);
 	}
 	fd = open(redir->file, redir->mode, 0644);

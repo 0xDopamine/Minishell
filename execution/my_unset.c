@@ -25,6 +25,7 @@ int	unset_checkstr(char *str)
 		{
 			ft_putstr_fd("unset: '", str, STDERR_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", NULL, STDERR_FILENO);
+			g_var.exit_status = EXIT_FAILURE;
 			return (EXIT_SUCCESS);
 		}
 		i++;

@@ -30,6 +30,7 @@ static	int	cd_update_pwd(t_env **env_list)
 	{
 		free(pwd);
 		perror("cd");
+		g_var.exit_status = EXIT_FAILURE;
 		return (1);
 	}
 	while (env)
@@ -85,6 +86,7 @@ static	int	cd_update_oldpwd(t_env **env_list)
 	if (!getcwd(pwd, PATH_MAX))
 	{
 		free(pwd);
+		g_var.exit_status = EXIT_FAILURE;
 		perror("cd");
 		return (1);
 	}

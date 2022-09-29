@@ -87,8 +87,8 @@ void	minishell(char *line, char *temp, t_env *env_list)
 	{
 		tttmp = line;
 		simple_command = parsepipe(&line, env_list);
-		ft_check_cmd(simple_command, &env_list);
-		ft_wait_pids(simple_command);
+		if (ft_check_cmd(simple_command, &env_list) == 0)
+			ft_wait_pids(simple_command);
 		free_cmd(simple_command);
 		free(tttmp);
 		free(temp);

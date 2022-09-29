@@ -12,7 +12,7 @@
 
 #include "exec.h"
 
-static	void	handle_exec_case(t_cmd *cmd, int *in, t_env **env_list)
+static	int	handle_exec_case(t_cmd *cmd, int *in, t_env **env_list)
 {
 	int	fds[2];
 
@@ -21,8 +21,9 @@ static	void	handle_exec_case(t_cmd *cmd, int *in, t_env **env_list)
 	if (ft_ifmybuiltin(((t_exec *)cmd)->argv[0], (t_exec *)cmd, env_list)
 		|| ft_ifmybuiltin_up(((t_exec *)cmd)->argv[0]
 			, (t_exec *)cmd, env_list))
-		return ;
+		return (1);
 	ft_start_pipe(cmd, in, fds, env_list);
+	return (0);
 }
 
 static void	ft_close_fds(int *tmp_in, int *tmp_out)
@@ -44,7 +45,7 @@ static void	ft_dup_fds(int *in, int *out, t_cmd *cmd, t_env **env_list)
 	handle_one_command(((t_redir *)cmd)->cmd, env_list);
 }
 
-void	handle_one_command(t_cmd *cmd, t_env **env_list)
+int	handle_one_command(t_cmd *cmd, t_env **env_list)
 {
 	int	in;
 	int	tmp_in;
@@ -60,7 +61,9 @@ void	handle_one_command(t_cmd *cmd, t_env **env_list)
 		if (ft_handle_redirections((t_redir *)cmd, &in, &out, env_list) == 0)
 			ft_dup_fds(&in, &out, cmd, env_list);
 		ft_close_fds(&tmp_in, &tmp_out);
+		return (0);
 	}
 	else
-		handle_exec_case(cmd, &in, env_list);
+		return (handle_exec_case(cmd, &in, env_list));
+	return (0);
 }

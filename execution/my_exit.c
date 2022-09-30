@@ -75,6 +75,11 @@ int	ft_exit(char **argv)
 {
 	int	exit_val;
 
+	if (!argv[1])
+	{
+		freethis(argv);
+		exit(g_var.exit_status);
+	}
 	if (argv[1] && !argv[2])
 		exit_val = ft_atoi(argv[1]);
 	printf("exit\n");
@@ -87,11 +92,6 @@ int	ft_exit(char **argv)
 	{
 		freethis(argv);
 		exit(exit_val);
-	}
-	else if (!argv[1])
-	{
-		freethis(argv);
-		exit(g_var.exit_status);
 	}
 	freethis(argv);
 	g_var.exit_status = EXIT_FAILURE;

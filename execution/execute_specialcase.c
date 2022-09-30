@@ -40,7 +40,7 @@ static int	ft_check_if_dir(char *cmd)
 	return (EXIT_SUCCESS);
 }
 
-int	exec_specialcases(char *cmd, t_exec *line, char **my_env, t_env **env_list)
+int	exec_specialcases(char *cmd, t_exec *line, char **my_env)
 {
 	if (ft_check_if_dir(cmd))
 	{
@@ -49,19 +49,6 @@ int	exec_specialcases(char *cmd, t_exec *line, char **my_env, t_env **env_list)
 		return (1);
 	}
 	if (exec_checkcmd_fork(cmd, line->argv, my_env) == -1)
-	{
-		freethis(my_env);
-		free(cmd);
-		freethis(line->argv);
-		return (1);
-	}
-	if (ft_ifmybuiltin(cmd, line, env_list)
-		|| ft_ifmybuiltin_up(cmd, line, env_list))
-	{
-		free(cmd);
-		freethis(my_env);
-		exit(EXIT_SUCCESS);
-		return (1);
-	}
+		return (0);
 	return (0);
 }

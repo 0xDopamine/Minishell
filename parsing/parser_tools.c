@@ -16,10 +16,8 @@
 int	ft_init_words(char	**ps, t_env *env_list)
 {
 	char	*tmp;
-	int		num;
 
 	tmp = NULL;
-	num = 0;
 	if (**ps == '$' && ft_check_evar(ps) == OK)
 	{
 		tmp = *ps;

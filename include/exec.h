@@ -106,8 +106,7 @@ int		exec_checkcmd_fork(char *cmd, char **av, char **env);
 int		exec_checkcmd(char *cmd);
 int		exec_cmdpath(char *cmd, char **env, char **av);
 void	execnofork_loop(char *cmd, char **av, char **env);
-int		exec_specialcases(char *cmd, t_exec *line,
-			char **my_env, t_env **env_list);
+int		exec_specialcases(char *cmd, t_exec *line, char **my_env);
 int		cd_errors(void);
 int		cd_ifoldpwd(char *str, t_env **env_list);
 int		cd_home(void);

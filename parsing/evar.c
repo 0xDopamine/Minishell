@@ -43,3 +43,50 @@ int	check_state(int *state)
 		return (1);
 	return (0);
 }
+
+int	ft_check_evar(char **ps)
+{
+	char	*s;
+
+	s = *ps;
+	while (*s)
+	{
+		if (ft_strchr(*s, "|<>"))
+			return (ERROR);
+		else
+			s++;
+	}
+	return (OK);
+}
+
+void	fetch_delimiter(char **q, char **eq)
+{
+	char	*s;
+
+	s = *q;
+	*q = s;
+	while (!ft_strchr(*s, "\'\"") && *s)
+		s++;
+	*eq = s--;
+}
+
+char	*ft_delimiter_handler(char **del)
+{
+	char	*s;
+	char	*es;
+	char	*res;
+
+	s = *del;
+	es = NULL;
+	if (ft_strchr(*s, "\'\""))
+	{
+		fetch_quoted(&s, &es);
+		res = ft_join_string(s, es);
+	}
+	else
+	{
+		fetch_delimiter(&s, &es);
+		res = ft_join_string(s, es);
+	}
+	return (res);
+}

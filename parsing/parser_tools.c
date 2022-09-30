@@ -16,13 +16,21 @@
 int	ft_init_words(char	**ps, t_env *env_list)
 {
 	char	*tmp;
+	int		num;
 
 	tmp = NULL;
-	if (**ps == '$')
+	num = 0;
+	if (**ps == '$' && ft_check_evar(ps) == OK)
 	{
-		tmp = ft_assign_env(*ps, env_list);
-		*ps = tmp;
-		return (num_words(tmp, 1));
+		tmp = *ps;
+		*ps = ft_assign_env(tmp, env_list);
+		if (ft_check_evar(ps) == OK)
+			return (num_words(*ps, 1));
+		else
+		{
+			*ps = tmp;
+			return (num_words(*ps, 1));
+		}
 	}
 	else if (ft_strchr(**ps, "\'\""))
 		return (num_words(*ps, 0));
@@ -36,38 +44,6 @@ char	**ft_split_argv(t_parse *parse)
 		return (ft_split_q(parse->q, ' '));
 	else
 		return (ft_split(parse->q, ' '));
-}
-
-void	fetch_delimiter(char **q, char **eq)
-{
-	char	*s;
-
-	s = *q;
-	*q = s;
-	while (!ft_strchr(*s, "\'\"") && *s)
-		s++;
-	*eq = s--;
-}
-
-char	*ft_delimiter_handler(char **del)
-{
-	char	*s;
-	char	*es;
-	char	*res;
-
-	s = *del;
-	es = NULL;
-	if (ft_strchr(*s, "\'\""))
-	{
-		fetch_quoted(&s, &es);
-		res = ft_join_string(s, es);
-	}
-	else
-	{
-		fetch_delimiter(&s, &es);
-		res = ft_join_string(s, es);
-	}
-	return (res);
 }
 
 void	ft_filename(t_parse *parse, t_env *env_list)
@@ -84,7 +60,8 @@ void	ft_filename(t_parse *parse, t_env *env_list)
 	free(tmp);
 }
 
-void    ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list, t_cmd *ret)
+void	ft_append_command(t_exec *cmd, t_parse *parse,
+	t_env *env_list, t_cmd *ret)
 {
 	parse->state = check_var(parse->q);
 	parse->split = ft_split_argv(parse);
@@ -104,7 +81,6 @@ void    ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list, t_cmd *r
 	if (parse->split[1] && cmd->argv[parse->argc] == NULL)
 		cmd->argv[parse->argc] = ft_strdup(" ");
 }
-
 
 void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)
 {

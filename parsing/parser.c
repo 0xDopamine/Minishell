@@ -40,9 +40,8 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	ret = execcmd(parse->words);
 	cmd = (t_exec *)ret;
 	ret = parseredir(ret, ps, parse, env_list);
-	freethis(parse->split);
-	parse->split = NULL;
-	while (!next(ps, "|"))
+	ft_free_and_null(parse, 1);
+	while (ps && !next(ps, "|"))
 	{
 		parse->tok = get_token(ps, &parse->q);
 		if (parse->tok == 0)
@@ -52,10 +51,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 			if (++parse->argc >= parse->words || parse->split[1] == NULL)
 				break ;
 		ret = parseredir(ret, ps, parse, env_list);
-		if (ret == NULL)
-			return (NULL);
-		free(parse->state);
-		parse->state = NULL;
+		ft_free_and_null(parse, 0);
 	}
 	if (cmd->argv[parse->argc])
 		cmd->argv[parse->argc] = NULL;

@@ -63,3 +63,17 @@ int	ft_space_count(char *line, int i, int count)
 			count += 2;
 	return (count);
 }
+
+void	ft_free_and_null(t_parse *parse, int flag)
+{
+	if (flag)
+	{
+		freethis(parse->split);
+		parse->split = NULL;
+	}
+	else
+	{
+		free(parse->state);
+		parse->state = NULL;
+	}
+}

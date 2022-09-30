@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/30 03:09:34 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/30 10:53:59 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,5 +197,9 @@ void		ft_append_quoted_split(char **split, char *str, t_split data);
 void		ft_split_protection(char **split);
 int			ft_is_heredoc(char *line);
 int			ft_space_count(char *line, int i, int count);
+int			ft_check_evar(char **ps);
+void		fetch_delimiter(char **q, char **eq);
+char		*ft_delimiter_handler(char **del);
+void		ft_free_and_null(t_parse *parse, int flag);
 
 #endif

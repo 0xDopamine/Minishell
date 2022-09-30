@@ -29,6 +29,38 @@ char	**ft_split_argv(t_parse *parse)
 		return (ft_split(parse->q, ' '));
 }
 
+void	fetch_delimiter(char **q, char **eq)
+{
+	char	*s;
+
+	s = *q;
+	*q = s;
+	while (!ft_strchr(*s, "\'\"") && *s)
+		s++;
+	*eq = s--;
+}
+
+char	*ft_delimiter_handler(char **del)
+{
+	char	*s;
+	char	*es;
+	char	*res;
+
+	s = *del;
+	es = NULL;
+	if (ft_strchr(*s, "\'\""))
+	{
+		fetch_quoted(&s, &es);
+		res = ft_join_string(s, es);
+	}
+	else
+	{
+		fetch_delimiter(&s, &es);
+		res = ft_join_string(s, es);
+	}
+	return (res);
+}
+
 void	ft_filename(t_parse *parse, t_env *env_list)
 {
 	char	*tmp;
@@ -36,7 +68,10 @@ void	ft_filename(t_parse *parse, t_env *env_list)
 	freethis(parse->split);
 	parse->split = ft_split(parse->q, ' ');
 	tmp = parse->split[0];
-	parse->split[0] = ft_ultimate_string_handler(&tmp, env_list);
+	if (parse->tok != 'H')
+		parse->split[0] = ft_ultimate_string_handler(&tmp, env_list);
+	else
+		parse->split[0] = ft_delimiter_handler(&tmp);
 	free(tmp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 01:10:55 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/28 04:50:40 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/09/30 01:18:24 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char	*ft_append_env(char **split, char *ret, t_env *env_list)
 		{
 			if (ft_strcmp(split[i], temp_list->name) == 0)
 			{
+				tmp = ret;
 				ret = ft_strjoin(tmp, temp_list->path);
 				free(tmp);
 				break ;

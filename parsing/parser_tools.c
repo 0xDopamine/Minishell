@@ -57,6 +57,9 @@ void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list, t_cmd *ret)
 	}
 	cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0],
 			env_list);
+	if (parse->split[1] && cmd->argv[parse->argc] == NULL)
+		cmd->argv[parse->argc] = ft_strdup(" ");
+	
 }
 
 void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)

@@ -13,9 +13,18 @@
 #include "parse.h"
 #include "exec.h"
 
-int	ft_init_words(char	**ps)
+int	ft_init_words(char	**ps, t_env *env_list)
 {
-	if (ft_strchr(**ps, "\'\""))
+	char	*tmp;
+
+	tmp = NULL;
+	if (**ps == '$')
+	{
+		tmp = ft_assign_env(*ps, env_list);
+		*ps = tmp;
+		return (num_words(tmp, 1));
+	}
+	else if (ft_strchr(**ps, "\'\""))
 		return (num_words(*ps, 0));
 	else
 		return (num_words(*ps, 1));
@@ -75,7 +84,7 @@ void	ft_filename(t_parse *parse, t_env *env_list)
 	free(tmp);
 }
 
-void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list, t_cmd *ret)
+void    ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list, t_cmd *ret)
 {
 	parse->state = check_var(parse->q);
 	parse->split = ft_split_argv(parse);
@@ -94,8 +103,8 @@ void	ft_append_command(t_exec *cmd, t_parse *parse, t_env *env_list, t_cmd *ret)
 			env_list);
 	if (parse->split[1] && cmd->argv[parse->argc] == NULL)
 		cmd->argv[parse->argc] = ft_strdup(" ");
-	
 }
+
 
 void	ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd)
 {

@@ -21,9 +21,9 @@ static	t_cmd	*parse_norme(t_cmd *cmd)
 	return (cmd);
 }
 
-void	ft_init_parse(char	**ps, t_parse *parse)
+void	ft_init_parse(char	**ps, t_parse *parse, t_env *env_list)
 {
-	parse->words = ft_init_words(ps);
+	parse->words = ft_init_words(ps, env_list);
 	parse->state = NULL;
 	parse->split = NULL;
 	parse->argc = 0;
@@ -34,7 +34,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	t_exec	*cmd;
 	t_cmd	*ret;
 
-	ft_init_parse(ps, parse);
+	ft_init_parse(ps, parse, env_list);
 	if (parse->words == 0)
 		return (NULL);
 	ret = execcmd(parse->words);
@@ -57,7 +57,8 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 		free(parse->state);
 		parse->state = NULL;
 	}
-	cmd->argv[parse->argc] = NULL;
+	if (cmd->argv[parse->argc])
+		cmd->argv[parse->argc] = NULL;
 	return (ret);
 }
 

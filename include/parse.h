@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/29 21:14:11 by codespace        ###   ########.fr       */
+/*   Updated: 2022/09/30 03:09:34 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ int			*check_var(char *str);
 int			num_words(char *str, int quote_flag);
 void		ft_append_redir_list(t_redir **head, t_parse *parse, t_cmd *cmd);
 char		**ft_split_argv(t_parse *parse);
-int			ft_init_words(char	**ps);
 char		*loop_spaces(t_space space, char *line);
 int			check_state(int *state);
 int			*check_var(char *str);

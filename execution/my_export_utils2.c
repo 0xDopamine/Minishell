@@ -57,8 +57,8 @@ void	export_addvar(char **av, t_env **env)
 		if (!str[0])
 			return (free_str(str));
 		if (export1(str[0], str[1], str, env))
-			return (free_str(str));
-		if (export_checkav(str[0], str, NAME))
+			free_str(str);
+		else if (export_checkav(str[0], str, NAME))
 		{
 			g_var.exit_status = EXIT_SUCCESS;
 			ft_lstadd_back(env, ft_lstnew(str[1], str[0]));

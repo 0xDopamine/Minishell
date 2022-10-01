@@ -1,0 +1,3 @@
+ls >< a and ls <> a(leak of the "a" file name) the cmd->type needs to be REDIR but it's EXEC
+heap buffer overflow in some tests with quotes
+echo "|" gives quotes error ?!

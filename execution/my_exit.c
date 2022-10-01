@@ -93,7 +93,6 @@ int	ft_exit(char **argv)
 		freethis(argv);
 		exit(exit_val);
 	}
-	freethis(argv);
 	g_var.exit_status = EXIT_FAILURE;
 	ft_putstr_fd("exit: too many arguments\n", NULL, STDERR_FILENO);
 	return (1);

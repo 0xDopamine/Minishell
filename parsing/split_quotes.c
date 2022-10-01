@@ -78,16 +78,17 @@ char	**ft_split_string(char *str, char **split, char sep, t_split *data)
 		data->k = -1;
 		while (++data->k < data->len && str[data->i] && str[data->i] != sep)
 		{
-			if (ft_strchr(str[data->i], "\'\""))
+			if (data->i < data->len && ft_strchr(str[data->i], "\'\""))
 			{
 				data->tok = str[data->i];
 				split[data->j][data->k++] = str[data->i];
 				data->i++;
-				while (data->k < data->len && str[data->i]
+				while (str[data->i] && data->k < data->len 
 					&& str[data->i] != data->tok)
 					split[data->j][data->k++] = str[data->i++];
 			}
-			split[data->j][data->k] = str[data->i++];
+			if (data->i < data->len)
+				split[data->j][data->k] = str[data->i++];
 		}
 		split[data->j][data->k] = '\0';
 		if (str[data->i])

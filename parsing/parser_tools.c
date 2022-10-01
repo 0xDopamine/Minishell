@@ -71,8 +71,11 @@ void	ft_append_command(t_exec *cmd, t_parse *parse,
 	}
 	if (parse->tok != 'c')
 	{
+		printf("hello\n");
+		printf("ret: %d\n", ret->type);
 		ret->status = ERROR;
 		printf("syntax error %c\n", parse->tok);
+		return ;
 	}
 	cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0],
 			env_list);

@@ -34,7 +34,8 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	t_exec	*cmd;
 	t_cmd	*ret;
 
-	ft_init_parse(ps, parse, env_list);
+	ft_init_parse(
+		ps, parse, env_list);
 	if (parse->words == 0)
 		return (NULL);
 	ret = execcmd(parse->words);

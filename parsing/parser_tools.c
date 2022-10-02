@@ -77,7 +77,6 @@ void	ft_append_command(t_exec *cmd, t_parse *parse,
 	}
 	cmd->argv[parse->argc] = ft_ultimate_string_handler(&parse->split[0],
 			env_list);
-	printf("cmd: %s\n", cmd->argv[parse->argc]);
 	if (parse->split[1] && cmd->argv[parse->argc] == NULL)
 		cmd->argv[parse->argc] = ft_strdup(" ");
 }

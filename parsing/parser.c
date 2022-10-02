@@ -98,7 +98,7 @@ t_cmd	*parsepipe(char **ps, t_env *env_list)
 		free(parse);
 		return (NULL);
 	}
-	if (next(ps, "|"))
+	if (**ps && next(ps, "|"))
 	{
 		get_token(ps, 0);
 		cmd = pipecmd(cmd, parsepipe(ps, env_list));

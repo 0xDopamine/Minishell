@@ -21,7 +21,7 @@ int	ft_init_words(char	**ps, t_env *env_list)
 	if (**ps == '$' && ft_check_evar(ps) == OK)
 	{
 		tmp = *ps;
-		*ps = ft_assign_env(tmp, env_list);
+		*ps = ft_ultimate_string_handler(ps, env_list);
 		if (ft_check_evar(ps) == OK)
 			return (num_words(*ps, 1));
 		else
@@ -71,8 +71,6 @@ void	ft_append_command(t_exec *cmd, t_parse *parse,
 	}
 	if (parse->tok != 'c')
 	{
-		printf("hello\n");
-		printf("ret: %d\n", ret->type);
 		ret->status = ERROR;
 		printf("syntax error %c\n", parse->tok);
 		return ;

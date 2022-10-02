@@ -45,8 +45,10 @@ char	*handle_spaces(char *line)
 char	*spaces(char *line)
 {
 	int		i;
+	int		tok;
 
 	i = 0;
+	tok = 0;
 	if (!line)
 	{
 		free(line);
@@ -56,7 +58,14 @@ char	*spaces(char *line)
 		return (ft_strdup(line));
 	while (line[i])
 	{
-		if (ft_strchr(line[i], "|<>") && !ft_is_heredoc(line))
+		if (ft_strchr(line[i], "\'\""))
+		{
+			tok = line[i];
+			i++;
+			while (line[i] && line[i] != tok)
+				i++;
+		}
+		else if (ft_strchr(line[i], "|<>") && !ft_is_heredoc(line))
 		{
 			if (i > 0 && (line[i - 1] != ' ' || line[i + 1] != ' '))
 			{

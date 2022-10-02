@@ -32,6 +32,22 @@ char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 	return (res);
 }
 
+char	*ft_normal_case(char **q, char **eq, char *res)
+{
+	fetch_string(q, eq);
+	res = strjoin_and_free(res, ft_join_string(*q, *eq));
+	if (**eq == '\0')
+	{
+		*q = NULL;
+		return (res);
+	}
+	else if (ft_strchr(**eq, "\'\""))
+		*q = *eq + 1;
+	else
+		*q = *eq;
+	return (res);
+}
+
 char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 {
 	if (**q)
@@ -44,27 +60,18 @@ char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 		}
 		if (**q == '$' && *(*q + 1) != ' ' && **eq != '\'')
 			res = ft_env_case(q, eq, res, env_list);
-		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
+		if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
 			res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
 		else
-			res = strjoin_and_free(res, ft_join_string(*q, *eq));
-		if (**eq + 1)
+		{
+			*q = ft_join_string(*q, *eq);
+			res = ft_normal_case(q, eq, res);
+		}
+		if (**eq + 1 && ft_strchr(**eq, "\'\""))
 			*q = *eq + 1;
+		else
+			*q = *eq;
 	}
-	return (res);
-}
-
-char	*ft_normal_case(char **q, char **eq, char *res)
-{
-	fetch_string(q, eq);
-	res = strjoin_and_free(res, ft_join_string(*q, *eq));
-	if (**eq == '\0')
-	{
-		*q = NULL;
-		return (res);
-	}
-	else
-		*q = *eq;
 	return (res);
 }
 

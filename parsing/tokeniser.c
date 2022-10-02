@@ -88,8 +88,10 @@ int	get_token(char **ps, char **q)
 {
 	char	*s;
 	int		tok;
+	char	*eq;
 
 	s = *ps;
+	eq = NULL;
 	ft_skip_whitespace(&s);
 	if (q)
 		*q = s;
@@ -103,6 +105,11 @@ int	get_token(char **ps, char **q)
 	else
 	{
 		tok = 'c';
+		while (*s && ft_strchr(*s, "\'\""))
+		{
+			fetch_quoted(&s, &eq);
+			s = eq + 1;
+		}
 		while (*s != '\0' && !ft_strchr(*s, " \t\f\n\v\r") && !ft_strchr(*s, "|<>"))
 			s++;
 	}

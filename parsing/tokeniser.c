@@ -114,10 +114,11 @@ int	get_token(char **ps, char **q)
 			{
 				fetch_quoted(&s, &eq);
 				if (!s)
+				{
 					tok = ERROR;
-				else if (s && *eq + 1 != '\0')
-					eq += 1;
-				s = eq;
+					break ;
+				}
+				s = eq + 1;
 			}
 		}
 		else

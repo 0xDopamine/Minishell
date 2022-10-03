@@ -49,7 +49,9 @@ int	ft_check_evar(char **ps)
 	char	*s;
 
 	s = *ps;
-	while (*s)
+	if (ps)
+		return (ERROR);
+	while (s)
 	{
 		if (ft_strchr(*s, "|<>"))
 			return (ERROR);

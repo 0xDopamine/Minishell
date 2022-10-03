@@ -72,6 +72,7 @@ char	*spaces(char *line)
 				line = handle_spaces(line);
 				return (line);
 			}
+			i++;
 		}
 		else
 			i++;

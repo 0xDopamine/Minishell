@@ -78,7 +78,10 @@ void	ft_skip_whitespace(char **ps)
 {
 	char	*s;
 
-	s = *ps;
+	if (ps)
+		s = *ps;
+	else
+		s = NULL;
 	while (s && ft_strchr(*s, " \t\f\n\v\r"))
 		s++;
 	*ps = s;
@@ -107,10 +110,14 @@ int	get_token(char **ps, char **q)
 		tok = 'c';
 		if (*s && ft_strchr(*s, "\"\'"))
 		{
-			while (*s && ft_strchr(*s, "\'\""))
+			while (s && ft_strchr(*s, "\'\""))
 			{
 				fetch_quoted(&s, &eq);
-				s = eq + 1;
+				if (!s)
+					tok = ERROR;
+				else if (s && *eq + 1 != '\0')
+					eq += 1;
+				s = eq;
 			}
 		}
 		else

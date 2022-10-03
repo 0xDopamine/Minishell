@@ -6,7 +6,7 @@
 /*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/09/30 10:53:59 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/10/03 01:30:54 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,5 +201,7 @@ int			ft_check_evar(char **ps);
 void		fetch_delimiter(char **q, char **eq);
 char		*ft_delimiter_handler(char **del);
 void		ft_free_and_null(t_parse *parse, int flag);
+char		**ft_split_quotes(char *str, char sep);
+
 
 #endif

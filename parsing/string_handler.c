@@ -53,7 +53,6 @@ char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 	if (**q)
 	{	
 		fetch_quoted(q, eq);
-		*q = ft_join_string(*q, *eq);
 		if (*q == NULL)
 		{
 			free(res);
@@ -63,9 +62,11 @@ char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 			res = ft_env_case(q, eq, res, env_list);
 		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
 			res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
+		else if (**q == '\'' && *(*eq - 1) == '\'')
+			res = strjoin_and_free(res, ft_join_string(*q, *eq));
 		else
 			res = strjoin_and_free(res, ft_normal_case(q, eq, res));
-		*q = *eq;
+		*q = *eq + 1;
 	}
 	return (res);
 }

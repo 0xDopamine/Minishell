@@ -58,7 +58,7 @@ char	*spaces(char *line)
 		return (ft_strdup(line));
 	while (line[i])
 	{
-		if (ft_strchr(line[i], "\'\""))
+		if (line[i] && ft_strchr(line[i], "\'\""))
 		{
 			tok = line[i];
 			i++;
@@ -73,7 +73,8 @@ char	*spaces(char *line)
 				return (line);
 			}
 		}
-		i++;
+		else
+			i++;
 	}
 	return (ft_strdup(line));
 }

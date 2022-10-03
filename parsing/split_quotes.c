@@ -47,7 +47,7 @@ int	ft_word_len(char *str, char sep)
 	len = 0;
 	while (str[len])
 	{
-		if (str[len] == sep)
+		if (!str[len] || str[len] == sep)
 			break ;
 		if (ft_strchr(str[len], "\'\""))
 		{
@@ -72,31 +72,49 @@ char	**ft_split_string(char *str, char **split, char sep, t_split *data)
 {
 	while (str[data->i])
 	{
-		ft_skip_sep(data, str, sep);
-		data->len = ft_word_len(str, sep);
-		split[++data->j] = ft_calloc(data->len + 2, sizeof(char));
-		data->k = -1;
-		while (++data->k < data->len && str[data->i] && str[data->i] != sep)
-		{
-			if (data->i < data->len && ft_strchr(str[data->i], "\'\""))
-			{
-				data->tok = str[data->i];
-				split[data->j][data->k++] = str[data->i];
-				data->i++;
-				while (str[data->i] && data->k < data->len 
-					&& str[data->i] != data->tok)
-					split[data->j][data->k++] = str[data->i++];
-			}
-			if (data->i < data->len)
-				split[data->j][data->k] = str[data->i++];
-		}
-		split[data->j][data->k] = '\0';
-		if (str[data->i])
+		if (!str[data->i])
+			break ;
+		while (str[data->i] && str[data->i] == sep)
 			data->i++;
+		data->len = ft_word_len(str + data->i, sep);
+		split[++data->j] = (char *)ft_calloc(data->len + 1, sizeof(char));
+		data->k = -1;
+		while (++data->k < data->len)
+			split[data->j][data->k] = str[data->i++];
 	}
-	split[data->j + 1] = NULL;
 	return (split);
 }
+
+// char	**ft_split_string(char *str, char **split, char sep, t_split *data)
+// {
+// 	while (str[data->i])
+// 	{
+// 		ft_skip_sep(data, str, sep);
+// 		data->len = ft_word_len(str, sep);
+// 		split[++data->j] = ft_calloc(data->len + 2, sizeof(char));
+// 		data->k = -1;
+// 		while (++data->k < data->len && str[data->i] && str[data->i] != sep)
+// 		{
+// 			if (data->i < data->len && ft_strchr(str[data->i], "\'\""))
+// 			{
+// 				data->tok = str[data->i];
+// 				split[data->j][data->k++] = str[data->i];
+// 				data->i++;
+// 				while (str[data->i] && data->k < data->len 
+// 					&& str[data->i] != data->tok)
+// 					split[data->j][data->k++] = str[data->i++];
+// 			}
+// 			if (data->i < data->len)
+// 				split[data->j][data->k] = str[data->i++];
+// 		}
+// 		split[data->j][data->k] = '\0';
+// 		if (str[data->i])
+// 			data->i
+// 		printf("split: %s\n", split[data->j]);
+// 	}
+// 	split[data->j + 1] = NULL;
+// 	return (split);
+// }
 
 char	**ft_split_q(char *str, char sep)
 {

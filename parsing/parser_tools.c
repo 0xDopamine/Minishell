@@ -69,9 +69,10 @@ void	ft_append_command(t_exec *cmd, t_parse *parse,
 		cmd->argv[parse->argc] = NULL;
 		return ;
 	}
-	if (parse->tok != 'c')
+	if (parse->tok != 'c' || parse->tok == ERROR)
 	{
 		ret->status = ERROR;
+		ret = NULL;
 		printf("syntax error %c\n", parse->tok);
 		return ;
 	}

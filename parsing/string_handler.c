@@ -66,7 +66,10 @@ char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 			res = strjoin_and_free(res, ft_join_string(*q, *eq));
 		else
 			res = strjoin_and_free(res, ft_normal_case(q, eq, res));
-		*q = *eq + 1;
+		if (!ft_strchr(**eq, "\'\""))
+			*q = *eq;
+		else
+			*q = *eq + 1;
 	}
 	return (res);
 }

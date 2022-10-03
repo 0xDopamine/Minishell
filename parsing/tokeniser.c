@@ -110,6 +110,11 @@ int	get_token(char **ps, char **q)
 			while (*s && ft_strchr(*s, "\'\""))
 			{
 				fetch_quoted(&s, &eq);
+				if (!s)
+				{
+					tok = ERROR;
+					break ;
+				}
 				s = eq + 1;
 			}
 		}

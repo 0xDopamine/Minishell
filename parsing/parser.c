@@ -34,8 +34,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	t_exec	*cmd;
 	t_cmd	*ret;
 
-	ft_init_parse(
-		ps, parse, env_list);
+	ft_init_parse(ps, parse, env_list);
 	if (parse->words == 0)
 		return (NULL);
 	ret = execcmd(parse->words);
@@ -45,7 +44,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	while (ps && !next(ps, "|"))
 	{
 		parse->tok = get_token(ps, &parse->q);
-		if (parse->tok == 0)
+		if (parse->tok == 0 || parse->tok == ERROR)
 			break ;
 		ft_append_command(cmd, parse, env_list, ret);
 		if (ret->status != ERROR)
@@ -99,7 +98,7 @@ t_cmd	*parsepipe(char **ps, t_env *env_list)
 		free(parse);
 		return (NULL);
 	}
-	if (**ps && next(ps, "|"))
+	if (*ps && next(ps, "|"))
 	{
 		get_token(ps, 0);
 		cmd = pipecmd(cmd, parsepipe(ps, env_list));

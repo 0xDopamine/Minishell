@@ -53,14 +53,14 @@ int	num_words(char *str, int quote_flag)
 	int		i;
 
 	words = 1;
-	i = 0;
+	i = -1;
 	if (quote_flag)
 		split = ft_split(str, ' ');
 	else
 		split = ft_split_q(str, ' ');
 	if (split == NULL)
 		return (0);
-	while (split[i++])
+	while (split[++i])
 		words++;
 	freethis(split);
 	return (words);

@@ -41,7 +41,10 @@ void	free_cmd(t_cmd *cmd)
 	if (cmd == NULL)
 		return ;
 	if (cmd->type == EXEC || (cmd->status == ERROR && cmd->type == EXEC))
+	{
+		printf("freed here\n");
 		freethis(_exec->argv);
+	}
 	else if (cmd->type == REDIR || (cmd->status == ERROR && cmd->type == REDIR))
 	{
 		free_cmd(_red->cmd);

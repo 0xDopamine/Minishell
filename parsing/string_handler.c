@@ -45,7 +45,7 @@ char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list)
 char	*ft_normal_case(char **q, char **eq, char *res)
 {
 	fetch_string(q, eq);
-	res = strjoin_and_free2(res, ft_join_string(*q, *eq));
+	res = strjoin_and_free(res, ft_join_string(*q, *eq));
 	if (**eq == '\0')
 	{
 		*q = NULL;

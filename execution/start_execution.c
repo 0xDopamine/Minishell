@@ -28,6 +28,7 @@ void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list)
 {
 	if (cmd == NULL)
 		return ;
+	fprintf(stderr, "cmd: %d\n", cmd->type);
 	if (cmd->type == PIPE)
 		ft_pipes((t_pipe *)cmd, env_list, in);
 	else if (cmd->type == EXEC)

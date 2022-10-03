@@ -62,6 +62,7 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 	char	*tmp;
 	char	**my_env;
 
+	fprintf(stderr, "cmd: %s\n", line->argv[0]);
 	if (!line->argv[0])
 	{
 		g_var.exit_status = EXIT_FAILURE;

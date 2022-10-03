@@ -199,5 +199,6 @@ void	ft_line_protection(char	*line);
 void	ft_filename(t_parse *parse, t_env *env_list);
 char	*ft_copy_char(char *res, char tok);
 int		ft_init_words(char	**ps, t_env *env_list);
+char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list);
 
 #endif

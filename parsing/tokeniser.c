@@ -118,12 +118,20 @@ int	get_token(char **ps, char **q)
 					tok = ERROR;
 					break ;
 				}
-				s = eq + 1;
+				if (eq + 1)
+					eq += 1;
+				s = eq;
 			}
 		}
 		else
-			while (*s != '\0' && !ft_strchr(*s, " \t\f\n\v\r") && !ft_strchr(*s, "|<>"))
+			while (*s != '\0' && !ft_strchr(*s, " \t\f\n\v\r")
+				&& !ft_strchr(*s, "|<>") && !ft_strchr(*s, "\'\""))
 				s++;
+		if (s && ft_strchr(*s, "\"\'"))
+		{
+			fetch_quoted(&s, &eq);
+			tok = ERROR;
+		}
 	}
 	ft_skip_whitespace(&s);
 	*ps = s;

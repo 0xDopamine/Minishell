@@ -88,9 +88,10 @@ char	*ft_normal_case(char **q, char **eq, char *res)
 
 char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 {
-	const char	quote = **q;
-	char		*tmp;
+	char	quote;
+	char	*tmp;
 
+	quote = **q;
 	fetch_quoted(q, eq);
 	if (q == NULL)
 		return (res);

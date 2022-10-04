@@ -23,8 +23,8 @@ int	exec_checkcmd_fork(char *cmd, char **av, char **env)
 {
 	if (exec_checkcmd(cmd))
 	{
-			execve(cmd, av, env);
-			exit(EXIT_FAILURE);
+		execve(cmd, av, env);
+		exit(EXIT_FAILURE);
 	}
 	return (-1);
 }
@@ -62,7 +62,6 @@ void	ft_exec_nofork(t_exec *line, t_env **env_list)
 	char	*tmp;
 	char	**my_env;
 
-	fprintf(stderr, "cmd: %s\n", line->argv[0]);
 	if (!line->argv[0])
 	{
 		g_var.exit_status = EXIT_FAILURE;

@@ -41,12 +41,12 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	cmd = (t_exec *)ret;
 	ret = parseredir(ret, ps, parse, env_list);
 	ft_free_and_null(parse, 1);
-	while (*ps && !next(ps, "|"))
+	while (*ps && !next(ps, "|") && ret->status != ERROR)
 	{
 		parse->tok = get_token(ps, &parse->q);
 		if (parse->tok == 0 || parse->tok == ERROR)
 		{
-			ret->status = ERROR;
+			// ret->status = ERROR;
 			break ;
 		}
 		ft_append_command(cmd, parse, env_list, ret);
@@ -77,7 +77,6 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse, t_env *env_list)
 		parse->tok = get_token(ps, 0);
 		if (get_token(ps, &parse->q) != 'c')
 			return (parse_norme(cmd));
-
 		if (*parse->q)
 			ft_filename(parse, env_list);
 		ft_append_redir_list(&head, parse, cmd);

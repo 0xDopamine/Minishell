@@ -83,14 +83,12 @@ char	**ft_split_string(char *str, char **split, char sep, t_split *data)
 		while (str[data->i] && str[data->i] == sep)
 			data->i++;
 		data->len = ft_word_len(str + data->i, sep);
-		printf("len: %d\n", data->len);
 		split[++data->j] = (char *)ft_calloc(data->len + 1, sizeof(char));
 		data->k = -1;
 		while (++data->k < data->len && str[data->i] != sep)
 		{
 			if (ft_strchr(str[data->i], "\'\""))
 			{
-				printf("str: %s\n", str + data->i);
 				while (data->k < data->len)
 					split[data->j][data->k++] = str[data->i++];
 			}

@@ -59,32 +59,31 @@ char	*spaces_protection(char *line)
 
 char	*spaces(char *line)
 {
-	int		i;
-	int		tok;
+	t_split sp;
 
-	i = 0;
+	sp.i = 0;
 	if (!line || ft_strlen(line) == 1)
 		return (spaces_protection(line));
-	while (line[i])
+	while (line[sp.i])
 	{
-		if (line[i] && ft_strchr(line[i], "\'\""))
+		if (line[sp.i] && ft_strchr(line[sp.i], "\'\""))
 		{
-			tok = line[i];
-			i++;
-			while (line[i] && line[i] != tok)
-				i++;
+			sp.tok = line[sp.i];
+			sp.i++;
+			while (line[sp.i] && line[sp.i] != sp.tok)
+				sp.i++;
 		}
-		else if (ft_strchr(line[i], "|<>") && !ft_is_heredoc(line))
+		else if (ft_strchr(line[sp.i], "|<>") && !ft_is_heredoc(line))
 		{
-			if (i > 0 && (line[i - 1] != ' ' || line[i + 1] != ' '))
+			if (sp.i > 0 && (line[sp.i - 1] != ' ' || line[sp.i + 1] != ' '))
 			{
 				line = handle_spaces(line);
 				return (line);
 			}
-			i++;
+			sp.i++;
 		}
 		else
-			i++;
+			sp.i++;
 	}
 	return (ft_strdup(line));
 }

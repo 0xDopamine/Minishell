@@ -16,18 +16,6 @@
 int	ft_init_words(char	**ps, t_env *env_list)
 {
 	(void)env_list;
-	// if (**ps == '$' && ft_check_evar(ps) == OK)
-	// {
-	// 	tmp = *ps;
-	// 	*ps = ft_ultimate_string_handler(ps, env_list);
-	// 	if (ft_check_evar(ps) == OK)
-	// 		return (num_words(*ps, 1));
-	// 	else
-	// 	{
-	// 		*ps = tmp;
-	// 		return (num_words(*ps, 1));
-	// 	}
-	// }
 	if (ft_strchr(**ps, "\'\""))
 		return (num_words(*ps, 0));
 	else

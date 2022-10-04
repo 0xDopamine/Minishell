@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/10/04 14:08:44 by codespace        ###   ########.fr       */
+/*   Updated: 2022/10/04 17:48:52 by mbaioumy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,5 +202,12 @@ void		fetch_delimiter(char **q, char **eq);
 char		*ft_delimiter_handler(char **del);
 void		ft_free_and_null(t_parse *parse, int flag);
 char		**ft_split_quotes(char *str, char sep);
+char		*free_line_spaces(char *line);
+char		*spaces_protection(char *line);
+char		*handle_spaces_return(char *line);
+void		ft_token_quotes(char **s, char **eq, int *tok);
+void		ft_skip_to_eos(char **s);
+void		ft_get_token_conditions(char **ps, char **es, int *tok);
+int			ft_token_redir(char **s, int *tok);
 
 #endif

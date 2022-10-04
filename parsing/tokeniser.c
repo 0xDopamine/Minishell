@@ -49,7 +49,7 @@ int	is_symbol(char *str)
 	return (0);
 }
 
-int	ft_token_redir(char **s, int tok)
+int	ft_token_redir(char **s, int *tok)
 {
 	char	*p;
 
@@ -58,9 +58,9 @@ int	ft_token_redir(char **s, int tok)
 	{
 		p++;
 		if (*p == '<')
-			tok = 'H';
+			*tok = 'H';
 		else if (*p == '>')
-			tok = ERROR;
+			*tok = ERROR;
 		p++;
 	}
 	else if (*p == '>')
@@ -68,14 +68,14 @@ int	ft_token_redir(char **s, int tok)
 		p++;
 		if (*p == '>')
 		{
-			tok = 'A';
+			*tok = 'A';
 			p++;
 		}
 		else if (*p == '<')
-			tok = ERROR;
+			*tok = ERROR;
 	}
 	*s = p;
-	return (tok);
+	return (*tok);
 }
 
 void	ft_skip_whitespace(char **ps)
@@ -103,41 +103,10 @@ int	get_token(char **ps, char **q)
 	if (q)
 		*q = s;
 	tok = *s;
-	if (*s == '|')
-		s++;
-	else if (*s == '<' || *s == '>')
-		tok = ft_token_redir(&s, tok);
-	else if (*s == 0)
-		return (0);
-	else
-	{
-		tok = 'c';
-		if (*s && ft_strchr(*s, "\"\'"))
-		{
-			while (s && ft_strchr(*s, "\'\""))
-			{
-				fetch_quoted(&s, &eq);
-				if (!s)
-				{
-					tok = ERROR;
-					break ;
-				}
-				if (eq + 1)
-					eq += 1;
-				s = eq;
-			}
-		}
-		else
-			while (*s != '\0' && !ft_strchr(*s, " \t\f\n\v\r")
-				&& !ft_strchr(*s, "|<>") && !ft_strchr(*s, "\'\""))
-				s++;
-		if (s && ft_strchr(*s, "\"\'"))
-		{
-			fetch_quoted(&s, &eq);
-			tok = ERROR;
-		}
-	}
+	ft_get_token_conditions(&s, &eq, &tok);
 	ft_skip_whitespace(&s);
+	if (*s && ft_strchr(*s, "\"\'"))
+		ft_token_quotes(&s, &eq, &tok);
 	*ps = s;
 	return (tok);
 }

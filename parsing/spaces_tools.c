@@ -42,24 +42,9 @@ char	*handle_spaces(char *line)
 	return (line);
 }
 
-char	*free_line_spaces(char *line)
-{
-	free(line);
-	return (NULL);
-}
-
-char	*spaces_protection(char *line)
-{
-	if (!line)
-		return (free_line_spaces(line));
-	if (ft_strlen(line) == 1)
-		return (ft_strdup(line));
-	return (NULL);
-}
-
 char	*spaces(char *line)
 {
-	t_split sp;
+	t_split	sp;
 
 	sp.i = 0;
 	if (!line || ft_strlen(line) == 1)
@@ -76,10 +61,7 @@ char	*spaces(char *line)
 		else if (ft_strchr(line[sp.i], "|<>") && !ft_is_heredoc(line))
 		{
 			if (sp.i > 0 && (line[sp.i - 1] != ' ' || line[sp.i + 1] != ' '))
-			{
-				line = handle_spaces(line);
-				return (line);
-			}
+				return (handle_spaces_return(line));
 			sp.i++;
 		}
 		else

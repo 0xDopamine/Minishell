@@ -45,10 +45,7 @@ t_cmd	*parseexec(char **ps, t_env *env_list, t_parse *parse)
 	{
 		parse->tok = get_token(ps, &parse->q);
 		if (parse->tok == 0 || parse->tok == ERROR)
-		{
-			// ret->status = ERROR;
 			break ;
-		}
 		ft_append_command(cmd, parse, env_list, ret);
 		if (ret->status != ERROR)
 			if (++parse->argc >= parse->words || parse->split[1] == NULL)

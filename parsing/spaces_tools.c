@@ -42,20 +42,29 @@ char	*handle_spaces(char *line)
 	return (line);
 }
 
+char	*free_line_spaces(char *line)
+{
+	free(line);
+	return (NULL);
+}
+
+char	*spaces_protection(char *line)
+{
+	if (!line)
+		return (free_line_spaces(line));
+	if (ft_strlen(line) == 1)
+		return (ft_strdup(line));
+	return (NULL);
+}
+
 char	*spaces(char *line)
 {
 	int		i;
 	int		tok;
 
 	i = 0;
-	tok = 0;
-	if (!line)
-	{
-		free(line);
-		return (NULL);
-	}
-	if (ft_strlen(line) == 1)
-		return (ft_strdup(line));
+	if (!line || ft_strlen(line) == 1)
+		return (spaces_protection(line));
 	while (line[i])
 	{
 		if (line[i] && ft_strchr(line[i], "\'\""))

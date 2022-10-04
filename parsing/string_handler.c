@@ -58,34 +58,6 @@ char	*ft_normal_case(char **q, char **eq, char *res)
 	return (res);
 }
 
-// char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
-// {
-// 	int	quote;
-
-// 	quote = **q;
-// 	if (**q)
-// 	{
-// 		fetch_quoted(q, eq);
-// 		if (*q == NULL)
-// 		{
-// 			free(res);
-// 			return (NULL);
-// 		}
-// 		if (**q == '$' && *(*q + 1) != ' ' && **eq != '\'')
-// 			res = ft_env_case(q, eq, res, env_list);
-// 		else if (*(*q) == '\'' && *(*q + 1) == '$' && **eq == '"')
-// 			res = strjoin_and_free(res, ft_search_for_env(*q, env_list));
-// 		else if (**q == '\'' && **eq == '\"')
-// 			res = strjoin_and_free(res, ft_join_string(*q, *eq));
-// 		else
-// 			res = strjoin_and_free(res, ft_normal_case(q, eq, res));
-// 		if (**eq == quote)
-// 		 	*eq += 1;
-// 		*q = *eq;
-// 	}
-// 	return (res);
-// }
-
 char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 {
 	char	quote;
@@ -108,7 +80,6 @@ char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list)
 	(*q)++;
 	return (res);
 }
-
 
 char	*ft_ultimate_string_handler(char **ps, t_env *env_list)
 {

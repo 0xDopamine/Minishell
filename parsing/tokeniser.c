@@ -59,6 +59,8 @@ int	ft_token_redir(char **s, int tok)
 		p++;
 		if (*p == '<')
 			tok = 'H';
+		else if (*p == '>')
+			tok = ERROR;
 		p++;
 	}
 	else if (*p == '>')
@@ -69,6 +71,8 @@ int	ft_token_redir(char **s, int tok)
 			tok = 'A';
 			p++;
 		}
+		else if (*p == '<')
+			tok = ERROR;
 	}
 	*s = p;
 	return (tok);

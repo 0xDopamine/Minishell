@@ -95,18 +95,14 @@ int	get_token(char **ps, char **q)
 {
 	char	*s;
 	int		tok;
-	char	*eq;
 
 	s = *ps;
-	eq = NULL;
 	ft_skip_whitespace(&s);
 	if (q)
 		*q = s;
 	tok = *s;
-	ft_get_token_conditions(&s, &eq, &tok);
-	if (s && ft_strchr(*s, "\"\'"))
-		tok = ERROR;
- 	ft_skip_whitespace(&s);
+	ft_get_token_conditions(&s, &tok);
+	ft_skip_whitespace(&s);
 	*ps = s;
 	return (tok);
 }

@@ -52,7 +52,11 @@ char	*ft_normal_case(char **q, char **eq, char *res)
 		return (res);
 	}
 	else if (ft_strchr(**eq, "\'\"") && *(*eq + 1) == '\0')
-		*q = *eq + 1;
+	{
+		*q = NULL;
+		free(res);
+		res = NULL;
+	}
 	else
 		*q = *eq;
 	return (res);

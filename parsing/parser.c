@@ -17,6 +17,7 @@ static	t_cmd	*parse_norme(t_cmd *cmd)
 {
 	ft_putstr_fd("syntax error\n", NULL, STDERR_FILENO);
 	g_var.exit_status = 2;
+	g_var.error = 1;
 	cmd->status = ERROR;
 	return (cmd);
 }

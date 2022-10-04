@@ -41,7 +41,7 @@ int	ft_check_cmd(t_cmd *cmd, t_env **env_list)
 	in = 0;
 	fds[0] = 0;
 	fds[1] = 1;
-	if (!cmd || cmd->status == ERROR)
+	if (!cmd || cmd->status == ERROR || g_var.error)
 		return (1);
 	if (cmd->type != PIPE)
 		return (handle_one_command(cmd, env_list));

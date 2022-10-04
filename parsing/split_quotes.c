@@ -99,34 +99,6 @@ char	**ft_split_string(char *str, char **split, char sep, t_split *data)
 	return (split);
 }
 
-// char	**ft_split_string(char *str, char **split, char sep, t_split *data)
-// {
-// 	while (str[data->i])
-// 	{
-// 		ft_skip_sep(data, str, sep);
-// 		printf("str: %s\n", str + data->i);
-// 		data->len = ft_word_len(str + data->i, sep);
-// 		split[++data->j] = ft_calloc(data->len + 2, sizeof(char));
-// 		data->k = -1;
-// 		while (++data->k < data->len && str[data->i] && str[data->i] != sep)
-// 		{
-// 			if (data->i < data->len && ft_strchr(str[data->i], "\'\""))
-// 			{
-// 				data->tok = str[data->i];
-// 				split[data->j][data->k++] = str[data->i];
-// 				data->i++;
-// 				while (str[data->i] && data->k < data->len 
-// 					&& str[data->i] != data->tok)
-// 					split[data->j][data->k++] = str[data->i++];
-// 			}
-// 			if (data->i < data->len)
-// 				split[data->j][data->k] = str[data->i++];
-// 		}
-// 		split[data->j][data->k] = '\0';
-// 	}
-// 	return (split);
-// }
-
 char	**ft_split_q(char *str, char sep)
 {
 	char	**split;

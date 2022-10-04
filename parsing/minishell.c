@@ -78,6 +78,7 @@ void	minishell(char *line, char *temp, t_env *env_list)
 	t_cmd	*simple_command;
 	char	*tttmp;
 
+	g_var.error = 0;
 	line = readline(CYAN"TwoBrosShell➤ "RESET);
 	ft_line_protection(line);
 	temp = line;

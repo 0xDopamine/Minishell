@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 01:24:01 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/10/04 17:48:52 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/10/04 18:40:13 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ char		*spaces_protection(char *line);
 char		*handle_spaces_return(char *line);
 void		ft_token_quotes(char **s, char **eq, int *tok);
 void		ft_skip_to_eos(char **s);
-void		ft_get_token_conditions(char **ps, char **es, int *tok);
+void		ft_get_token_conditions(char **ps, int *tok);
 int			ft_token_redir(char **s, int *tok);
 
 #endif

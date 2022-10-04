@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaioumy <mbaioumy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 17:32:21 by mbaioumy          #+#    #+#             */
-/*   Updated: 2022/10/04 17:49:04 by mbaioumy         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:00:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,16 @@ void	ft_skip_to_eos(char **s)
 
 	q = *s;
 	while (*q != '\0' && !ft_strchr(*q, " \t\f\n\v\r")
-		&& !ft_strchr(*q, "|<>") && !ft_strchr(*q, "\'\""))
+		&& !ft_strchr(*q, "|<>"))
 		q++;
 	*s = q;
 }
 
-void	ft_get_token_conditions(char **ps, char **es, int *tok)
+void	ft_get_token_conditions(char **ps, int *tok)
 {
 	char	*s;
-	char	*eq;
 
 	s = *ps;
-	eq = *es;
 	if (*s == '|')
 		s++;
 	else if (*s == '<' || *s == '>')
@@ -56,10 +54,7 @@ void	ft_get_token_conditions(char **ps, char **es, int *tok)
 	else
 	{
 		*tok = 'c';
-		if (*s && ft_strchr(*s, "\"\'"))
-			ft_token_quotes(&s, &eq, tok);
-		else
-			ft_skip_to_eos(&s);
+		ft_skip_to_eos(&s);
 	}
 	*ps = s;
 }

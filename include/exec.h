@@ -41,6 +41,7 @@ typedef struct s_global
 {
 	int	exit_status;
 	int	here_sig;
+	int	error;
 }	t_global;
 
 extern t_global	g_var;

@@ -49,6 +49,7 @@ void	fetch_quoted(char **q, char **eq)
 		*q = NULL;
 		*eq = NULL;
 		ft_putstr_fd("Quotes error\n", NULL, STDERR_FILENO);
+		g_var.error = 1;
 		g_var.exit_status = 256;
 		return ;
 	}

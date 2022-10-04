@@ -69,7 +69,10 @@ void	fetch_delimiter(char **q, char **eq)
 	*q = s;
 	while (!ft_strchr(*s, "\'\"") && *s)
 		s++;
-	*eq = s--;
+	if (ft_strchr(*s, "\'\"") && !*(s + 1))
+		fetch_quoted(&s, eq);
+	else
+		*eq = s--;
 }
 
 char	*ft_delimiter_handler(char **del)

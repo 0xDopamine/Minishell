@@ -49,7 +49,7 @@ void	ft_append_command(t_exec *cmd, t_parse *parse,
 {
 	parse->state = check_var(parse->q);
 	parse->split = ft_split_argv(parse);
-	if (!parse->split)
+	if (!parse->split || parse->tok == ERROR)
 	{
 		ret->status = ERROR;
 		cmd->argv[parse->argc] = NULL;

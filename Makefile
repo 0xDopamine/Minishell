@@ -3,7 +3,7 @@
 TARGET = minishell
 
 #*SOURCE FILES *#
-PARSING = utils_4.c tokenizer_tools.c parser_tools.c free.c split_quotes_test.c split_quotes_tools.c string_handler.c tokeniser.c evar.c string_handler_tools.c \
+PARSING = utils_4.c tokenizer_tools.c parser_tools.c free.c split_quotes_tools.c string_handler.c tokeniser.c evar.c string_handler_tools.c \
 		env.c split_quotes.c quotes.c spaces_tools.c strings_tools.c strings_tools_2.c \
 		minishell.c parser.c utils.c utils_2.c utils_3.c init_nodes.c  
 EXEC = execute.c execute_specialcase.c start_execution.c mini_libft.c \
@@ -13,7 +13,7 @@ EXEC = execute.c execute_specialcase.c start_execution.c mini_libft.c \
 		free.c exec_utils.c my_cd_utils.c my_echo_utils.c \
 		my_export_utils.c heredoc.c heredoc_utils.c \
 		my_env_utils.c my_export_utils2.c my_unset_utils.c \
-		 redir_utils.c heredoc_utils2.c itoa.c list_redir.c signals.c heredoc_utils3.c
+		 redir_utils.c heredoc_utils2.c itoa.c list_redir.c signals.c
 SRC = $(addprefix parsing/, $(PARSING)) \
 	  $(addprefix execution/, $(EXEC))
 
@@ -24,7 +24,7 @@ READLINE_DIR = $(addprefix $(shell brew --prefix readline), /)
 OBJS = $(SRC:%.c=%.o)
 
 #* FLAGS *#
-FLAGS = -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 
 #* parse FILES *#
 INCLUDE = include/

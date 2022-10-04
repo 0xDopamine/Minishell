@@ -48,7 +48,6 @@ void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list)
 	}
 	else if (cmd->type == REDIR)
 	{
-		printf("hello\n");
 		if (ft_handle_redirections((t_redir *)cmd, in, &fds[1], env_list) == 0)
 			ft_start_pipe(((t_redir *)cmd)->cmd, in, fds, env_list);
 	}

@@ -72,7 +72,9 @@ t_cmd	*parseredir(t_cmd *cmd, char **ps, t_parse *parse, t_env *env_list)
 	while (next(ps, "<>"))
 	{
 		parse->tok = get_token(ps, 0);
-		if (get_token(ps, &parse->q) != 'c')
+		if (!*ps)
+			break ;
+		if (*ps && get_token(ps, &parse->q) != 'c')
 			return (parse_norme(cmd));
 		if (*parse->q)
 			ft_filename(parse, env_list);

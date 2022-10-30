@@ -87,8 +87,7 @@ static	int	cd_update_oldpwd(t_env **env_list)
 	{
 		free(pwd);
 		g_var.exit_status = EXIT_FAILURE;
-		perror("cd");
-		return (1);
+		return (0);
 	}
 	while (env)
 	{
@@ -118,6 +117,7 @@ int	ft_cd(t_exec *line, t_env **env_list)
 	}
 	if (chdir(line->argv[1]) < 0 && line->argv[1])
 	{
+		printf("hahowa line %s\n", line->argv[1]);
 		perror("cd");
 		return (cd_errors());
 	}

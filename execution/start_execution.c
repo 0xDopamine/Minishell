@@ -12,6 +12,16 @@
 
 #include "exec.h"
 
+static	void	ft_exec(t_cmd *cmd, t_env **env_list)
+{
+	if (ft_ifmybuiltin(((t_exec *)cmd)->argv[0], (t_exec *)cmd, env_list)
+		|| ft_ifmybuiltin_up(((t_exec *)cmd)->argv[0]
+			, (t_exec *)cmd, env_list))
+		exit(g_var.exit_status);
+	ft_exec_nofork((t_exec *)cmd, env_list);
+	exit(0);
+}
+
 static	void	ft_dup_fds(int *in, int *read_fd, int *write_fd)
 {
 	dup2(*write_fd, 1);
@@ -41,14 +51,13 @@ void	ft_start_pipe(t_cmd *cmd, int *in, int fds[2], t_env **env_list)
 		}
 		if (((t_exec *)cmd)->pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			ft_dup_fds(in, &fds[0], &fds[1]);
-			ft_exec_nofork((t_exec *)cmd, env_list);
-			exit(0);
+			ft_exec(cmd, env_list);
 		}
 	}
 	else if (cmd->type == REDIR)
-	{
 		if (ft_handle_redirections((t_redir *)cmd, in, &fds[1], env_list) == 0)
 			ft_start_pipe(((t_redir *)cmd)->cmd, in, fds, env_list);
-	}
 }

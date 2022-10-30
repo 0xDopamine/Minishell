@@ -17,7 +17,7 @@ void	ft_sig_here(int signal)
 {
 	(void)signal;
 	close(0);
-	g_var.exit_status = 130;
+	g_var.exit_status = 1;
 	g_var.here_sig = 1;
 }
 

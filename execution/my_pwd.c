@@ -10,17 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parse.h"
 #include "exec.h"
 
 char	*expand_heredoc_nq(char *str, char *eq, t_env *env_list)
 {
-	char	*tmp;
 	char	*res;
+	char	*q;
 
-	fetch_env(&str, &eq);
-	tmp = ft_join_string(str, eq);
-	res = ft_assign_env(tmp, env_list);
-	free(tmp);
+	q = str;
+	res = NULL;
+	while (q)
+	{
+		if (ft_strchr(*q, "$"))
+			res = ft_env_case(&q, &eq, res, env_list);
+		else
+			res = ft_normal_case(&q, &eq, res);
+	}
 	return (res);
 }
 

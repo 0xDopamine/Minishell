@@ -67,7 +67,14 @@ void	ft_wait_pids(t_cmd *cmd)
 	else if (cmd->type == EXEC)
 	{
 		waitpid(((t_exec *)cmd)->pid, &g_var.exit_status, 0);
-		g_var.exit_status = WEXITSTATUS(g_var.exit_status);
+		if (WIFEXITED(g_var.exit_status))
+			g_var.exit_status = WEXITSTATUS(g_var.exit_status);
+		if (WIFSIGNALED(g_var.exit_status))
+		{
+			if (WTERMSIG(g_var.exit_status) == SIGQUIT)
+				write(2, "Quit: 3\n", 8);
+			g_var.exit_status = WTERMSIG(g_var.exit_status) + 128;
+		}		
 	}
 	else if (cmd->type == REDIR)
 		ft_wait_pids(((t_redir *)cmd)->cmd);

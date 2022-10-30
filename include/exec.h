@@ -97,7 +97,6 @@ int		ft_pwd(void);
 int		ft_export(t_env **env, t_exec *line);
 int		ft_env(t_env *env_list, char c);
 int		ft_exit(char **argv);
-void	ft_exec(t_exec *line, t_env **env_list);
 void	ft_exec_nofork(t_exec *line, t_env **env_list);
 void	ft_exec_mybuiltin(t_exec *line, char **env);
 void	ft_sig_handler(int sig);
@@ -201,5 +200,7 @@ void	ft_filename(t_parse *parse, t_env *env_list);
 char	*ft_copy_char(char *res, char tok);
 int		ft_init_words(char	**ps, t_env *env_list);
 char	*ft_quote_case(char **q, char **eq, char *res, t_env *env_list);
+char	*ft_env_case(char **q, char **eq, char *res, t_env *env_list);
+char	*ft_normal_case(char **q, char **eq, char *res);
 
 #endif
